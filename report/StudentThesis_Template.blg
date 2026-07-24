@@ -15,45 +15,45 @@ Warning--entry type for "ColomboJimenez2012SO3_Cayley" isn't style-file defined
 Warning--I didn't find a database entry for "Lee2012ISM"
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Warning--empty publisher in tedrake_underactuated
-You've used 22 entries,
+You've used 23 entries,
             3368 wiz_defined-function locations,
-            870 strings with 10458 characters,
-and the built_in function-call counts, 11569 in all, are:
-= -- 1257
-> -- 389
+            877 strings with 10663 characters,
+and the built_in function-call counts, 12016 in all, are:
+= -- 1303
+> -- 409
 < -- 15
-+ -- 119
-- -- 115
-* -- 679
-:= -- 1634
-add.period$ -- 87
-call.type$ -- 22
-change.case$ -- 126
-chr.to.int$ -- 21
-cite$ -- 23
-duplicate$ -- 351
-empty$ -- 1042
-format.name$ -- 145
-if$ -- 2928
++ -- 125
+- -- 121
+* -- 699
+:= -- 1702
+add.period$ -- 91
+call.type$ -- 23
+change.case$ -- 131
+chr.to.int$ -- 22
+cite$ -- 24
+duplicate$ -- 366
+empty$ -- 1083
+format.name$ -- 152
+if$ -- 3043
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 21
-newline$ -- 132
-num.names$ -- 66
-pop$ -- 255
+missing$ -- 23
+newline$ -- 137
+num.names$ -- 69
+pop$ -- 267
 preamble$ -- 1
-purify$ -- 152
+purify$ -- 159
 quote$ -- 0
-skip$ -- 817
+skip$ -- 850
 stack$ -- 0
-substring$ -- 451
-swap$ -- 87
+substring$ -- 458
+swap$ -- 88
 text.length$ -- 41
 text.prefix$ -- 9
 top$ -- 0
-type$ -- 156
+type$ -- 160
 warning$ -- 1
-while$ -- 73
-width$ -- 24
-write$ -- 328
+while$ -- 76
+width$ -- 25
+write$ -- 341
 (There were 3 warnings)

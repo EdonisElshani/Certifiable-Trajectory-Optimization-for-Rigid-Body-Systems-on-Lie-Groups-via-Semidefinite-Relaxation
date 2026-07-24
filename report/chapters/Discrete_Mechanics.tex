@@ -1,11 +1,299 @@
 \chapter{Discrete Mechanics for Rigid Bodies on Lie Groups}
 \label{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups}
 
+This chapter introduces the discrete mechanics of rigid bodies on Lie groups
+for trajectory optimization comutations. Thereby, it is the discrete-time 
+version of the continuous mechanics in Chapter~\ref{chapter:continous_mechanics_of_rigid_bodies_on_lie_groups}. 
+Instead of applying a standard numerical integration methods, for example, 
+the mid-point or trapezodial rule, directly to the 
+continuous equations of motion, variational integrators discretize Hamilton's 
+principle. Therefore, the resulting discrete flow 
+preserves the variational and geometric structure of the mechanical system 
+\cite{Marsden2001,Hairer2000,Leimkuhler_Reich_2005}. 
+In corespondance to \cite{Lee2008}, the discrete time nodes 
+are defined by
+\begin{align*}
+    t_k=t_0+kh,
+    \qquad
+    k=0,\ldots,N, 
+    \qquad
+    \text{and}
+    \qquad
+    Nh=t_f-t_0 N,
+    \label{eq:discrete_time_grid}
+\end{align*}
+for a fixed time step $h>0$ and $N$ time steps.
+
+Section~\ref{sec:discrete_lagrangian_mechanics} introduces the forced discrete
+Euler-Lagrange equations, including the discrete Legendre transformation, and the 
+geometric properties of the discrete Lagrangian flow. Additionally, a computational
+approach is given for solving the implicit discrete equations. 
+Subsequently, in Section \ref{sec:single_rigid_body_systems}, the formulation 
+is applied to a single rigid body system and extended to 
+multi-body systems in maximal coordinates, in Section \ref{sec:multi_body_systems}. 
+These discrete models are used for the geometric trajectory optimization
+formulation and computation in 
+Chapter~\ref{chap:certifiable_trajectory_optimization}.
 
 \section{Discrete Lagrangian Mechanics}
-\label{section:discrete_lagrangian_mechanics}
+\label{sec:discrete_lagrangian_mechanics}
 
-\subsection{Discrete Euler-Lagrange Equations}
+Discrete Lagrangian mechanics constructs a numerical integration scheme from a discrete variational principle. The continuous trajectory is replaced by a sequence of configurations on the Lie group, and the action integral is approximated by an action sum. Similar to the continuous formulation of Section~\ref{sec:continuous_lagrangian_mechanics}, stationarity of the action yields the equations of motion. The resulting Lie group variational integrator is symplectic, preserves momentum maps associated with symmetries, and exhibits favorable long-time energy behavior while remaining on the configuration manifold \cite{Marsden2001,Lee2008}.
+
+Figure~\ref{fig:discrete_mechanics} summarizes the discrete counterpart of the procedure illustrated in Fig.~\ref{fig:continuous_mechanics}. The discrete Euler--Lagrange equations are obtained from the variation of the action sum. Alternatively, the discrete Legendre transformations express the same dynamics on the left-trivialized cotangent bundle $G\times\mathfrak g^*$.
+
+\begin{figure}[ht]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=0.9cm and 1.2cm,
+        box/.style={
+            draw, rectangle, align=center, minimum width=4.8cm,
+            minimum height=1.2cm, inner sep=6pt
+        },
+        arrow/.style={-Latex}
+    ]
+        \node[box] (manifold) {Discrete configuration state\\ $(g_k,f_k)\in G\times G$};
+        \node[box, below=of manifold] (lagrangian) {Discrete Lagrangian\\ $L_d(g_k,f_k)$};
+        \node[box, below left=of lagrangian, xshift=1.3cm, yshift=-0.3cm] (action) {Action sum\\ $\mathcal S_d=\sum_{k=0}^{N-1}L_d(g_k,f_k)$};
+        \node[box, below right=of lagrangian, xshift=-1.3cm, yshift=-0.3cm] (legendre) {Discrete Legendre transforms\\ $\mathbb F^{\pm}L_d$};
+        \node[box, below=of action] (variation) {Variation\\ $\delta\mathcal S_d=0$};
+        \node[box, below=of legendre] (hamilton) {Discrete Hamilton equations\\ on $G\times\mathfrak g^*$};
+        \node[box, below=of variation] (euler) {Discrete Euler--Lagrange equations\\ on $G\times G$};
+
+        \draw[arrow] (manifold) -- (lagrangian);
+        \draw[arrow] (lagrangian) -- (action);
+        \draw[arrow] (lagrangian) -- (legendre);
+        \draw[arrow] (action) -- (variation);
+        \draw[arrow] (legendre) -- (hamilton);
+        \draw[arrow] (variation) -- (euler);
+    \end{tikzpicture}%
+    }
+    \caption{General method to derive the discrete Euler--Lagrange equations of a mechanical system on a Lie group. Adapted from \cite{Lee2008}.}
+    \label{fig:discrete_mechanics}
+\end{figure}
+
+\subsection{Discrete Euler--Lagrange Equations}
+\label{sec:discrete_euler_lagrange_equations}
+
+Following \cite{Lee2008}, let $G$ be a matrix Lie group with Lie algebra $\mathfrak g$. The continuous trajectory $g(t)\in G$ is replaced by a sequence $\{g_k\}_{k=0}^{N}$ with $g_k\approx g(t_k)$. A relative group element $f_k\in G$ is defined by
+\begin{equation}
+    g_{k+1}=g_kf_k,
+    \qquad
+    f_k=g_k^{-1}g_{k+1}.
+    \label{eq:discrete_lie_group_kinematics}
+\end{equation}
+This multiplicative update guarantees that $g_{k+1}\in G$ whenever $g_k,f_k\in G$, without additional projection onto the configuration manifold.
+
+The discrete Lagrangian
+\begin{equation}
+    L_d:G\times G\rightarrow\mathbb R,
+    \qquad
+    L_d(g_k,f_k),
+    \label{eq:discrete_lagrangian_lie_group}
+\end{equation}
+approximates the action integral of the continuous Lagrangian over the interval $[t_k,t_{k+1}]$. The exact discrete Lagrangian is defined by
+\begin{equation}
+    L_d^{\mathrm{exact}}(g_k,f_k)
+    =
+    \int_0^h
+    L\!\left(\widetilde g(t),
+    \widetilde g(t)^{-1}\dot{\widetilde g}(t)\right)
+    \,\mathrm dt,
+    \label{eq:exact_discrete_lagrangian}
+\end{equation}
+where $\widetilde g:[0,h]\rightarrow G$ satisfies the continuous Euler--Lagrange equations \eqref{eq:continuous_euler_lagrange_lie_group} with the boundary conditions
+\begin{equation}
+    \widetilde g(0)=g_k,
+    \qquad
+    \widetilde g(h)=g_kf_k.
+\end{equation}
+In practical computations, $L_d$ is chosen as an approximation of \eqref{eq:exact_discrete_lagrangian}, for example by applying a quadrature rule to the continuous Lagrangian \cite{Marsden2001,Lee2008}.
+
+The discrete action sum is given by
+\begin{equation}
+    \mathcal S_d
+    =
+    \sum_{k=0}^{N-1}L_d(g_k,f_k).
+    \label{eq:discrete_action_sum}
+\end{equation}
+The discrete Hamilton principle states that the action sum is stationary,
+\begin{equation}
+    \delta\mathcal S_d
+    =
+    \sum_{k=0}^{N-1}\delta L_d(g_k,f_k)
+    =0,
+    \label{eq:discrete_hamilton_principle}
+\end{equation}
+for all admissible variations with fixed initial and terminal configurations \cite{Marsden2001}.
+
+Analogously to the continuous variation in \eqref{eq:continuous_curve_variation_lie_group}, the variation of the discrete configuration sequence is defined by
+\begin{equation}
+    g_k^{\epsilon}
+    =
+    g_k\exp(\epsilon\eta_k),
+    \qquad
+    \eta_k\in\mathfrak g,
+    \qquad
+    \eta_0=\eta_N=0.
+    \label{eq:discrete_configuration_variation}
+\end{equation}
+Using the infinitesimal variation introduced in \eqref{eq:infinitesimal_variation_matrix_lie_group}, it follows that
+\begin{equation}
+    \delta g_k=g_k\eta_k=T_eL_{g_k}(\eta_k).
+    \label{eq:discrete_infinitesimal_configuration_variation}
+\end{equation}
+Since $f_k=g_k^{-1}g_{k+1}$, its varied value is
+\begin{equation}
+    f_k^{\epsilon}
+    =
+    \exp(-\epsilon\eta_k)
+    f_k
+    \exp(\epsilon\eta_{k+1}).
+\end{equation}
+Therefore, the infinitesimal variation of $f_k$ is
+\begin{align}
+    \delta f_k
+    &=
+    -\eta_kf_k+f_k\eta_{k+1}
+    \notag\\
+    &=
+    T_eL_{f_k}\!\left(
+        -\operatorname{Ad}_{f_k^{-1}}\eta_k+\eta_{k+1}
+    \right)
+    =f_kX_k,
+    \label{eq:discrete_relative_group_variation}
+\end{align}
+where
+\begin{equation}
+    X_k
+    =
+    -\operatorname{Ad}_{f_k^{-1}}\eta_k+\eta_{k+1}
+    \in\mathfrak g.
+\end{equation}
+
+The variation of the discrete Lagrangian is written as
+\begin{equation}
+    \delta L_d(g_k,f_k)
+    =
+    \left\langle D_{g_k}L_d(g_k,f_k),\delta g_k\right\rangle
+    +
+    \left\langle D_{f_k}L_d(g_k,f_k),\delta f_k\right\rangle.
+    \label{eq:variation_discrete_lagrangian}
+\end{equation}
+Substituting \eqref{eq:discrete_infinitesimal_configuration_variation} and \eqref{eq:discrete_relative_group_variation} into \eqref{eq:variation_discrete_lagrangian} gives
+\begin{align}
+    \delta L_d(g_k,f_k)
+    ={}&
+    \Big\langle
+        T_e^*L_{g_k}D_{g_k}L_d(g_k,f_k)
+        -
+        \operatorname{Ad}_{f_k^{-1}}^*
+        \!\left(T_e^*L_{f_k}D_{f_k}L_d(g_k,f_k)\right),
+        \eta_k
+    \Big\rangle
+    \notag\\
+    &+
+    \left\langle
+        T_e^*L_{f_k}D_{f_k}L_d(g_k,f_k),
+        \eta_{k+1}
+    \right\rangle.
+    \label{eq:variation_discrete_lagrangian_trivialized}
+\end{align}
+After substituting \eqref{eq:variation_discrete_lagrangian_trivialized} into \eqref{eq:discrete_hamilton_principle}, shifting the summation index, and using $\eta_0=\eta_N=0$, the variation of the action sum becomes
+\begin{align}
+    \delta\mathcal S_d
+    =
+    \sum_{k=1}^{N-1}
+    \Big\langle
+        &T_e^*L_{f_{k-1}}D_{f_{k-1}}L_d(g_{k-1},f_{k-1})
+        +T_e^*L_{g_k}D_{g_k}L_d(g_k,f_k)
+        \notag\\
+        &-
+        \operatorname{Ad}_{f_k^{-1}}^*
+        \!\left(T_e^*L_{f_k}D_{f_k}L_d(g_k,f_k)\right),
+        \eta_k
+    \Big\rangle
+    =0.
+    \label{eq:variation_discrete_action_sum}
+\end{align}
+Since \eqref{eq:variation_discrete_action_sum} holds for all sequences $\{\eta_k\}_{k=1}^{N-1}\subset\mathfrak g$, the discrete Euler--Lagrange equations on $G$ are
+\begin{subequations}
+\label{eq:discrete_euler_lagrange_lie_group}
+\begin{align}
+    T_e^*L_{f_{k-1}}D_{f_{k-1}}L_d(g_{k-1},f_{k-1})
+    &-
+    \operatorname{Ad}_{f_k^{-1}}^*
+    \!\left(T_e^*L_{f_k}D_{f_k}L_d(g_k,f_k)\right)
+    \notag\\
+    &+
+    T_e^*L_{g_k}D_{g_k}L_d(g_k,f_k)
+    =0,
+    \label{eq:discrete_euler_lagrange_balance}\\
+    g_{k+1}&=g_kf_k.
+    \label{eq:discrete_euler_lagrange_reconstruction}
+\end{align}
+\end{subequations}
+Equation~\eqref{eq:discrete_euler_lagrange_balance} represents the discrete momentum balance in the body-fixed frame, while \eqref{eq:discrete_euler_lagrange_reconstruction} updates the configuration on the Lie group. For given $(g_{k-1},f_{k-1})$, the configuration $g_k=g_{k-1}f_{k-1}$ is obtained first, and the implicit equation \eqref{eq:discrete_euler_lagrange_balance} is solved for $f_k$. Thus, the equations define the discrete Lagrangian flow map
+\begin{equation}
+    \mathcal F_{L_d}:G\times G\rightarrow G\times G,
+    \qquad
+    \mathcal F_{L_d}(g_{k-1},f_{k-1})=(g_k,f_k).
+    \label{eq:discrete_lagrangian_flow_map}
+\end{equation}
+
+For the following model derivations, the partial derivatives of $L_d$ are evaluated by directional derivatives, analogously to Section~\ref{sec:continuous_euler_lagrange_equations}.
+
+\begin{proposition}[Directional derivative representation of $D_{g_k}L_d(g_k,f_k)$]
+\label{prop:directional_derivative_discrete_g}
+Let $G$ be a matrix Lie group with Lie algebra $\mathfrak g$, and let $L_d:G\times G\rightarrow\mathbb R$ be smooth. For any $\eta_k\in\mathfrak g$, define $\delta g_k=T_eL_{g_k}(\eta_k)=g_k\eta_k\in T_{g_k}G$. Then $D_{g_k}L_d(g_k,f_k)\in T_{g_k}^*G$ is characterized by
+\begin{equation}
+    \left\langle D_{g_k}L_d(g_k,f_k),\delta g_k\right\rangle
+    =
+    \left\langle T_e^*L_{g_k}D_{g_k}L_d(g_k,f_k),\eta_k\right\rangle
+    =
+    \left.\frac{\mathrm d}{\mathrm d\epsilon}\right|_{\epsilon=0}
+    L_d\!\left(g_k\exp(\epsilon\eta_k),f_k\right).
+    \label{eq:directional_derivative_discrete_g}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The curve $\gamma(\epsilon)=g_k\exp(\epsilon\eta_k)$ satisfies $\gamma(0)=g_k$ and induces the tangent vector $\dot\gamma(0)=g_k\eta_k=\delta g_k$ by \eqref{eq:infinitesimal_variation_matrix_lie_group}. Therefore,
+\begin{equation*}
+    \left\langle D_{g_k}L_d(g_k,f_k),\delta g_k\right\rangle
+    =
+    \left.\frac{\mathrm d}{\mathrm d\epsilon}\right|_{\epsilon=0}
+    L_d\!\left(g_k\exp(\epsilon\eta_k),f_k\right).
+\end{equation*}
+Using $\delta g_k=T_eL_{g_k}(\eta_k)$ and the definition of the dual map gives the pulled-back representation in \eqref{eq:directional_derivative_discrete_g}.
+\end{proof}
+
+\begin{proposition}[Directional derivative representation of $D_{f_k}L_d(g_k,f_k)$]
+\label{prop:directional_derivative_discrete_f}
+Let $G$ be a matrix Lie group with Lie algebra $\mathfrak g$, and let $L_d:G\times G\rightarrow\mathbb R$ be smooth. For any $X_k\in\mathfrak g$, define $\delta f_k=T_eL_{f_k}(X_k)=f_kX_k\in T_{f_k}G$. Then $D_{f_k}L_d(g_k,f_k)\in T_{f_k}^*G$ is characterized by
+\begin{align}
+    \left\langle D_{f_k}L_d(g_k,f_k),\delta f_k\right\rangle
+    &=
+    \left\langle T_e^*L_{f_k}D_{f_k}L_d(g_k,f_k),X_k\right\rangle
+    \notag\\
+    &=
+    \left.\frac{\mathrm d}{\mathrm d\epsilon}\right|_{\epsilon=0}
+    L_d\!\left(g_k,f_k\exp(\epsilon X_k)\right).
+    \label{eq:directional_derivative_discrete_f}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+The curve $\gamma(\epsilon)=f_k\exp(\epsilon X_k)$ satisfies $\gamma(0)=f_k$ and induces the tangent vector $\dot\gamma(0)=f_kX_k=\delta f_k$. Therefore,
+\begin{equation*}
+    \left\langle D_{f_k}L_d(g_k,f_k),\delta f_k\right\rangle
+    =
+    \left.\frac{\mathrm d}{\mathrm d\epsilon}\right|_{\epsilon=0}
+    L_d\!\left(g_k,f_k\exp(\epsilon X_k)\right).
+\end{equation*}
+Using $\delta f_k=T_eL_{f_k}(X_k)$ and the definition of the dual map gives the pulled-back representation in \eqref{eq:directional_derivative_discrete_f}.
+\end{proof}
 
 \begin{proposition}[Directional derivative representation of $D_{g_k}L_d(g_k,f_k)$]
 Let $G$ be a Lie group with Lie algebra $\mathfrak g$ \cite{Hall2000LieGroups}. Let 
@@ -116,12 +404,157 @@ to obtain
 using eq. \eqref{eq:delta_fk_TL}.
 \end{proof}
 
-\subsection{Discrete Hamiltonian Mechanics}
+\subsection{Discrete Legendre Transformation and Hamiltonian Mechanics}
+\label{sec:discrete_legendre_hamiltonian_mechanics}
 
-\subsection{Discrete Legendre Transformation}
-\label{sec:discrete_legendre_transformation}
+The discrete Euler--Lagrange equations define a flow on $G\times G$. Analogously to the continuous Legendre transformation in Section~\ref{sec:continuous_legendre_hamiltonian_mechanics}, the same discrete dynamics can be represented on the left-trivialized cotangent bundle $T^*G\simeq G\times\mathfrak g^*$. The positive and negative discrete Legendre transformations are defined as
+\begin{subequations}
+\label{eq:discrete_legendre_transformations}
+\begin{align}
+    \mathbb F^+L_d(g_k,f_k)
+    &=
+    (g_kf_k,\mu_{k+1}),
+    \label{eq:positive_discrete_legendre_transformation}\\
+    \mathbb F^-L_d(g_k,f_k)
+    &=
+    (g_k,\mu_k),
+    \label{eq:negative_discrete_legendre_transformation}
+\end{align}
+\end{subequations}
+where the body-fixed discrete momenta $\mu_k,\mu_{k+1}\in\mathfrak g^*$ are
+\begin{subequations}
+\label{eq:discrete_momenta}
+\begin{align}
+    \mu_k
+    &=
+    -T_e^*L_{g_k}D_{g_k}L_d(g_k,f_k)
+    +
+    \operatorname{Ad}_{f_k^{-1}}^*
+    \!\left(T_e^*L_{f_k}D_{f_k}L_d(g_k,f_k)\right),
+    \label{eq:negative_discrete_momentum}\\
+    \mu_{k+1}
+    &=
+    T_e^*L_{f_k}D_{f_k}L_d(g_k,f_k).
+    \label{eq:positive_discrete_momentum}
+\end{align}
+\end{subequations}
+The discrete Euler--Lagrange equation \eqref{eq:discrete_euler_lagrange_balance} is equivalent to the momentum matching condition
+\begin{equation}
+    \mathbb F^+L_d(g_{k-1},f_{k-1})
+    =
+    \mathbb F^-L_d(g_k,f_k).
+    \label{eq:discrete_momentum_matching}
+\end{equation}
+Thus, the momentum obtained from the preceding interval is equal to the momentum obtained from the following interval at the common node $g_k$ \cite{Marsden2001,Lee2008}.
+
+Assuming that the negative discrete Legendre transformation is locally invertible, the discrete Hamiltonian flow map is
+\begin{equation}
+    \widetilde{\mathcal F}_{L_d}
+    =
+    \mathbb F^+L_d\circ(\mathbb F^-L_d)^{-1}:
+    G\times\mathfrak g^*
+    \rightarrow G\times\mathfrak g^*.
+    \label{eq:discrete_hamiltonian_flow_map}
+\end{equation}
+Using \eqref{eq:discrete_momenta}, the corresponding discrete Hamilton equations are
+\begin{subequations}
+\label{eq:discrete_hamilton_equations_lie_group}
+\begin{align}
+    \operatorname{Ad}_{f_k^{-1}}^*
+    \!\left(T_e^*L_{f_k}D_{f_k}L_d(g_k,f_k)\right)
+    &=
+    \mu_k+T_e^*L_{g_k}D_{g_k}L_d(g_k,f_k),
+    \label{eq:discrete_hamilton_implicit_equation}\\
+    g_{k+1}&=g_kf_k,
+    \label{eq:discrete_hamilton_reconstruction}\\
+    \mu_{k+1}
+    &=
+    \operatorname{Ad}_{f_k}^*
+    \!\left(
+        \mu_k+T_e^*L_{g_k}D_{g_k}L_d(g_k,f_k)
+    \right).
+    \label{eq:discrete_hamilton_momentum_update}
+\end{align}
+\end{subequations}
+For a given state $(g_k,\mu_k)$, the implicit equation \eqref{eq:discrete_hamilton_implicit_equation} is first solved for $f_k$. The configuration $g_{k+1}$ and momentum $\mu_{k+1}$ are then obtained from \eqref{eq:discrete_hamilton_reconstruction} and \eqref{eq:discrete_hamilton_momentum_update}, respectively. Therefore, \eqref{eq:discrete_hamilton_equations_lie_group} defines the discrete flow $(g_k,\mu_k)\mapsto(g_{k+1},\mu_{k+1})$ \cite{Lee2008}.
 
 \subsection{Properties of the Discrete Lagrangian Flow}
+\label{sec:properties_discrete_lagrangian_flow}
+
+The discrete Lagrangian flow inherits geometric properties from the discrete variational principle. In particular, it is symplectic and preserves momentum maps associated with symmetries of the discrete Lagrangian. In contrast, a fixed-step variational integrator does not generally preserve the continuous energy exactly, but typically exhibits bounded long-time energy error \cite{Marsden2001,Lee2008}.
+
+\paragraph{Symplecticity}
+Let $\Theta$ denote the canonical one-form on $T^*G\simeq G\times\mathfrak g^*$. The positive and negative discrete Lagrangian one-forms on $G\times G$ are defined through the discrete Legendre transformations as
+\begin{equation}
+    \Theta_{L_d}^{+}
+    =
+    (\mathbb F^+L_d)^*\Theta,
+    \qquad
+    \Theta_{L_d}^{-}
+    =
+    (\mathbb F^-L_d)^*\Theta.
+    \label{eq:discrete_lagrangian_one_forms}
+\end{equation}
+Since
+\begin{equation}
+    \mathrm dL_d
+    =
+    \Theta_{L_d}^{+}-\Theta_{L_d}^{-},
+\end{equation}
+their exterior derivatives are equal. Following the convention used for the continuous Lagrangian flow in Section~\ref{sec:properties_continuous_lagrangian_flow}, the discrete Lagrangian symplectic two-form is defined by
+\begin{equation}
+    \Omega_{L_d}
+    =
+    \mathrm d\Theta_{L_d}^{+}
+    =
+    \mathrm d\Theta_{L_d}^{-}.
+    \label{eq:discrete_lagrangian_symplectic_form}
+\end{equation}
+The discrete Lagrangian flow preserves this two-form,
+\begin{equation}
+    (\mathcal F_{L_d})^*\Omega_{L_d}
+    =
+    \Omega_{L_d}.
+    \label{eq:discrete_symplecticity}
+\end{equation}
+Consequently, for $N-1$ discrete steps,
+\begin{equation}
+    (\mathcal F_{L_d}^{N-1})^*\Omega_{L_d}
+    =
+    \Omega_{L_d}.
+\end{equation}
+
+\paragraph{Discrete Noether's theorem}
+Let a Lie group $H$ act smoothly on the discrete configurations, and suppose that the discrete Lagrangian is invariant under the induced action on $G\times G$. Under this invariance, the positive and negative discrete momentum maps coincide and define the discrete Lagrangian momentum map
+\begin{equation}
+    \mathcal J_{L_d}:G\times G\rightarrow\mathfrak h^*.
+\end{equation}
+
+\begin{theorem}[Discrete Noether's theorem]
+\label{thm:discrete_noether}
+If the discrete Lagrangian is invariant under the symmetry action of $H$, then the associated discrete momentum map is preserved by the discrete Lagrangian flow,
+\begin{equation}
+    \mathcal J_{L_d}\!\left(
+        \mathcal F_{L_d}(g_k,f_k)
+    \right)
+    =
+    \mathcal J_{L_d}(g_k,f_k).
+    \label{eq:discrete_noether_momentum_preservation}
+\end{equation}
+Equivalently, over $N-1$ discrete steps,
+\begin{equation}
+    \mathcal J_{L_d}\!\left(
+        \mathcal F_{L_d}^{N-1}(g_0,f_0)
+    \right)
+    =
+    \mathcal J_{L_d}(g_0,f_0).
+\end{equation}
+\end{theorem}
+
+Discrete Noether's theorem is the discrete counterpart of the continuous result introduced in Section~\ref{sec:properties_continuous_lagrangian_flow}. It connects a symmetry of the discrete Lagrangian with an exactly preserved discrete momentum quantity \cite{Marsden2001,Lee2008}. The explicit construction of the lifted action is not required in this thesis, since the discrete momentum map is not derived separately for the considered models.
+
+The equations above describe unforced discrete mechanical systems. External forces and control inputs are included through the discrete Lagrange--d'Alembert principle in the following subsection.
+
 
 \subsection{Forced Discrete Euler-Lagrange Equations}
 \label{sec:discrete_forced_lagrangian}
@@ -326,6 +759,7 @@ For solving the implicit vector equation \eqref{eq:implicit_vector_equation} New
 where convergence to the solution is reached until $\left\lVert f^{(i+1)} - f^{(i)} \right\rVert < \epsilon$ for a defined $\epsilon$. A initial guess $\bm{f}^0$ can be obtained by linearizing the vector equation \eqref{eq:implicit_vector_equation} \cite{Lee2008}. Finally, the rotation matrix $\bm{F}_k \in SO(3)$ at $k$ is calculated using the Cayley transformation \eqref{eq:Cayley}. 
 
 \section{Single Rigid Body Systems}
+\label{sec:single_rigid_body_systems}
 
 \subsection{3D-Pendulum}
 \label{sec:discrete_3D_pendulum}

@@ -43,8 +43,8 @@ for the geometric trajectory optimization formulation via Semidefinite Programmi
         \node[box] (manifold){Configuration and velocity\\ $(g,\dot g)\in TG$};
         \node[box, below=of manifold] (lagrangian) {Lagrangian\\ $L(g,\xi)$};
         \node[box, below left=of lagrangian, xshift=1.3cm, yshift=-0.3cm] (action) {Action integral\\ $\mathcal S=\int_{t_0}^{t_f} L(g,\xi)\,dt$};
-        \node[box, below right=of lagrangian, xshift=-1.3cm, yshift=-0.3cm] (legendre) {Legendre transform.\\ $p=\mathbb{F}L(g,\xi)$};
-        \node[box, below=of action] (variation) {Variation\\ $\delta\mathcal S=\frac{d}{d\epsilon}\mathcal S^{\epsilon}=0$};
+        \node[box, below right=of lagrangian, xshift=-1.3cm, yshift=-0.3cm] (legendre) {Legendre transform.\\ $\mu=\mathbb{F}L(g,\xi)$};
+        \node[box, below=of action] (variation) {Variation\\ $\delta\mathcal S=0$};
         \node[box, below=of legendre] (hamilton) {Hamilton equations};
         \node[box, below=of variation] (euler) {Euler--Lagrange equations};
 
@@ -94,7 +94,7 @@ To derive the Euler--Lagrange equations, the variation of the action integral ha
     0,
     \label{eq:hamilton_principle_lie_group}
 \end{equation}
-for all variations with fixed endpoints at $t_0$ and $t_f$ \cite{Lee2008,Marsden2001}.
+for all variations with fixed endpoints at $t_0$ and $t_f$ \cite{Marsden2001}.
 The variation of the Lagrangian is expressed as
 \begin{equation}
     \delta L(g,\xi)
@@ -222,36 +222,31 @@ differential of the left translation $g \eta = T_eL_g(\eta)$ defined in \eqref{e
 \subsection{Legendre Transformation and Hamiltonian Mechanics}
 \label{sec:continuous_legendre_hamiltonian_mechanics}
 
-The Hamiltonian formulation represents the state on the cotangent bundle $T^*G$. Using left trivialization, this phase space is identified with $G\times\mathfrak g^*$, where a state is written as $(g,\mu)$ with the body-fixed momentum $\mu\in\mathfrak g^*$. In local canonical coordinates $(q^i,p_i)$, a Hamiltonian $H:T^*G\rightarrow\mathbb R$ satisfies
+In contrast to the Lagrangian $L:G\times\mathfrak{g}\to\mathbb{R}$ formulation, the Hamiltonian formulation represents the state on the cotangent bundle $T^*G$ identified with $G \times \mathfrak{g}^*$ by left trivialization. 
+Thereby, the state is written as $(g,\mu)$ with the body-fixed momentum $\mu\in\mathfrak g^*$ \cite{Marsden2001}. 
+The Lagrangian and Hamiltonian descriptions relate by the Legendre transformation $\mathbb{F}L:G\times\mathfrak g\rightarrow G\times\mathfrak g^*$
 \begin{equation}
-    \dot q^i=\frac{\partial H}{\partial p_i},
-    \qquad
-    \dot p_i=-\frac{\partial H}{\partial q^i}.
-    \label{eq:canonical_hamilton_equations}
-\end{equation}
-
-The Lagrangian and Hamiltonian descriptions are related by the Legendre transformation
-\begin{equation}
-    \mathbb{F}L:G\times\mathfrak g\rightarrow G\times\mathfrak g^*,
-    \qquad
-    \mathbb{F}L(g,\xi)=(g,\mu),
-    \label{eq:continuous_legendre_transformation}
-\end{equation}
-with
-\begin{equation}
-    \mu=D_{\xi}L(g,\xi).
+    \mathbb{F}L:
+    (g,\xi)
+    \mapsto
+    (g,\mu)
+    =
+    \left(
+        g,
+        D_{\xi}L(g,\xi)
+    \right),
     \label{eq:continuous_generalized_momentum}
 \end{equation}
-If $\mathbb{F}L$ is a diffeomorphism, the Lagrangian is called hyperregular, and the velocity $\xi$ can be uniquely recovered from $(g,\mu)$. The corresponding Hamiltonian is defined by
+Moreover, \cite{Marsden2001} defines the corresponding Hamiltonian as
 \begin{equation}
     H(g,\mu)
     =
-    \left\langle\mu,\xi\right\rangle-L(g,\xi),
-    \qquad
-    \xi=(\mathbb{F}L)^{-1}(g,\mu).
+    \mathbb{F}_{\xi}L(g,\xi)\cdot\xi
+    -
+    L(g,\xi),
     \label{eq:continuous_hamiltonian_legendre}
 \end{equation}
-Under this transformation, the Euler--Lagrange equations \eqref{eq:continuous_euler_lagrange_lie_group} are equivalently written as
+Consequently, applying the Legendre transformation\eqref{eq:continuous_generalized_momentum} on the Euler-Lagrange equations \eqref{eq:continuous_euler_lagrange_lie_group} the Hamiltonian equations of motion are derived as
 \begin{subequations}
 \label{eq:continuous_hamilton_equations_lie_group}
 \begin{align}
@@ -260,23 +255,18 @@ Under this transformation, the Euler--Lagrange equations \eqref{eq:continuous_eu
     -T_e^*L_g\,D_gL(g,\xi)
     &=0,
     \label{eq:continuous_hamilton_momentum_equation}\\
-    \dot g&=g\xi,
+    \dot g&=g\xi.
     \label{eq:continuous_hamilton_reconstruction}
 \end{align}
 \end{subequations}
-where $\mu=D_{\xi}L(g,\xi)$. Hence, the Legendre transformation changes the velocity variable into momentum without changing the physical trajectory \cite{Lee2008}.
 
 \subsection{Properties of the Lagrangian Flow}
 \label{sec:properties_continuous_lagrangian_flow}
 
-The Euler--Lagrange equations define the Lagrangian flow
-\begin{equation}
-    F_L^t:G\times\mathfrak g\rightarrow G\times\mathfrak g,
-    \qquad
-    F_L^t(g_0,\xi_0)=(g(t),\xi(t)),
-    \label{eq:continuous_lagrangian_flow}
-\end{equation}
-which maps an initial state to the corresponding state at time $t$. Variationally derived mechanical flows possess geometric properties that are independent of the selected coordinates \cite{Lee2008,Marsden2001}.
+\cite{Marsden2001} defines the Lagrangian flow $\mathcal{F}_L^T:G\times\mathfrak g\rightarrow G\times\mathfrak g$,
+which maps an initial state to the corresponding state at time $t$. 
+Thereby, the Lagrangian flow evolves the system in time while preserving its geometric structure,
+as it consits symplecticity and momentum preservation properties \cite{Lee2008,Marsden2001}.
 
 \paragraph{Symplecticity}
 The Lagrangian one-form $\Theta_L$ on $G\times\mathfrak g$ is defined by
@@ -289,44 +279,41 @@ The Lagrangian one-form $\Theta_L$ on $G\times\mathfrak g$ is defined by
     \right\rangle.
     \label{eq:continuous_lagrangian_one_form}
 \end{equation}
-With the Lagrangian symplectic two-form
-\begin{equation}
-    \Omega_L=\mathrm d\Theta_L,
-    \label{eq:continuous_lagrangian_symplectic_form}
-\end{equation}
+With the Lagrangian symplectic two-form $\Omega_L=\mathrm d\Theta_L,$
 the flow preserves symplecticity according to
 \begin{equation}
-    \left(F_L^t\right)^*\Omega_L=\Omega_L.
+    \left(F_L^T\right)^*\Omega_L=\Omega_L,
     \label{eq:continuous_lagrangian_flow_symplecticity}
 \end{equation}
-This property provides the continuous geometric structure inherited by variational integrators after discretization.
+for $T=t_f-t_0$ \cite{Lee2008}.
 
 \paragraph{Noether's theorem}
-Let a Lie group $H$ with Lie algebra $\mathfrak h$ act smoothly on $G$ by
-\begin{equation}
-    \Phi:H\times G\rightarrow G,
+Let a left action of a Lie group $H$ with Lie algebra $\mathfrak h$ act  
+smoothly on $G$ by the mapping $\Phi:H\times G\rightarrow G$ such that
+$\Phi_h(g)=\Phi(h,g)$. \cite{Lee2008} defines the left trivialization 
+$\phi_L:TG \to G\times\mathfrak g$ by
+\begin{equation}\label{eq:left_trivialization_noethers_theorem}
+    \phi_L(g,\dot{g}) = (g, g^{-1}\dot{g}),
     \qquad
-    \Phi_h(g)=\Phi(h,g).
-    \label{eq:symmetry_group_action}
+    \phi_L^{-1}(g,g^{-1}\dot{g}) = (g,\dot{g}).
 \end{equation}
-For $\zeta\in\mathfrak h$, the infinitesimal generator of the lifted action on the left-trivialized tangent bundle is
+Additionally, the infinitesimal generator $\zeta_{G\times\mathfrak{g}}: G \times \mathfrak g \to T(G\times\mathfrak g)$ is given by
 \begin{equation}
     \zeta_{G\times\mathfrak g}(g,\xi)
     =
     \left.\frac{\mathrm d}{\mathrm d\epsilon}\right|_{\epsilon=0}
-    \left(
-        \varphi_L
-        \circ T_g\Phi_{\exp_H(\epsilon\zeta)}
-        \circ\varphi_L^{-1}
-    \right)(g,\xi).
+        \phi_L
+        \circ T_g\Phi_{\exp_H(\epsilon\zeta)}(g)
+        \cdot (\phi_L^{-1}(g,\xi)),
     \label{eq:lifted_infinitesimal_generator}
 \end{equation}
-The corresponding Lagrangian momentum map $J_L:G\times\mathfrak g\rightarrow\mathfrak h^*$ is defined by
+for $\zeta\in\mathfrak h$ \cite{Lee2008}.
+Moreover, the corresponding Lagrangian momentum map $J_L:G\times\mathfrak g\rightarrow\mathfrak h^*$ is defined by
 \begin{equation}
     J_L(g,\xi)\cdot\zeta
     =
-    \Theta_L(g,\xi)\cdot
-    \zeta_{G\times\mathfrak g}(g,\xi).
+    \Theta_L\cdot
+    \zeta_{G\times\mathfrak g}.
     \label{eq:continuous_lagrangian_momentum_map}
 \end{equation}
 
@@ -344,9 +331,10 @@ then the associated momentum map is preserved along the Lagrangian flow,
 \begin{equation}
     J_L\!\left(F_L^t(g,\xi)\right)
     =
-    J_L(g,\xi).
+    J_L(g,\xi),
     \label{eq:continuous_noether_momentum_preservation}
 \end{equation}
+which is considered as Noether's theorem \cite{Lee2008,Marsden2001}.
 \end{theorem}
 
 Noether's theorem connects a continuous symmetry of the Lagrangian with a conserved momentum quantity \cite{Lee2008,Marsden2001}. This result is applied in Section~\ref{sec:momentum_conservation_3d_pendulum} to identify and verify the momentum preserved by the unforced 3D-pendulum.
@@ -355,7 +343,7 @@ Noether's theorem connects a continuous symmetry of the Lagrangian with a conser
 \section{Unforced 3D-Pendulum}
 \label{section:continuous_3D_pendulum}
 
-In the following Section, the unforced mechanics of a three-degree-of-freedom pendulum given by \cite{Lee2008} are presented, using Lagrangian mechanics of section \ref{section:continuous_lagrangian_mechanics}. Following, the momentum preservation properties of the Lagrangian flow of the model will be verified. 
+In the following Section, the unforced mechanics of a three-degree-of-freedom pendulum given by \cite{Lee2008} are presented, using Lagrangian mechanics of Section \ref{sec:continuous_lagrangian_mechanics}. Following, the momentum preservation properties of the Lagrangian flow of the model will be verified. 
 
 \subsection{Derivation of Lie Group Mechanics}
 
@@ -415,7 +403,7 @@ where \(\bm{R}\bm{\rho}_c\) denotes the vector from the pivot to the center of m
 
 \paragraph{Euler-Lagrange Equations}
 
-In order to define the Euler-Lagrange Equation \eqref{eq:continuous_euler_lagrange}, the derivatives of \eqref{eq:continuous_3D_pendulum_lagrangian} have to be calculated. Firstly, the directional derivative $D_{\hat{\bm{\omega}}}L(\bm{R,\hat{\bm{\omega}}})$ is given by applying \eqref{eq:derivative_omega}, which yields
+In order to define the Euler-Lagrange Equation \eqref{eq:continuous_euler_lagrange_lie_group}, the derivatives of \eqref{eq:continuous_3D_pendulum_lagrangian} have to be calculated. Firstly, the directional derivative $D_{\hat{\bm{\omega}}}L(\bm{R,\hat{\bm{\omega}}})$ is given by applying \eqref{eq:derivative_omega}, which yields
 \begin{align}
 \left\langle D_{\hat{\bm{\omega}}}L(\bm{R},\hat{\bm{\omega}}),\,\delta\hat{\bm{\omega}}\right\rangle
 &=
@@ -456,7 +444,7 @@ the directional derivative is rewritten as
 &=
 \left\langle (\bm{J}\bm{\omega})^\wedge,\,\delta\hat{\bm{\omega}}\right\rangle,
 \end{align}
-with the definition of the inner product \ref{INNER PRODUCT} and the skew-symmetric property of \eqref{eq:nonstandard_Inertia_Relation}. 
+with the definition of the inner product \eqref{eq:trace_inner_product} and the skew-symmetric property of \eqref{eq:nonstandard_Inertia_Relation}. 
 
 \indent Moreover, the derivative $D_{\bm{R}}L(\bm{R,\hat{\bm{\omega}}})$, which is in this model only dependent of the potential energy $U(\bm{R})$, is calculated by \eqref{eq:derivative_rotation} to
 \begin{align}
@@ -476,7 +464,7 @@ mg\,(\bm{R}^{\top}\bm{e}_3)^{\top}\hat{\bm{\eta}}\,\bm{\rho}_c \notag\\
 &=
 mg\,(\bm{\rho}_c\times \bm{R}^{\top}\bm{e}_3)\cdot \bm{\eta}, \notag
 \end{align}
-since $\bm{a}^\top \hat{\bm{x}}\bm{b} = \bm{a} \cdot(\bm{x} \times \bm{b}) = (\bm{b} \times \bm{a}) \cdot \bm{x}$ for any $\bm{a}, \bm{b}, \bm{x} \in \mathbb{R}^3$. Applying the definition of inner products \eqref{eq:}, it follows that 
+since $\bm{a}^\top \hat{\bm{x}}\bm{b} = \bm{a} \cdot(\bm{x} \times \bm{b}) = (\bm{b} \times \bm{a}) \cdot \bm{x}$ for any $\bm{a}, \bm{b}, \bm{x} \in \mathbb{R}^3$. Applying the definition of inner products \eqref{eq:trace_inner_product}, it follows that 
 \begin{equation}\label{eq:continuous_3D_pendulum_derivative_rotation}
     \left\langle T_{e}^{*}L_{\bm{R}}\,D_{\bm{R}} L(\bm{R},\hat{\bm{\omega}}),\, \hat{\bm{\eta}} \right\rangle
     = \left\langle (mg\,(\bm{\rho}_c\times \bm{R}^{\top}\bm{e}_3))^\wedge, \hat{\bm{\eta}}\right\rangle.
@@ -506,7 +494,7 @@ ad^*_{\hat{\bm{\omega}}}D_{\hat{\bm{\omega}}}L(\bm{R},\hat{\bm{\omega}})
 = (\bm{J}\bm{\omega} \times \bm{\omega})^\wedge
 = -(\bm{\omega} \times \bm{J} \bm{\omega})^\wedge
 \end{equation}
-\indent Finally, the Euler-Lagrange equations of the unforced 3D-pendulum are expressed in $\mathfrak{so}(3)$ $SO(3)$ form, by substituting \eqref{eq:continuous_3D_pendulum_derivative_omega}, \eqref{eq:continuous_3D_pendulum_derivative_rotation} and \eqref{eq:continuous_3D_pendulum_adjoint_derivative_omega} into \eqref{eq:continuous_euler_lagrange}, which result in
+\indent Finally, the Euler-Lagrange equations of the unforced 3D-pendulum are expressed in $\mathfrak{so}(3)$ $SO(3)$ form, by substituting \eqref{eq:continuous_3D_pendulum_derivative_omega}, \eqref{eq:continuous_3D_pendulum_derivative_rotation} and \eqref{eq:continuous_3D_pendulum_adjoint_derivative_omega} into \eqref{eq:continuous_euler_lagrange_lie_group}, which result in
 \begin{subequations}\label{eq:continuous_3D_pendulum_euler_lagrange}
 \begin{align}
  (\bm{J}\dot{\bm{\omega}})^\wedge + (\bm{\omega}\times (\bm{J}\bm{\omega}))^\wedge
@@ -519,7 +507,7 @@ ad^*_{\hat{\bm{\omega}}}D_{\hat{\bm{\omega}}}L(\bm{R},\hat{\bm{\omega}})
 
 \paragraph{Legendre Transformation}
 
-In order to obtain the Hamilton equations for the unforced 3D-pendulum model, the Legendre transformation $\mathbb{F}L:(SO(3)\times\mathfrak{so}(3)) \to (SO(3) \times \mathfrak{so}(3)^*)$ \eqref{eq:continuous_legendre_transformation} has to be applied, which results in the expression for the momentum
+In order to obtain the Hamilton equations for the unforced 3D-pendulum model, the Legendre transformation $\mathbb{F}L:(SO(3)\times\mathfrak{so}(3)) \to (SO(3) \times \mathfrak{so}(3)^*)$ \eqref{eq:continuous_generalized_momentum} has to be applied, which results in the expression for the momentum
 \begin{equation}  \label{eq:continuous_3D_pendulum_momentum}
     \hat{\bm{\Pi}} = D_{\hat{\bm{\omega}}}L(\bm{R},\hat{\bm{\omega}}) = (\bm{J}\bm{\omega})^\wedge
 \end{equation}
@@ -543,13 +531,13 @@ The verification of momentum conservation is particularly relevant in the contex
 \begin{equation}\label{eq:continuous_3D_pendulum_symmetry_action}
     \Phi(\theta, \bm{R})= \exp_{SO(3)}(\theta \hat{\bm{e}_3})\bm{R},
 \end{equation}
-where $\exp_{SO(3)}(\theta \hat{\bm{e}_3})$ expresses a finite rotation about the gravity direction $\bm{e}_3$ by the angle $\theta$ \cite{Lee2008}. By Noether's Theorem \ref{PROPOSITION}, the infinitesimally invariance of the 3D-pendulum's Lagrangian is verified, if 
+where $\exp_{SO(3)}(\theta \hat{\bm{e}_3})$ expresses a finite rotation about the gravity direction $\bm{e}_3$ by the angle $\theta$ \cite{Lee2008}. By Noether's Theorem \ref{thm:continuous_noether}, the infinitesimally invariance of the 3D-pendulum's Lagrangian is verified, if 
 \begin{equation}\label{eq:continuous_3D_momentum_conservation}
     dL(\bm{R},\hat{\bm{\omega}})\cdot \zeta_{SO(3)\times\mathfrak{so}(3)}(\bm{R}, \hat{\bm{\omega}}) = 0,
 \end{equation}
 consequently preserving the Lagrangian momentum map along the flow $J_L\!\left(\mathcal{F}_L^T(\bm{R},\hat{\bm{\omega}})\right)=J_L(\bm{R},\hat{\bm{\omega}})$.
 
-Therefore, the infinitesimal generator of the lifted group action on $SO(3)\times\mathfrak{so}(3)$ is required \cite{Lee2008}.With the attitude kinematics relation \eqref{eq:SO3_attitude_kinematics}, the left trivialization $\phi_L(\bm{R},\dot{\bm{R}})=\phi_L(\bm{R},\bm{R}\hat{\bm{\omega}})=(\bm{R},T_eL_{\bm{R}^{-1}}\bm{R}\hat{\bm{\omega}})=(\bm{R},\hat{\bm{\omega}})$, and the left trivialization $\phi_L^{-1}(\bm{R},\hat{\bm{\omega}})=(\bm{R},T_eL_{\bm{R}}\hat{\bm{\omega}})=(\bm{R},\bm{R}\hat{\bm{\omega}})$ are taken from \eqref{eq:Noether} and \eqref{eq:Noether2}, with the differential $T_R$ of \eqref{eq:preliminaries_differential_left_SO}. Following \cite{Lee2008}, the lifted infinitesimal generator $\zeta_{SO(3) \times \mathfrak{so}(3)}:SO(3) \times \mathfrak{so}(3) \to T(SO(3) \times \mathfrak{so}(3))$ is computed to
+Therefore, the infinitesimal generator of the lifted group action on $SO(3)\times\mathfrak{so}(3)$ is required \cite{Lee2008}.With the attitude kinematics relation \eqref{eq:SO3_attitude_kinematics}, the left trivialization $\phi_L(\bm{R},\dot{\bm{R}})=\phi_L(\bm{R},\bm{R}\hat{\bm{\omega}})=(\bm{R},T_eL_{\bm{R}^{-1}}\bm{R}\hat{\bm{\omega}})=(\bm{R},\hat{\bm{\omega}})$, and its inverse $\phi_L^{-1}(\bm{R},\hat{\bm{\omega}})=(\bm{R},T_eL_{\bm{R}}\hat{\bm{\omega}})=(\bm{R},\bm{R}\hat{\bm{\omega}})$ are taken from \eqref{eq:left_trivialization_noethers_theorem}, with the differential $T_R$ of \eqref{eq:preliminaries_differential_left_SO}. Following \cite{Lee2008}, the lifted infinitesimal generator $\zeta_{SO(3) \times \mathfrak{so}(3)}:SO(3) \times \mathfrak{so}(3) \to T(SO(3) \times \mathfrak{so}(3))$ \eqref{eq:lifted_infinitesimal_generator} is computed to
 \begin{align}
 \zeta_{SO(3)\times\mathfrak{so}(3)}(\bm{R},\hat{\bm{\omega}})
 &=
@@ -603,11 +591,11 @@ dL(\bm{R},\hat{\bm{\omega}})\cdot
 \hat{\bm{\eta}}\right\rangle.
 \label{eq:continuous_3D_pendulum_infinitesimal_invariance_start}
 \end{align}
-Since the lifted generator has no component in the $\hat{\bm{\omega}}$ direction, the component directional derivative $D_{\hat{\bm{\omega}}}$ equals zero in zero direction. Moreover, by the definition of the lifted infinitesimal generator \eqref{eq:}, the result of \eqref{eq:continuous_3D_pendulum_lifted_generator} redefines the variational relationship being 
+Since the lifted generator has no component in the $\hat{\bm{\omega}}$ direction, the component directional derivative $D_{\hat{\bm{\omega}}}$ equals zero in zero direction. Moreover, by the definition of the lifted infinitesimal generator \eqref{eq:lifted_infinitesimal_generator}, the result of \eqref{eq:continuous_3D_pendulum_lifted_generator} redefines the variational relationship being 
 \begin{equation} \label{eq:continuous_3D_pendulum_lifted_action_generator_variation}
     (\delta \bm{R}, \delta \hat{\bm{\omega}}) = (\zeta \hat{\bm{e}}_3\bm{R},\bm{0}).
 \end{equation}
-In consequence, with the new relation of $\delta \bm{R} = \zeta \hat{\bm{e}}_3 \bm{R} = \bm{R} \hat{\bm{\eta}}$, the variation $\hat{\bm{\eta}}$ can be expressed as
+In consequence, using the previously given infinitesimal variation \eqref{eq:continuous_lie_group_variations}, the corespodning relation of $\delta \bm{R} = \zeta \hat{\bm{e}}_3 \bm{R} = \bm{R} \hat{\bm{\eta}}$ is defined, which variation $\hat{\bm{\eta}}$ can be expressed as
 \begin{equation}\label{eq:continuous_3D_pendulum_variation_eta}
     \hat{\bm{\eta}}= \zeta \bm{R}^{-1} \hat{\bm{e}}_3 \bm{R}.
 \end{equation}
@@ -644,7 +632,7 @@ mg\,(\bm{\rho}_c^\top
 \zeta \bm{R}^{-1}(\bm{e}_3\times \bm{e}_3) \notag\\
 &=0,
 \end{align}
-because $\bm{e}_3\times \bm{e}_3=\bm{0}$ and $\bm{R^{-1}}=\bm{R^\top}$ for any $\bm{R} \in SO(3)$. Therefore, the condition of \eqref{eq:continuous_3D_momentum_conservation} is verified and the Lagrangian is infinitesimally invariant under the symmetry action. Consequently, by Noether's Theorem ~\ref{PROPOSITION}, the corresponding momentum map $J_L(\bm{R},\bm{\omega}) = \bm{e}_3^T \bm{R}\bm{J}\bm{\omega}$ of the continuous 3D-pendulum, which is given in \cite{Lee2008}, is preserved along the Lagrangian flow
+because $\bm{e}_3\times \bm{e}_3=\bm{0}$ and $\bm{R^{-1}}=\bm{R^\top}$ for any $\bm{R} \in SO(3)$. Therefore, the condition of \eqref{eq:continuous_3D_momentum_conservation} is verified and the Lagrangian is infinitesimally invariant under the symmetry action. Consequently, by Noether's Theorem ~\ref{thm:continuous_noether}, the corresponding momentum map $J_L(\bm{R},\bm{\omega}) = \bm{e}_3^T \bm{R}\bm{J}\bm{\omega}$ of the continuous 3D-pendulum, which is given in \cite{Lee2008}, is preserved along the Lagrangian flow
 \[  J_L\!\left(\mathcal{F}_L^T(\bm{R},\hat{\bm{\omega}})\right)
     =
     J_L(\bm{R},\hat{\bm{\omega}}).
