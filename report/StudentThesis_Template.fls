@@ -318,6 +318,8 @@ INPUT C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex\latex\tools\bm.sty
 INPUT C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex\latex\tools\bm.sty
 INPUT C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex\latex\comment\comment.sty
 INPUT C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex\latex\comment\comment.sty
+INPUT C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex\latex\booktabs\booktabs.sty
+INPUT C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex\latex\booktabs\booktabs.sty
 INPUT C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex\latex\siunitx\siunitx.sty
 INPUT C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex\latex\siunitx\siunitx.sty
 INPUT C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex\latex\translations\translations.sty
@@ -668,12 +670,12 @@ INPUT .\pics\Numerical_Simulation\Acrobot\forced_sine_orthogonality_error.pdf
 INPUT .\pics\Numerical_Simulation\Acrobot\forced_sine_orthogonality_error.pdf
 INPUT .\pics\Numerical_Simulation\Acrobot\forced_sine_orthogonality_error.pdf
 INPUT .\pics\Numerical_Simulation\Acrobot\forced_sine_orthogonality_error.pdf
-INPUT .\pics\Optimization\3D_Pendulum\MD_90_deg_Pendulum_trajectory.pdf
-INPUT .\pics\Optimization\3D_Pendulum\MD_90_deg_Pendulum_trajectory.pdf
-INPUT .\pics\Optimization\3D_Pendulum\MD_90_deg_Pendulum_trajectory.pdf
-INPUT .\pics\Optimization\3D_Pendulum\MD_90_deg_Pendulum_trajectory.pdf
-INPUT .\pics\Optimization\3D_Pendulum\MD_90_deg_Pendulum_trajectory.pdf
-INPUT .\pics\Optimization\3D_Pendulum\MD_90_deg_Pendulum_trajectory.pdf
+INPUT .\pics\Optimization\3D_Pendulum\MD_180_deg_Pendulum_trajectory.pdf
+INPUT .\pics\Optimization\3D_Pendulum\MD_180_deg_Pendulum_trajectory.pdf
+INPUT .\pics\Optimization\3D_Pendulum\MD_180_deg_Pendulum_trajectory.pdf
+INPUT .\pics\Optimization\3D_Pendulum\MD_180_deg_Pendulum_trajectory.pdf
+INPUT .\pics\Optimization\3D_Pendulum\MD_180_deg_Pendulum_trajectory.pdf
+INPUT .\pics\Optimization\3D_Pendulum\MD_180_deg_Pendulum_trajectory.pdf
 INPUT .\pics\Optimization\3D_Pendulum\MD_90_deg_Pendulum_control_input.pdf
 INPUT .\pics\Optimization\3D_Pendulum\MD_90_deg_Pendulum_control_input.pdf
 INPUT .\pics\Optimization\3D_Pendulum\MD_90_deg_Pendulum_control_input.pdf

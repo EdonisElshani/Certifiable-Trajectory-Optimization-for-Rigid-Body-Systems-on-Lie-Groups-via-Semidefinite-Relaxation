@@ -668,6 +668,155 @@ SPOT-Based Implementation
 
 Minimal Cordal Extension MD
 
+Suboptimalits NLP warm start code Sangli
+
+\begin{table}[htbp]
+    \centering
+    \caption{Statistics of the controlled 3D pendulum for desired rotations
+    about the $x$-axis. The terminal error is defined as
+    $e_R(T)=\lVert R_N-R_{\mathrm{des}}\rVert_F$. The manifold violation is
+    $\max_k\varepsilon_{R,k}$ with
+    $\varepsilon_{R,k}=\lVert R_k^\top R_k-I_3\rVert_F$.
+    The rank metric $\delta_{\max}$ is the maximum second eigenvalue weight
+    over all moment matrices. The trajectory quantities are evaluated using
+    the ordered extraction, and the reported runtime is the MOSEK optimizer
+    time.}
+    \label{tab:pendulum_3d_sdp_statistics}
+
+    \setlength{\tabcolsep}{6pt}
+    \renewcommand{\arraystretch}{1.15}
+
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lccccc@{}}
+        \toprule
+        $R_{x,\mathrm{des}}$
+        & $0^\circ$
+        & $45^\circ$
+        & $90^\circ$
+        & $135^\circ$
+        & $180^\circ$ \\
+        \midrule
+
+        Terminal error $e_R(T)$
+        & $9.594\!\times\!10^{-4}$
+        & $0.3382$
+        & $0.4789$
+        & $0.2616$
+        & $0.0035$ \\
+
+        Manifold violation $\max_k\varepsilon_{R,k}$
+        & $1.89\!\times\!10^{-9}$
+        & $4.60\!\times\!10^{-8}$
+        & $1.13\!\times\!10^{-11}$
+        & $2.55\!\times\!10^{-9}$
+        & $4.46\!\times\!10^{-8}$ \\
+
+        Suboptimality gap $\epsilon$
+        & $1.83\!\times\!10^{-6}$
+        & $8.80\!\times\!10^{-8}$
+        & $5.55\!\times\!10^{-10}$
+        & $2.39\!\times\!10^{-9}$
+        & $2.76\!\times\!10^{-9}$ \\
+
+        Rank condition $\delta_{\max}$
+        & $3.00\!\times\!10^{-9}$
+        & $7.52\!\times\!10^{-8}$
+        & $0.1414$
+        & $0.1852$
+        & $0.2156$ \\
+
+        Runtime (s)
+        & $2266.75$
+        & $2577.55$
+        & $2905.99$
+        & $3476.31$
+        & $4243.66$ \\
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+%\begin{table}[htbp]
+%    \centering
+%    \caption{Statistics of the controlled 3D pendulum for desired rotations
+%    about the $x$-axis. The terminal error is defined as
+%    $e_R(T)=\lVert R_N-R_{\mathrm{des}}\rVert_F$. The manifold violation is
+%    $\max_k\varepsilon_{R,k}$ with
+%    $\varepsilon_{R,k}=\lVert R_k^\top R_k-I_3\rVert_F$.
+%    The rank metric $\delta_{\max}$ is the maximum second eigenvalue weight
+%    over all moment matrices. The trajectory quantities are evaluated using
+%    the ordered extraction, and the reported runtime is the MOSEK optimizer
+%    time.}
+%    \label{tab:pendulum_3d_sdp_statistics}
+%
+%    \setlength{\tabcolsep}{3.4pt}
+%   \renewcommand{\arraystretch}{1.15}
+%
+%    \resizebox{\textwidth}{!}{
+%    \begin{tabular}{@{}l*{10}{c}@{}}
+%        \toprule
+%        $R_{x,\mathrm{des}}$
+%        & \multicolumn{2}{c}{$0^\circ$}
+%        & \multicolumn{2}{c}{$45^\circ$}
+%        & \multicolumn{2}{c}{$90^\circ$}
+%        & \multicolumn{2}{c}{$135^\circ$}
+%        & \multicolumn{2}{c}{$180^\circ$} \\
+%
+%        \cmidrule(lr){2-3}
+%        \cmidrule(lr){4-5}
+%        \cmidrule(lr){6-7}
+%        \cmidrule(lr){8-9}
+%        \cmidrule(lr){10-11}
+%
+%        Sparsity
+%        & MD & SELF
+%        & MD & SELF
+%        & MD & SELF
+%        & MD & SELF
+%        & MD & SELF \\
+%        \midrule
+%
+%        Terminal error $e_R(T)$
+%        & $9.594\!\times\!10^{-4}$ & $9.589\!\times\!10^{-4}$
+%        & $0.3382$ & $0.1575$
+%        & $0.4789$ & $0.2388$
+%        & $0.2616$ & $0.2616$
+%        & $0.003545$ & $6.153\!\times\!10^{-4}$ \\
+%
+%        Manifold violation $\max_k\varepsilon_{R,k}$
+%        & $1.89\!\times\!10^{-9}$ & $1.49\!\times\!10^{-9}$
+%        & $4.60\!\times\!10^{-8}$ & $0.143$
+%        & $1.13\!\times\!10^{-11}$ & $0.313$
+%        & $2.55\!\times\!10^{-9}$ & $2.41\!\times\!10^{-8}$
+%        & $4.46\!\times\!10^{-8}$ & $0.729$ \\
+%
+%        Suboptimality gap $\epsilon$
+%        & $1.83\!\times\!10^{-6}$ & $3.62\!\times\!10^{-7}$
+%        & $8.80\!\times\!10^{-8}$ & $0.175$
+%        & $5.55\!\times\!10^{-10}$ & $0.090$
+%        & $2.39\!\times\!10^{-9}$ & $1.67\!\times\!10^{-9}$
+%        & $2.76\!\times\!10^{-9}$ & $0.012$ \\
+%
+%        Rank condition $\delta_{\max}$
+%        & $3.00\!\times\!10^{-9}$ & $4.18\!\times\!10^{-9}$
+%        & $7.52\!\times\!10^{-8}$ & $0.2285$
+%        & $0.1414$ & $0.2269$
+%        & $0.1852$ & $0.2655$
+%        & $0.2156$ & $0.3633$ \\
+%
+%        Runtime (s)
+%        & $2266.75$ & $8.72$
+%        & $2577.55$ & $16.89$
+%        & $2905.99$ & $19.05$
+%        & $3476.31$ & $14.08$
+%        & $4243.66$ & $22.91$ \\
+%        \bottomrule
+%    \end{tabular}%
+%    }
+%	\end{table}
+
+Adjust PLOTS. 180 MD. Y and X axis label like $e_{orth} [Einheit]$ like in numerical simulation!!!!!!!!!!!
+
 \section{Acrobot Optimization Results}
 \label{sec:acrobot_optimization_results}
 Reduced Models...
@@ -675,22 +824,31 @@ Reduced Models...
 \subsection{Semidefinite Optimization Results}
 \label{subsec:acrobot_optimization_results}
 
+Rechne trotzdem als sicherheit suboptimality gap
+
+
+Since the NLP does not provide a feasible trajectory that reaches the desired upright configuration within the prediction horizon, no meaningful suboptimality gap is reported; instead, the MPC evaluation focuses on the first-step rank metric delta
+first, since only the first control input is applied before replanning.
 
 Tabelle 0 45 90 180 Degree SELF cliques
 
 \subsection{Model Predictive SDP Control Results}
 
+The basin of attraction is shown only for the directly evaluated initial configurations, without applying symmetry-based mirroring, such that the plotted region represents the actual SDP-MPC test results.
+
 tightness taking the first steps
 testing different dtsdp and dtsim configurations and model mismatch
 
-
+Tightness during MPC: plot delta
+first over MPC iterations, optionally together with
+max
 
 
 \begin{figure}[t]
     \centering
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_90_deg_Pendulum_trajectory.pdf}
+        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf}
         \caption*{(a) Center-of-mass trajectory.}
     \end{minipage}
     \hfill
@@ -728,8 +886,9 @@ testing different dtsdp and dtsim configurations and model mismatch
         \caption*{(f) Determinant errors of $\bm{R}_k$ and $\bm{F}_k$.}
     \end{minipage}
 
-    \caption{SPOT optimization results for the controlled $3$D pendulum performing a $90^\circ$ rotation about the $x$-axis using the MD sparsity setting.}
-    \label{fig:optimization_results_x90_md}
+
+    \caption{SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ$ rotation about the $x$-axis using the MD sparsity setting.}
+    \label{fig:optimization_results_x180_md}
 \end{figure}
 
 %\begin{figure}[h]

@@ -26,25 +26,25 @@
 \contentsline {chapter}{\numberline {4}Discrete Mechanics for Rigid Bodies on Lie Groups}{21}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Discrete Lagrangian Mechanics}{21}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Discrete Euler--Lagrange Equations}{22}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Discrete Legendre Transformation and Hamiltonian Mechanics}{27}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Properties of the Discrete Lagrangian Flow}{28}{subsection.4.1.3}%
-\contentsline {paragraph}{Symplecticity}{28}{section*.15}%
+\contentsline {subsection}{\numberline {4.1.2}Discrete Legendre Transformation and Hamiltonian Mechanics}{26}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Properties of the Discrete Lagrangian Flow}{27}{subsection.4.1.3}%
+\contentsline {paragraph}{Symplecticity}{27}{section*.15}%
 \contentsline {paragraph}{Discrete Noether's theorem}{28}{section*.16}%
-\contentsline {subsection}{\numberline {4.1.4}Forced Discrete Euler-Lagrange Equations}{29}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.4}Forced Discrete Euler-Lagrange Equations}{28}{subsection.4.1.4}%
 \contentsline {subsection}{\numberline {4.1.5}Computational Implementation}{30}{subsection.4.1.5}%
-\contentsline {paragraph}{Cayley Transformation}{31}{section*.17}%
+\contentsline {paragraph}{Cayley Transformation}{30}{section*.17}%
 \contentsline {paragraph}{Newton Iteration}{31}{section*.18}%
 \contentsline {section}{\numberline {4.2}Single Rigid Body Systems}{31}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}3D-Pendulum}{31}{subsection.4.2.1}%
-\contentsline {paragraph}{Configuration Manifold}{32}{section*.19}%
-\contentsline {paragraph}{Discrete Lagrangian}{32}{section*.20}%
+\contentsline {paragraph}{Configuration Manifold}{31}{section*.19}%
+\contentsline {paragraph}{Discrete Lagrangian}{31}{section*.20}%
 \contentsline {paragraph}{Discrete Euler-Lagrange Equations}{33}{section*.21}%
-\contentsline {paragraph}{Discrete Legendre Transformation}{35}{section*.22}%
+\contentsline {paragraph}{Discrete Legendre Transformation}{34}{section*.22}%
 \contentsline {paragraph}{Controlled 3D Pendulum}{35}{section*.23}%
 \contentsline {section}{\numberline {4.3}Multi-body Systems}{36}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Acrobot}{38}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.1}Acrobot}{37}{subsection.4.3.1}%
 \contentsline {paragraph}{Configuration Manifold}{38}{figure.caption.26}%
-\contentsline {paragraph}{Continuous Lagrangian}{40}{section*.27}%
+\contentsline {paragraph}{Continuous Lagrangian}{39}{section*.27}%
 \contentsline {paragraph}{Discrete Lagrangian}{40}{section*.28}%
 \contentsline {paragraph}{Discrete Euler-Lagrange Equations}{41}{section*.29}%
 \contentsline {paragraph}{Controlled Acrobot}{44}{section*.30}%
@@ -73,22 +73,22 @@
 \contentsline {section}{\numberline {6.2}3D-Pendulum Optimization Results}{67}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Acrobot Optimization Results}{67}{section.6.3}%
 \contentsline {subsection}{\numberline {6.3.1}Semidefinite Optimization Results}{67}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Model Predictive SDP Control Results}{67}{subsection.6.3.2}%
-\contentsline {chapter}{\numberline {7}Discussion}{69}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Conclusion}{71}{chapter.8}%
-\contentsline {chapter}{\numberline {A}Experimental Details}{73}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Acrobot Evaluation Models}{73}{section.A.1}%
-\contentsline {subsection}{\numberline {A.1.1}Reduced Maximal-Coordinates LGVI Model}{73}{subsection.A.1.1}%
-\contentsline {subsection}{\numberline {A.1.2}Discretized Newton-Euler-Lagrange Model}{74}{subsection.A.1.2}%
-\contentsline {paragraph}{Coordinates and approximation.}{74}{section*.46}%
-\contentsline {paragraph}{Discrete Newton--Euler--Lagrange dynamics.}{75}{section*.47}%
-\contentsline {paragraph}{Trajectory optimization and chain clique.}{75}{section*.48}%
-\contentsline {section}{\numberline {A.2}Model Evaluation}{75}{section.A.2}%
-\contentsline {subsection}{\numberline {A.2.1}Numerical Simulation Validation}{75}{subsection.A.2.1}%
-\contentsline {subsection}{\numberline {A.2.2}SDP Tightness and Dynamic Residuals}{75}{subsection.A.2.2}%
-\contentsline {chapter}{List of Figures}{77}{section*.49}%
-\contentsline {chapter}{List of Tables}{79}{section*.51}%
-\contentsline {chapter}{Acronyms}{81}{section*.53}%
-\contentsline {chapter}{Notation}{83}{section*.55}%
-\contentsline {chapter}{List of Symbols}{85}{section*.57}%
-\contentsline {chapter}{Bibliography}{87}{section*.59}%
+\contentsline {subsection}{\numberline {6.3.2}Model Predictive SDP Control Results}{68}{subsection.6.3.2}%
+\contentsline {chapter}{\numberline {7}Discussion}{71}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Conclusion}{73}{chapter.8}%
+\contentsline {chapter}{\numberline {A}Experimental Details}{75}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Acrobot Evaluation Models}{75}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Reduced Maximal-Coordinates LGVI Model}{75}{subsection.A.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}Discretized Newton-Euler-Lagrange Model}{76}{subsection.A.1.2}%
+\contentsline {paragraph}{Coordinates and approximation.}{76}{section*.47}%
+\contentsline {paragraph}{Discrete Newton--Euler--Lagrange dynamics.}{77}{section*.48}%
+\contentsline {paragraph}{Trajectory optimization and chain clique.}{77}{section*.49}%
+\contentsline {section}{\numberline {A.2}Model Evaluation}{77}{section.A.2}%
+\contentsline {subsection}{\numberline {A.2.1}Numerical Simulation Validation}{77}{subsection.A.2.1}%
+\contentsline {subsection}{\numberline {A.2.2}SDP Tightness and Dynamic Residuals}{77}{subsection.A.2.2}%
+\contentsline {chapter}{List of Figures}{79}{section*.50}%
+\contentsline {chapter}{List of Tables}{81}{section*.52}%
+\contentsline {chapter}{Acronyms}{83}{section*.54}%
+\contentsline {chapter}{Notation}{85}{section*.56}%
+\contentsline {chapter}{List of Symbols}{87}{section*.58}%
+\contentsline {chapter}{Bibliography}{89}{section*.60}%

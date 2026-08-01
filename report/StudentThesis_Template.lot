@@ -5,6 +5,7 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {6.1}{\ignorespaces Comparison of the considered integration methods properties.}}{55}{table.caption.34}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Statistics of the controlled 3D pendulum for desired rotations about the $x$-axis. The terminal error is defined as $e_R(T)=\lVert R_N-R_{\mathrm {des}}\rVert _F$. The manifold violation is $\max _k\varepsilon _{R,k}$ with $\varepsilon _{R,k}=\lVert R_k^\top R_k-I_3\rVert _F$. The rank metric $\delta _{\max }$ is the maximum second eigenvalue weight over all moment matrices. The trajectory quantities are evaluated using the ordered extraction, and the reported runtime is the MOSEK optimizer time.}}{67}{table.caption.45}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
