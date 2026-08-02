@@ -213,8 +213,8 @@ the definition of the partial derivatives $D_{g_k}L_d(g_k,f_k)$ and $D_{f_k}L_d(
 
 \begin{proposition}[Directional derivative representation of $D_{g_k}L_d(g_k,f_k)$]
 \label{prop:directional_derivative_discrete_g}
-Let $G$ be a matrix Lie group with Lie algebra $\mathfrak g$, and let $L_d:G\times G\rightarrow\mathbb R$ be smooth \cite{Lee2008}. 
-For any $\delta g_k=g_k\eta_k=T_eL_{g_k}(\eta_k) \in T_{g_k}G$ \eqref{eq:discrete_infinitesimal_configuration_variation}, the partial derivative $D_{g_k}L_d(g_k,f_k)\in T_{g_k}^*G$ is characterized by
+Let $G$ be a Lie group with Lie algebra $\mathfrak g$, and let $L_d:G\times G\rightarrow\mathbb R$ be smooth \cite{Lee2008}. 
+For any $\delta g_k=T_eL_{g_k}(\eta_k)=g_k\eta_k \in T_{g_k}G$ \eqref{eq:discrete_infinitesimal_configuration_variation}, the partial derivative $D_{g_k}L_d(g_k,f_k)\in T_{g_k}^*G$ is characterized by
 \begin{equation}
     \left\langle D_{g_k}L_d(g_k,f_k),\delta g_k\right\rangle
     =
@@ -227,74 +227,34 @@ For any $\delta g_k=g_k\eta_k=T_eL_{g_k}(\eta_k) \in T_{g_k}G$ \eqref{eq:discret
 \end{proposition}
 
 \begin{proof}
-The curve $\gamma(\epsilon)=g_k\exp(\epsilon\eta_k)$ satisfies $\gamma(0)=g_k$ and induces the tangent vector $\dot\gamma(0)=g_k\eta_k=\delta g_k$ by \eqref{eq:infinitesimal_variation_matrix_lie_group}. Therefore,
+By definition of the infinitesimal variation $g_k^\epsilon$ \eqref{eq:discrete_infinitesimal_configuration_variation} and the definition of 
+infinitesimal variation on matrix lie groups \eqref{eq:infinitesimal_variation_matrix_lie_group}, the correspdoning directional derivative is
 \begin{equation*}
     \left\langle D_{g_k}L_d(g_k,f_k),\delta g_k\right\rangle
     =
     \left.\frac{\mathrm d}{\mathrm d\epsilon}\right|_{\epsilon=0}
     L_d\!\left(g_k\exp(\epsilon\eta_k),f_k\right).
 \end{equation*}
-Using $\delta g_k=T_eL_{g_k}(\eta_k)$ and the definition of the dual map gives the pulled-back representation in \eqref{eq:directional_derivative_discrete_g}.
-\end{proof}
-
-\begin{proposition}[Directional derivative representation of $D_{g_k}L_d(g_k,f_k)$]
-Let $G$ be a Lie group with Lie algebra $\mathfrak g$ \cite{Hall2000LieGroups}. Let 
-$L_d:G\times G\to\mathbb R$ be smooth and $\eta_k$ an arbitrary element of $\mathfrak g$. For all $\delta g_k\in T_{g_k}G$ with $\delta g_k = T_eL_{g_k}(\eta_k)$ \eqref{eq:VARIATION},
-we regard the partial derivative $D_{g_k}L_d(g_k,f_k)\in T_{g_k}^*G$ as the covector characterized by
-\begin{equation} \label{eq:derivative_gk}
-\langle D_{g_k}L_d(g_k,f_k),\delta g_k\rangle
-=
-\langle T_{e}^{*}L_{g_k} D_{g_k}L_d(g_k,f_k),\eta_k \rangle
-=
-\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}L_d(g_k\exp{(\varepsilon \eta_k)},f_k).
-\end{equation}
-\end{proposition}
-
-\begin{proof}
-Since $G$ is a smooth manifold, the differential of the map $L_d(g_k,f_k)$ is a linear map
-$T_{g_k}G\to\mathbb R$, as $f_k$ is fixed. Therefore, the partial derivative
-$D_{g_k}L_d(g_k,f_k)$ is an element of the dual space $T_{g_k}^*G$. Moreover, for any
-$\eta_k \in \mathfrak g$, let
-\[
-\gamma(\varepsilon)=g_k\exp{(\varepsilon \eta_k)}
-\]
-be a smooth curve on the manifold. Then
-$\gamma(0)=g_k$ and
-\begin{align} \label{eq:delta_gk_TL}
-\delta g_k \;=\; \dot\gamma(0)
-&= \left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}\gamma(\varepsilon)
-= \left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0} g_k\exp(\varepsilon \eta_k) \notag\\
-&= g_k\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}\exp(\varepsilon \eta_k)
-= g_k\,\eta_k \notag\\
-&= T_eL_{g_k}(\eta_k),
-\end{align}
-with $\delta g_k$ being the infinitesimal variation of $g_k$ induced by $\eta_k$ for any
-$\varepsilon \in (-c,c)$ \cite{Lee2008}. The corresponding directional derivative is
-\[
-\langle D_{g_k}L_d(g_k,f_k),\delta g_k\rangle
-=
-\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}L_d(\gamma(\varepsilon),f_k)
-=
-\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}L_d(g_k\exp{(\varepsilon \eta_k)},f_k),
-\]
-using $\langle D_{g_k}L_d(g_k,f_k),\delta g_k \rangle = D_{g_k}L_d(g_k,f_k)(\delta g_k)$ \cite{Lee2008}.
-Additionally, the directional derivative can be expressed by the pulled-back covector
-\[
-\mu_k = T_e^* L_{g_k} D_{g_k}L_d(g_k,f_k)
-\]
-to obtain
-\begin{align*}    
-\langle D_{g_k}L_d(g_k,f_k),\delta g_k\rangle
-&= \langle D_{g_k}L_d(g_k,f_k),g_k \eta_k \rangle \\
-&= \langle D_{g_k}L_d(g_k,f_k), T_eL_{g_k}(\eta_k) \rangle \\
-&= \langle T_e ^* L_{g_k} D_{g_k}L_d(g_k,f_k), \eta_k \rangle,
+using $\left\langle D_{g_k}L_d(g_k,f_k),\delta g_k\right\rangle = D_{g_k}L_d(g_k,f_k)(\delta g_k)$.
+Additionally, the directional derivative can be expressed by the covector $T_e^*L_{g_k}$ and the definition of the differential 
+of the left translation $g_k \eta_k = T_eL_{g_k}(\eta_k)$ defined in \eqref{eq:preliminaries_differential_left_translation}, which leads to
+\begin{align*}
+    \left\langle D_{g_k}L_d(g_k,f_k),\delta g_k\right\rangle
+    &=
+    \left\langle D_{g_k}L_d(g_k,f_k),g_k \eta_k\right\rangle \\
+    &=
+    \left\langle D_{g_k}L_d(g_k,f_k),T_eL_{g_k}(\eta_k)\right\rangle \\
+    &=
+    \left\langle T_e^*L_{g_k}D_{g_k}L_d(g_k,f_k),\eta_k\right\rangle.
 \end{align*}
-using eq. \eqref{eq:delta_gk_TL}.
 \end{proof}
 
 \begin{proposition}[Directional derivative representation of $D_{f_k}L_d(g_k,f_k)$]
 \label{prop:directional_derivative_discrete_f}
-Let $G$ be a matrix Lie group with Lie algebra $\mathfrak g$, and let $L_d:G\times G\rightarrow\mathbb R$ be smooth. For any $X_k\in\mathfrak g$, define $\delta f_k=T_eL_{f_k}(X_k)=f_kX_k\in T_{f_k}G$. Then $D_{f_k}L_d(g_k,f_k)\in T_{f_k}^*G$ is characterized by
+Let $G$ be a matrix Lie group with Lie algebra $\mathfrak g$, 
+and let $L_d:G\times G\rightarrow\mathbb R$ be smooth \cite{Hall2000LieGroups}. 
+For any $\delta f_k=T_eL_{f_k}(X_k)=f_kX_k\in T_{f_k}G$ \eqref{eq:discrete_relative_group_variation}, 
+the partial derivative $D_{f_k}L_d(g_k,f_k)\in T_{f_k}^*G$ is characterized by
 \begin{align}
     \left\langle D_{f_k}L_d(g_k,f_k),\delta f_k\right\rangle
     &=
@@ -308,68 +268,25 @@ Let $G$ be a matrix Lie group with Lie algebra $\mathfrak g$, and let $L_d:G\tim
 \end{proposition}
 
 \begin{proof}
-The curve $\gamma(\epsilon)=f_k\exp(\epsilon X_k)$ satisfies $\gamma(0)=f_k$ and induces the tangent vector $\dot\gamma(0)=f_kX_k=\delta f_k$. Therefore,
+By definition of the infinitesimal variation $f_k^\epsilon$ \eqref{eq:discrete_relative_group_variation} and the definition of infinitesimal 
+variation on matrix lie groups \eqref{eq:infinitesimal_variation_matrix_lie_group}, 
+the corresponding directional derivative is
 \begin{equation*}
     \left\langle D_{f_k}L_d(g_k,f_k),\delta f_k\right\rangle
     =
     \left.\frac{\mathrm d}{\mathrm d\epsilon}\right|_{\epsilon=0}
     L_d\!\left(g_k,f_k\exp(\epsilon X_k)\right).
 \end{equation*}
-Using $\delta f_k=T_eL_{f_k}(X_k)$ and the definition of the dual map gives the pulled-back representation in \eqref{eq:directional_derivative_discrete_f}.
-\end{proof}
-
-\begin{proposition}[Directional derivative representation of $D_{f_k}L_d(g_k,f_k)$]
-Let $G$ be a Lie group with Lie algebra $\mathfrak g$ \cite{Hall2000LieGroups}. Let 
-$L_d:G\times G\to\mathbb R$ be smooth and $X_k$ an arbitrary element of $\mathfrak g$. For all $\delta f_k\in T_{f_k}G$ with $\delta f_k = T_eL_{f_k}(X_k)$ \eqref{eq:VARIATION},
-we regard the partial derivative $D_{f_k}L_d(g_k,f_k)\in T_{f_k}^*G$ as the covector characterized by
-\begin{equation} \label{eq:derivative_fk}
-\langle D_{f_k}L_d(g_k,f_k),\delta f_k\rangle
-=
-\langle T_{e}^{*}L_{f_k} D_{f_k}L_d(g_k,f_k),X_k \rangle
-=
-\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}L_d(g_k,f_k\exp{(\varepsilon X_k)}).
-\end{equation}
-\end{proposition}
-
-\begin{proof}
-Since $G$ is a smooth manifold, the differential of the map $L_d(g_k,f_k)$ is a linear map
-$T_{f_k}G\to\mathbb R$, as $g_k$ is fixed. Therefore, the partial derivative
-$D_{f_k}L_d(g_k,f_k)$ is an element of the dual space $T_{f_k}^*G$. Moreover, for any
-$X_k \in \mathfrak g$, let
-\[
-\gamma(\varepsilon)=f_k\exp{(\varepsilon X_k)}
-\]
-be a smooth curve on the manifold. Then
-$\gamma(0)=f_k$ and
-\begin{align} \label{eq:delta_fk_TL}
-\delta f_k \;=\; \dot\gamma(0)
-&= \left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}\gamma(\varepsilon)
-= \left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0} f_k\exp(\varepsilon X_k) \notag\\
-&= f_k\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}\exp(\varepsilon X_k)
-= f_k\,X_k \notag\\
-&= T_eL_{f_k}(X_k),
-\end{align}
-with $\delta f_k$ being the infinitesimal variation of $f_k$ induced by $X_k$ for any
-$\varepsilon \in (-c,c)$ \cite{Lee2008}. The corresponding directional derivative is,
-\[
-\langle D_{f_k}L_d(g_k,f_k),\delta f_k\rangle
-=
-\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}L_d(g_k,\gamma(\varepsilon))
-=
-\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}L_d(g_k,f_k\exp{(\varepsilon X_k)}),
-\]
-using $\langle D_{f_k}L_d(g_k,f_k),\delta f_k \rangle = D_{f_k}L_d(g_k,f_k)(\delta f_k)$ \cite{Lee2008}. Additionally, the directional derivative can be expressed by the pulled-back covector
-\[
-\mu_k = T_e^* L_{f_k} D_{f_k}L_d(g_k,f_k)
-\]
-to obtain
+using $\left\langle D_{f_k}L_d(g_k,f_k),\delta f_k\right\rangle = D_{f_k}L_d(g_k,f_k)(\delta f_k)$.
+Additionally, the directional derivative can be expressed by the covector $T_e^*L_{f_k}$ and the
+definition of the differential of the left translation $f_k X_k = T_eL_{f_k}(X_k)$ 
+defined in \eqref{eq:preliminaries_differential_left_translation}, which leads to 
 \begin{align*}    
 \langle D_{f_k}L_d(g_k,f_k),\delta f_k\rangle
 &= \langle D_{f_k}L_d(g_k,f_k),f_k X_k \rangle \\
 &= \langle D_{f_k}L_d(g_k,f_k), T_eL_{f_k}(X_k) \rangle \\
-&= \langle T_e ^* L_{f_k} D_{f_k}L_d(g_k,f_k), X_k \rangle,
+&= \langle T_e ^* L_{f_k} D_{f_k}L_d(g_k,f_k), X_k \rangle.
 \end{align*}
-using eq. \eqref{eq:delta_fk_TL}.
 \end{proof}
 
 \subsection{Discrete Legendre Transformation and Hamiltonian Mechanics}
