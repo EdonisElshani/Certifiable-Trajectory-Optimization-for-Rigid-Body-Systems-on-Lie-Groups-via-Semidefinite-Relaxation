@@ -1,8 +1,32 @@
 \glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
 \begin{theglossary}\glossaryheader
-\glsgroupheading{V}\relax \glsresetentrylist %
-\glossentry{vector}{\glossaryentrynumbers{\relax 
+\glsgroupheading{glsnumbers}\relax \glsresetentrylist %
+\glossentry{not:scalar}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{1}}}%
-\glossentry{matrix}{\glossaryentrynumbers{\relax 
+\glossentry{not:vector}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:matrix}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:liegroupelement}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:liegroup}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:liealgebra}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:liealgebradual}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:hatmap}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:veemap}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:dot}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:subscriptk}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:superscriptdes}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:superscripthat}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{not:frobenius}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{1}}}%
 \end{theglossary}\glossarypostamble

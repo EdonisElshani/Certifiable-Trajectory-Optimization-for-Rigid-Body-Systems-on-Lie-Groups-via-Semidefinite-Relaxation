@@ -41,7 +41,10 @@ John~Charles Butcher.
 \bibitem[CJ12]{ColomboJimenez2012SO3_Cayley}
 Leonardo Colombo and Fernando Jim{\'e}nez.
 \newblock Continuous and discrete mechanics for the attitude dynamics of a
-  rigid body on {SO}(3), 2012.
+  rigid body on {SO(3)}.
+\newblock {GMC Notes}~1, Geometry, Mechanics and Control Network, May 2012.
+\newblock Based on the course ``Discrete Geometric Mechanics'' given by
+  Taeyoung Lee.
 \newblock URL:
   \url{https://gmcnet.webs.ull.es/sites/default/files/GMCNotes1_OK.pdf}.
 
@@ -125,9 +128,9 @@ Jerrold~E. Marsden and Tudor~S. Ratiu.
   {\path{doi:10.1007/978-0-387-21792-5}}.
 
 \bibitem[MW01]{Marsden2001}
-J.~Marsden and Matthew West.
+J.~E. Marsden and M.~West.
 \newblock Discrete mechanics and variational integrators.
-\newblock {\em Acta Numerica}, 10, 10 2001.
+\newblock {\em Acta Numerica}, 10:357--514, 2001.
 \newblock \href {https://doi.org/10.1017/S096249290100006X}
   {\path{doi:10.1017/S096249290100006X}}.
 
@@ -158,11 +161,8 @@ Sangli Teng, Ashkan Jasour, Ram Vasudevan, and Maani Ghaffari.
 \newblock Convex geometric motion planning of multi-body systems on lie groups
   via variational integrators and sparse moment relaxation.
 \newblock {\em The International Journal of Robotics Research},
-  44(10-11):1784--1813, 2025.
-\newblock \href
-  {https://arxiv.org/abs/https://doi.org/10.1177/02783649241296160}
-  {\path{arXiv:https://doi.org/10.1177/02783649241296160}}, \href
-  {https://doi.org/10.1177/02783649241296160}
+  44(10-11):1784--1813, September 2025.
+\newblock \href {https://doi.org/10.1177/02783649241296160}
   {\path{doi:10.1177/02783649241296160}}.
 
 \bibitem[YTT11]{YanaiTakeuchiTakane2011SVD}

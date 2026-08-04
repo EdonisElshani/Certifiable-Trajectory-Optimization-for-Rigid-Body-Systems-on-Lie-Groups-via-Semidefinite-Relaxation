@@ -1,7 +1,7 @@
 This is makeindex, version 2.18 [MiKTeX 26.2].
 Scanning style file ./StudentThesis_Template.ist...........................done (27 attributes redefined, 0 ignored).
-Scanning input file StudentThesis_Template.sbl....done (3 entries accepted, 0 rejected).
-Sorting entries....done (4 comparisons).
-Generating output file StudentThesis_Template.sym....done (11 lines written, 0 warnings).
+Scanning input file StudentThesis_Template.sbl....done (40 entries accepted, 0 rejected).
+Sorting entries....done (211 comparisons).
+Generating output file StudentThesis_Template.sym....done (85 lines written, 0 warnings).
 Output written in StudentThesis_Template.sym.
 Transcript written in StudentThesis_Template.glg.

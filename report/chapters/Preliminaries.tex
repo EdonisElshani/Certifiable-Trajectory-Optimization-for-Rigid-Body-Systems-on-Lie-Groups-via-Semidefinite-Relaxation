@@ -1,5 +1,5 @@
 \chapter{Preliminaries on Special Embedded Matrix Lie Groups}
-\label{chap:preliminaries_lie_groups}
+\label{chapter:preliminaries_lie_groups}
 
 This chapter summarizes the Lie group notation required for the continuous and discrete rigid-body mechanics developed in chapters \ref{chapter:continous_mechanics_of_rigid_bodies_on_lie_groups} and \ref{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups}, following the definition of Lie group and algebra in \cite{Hall2000LieGroups} and the geometric-mechanics notation in \cite{Lee2008}.
 
@@ -131,7 +131,7 @@ defines the exponential map \(\exp:\mathfrak{g}\rightarrow G\) as a local diffeo
 \paragraph{Left and right translations}
 For \(g,h\in G\), the left and right translation maps are
 \begin{equation}
-    L_{h}(g)=hg,
+    \mathbb{L}_{h}(g)=hg,
     \qquad
     R_{h}(g)=gh.
     \label{eq:left_right_translation}
@@ -144,53 +144,53 @@ Thereby, \cite{Lee2008} expresses that for a differentiable curve $g(t) \in G$, 
     \label{eq:left_trivialized_velocity}
 \end{equation}
 
-\begin{proposition}[Differential of left translation on a matrix Lie group: $T_{x}L_{h}$]
+\begin{proposition}[Differential of left translation on a matrix Lie group: $T_{x}\mathbb{L}_{h}$]
 Let $G\subset GL(n,\mathbb{R})$ be a matrix Lie group.
-For $h\in G$, define $L_h:G\to G$ by $L_h(g)=hg$ \cite{Hall2000LieGroups}.
+For $h\in G$, define $\mathbb{L}_h:G\to G$ by $\mathbb{L}_h(g)=hg$ \cite{Hall2000LieGroups}.
 Then for each $x\in G$ the differential
 \[
-T_xL_h: T_xG \to T_{hx}G,
+T_x\mathbb{L}_h: T_xG \to T_{hx}G,
 \]
-of the left translation map $L_h:G\to G$ is given by
+of the left translation map $\mathbb{L}_h:G\to G$ is given by
 \begin{align}\label{eq:preliminaries_differential_left_translation}
-T_xL_h(v)=hv.
+T_x\mathbb{L}_h(v)=hv.
 \end{align}
 \end{proposition}
 \begin{proof}
 By the definition of the tangent space of an embedded submanifold given in \cite{Hall2000LieGroups}, there exists a smooth curve $\gamma: (-\epsilon,\epsilon) \to G$ with $\gamma(0)=x$ and the tangent vector $\dot{\gamma}(0)=v \in T_{x}G$.
-In \cite{Lee2012ISM}, the differential is defined as
+In \cite{Lee2008}, the differential is defined as
 \[
-T_xL_h(v)=\left.\frac{d}{dt}L_h(\gamma(t))\right|_{t=0}
+T_x\mathbb{L}_h(v)=\left.\frac{d}{dt}\mathbb{L}_h(\gamma(t))\right|_{t=0}
 =\left.\frac{d}{dt}(h\gamma(t))\right|_{t=0}=h\dot{\gamma}(0),
 \]
-with the left translation map $L_h(g)=hg$. Since $h$ is constant and $\dot{\gamma}(0)=v$, it follows that
+with the left translation map $\mathbb{L}_h(g)=hg$. Since $h$ is constant and $\dot{\gamma}(0)=v$, it follows that
 \[
-T_xL_h(v)=h\dot{\gamma}(0)=hv.
+T_x\mathbb{L}_h(v)=h\dot{\gamma}(0)=hv.
 \]
 \end{proof}
 
-It can be observed that $L_{h}(g)=hg$ and $T_xL_{h}(v)=hv$ have the same matrix expression, but acting on different objects. The left translation map $L_{h}(g)$ is multiplying group elements $g \in G$, while the differential of the left translation map is the pushforward of tangent vectors $v \in T_{x}G \subset \mathbb{R}^{n \times n}$. The differential of a left translation can be applied to the special embedded matrix Lie groups $SO(n)$ and their corresponding lie algebras $\mathfrak{so}(n)$. 
+It can be observed that $\mathbb{L}_{h}(g)=hg$ and $T_x\mathbb{L}_{h}(v)=hv$ have the same matrix expression, but acting on different objects. The left translation map $\mathbb{L}_{h}(g)$ is multiplying group elements $g \in G$, while the differential of the left translation map is the pushforward of tangent vectors $v \in T_{x}G \subset \mathbb{R}^{n \times n}$. The differential of a left translation can be applied to the special embedded matrix Lie groups $SO(n)$ and their corresponding lie algebras $\mathfrak{so}(n)$. 
 
-\paragraph{Differential of left translation $T_RL_H$ on $SO(n)$}
+\paragraph{Differential of left translation $T_R\mathbb{L}_H$ on $SO(n)$}
 
-The left translation map in $SO(n)$ is defined as $L_{H}(R) = HR$ with $H,R \in G$. Applied to eq. \eqref{eq:preliminaries_differential_left_translation} with $v \in T_{R}G$, it follows that 
+The left translation map in $SO(n)$ is defined as $\mathbb{L}_{H}(R) = HR$ with $H,R \in G$. Applied to eq. \eqref{eq:preliminaries_differential_left_translation} with $v \in T_{R}G$, it follows that
 \begin{align*}
-    T_{R}L_{H}(v)= Hv.
+    T_{R}\mathbb{L}_{H}(v)= Hv.
 \end{align*}
-The tangent vector $v \in T_RG$ can be represented by $v = T_{e}L_{R}(\omega) = R\omega$ using the left translation map of $\omega \in \mathfrak g := \mathfrak{so}(n)$ resulting in 
+The tangent vector $v \in T_RG$ can be represented by $v = T_{e}\mathbb{L}_{R}(\omega) = R\omega$ using the left translation map of $\omega \in \mathfrak g := \mathfrak{so}(n)$ resulting in
 \begin{align}\label{eq:preliminaries_differential_left_SO}
-    T_RL_H(R \omega) = H(R \omega).
+    T_R\mathbb{L}_H(R \omega) = H(R \omega).
 \end{align}
 
-%\paragraph{Differential of left translation $T_gL_h$ on $SE(n)$}
+%\paragraph{Differential of left translation $T_g\mathbb{L}_h$ on $SE(n)$}
 
-%The left translation map in $SE(n)$ is defined as $L_{h}(g) = hg$ with $h,g \in G$. Applied to eq. \eqref{eq:preliminaries_differential_left_translation} with $v \in T_{g}G$, it follows that 
+%The left translation map in $SE(n)$ is defined as $\mathbb{L}_{h}(g) = hg$ with $h,g \in G$. Applied to eq. \eqref{eq:preliminaries_differential_left_translation} with $v \in T_{g}G$, it follows that
 %\begin{align*}
-%    T_{g}L_{h}(v)= hv.
+%    T_{g}\mathbb{L}_{h}(v)= hv.
 %\end{align*}
-%The tangent vector $v \in T_gG$ can be represented by $v = T_{e}L_{g}(\xi) = g\xi$ using the left translation map of $\xi \in \mathfrak g := \mathfrak{se}(n)$ resulting in 
+%The tangent vector $v \in T_gG$ can be represented by $v = T_{e}\mathbb{L}_{g}(\xi) = g\xi$ using the left translation map of $\xi \in \mathfrak g := \mathfrak{se}(n)$ resulting in
 %\begin{align}\label{eq:preliminaries_differential_left_SE}
-%    T_gL_h(g \xi) = h(g \xi).
+%    T_g\mathbb{L}_h(g \xi) = h(g \xi).
 %\end{align}
 
 
@@ -216,7 +216,7 @@ and its derivative  $\operatorname{ad}_\xi: \mathfrak{g} \to \mathfrak{g}$ as
 \end{equation}
 using the Lie bracket $[\cdot,\cdot]$ defined in \eqref{eq:matrix_lie_bracket}.
 
-Let \(\mathfrak{g}^{*}\) be the dual space of \(\mathfrak{g}\). The notation \(\langle\bm{\mu},\bm{\xi}\rangle\) denotes the pairing of a covector \(\bm{\mu}\in\mathfrak{g}^{*}\) with a vector \(\bm{\xi}\in\mathfrak{g}\) \cite{Lee2008}. 
+Let \(\mathfrak{g}^{*}\) be the dual space of \(\mathfrak{g}\). The notation $\langle\bm{\mu},\bm{\xi}\rangle = \bm{\mu}(\bm{\xi})$ denotes the pairing of a covector \(\bm{\mu}\in\mathfrak{g}^{*}\) with a vector \(\bm{\xi}\in\mathfrak{g}\) \cite{Lee2008}. 
 Using the pairing, the coadjoint operator \(\operatorname{Ad}_{g}^{*}:\mathfrak{g}^{*}\rightarrow\mathfrak{g}^{*}\) is defined as 
 \begin{equation}
     \left\langle
@@ -289,7 +289,7 @@ infinitesimal variation is
     =
     g\eta
     =
-    T_eL_g(\eta)
+    T_e\mathbb{L}_g(\eta)
     \in T_gG.
     \label{eq:infinitesimal_variation_matrix_lie_group}
 \end{equation}

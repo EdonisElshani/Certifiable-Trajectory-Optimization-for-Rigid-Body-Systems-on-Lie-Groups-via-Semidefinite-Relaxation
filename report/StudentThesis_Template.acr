@@ -6,7 +6,21 @@
 \glsgroupheading{H}\relax \glsresetentrylist %
 \glossentry{HRC}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{1}}}\glsgroupskip
+\glsgroupheading{L}\relax \glsresetentrylist %
+\glossentry{LGVI}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}\glsgroupskip
 \glsgroupheading{M}\relax \glsresetentrylist %
 \glossentry{MPC}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}\glsgroupskip
+\glsgroupheading{O}\relax \glsresetentrylist %
+\glossentry{OCP}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}\glsgroupskip
+\glsgroupheading{R}\relax \glsresetentrylist %
+\glossentry{RK4}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}\glsgroupskip
+\glsgroupheading{S}\relax \glsresetentrylist %
+\glossentry{SDP}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{SOS}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{1}}}%
 \end{theglossary}\glossarypostamble

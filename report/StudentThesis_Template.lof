@@ -4,15 +4,17 @@
 \contentsline {figure}{\numberline {3.1}{\ignorespaces General method to derive the Euler-Lagrange equations of a mechanical system on a Lie group (Adapted from \cite {Lee2008}).}}{12}{figure.caption.7}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces General method to derive the discrete Euler--Lagrange equations of a mechanical system on a Lie group. Adapted from \cite {Lee2008}.}}{22}{figure.caption.14}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Two rigid bodies connected by a holonomic joint in maximal coordinates. Adapted from \cite {BrudigamManchester2021LQR}.}}{35}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Acrobot configuration manifold in maximal coordinates.}}{36}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Two rigid bodies connected by a holonomic joint in maximal coordinates. Adapted from \cite {BrudigamManchester2021LQR}.}}{34}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Acrobot configuration manifold in maximal coordinates.}}{35}{figure.caption.26}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {6.1}{\ignorespaces Comparison of the numerical preservation properties for the unforced $3$D pendulum.}}{56}{figure.caption.38}%
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Comparison of the forced LGVI and RK4 simulation for the controlled $3$D pendulum.}}{59}{figure.caption.40}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of the numerical preservation properties for the unforced Acrobot.}}{63}{figure.caption.42}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of the numerical preservation properties for the unforced Acrobot.}}{62}{figure.caption.42}%
 \contentsline {figure}{\numberline {6.4}{\ignorespaces Numerical simulation results for the controlled Acrobot.}}{64}{figure.caption.44}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ $ rotation about the $x$-axis using the MD sparsity setting.}}{67}{figure.caption.46}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ $ rotation about the $x$-axis using the MD sparsity setting.}}{72}{figure.caption.48}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Closed-loop SDP-MPC results for the Acrobot with $u_{\max }=5\,\mathrm {Nm}$: (a) tracking error to the target rotation, (b) applied control input, (c) $SO(2)$ orthogonality error of the link rotations and relative rotations, (d) first-step and maximum moment-relaxation rank condition over the MPC iterations, indicating the tightness of the SDP relaxation.}}{73}{figure.caption.58}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparison of the SDP-MPC basin of attraction under model mismatch between the SDP prediction model and the simulated plant, for $\Delta t_{\mathrm {SDP}}=0.1\,\mathrm {s}$ and (a) $\Delta t_{\mathrm {sim}}=0.0025\,\mathrm {s}$ versus (b) $\Delta t_{\mathrm {sim}}=0.1\,\mathrm {s}$.}}{74}{figure.caption.59}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

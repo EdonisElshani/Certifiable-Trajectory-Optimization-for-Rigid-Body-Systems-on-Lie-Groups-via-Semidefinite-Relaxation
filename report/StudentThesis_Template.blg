@@ -10,50 +10,47 @@ Reallocating 'global_strs' (item size: 1) to 4000000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: refs/mybib.bib
-Warning--entry type for "ColomboJimenez2012SO3_Cayley" isn't style-file defined
---line 88 of file refs/mybib.bib
-Warning--I didn't find a database entry for "Lee2012ISM"
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Warning--empty publisher in tedrake_underactuated
 You've used 23 entries,
             3368 wiz_defined-function locations,
-            877 strings with 10663 characters,
-and the built_in function-call counts, 12016 in all, are:
-= -- 1303
+            877 strings with 10724 characters,
+and the built_in function-call counts, 12110 in all, are:
+= -- 1319
 > -- 409
-< -- 15
+< -- 16
 + -- 125
 - -- 121
-* -- 699
-:= -- 1702
-add.period$ -- 91
+* -- 706
+:= -- 1721
+add.period$ -- 93
 call.type$ -- 23
 change.case$ -- 131
 chr.to.int$ -- 22
 cite$ -- 24
-duplicate$ -- 366
-empty$ -- 1083
+duplicate$ -- 369
+empty$ -- 1087
 format.name$ -- 152
-if$ -- 3043
+if$ -- 3064
 int.to.chr$ -- 2
 int.to.str$ -- 0
 missing$ -- 23
-newline$ -- 137
+newline$ -- 139
 num.names$ -- 69
-pop$ -- 267
+pop$ -- 261
 preamble$ -- 1
 purify$ -- 159
 quote$ -- 0
 skip$ -- 850
 stack$ -- 0
-substring$ -- 458
-swap$ -- 88
-text.length$ -- 41
+substring$ -- 479
+swap$ -- 86
+text.length$ -- 42
 text.prefix$ -- 9
 top$ -- 0
 type$ -- 160
 warning$ -- 1
-while$ -- 76
+while$ -- 77
 width$ -- 25
-write$ -- 341
-(There were 3 warnings)
+write$ -- 345
+(There was 1 warning)

@@ -1,2 +1,14 @@
-\glossaryentry{vector?\glossentry{vector}|setentrycounter[]{page}"\glsnumberformat}{1}
-\glossaryentry{vector-matrix?\glossentry{matrix}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{01?\glossentry{not:scalar}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{02?\glossentry{not:vector}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{03?\glossentry{not:matrix}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{04?\glossentry{not:liegroupelement}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{05?\glossentry{not:liegroup}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{06?\glossentry{not:liealgebra}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{07?\glossentry{not:liealgebradual}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{08?\glossentry{not:hatmap}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{09?\glossentry{not:veemap}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{10?\glossentry{not:dot}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{11?\glossentry{not:subscriptk}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{12?\glossentry{not:superscriptdes}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{13?\glossentry{not:superscripthat}|setentrycounter[]{page}"\glsnumberformat}{1}
+\glossaryentry{14?\glossentry{not:frobenius}|setentrycounter[]{page}"\glsnumberformat}{1}

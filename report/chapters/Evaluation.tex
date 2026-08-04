@@ -1,6 +1,8 @@
 \chapter{Evaluation}
+\label{chapter:evaluation}
 
 \section{Numerical Simulation Results} 
+\label{sec:numerical_simulation_results}
 
 In this section, numerical simulations are conducted to evaluate the correctness of the derived discrete integrators for mechanical models on Lie groups. In particular, the structure-preserving properties of the variational discretizations derived in Section~\ref{sec:} are examined. The analysis focuses especially on the preservation of the momentum map associated with the symmetry of the system, the evolution on the Lie-group configuration manifold, and the long-time behaviour of the total energy. This validation is important since discrete mechanical models obtained by variational integration provide a reliable basis for certifiable trajectory optimization. If the discrete flow violates the manifold structure or introduces artificial drift in conserved quantities such as momentum, the resulting optimization model becomes less faithful to the underlying mechanics \cite{Lee2008}. In contrast, variational integrators are constructed from a discrete variational principle and are symplectic, momentum preserving, and consist robust long-time energy behaviour \cite{Marsden2001}. For the evaluation, the evolution of the total energy, the momentum-map behaviour, and the preservation of the Lie-group structure of the 3D-pendulum are compared with the classical fourth-order Runge-Kutta method and a projected Runge-Kutta on \(SO(3)\) as reference integrators \cite{CELLEDONI2003421, Hairer2000} (see Table. \ref{tab:integrator_comparison}).
 
@@ -150,7 +152,7 @@ The tolerance for the Newton iteration is defined to $\left\lVert \bm{f}^{(i+1)}
 \begin{align}
 \bm{f}^0 &= (2 \bm{J} - \hat{\bm{a}})^{-1}\bm{a},&
     \bm{R}_0 &= \bm{I}, &
-    \bm{\Omega}_0 &=
+    \bm{\omega}_0 &=
     \begin{bmatrix}
         4.14 & 4.14 & 4.14
     \end{bmatrix}^{\top}\si{\radian\per\second},
@@ -198,7 +200,7 @@ $h=\SI{0.05}{\second}$. Thereby, the accuracy of the different integrator method
 \[
  E_k
     =
-    \frac{1}{2}\bm{\Omega}_k^{\top}\bm{J}\bm{\Omega}_k
+    \frac{1}{2}\bm{\omega}_k^{\top}\bm{J}\bm{\omega}_k
     -
     mg\,\bm{e}_3^{\top}\bm{R}_k\bm{\rho}_c,
 \]
@@ -242,7 +244,7 @@ along this direction.
 
 For the RK4 simulation, the continuous-time Hamilton equations \eqref{eq:continuous_3D_pendulum_hamilton} are used, 
 adding the contol input $\bm{u}(t)$, based on Lagrange-d' Alembert principle of Section \ref{sec:discrete_forced_lagrangian}.
-With the body angular momentum defined by $\bm{\Pi} = \bm{J}\bm{\Omega}$,
+With the body angular momentum defined by $\bm{\Pi} = \bm{J}\bm{\omega}$,
 the forced continuous-time equations of motion are written as
 \begin{subequations}
 \label{eq:controlled_3d_pendulum_continuous_RK4}
@@ -340,7 +342,7 @@ progresses, however, the trajectories begin to separate.
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf}
-        \caption*{(d) Angular velocity components $\bm{\Omega}_k$.}
+        \caption*{(d) Angular velocity components $\bm{\omega}_k$.}
     \end{minipage}
 
     \caption{Comparison of the forced LGVI and RK4 simulation for the controlled $3$D pendulum.}
@@ -379,14 +381,14 @@ updated additively in the surrounding vector space using the discrete update map
 to the small step size $h$, the orthogonality error remains small, but it is not preserved and increased over time, especially for a long time horizon and smaller step sizes $h$.
 
 Finally, Fig.~\ref{fig:forced_3d_pendulum_results}~(d) compares the angular
-velocity components $\bm{\Omega}_k$. In the discrete Hamiltonian formulation, the angular velocity
+velocity components $\bm{\omega}_k$. In the discrete Hamiltonian formulation, the angular velocity
 is recovered from the body angular momentum by
 \begin{align}
-    \hat{\bm{\Omega}}_k
+    \hat{\bm{\omega}}_k
     =
     (\bm{J}^{-1}\bm{\Pi}_k)^\wedge,
 \end{align}
-discretizing and solving \eqref{eq:continuous_3D_pendulum_momentum} for $\hat{\bm{\Omega}}_k$.
+discretizing and solving \eqref{eq:continuous_3D_pendulum_momentum} for $\hat{\bm{\omega}}_k$.
 The angular velocity components of LGVI and RK4 are equal at the beginning of the
 simulation, but begin to differ after a small number of steps. This confirms the
 same behaviour observed in the position error $\Delta \bm{x}_k$ and the ploted Energy $E_k$.
@@ -431,17 +433,8 @@ the rotational inertia of a uniform rod about its center of mass as
     =
     \frac{1}{12}m_i l_i^2.
 \]
-The defined non-standard inertia matrix in \ref{eq:non-standard_inertia}
-is valid for $SO(3)$. Therefore, the planar
-\(SO(2)\) rotational kinetic term of the discrete Lagrangian in
-\cite{LeeLeokMcClamroch2007DiscreteControlSystems} is rewritten, which gives the relation of a planar non-standard
-inertia to the standard inertia as
-\begin{align}\label{eq:2D_nonstandard_inertia}
-    \bm{J}_{d,i}
-    =
-    \frac{1}{2}J_i^{\mathrm{com}} \bm{I}_2.
-\end{align}
-Therefore, the discrete-time inertia matrices of both links are
+By substituting the defined values of $m_i$ and $l_i$ into \eqref{eq:2D_nonstandard_inertia},
+the non-standard inertia matrix of each link is given as
 \[
     \bm{J}_{d,1}
     =
@@ -453,7 +446,6 @@ Therefore, the discrete-time inertia matrices of both links are
     \end{bmatrix}
     \mathrm{kg\,m^2},
 \]
-substituting the defined values of $m_i$ and $l_i$ into \eqref{eq:2D_nonstandard_inertia}.
 The base point is fixed at
 \[
     \bm{p}_0 =
@@ -670,6 +662,54 @@ Minimal Cordal Extension MD
 
 Suboptimalits NLP warm start code Sangli
 
+
+\subsubsection{3D-Pendulum Test Configuration and Results}
+\label{subsubsec:3d_pendulum_sdp_summary}
+
+The 3D-pendulum trajectory-optimization problems are solved using the
+SPOT-based second-order moment relaxation with
+\[
+    \kappa=2,
+    \qquad
+    \Delta t_{\mathrm{SDP}}=0.1\,\mathrm{s},
+    \qquad
+    N=20.
+\]
+The resulting prediction duration is
+\[
+    T=N\Delta t_{\mathrm{SDP}}=2.0\,\mathrm{s}.
+\]
+The desired terminal attitudes correspond to rotations of
+$0^\circ$, $45^\circ$, $90^\circ$, $135^\circ$, and $180^\circ$
+about the $x$-axis. The sparse relaxation uses the minimal chordal
+extension denoted by MD. The ordered SDP extraction is used to initialize
+a local NLP refinement, whose feasible objective value provides the
+upper bound in~\eqref{eq:teng_suboptimality_gap}.
+
+The relative suboptimality gaps range from
+$5.55\times10^{-10}$ to $1.83\times10^{-6}$ for the five target
+rotations. Thus, the SDP lower bounds and the feasible NLP upper bounds
+are nearly identical for all tested cases. In addition, the maximum
+$\mathrm{SO}(3)$ violations remain below
+$4.60\times10^{-8}$, showing that the ordered extractions preserve the
+rotation-matrix constraints to high numerical accuracy.
+
+The terminal rotation error is not monotonic with respect to the target
+angle. The smallest terminal errors are obtained for the $0^\circ$ and
+$180^\circ$ cases, whereas the intermediate target rotations show larger
+terminal deviations. Nevertheless, the small objective gaps indicate that
+the corresponding NLP and SDP solutions achieve almost equal values of
+the chosen finite-horizon objective.
+
+The numerical rank condition is evaluated using
+\eqref{eq:teng_rank_condition_block} and
+\eqref{eq:teng_rank_condition_max}. The final values of
+$\delta_{\max}$ are computed from the two largest eigenvalues of every
+sparse moment matrix. This distinction is important because a small
+suboptimality gap does not automatically imply that all moment matrices
+are numerically rank one.
+
+
 \begin{table}[htbp]
     \centering
     \caption{Statistics of the controlled 3D pendulum for desired rotations
@@ -736,84 +776,104 @@ Suboptimalits NLP warm start code Sangli
     }
 \end{table}
 
-%\begin{table}[htbp]
-%    \centering
-%    \caption{Statistics of the controlled 3D pendulum for desired rotations
-%    about the $x$-axis. The terminal error is defined as
-%    $e_R(T)=\lVert R_N-R_{\mathrm{des}}\rVert_F$. The manifold violation is
-%    $\max_k\varepsilon_{R,k}$ with
-%    $\varepsilon_{R,k}=\lVert R_k^\top R_k-I_3\rVert_F$.
-%    The rank metric $\delta_{\max}$ is the maximum second eigenvalue weight
-%    over all moment matrices. The trajectory quantities are evaluated using
-%    the ordered extraction, and the reported runtime is the MOSEK optimizer
-%    time.}
-%    \label{tab:pendulum_3d_sdp_statistics}
-%
-%    \setlength{\tabcolsep}{3.4pt}
-%   \renewcommand{\arraystretch}{1.15}
-%
-%    \resizebox{\textwidth}{!}{
-%    \begin{tabular}{@{}l*{10}{c}@{}}
-%        \toprule
-%        $R_{x,\mathrm{des}}$
-%        & \multicolumn{2}{c}{$0^\circ$}
-%        & \multicolumn{2}{c}{$45^\circ$}
-%        & \multicolumn{2}{c}{$90^\circ$}
-%        & \multicolumn{2}{c}{$135^\circ$}
-%        & \multicolumn{2}{c}{$180^\circ$} \\
-%
-%        \cmidrule(lr){2-3}
-%        \cmidrule(lr){4-5}
-%        \cmidrule(lr){6-7}
-%        \cmidrule(lr){8-9}
-%        \cmidrule(lr){10-11}
-%
-%        Sparsity
-%        & MD & SELF
-%        & MD & SELF
-%        & MD & SELF
-%        & MD & SELF
-%        & MD & SELF \\
-%        \midrule
-%
-%        Terminal error $e_R(T)$
-%        & $9.594\!\times\!10^{-4}$ & $9.589\!\times\!10^{-4}$
-%        & $0.3382$ & $0.1575$
-%        & $0.4789$ & $0.2388$
-%        & $0.2616$ & $0.2616$
-%        & $0.003545$ & $6.153\!\times\!10^{-4}$ \\
-%
-%        Manifold violation $\max_k\varepsilon_{R,k}$
-%        & $1.89\!\times\!10^{-9}$ & $1.49\!\times\!10^{-9}$
-%        & $4.60\!\times\!10^{-8}$ & $0.143$
-%        & $1.13\!\times\!10^{-11}$ & $0.313$
-%        & $2.55\!\times\!10^{-9}$ & $2.41\!\times\!10^{-8}$
-%        & $4.46\!\times\!10^{-8}$ & $0.729$ \\
-%
-%        Suboptimality gap $\epsilon$
-%        & $1.83\!\times\!10^{-6}$ & $3.62\!\times\!10^{-7}$
-%        & $8.80\!\times\!10^{-8}$ & $0.175$
-%        & $5.55\!\times\!10^{-10}$ & $0.090$
-%        & $2.39\!\times\!10^{-9}$ & $1.67\!\times\!10^{-9}$
-%        & $2.76\!\times\!10^{-9}$ & $0.012$ \\
-%
-%        Rank condition $\delta_{\max}$
-%        & $3.00\!\times\!10^{-9}$ & $4.18\!\times\!10^{-9}$
-%        & $7.52\!\times\!10^{-8}$ & $0.2285$
-%        & $0.1414$ & $0.2269$
-%        & $0.1852$ & $0.2655$
-%        & $0.2156$ & $0.3633$ \\
-%
-%        Runtime (s)
-%        & $2266.75$ & $8.72$
-%        & $2577.55$ & $16.89$
-%        & $2905.99$ & $19.05$
-%        & $3476.31$ & $14.08$
-%        & $4243.66$ & $22.91$ \\
-%        \bottomrule
-%    \end{tabular}%
-%    }
-%	\end{table}
+\paragraph{Comparison with the results of Teng et al.}
+Teng et al.~\cite{Sangli2025} evaluate the same relative
+suboptimality metric on a 3D drone-landing problem. Their free-space
+experiments use a planning duration of $5\,\mathrm{s}$ with either
+$N=40$ and $\Delta t=0.125\,\mathrm{s}$ or, for the more expensive
+correlative-sparsity formulation, $N=30$ and
+$\Delta t=0.1667\,\mathrm{s}$. They consider initial pitch angles of
+$0^\circ$, $60^\circ$, $90^\circ$, $120^\circ$, and $180^\circ$.
+
+For the initial TS+MD relaxation, Teng et al.\ report free-space
+suboptimality gaps between $0.0101$ and $0.4102$. By moving to tighter
+TS+block or CS sparsity settings, the reported gaps are reduced to at
+most $10^{-4}$ for the $0^\circ$, $60^\circ$, $90^\circ$, and
+$120^\circ$ cases. For the difficult $180^\circ$ case, the tightest
+reported CS result still has a gap of
+\[
+    \epsilon_{\mathrm{Teng},180^\circ}=0.0136.
+\]
+Teng et al.\ use $\epsilon\leq10^{-3}$ as an empirical indicator of a
+tight relaxation.
+
+For the present 3D-pendulum experiments, all five SPOT-based results
+satisfy
+\[
+    \epsilon_{\mathrm{3D\,pendulum}}
+    \leq
+    1.83\times10^{-6},
+\]
+which is substantially below the empirical threshold
+$\epsilon\leq10^{-3}$ used by Teng et al. In particular, the
+$180^\circ$ 3D-pendulum case gives
+\[
+    \epsilon_{\mathrm{3D\,pendulum},180^\circ}
+    =
+    2.76\times10^{-9},
+\]
+compared with $0.0136$ for the $180^\circ$ free-space drone-landing
+case.
+
+At the level of the reported objective gaps, the SPOT-based 3D-pendulum
+formulation therefore produces very tight lower and upper objective
+bounds and compares favorably with the drone-landing benchmark of
+Teng et al. However, this comparison should not be interpreted as a
+direct demonstration that the present method generally outperforms their
+formulation. The 3D pendulum is a single rigid body with only rotational
+motion, whereas the drone problem additionally contains translation,
+thrust inputs, and a longer prediction horizon. Furthermore, values
+reported by Teng et al.\ as ``$\leq10^{-4}$'' do not reveal their exact
+magnitude. The comparison therefore primarily shows that the
+3D-pendulum SPOT implementation reaches the level of tightness expected
+from successful moment-relaxation examples in the literature.
+
+\begin{figure}[t]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf}
+        \caption*{(a) Center-of-mass trajectory.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf}
+        \caption*{(b) Control inputs $\bm{u}_{p,k}$.}
+    \end{minipage}
+
+    \vspace{0.5em}
+
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf}
+        \caption*{(c) Frobenius tracking error $\|\bm{R}_k-\bm{R}_{\mathrm{des}}\|_F$.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_F_speed.pdf}
+        \caption*{(d) Relative rotation speed $\theta(\bm{F}_k)/h$.}
+    \end{minipage}
+
+    \vspace{0.5em}
+
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf}
+        \caption*{(e) Orthogonality errors of $\bm{R}_k$ and $\bm{F}_k$.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_determinant.pdf}
+        \caption*{(f) Determinant errors of $\bm{R}_k$ and $\bm{F}_k$.}
+    \end{minipage}
+
+
+    \caption{SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ$ rotation about the $x$-axis using the MD sparsity setting.}
+    \label{fig:optimization_results_x180_md}
+\end{figure}
 
 Adjust PLOTS. 180 MD. Y and X axis label like $e_{orth} [Einheit]$ like in numerical simulation!!!!!!!!!!!
 
@@ -824,13 +884,400 @@ Reduced Models...
 \subsection{Semidefinite Optimization Results}
 \label{subsec:acrobot_optimization_results}
 
-Rechne trotzdem als sicherheit suboptimality gap
+
+
 
 
 Since the NLP does not provide a feasible trajectory that reaches the desired upright configuration within the prediction horizon, no meaningful suboptimality gap is reported; instead, the MPC evaluation focuses on the first-step rank metric delta
 first, since only the first control input is applied before replanning.
 
-Tabelle 0 45 90 180 Degree SELF cliques
+\begin{table}[htbp]
+    \centering
+    \caption{Statistics of the Acrobot trajectory optimization using the
+    \textbf{Full SELF} sparsity setting (complete stage-wise cliques $I_k$)
+    for desired absolute rotations of both links. The terminal rotation
+    error is defined as
+    $e_R(T)
+    =
+    \left(
+    \sum_{i=1}^{2}
+    \left\|R_{i,N}-R_{i,\mathrm{des}}\right\|_F^2
+    \right)^{1/2}$.
+    The maximum manifold violation is
+    $\varepsilon_{\mathrm{SO(2)}}^{\max}
+    =
+    \max_{i,k,X\in\{R,F\}}
+    \|X_{i,k}^{\top}X_{i,k}-I_2\|_F$.
+    For each moment block $j$, $\delta_j$ denotes its normalized second
+    eigenvalue weight. Thus,
+    $\delta_{\max}=\max_j\delta_j$, while
+    $\delta_{\mathrm{first}}$ is evaluated for the first moment block.
+    All trajectory metrics use the ordered extraction, and the runtime is
+    the solver operation time.}
+    \label{tab:acrobot_sdp_statistics_full}
+
+    \setlength{\tabcolsep}{6pt}
+    \renewcommand{\arraystretch}{1.15}
+
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lccccc@{}}
+        \toprule
+        $R_{1,\mathrm{des}}=R_{2,\mathrm{des}}$
+        & $0^\circ$
+        & $45^\circ$
+        & $90^\circ$
+        & $135^\circ$
+        & $180^\circ$ \\
+        \midrule
+
+        Terminal error $e_R(T)$
+        & $0.0810$
+        & $1.3181$
+        & $1.5441$
+        & $0.8872$
+        & $9.0020\!\times\!10^{-4}$ \\
+
+        Manifold violation $\varepsilon_{\mathrm{SO(2)}}^{\max}$
+        & $2.2275\!\times\!10^{-8}$
+        & $1.8956\!\times\!10^{-8}$
+        & $1.0368$
+        & $1.3688$
+        & $1.4053$ \\
+
+        Rank condition $\delta_{\max}$
+        & $1.3537\!\times\!10^{-8}$
+        & $1.1164\!\times\!10^{-8}$
+        & $0.3542$
+        & $0.4696$
+        & $0.5596$ \\
+
+        Rank condition $\delta_{\mathrm{first}}$
+        & $3.0866\!\times\!10^{-9}$
+        & $2.7891\!\times\!10^{-10}$
+        & $0.003747$
+        & $0.1020$
+        & $0.2066$ \\
+
+        Runtime (s)
+        & $2675.54$
+        & $3581.13$
+        & $6806.96$
+        & $5913.05$
+        & $5421.42$ \\
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Statistics of the Acrobot trajectory optimization using the
+    \textbf{Hybrid SELF} sparsity setting, which preserves the first two
+    full cliques and separates the later dynamics and kinematic
+    constraints, for desired absolute rotations of both links. All metrics
+    ($e_R(T)$, $\varepsilon_{\mathrm{SO(2)}}^{\max}$, $\delta_{\max}$,
+    $\delta_{\mathrm{first}}$, and runtime) are defined as in
+    Table~\ref{tab:acrobot_sdp_statistics_full}.}
+    \label{tab:acrobot_sdp_statistics_hybrid}
+
+    \setlength{\tabcolsep}{6pt}
+    \renewcommand{\arraystretch}{1.15}
+
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lccccc@{}}
+        \toprule
+        $R_{1,\mathrm{des}}=R_{2,\mathrm{des}}$
+        & $0^\circ$
+        & $45^\circ$
+        & $90^\circ$
+        & $135^\circ$
+        & $180^\circ$ \\
+        \midrule
+
+        Terminal error $e_R(T)$
+        & $0.0810$
+        & $1.3182$
+        & $1.5573$
+        & $0.8872$
+        & $4.2806\!\times\!10^{-4}$ \\
+
+        Manifold violation $\varepsilon_{\mathrm{SO(2)}}^{\max}$
+        & $2.9854\!\times\!10^{-12}$
+        & $3.4449\!\times\!10^{-6}$
+        & $1.0225$
+        & $1.4103$
+        & $1.3931$ \\
+
+        Rank condition $\delta_{\max}$
+        & $2.1039\!\times\!10^{-12}$
+        & $2.3616\!\times\!10^{-6}$
+        & $0.4216$
+        & $0.4046$
+        & $0.6603$ \\
+
+        Rank condition $\delta_{\mathrm{first}}$
+        & $2.6407\!\times\!10^{-13}$
+        & $2.3976\!\times\!10^{-8}$
+        & $0.001044$
+        & $0.09729$
+        & $0.2172$ \\
+
+        Runtime (s)
+        & $904.83$
+        & $1058.08$
+        & $1356.14$
+        & $1524.25$
+        & $1869.36$ \\
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+\subsubsection{Acrobot Test Configuration and Results}
+\label{subsubsec:acrobot_sdp_summary}
+
+The Acrobot experiments use the reduced maximal-coordinate model and a
+second-order moment relaxation with
+\[
+    \kappa=2,
+    \qquad
+    \Delta t_{\mathrm{SDP}}=0.1\,\mathrm{s},
+    \qquad
+    N=60.
+\]
+The complete open-loop prediction duration is therefore
+\[
+    T=N\Delta t_{\mathrm{SDP}}=6.0\,\mathrm{s}.
+\]
+Both links are assigned the same desired absolute terminal rotation,
+with target angles of $0^\circ$, $45^\circ$, $90^\circ$, $135^\circ$,
+and $180^\circ$. The reported values correspond to the first MPC
+optimization before any control input is propagated through the simulated
+system.
+
+Two clique formulations are compared. The Full SELF formulation uses the
+complete stage-wise cliques $I_k$. The Hybrid SELF formulation preserves
+the first two complete cliques and subsequently separates the coupled
+dynamics constraints from the kinematic constraints. This separation
+reduces the sizes of the later moment blocks while retaining the larger
+cliques around the first applied control decision.
+
+For the Acrobot, no relative suboptimality gap is reported. The local NLP
+does not provide a reliable feasible trajectory that reaches both desired
+upright link attitudes within the tested horizon. Its result is strongly
+dependent on the initialization and therefore does not provide a useful
+target-reaching upper bound for assessing the SDP relaxation. The
+evaluation instead focuses on the numerical rank conditions
+$\delta_{\max}$ and $\delta_{\mathrm{first}}$, the manifold violation, the
+terminal matrix error, and the computational runtime.
+
+For the $0^\circ$ and $45^\circ$ targets, both clique formulations produce
+small rank metrics and negligible manifold violations, which indicates
+that these cases are tightly relaxed. For target rotations of
+$90^\circ$ and above, the complete-horizon relaxation becomes
+substantially less tight. The maximum $\mathrm{SO}(2)$ violations of the
+raw ordered extraction increase to values of approximately
+$1.0$--$1.4$, demonstrating that the extracted matrices no longer
+represent physically valid rotations over the complete horizon.
+
+The $180^\circ$ cases illustrate why terminal error and manifold
+violation must be considered together. Although the extracted terminal
+matrices are numerically close to the desired rotations, the maximum
+manifold violations are approximately $1.4$. The small terminal matrix
+error therefore does not imply that a valid Acrobot swing-up trajectory
+has been recovered.
+
+The first moment block remains considerably tighter than the worst block
+over the complete horizon, particularly for the $90^\circ$ target. This
+is important for the intended MPC application because only the first
+control input is applied before the optimization is repeated. The
+full-horizon loss of tightness therefore does not necessarily prevent the
+receding-horizon controller from producing a useful first control action.
+
+Hybrid SELF achieves solution-quality metrics that are comparable to
+Full SELF while substantially reducing computation time. Depending on
+the desired rotation, Hybrid SELF is approximately $2.9$ to $5.0$ times
+faster than Full SELF. This indicates that separating the later dynamics
+and kinematic cliques can improve computational efficiency without a
+corresponding large deterioration of the first-step extraction quality.
+
+\paragraph{Relation to the drone-landing benchmark.}
+A direct comparison between the Acrobot results and the drone-landing
+suboptimality gaps of Teng et al.\ is not appropriate. The Acrobot is an
+underactuated two-body system with holonomic coupling constraints,
+constraint multipliers, and a prediction horizon of $N=60$. In addition,
+a reliable target-reaching NLP upper bound is not available for the
+Acrobot cases. Consequently, the relative objective gap
+\eqref{eq:teng_suboptimality_gap} cannot be evaluated with the same
+interpretation as in the drone-landing benchmark.
+
+The main purpose of the Acrobot study is instead to evaluate whether the
+sparse SDP can provide sufficiently tight first-step decisions for use in
+a receding-horizon controller. The relevant quantities are therefore the
+first-step rank condition, the first-step and full-horizon extraction
+quality, the closed-loop stabilization performance, and the computational
+cost of the clique formulations. The Acrobot results should thus be
+presented as an MPC-oriented extension to a more difficult underactuated
+multi-body system rather than as a direct numerical competition with the
+open-loop drone-landing problem.
+
+
+\subsection{Evaluation Metrics and Test Configuration}
+\label{subsec:sdp_evaluation_metrics}
+
+The quality of the semidefinite relaxations is evaluated using the
+relative suboptimality gap and the numerical rank condition proposed by
+Teng et al.~\cite{Sangli2025}. These metrics are complemented by
+the terminal rotation error, the maximum manifold violation of the
+ordered SDP extraction, and the solver runtime.
+
+\paragraph{Relative suboptimality gap.}
+Let $\rho_{\mathrm{SDP}}$ denote the lower bound obtained from the SDP
+relaxation and let $\rho_{\mathrm{NLP}}$ denote the objective value of a
+feasible trajectory obtained by nonlinear programming. Since the SDP
+provides a lower bound and the feasible NLP trajectory provides an upper
+bound, the relative suboptimality gap is defined as
+\begin{equation}
+    \epsilon
+    =
+    \frac{
+        \left|\rho_{\mathrm{NLP}}-\rho_{\mathrm{SDP}}\right|
+    }{
+        \left|\rho_{\mathrm{NLP}}\right|+10^{-6}
+    }.
+    \label{eq:teng_suboptimality_gap}
+\end{equation}
+The small constant in the denominator prevents division by zero. A small
+value of $\epsilon$ indicates that the available lower and upper bounds
+on the optimal objective value are close. However, this metric is only
+meaningful if the NLP provides a feasible solution to the same
+finite-horizon optimization problem.
+
+\paragraph{Rank condition.}
+For each sparse moment matrix $M_j$, let its eigenvalues be ordered by
+decreasing magnitude,
+\[
+    |\lambda_{j,1}|
+    \geq
+    |\lambda_{j,2}|
+    \geq \cdots .
+\]
+Following Teng et al.~\cite{Sangli2025}, the numerical rank condition
+of the $j$-th moment matrix is evaluated as
+\begin{equation}
+    \delta_j
+    =
+    \frac{
+        |\lambda_{j,2}|
+    }{
+        |\lambda_{j,1}|
+    },
+    \qquad
+    0\leq \delta_j\leq 1 .
+    \label{eq:teng_rank_condition_block}
+\end{equation}
+The maximum rank metric over the complete sparse relaxation is
+\begin{equation}
+    \delta_{\max}
+    =
+    \max_j \delta_j .
+    \label{eq:teng_rank_condition_max}
+\end{equation}
+For an exactly rank-one moment matrix, all eigenvalues except the largest
+one vanish and therefore $\delta_j=0$. Consequently, values close to zero
+indicate an approximately rank-one moment matrix, whereas larger values
+indicate that the corresponding relaxation block is not tight.
+
+For the Acrobot, the first moment block is additionally evaluated as
+\begin{equation}
+    \delta_{\mathrm{first}}
+    =
+    \delta_0
+    =
+    \frac{
+        |\lambda_{0,2}|
+    }{
+        |\lambda_{0,1}|
+    }.
+    \label{eq:teng_rank_condition_first}
+\end{equation}
+This quantity is particularly relevant for the MPC application because
+only the first control input is applied before the finite-horizon problem
+is solved again. A small value of $\delta_{\mathrm{first}}$ therefore
+indicates that the decision immediately used by the controller is
+extracted from an approximately rank-one moment block, even if the
+relaxation becomes less tight toward the end of the prediction horizon.
+
+It should be noted that $\epsilon$ and $\delta_{\max}$ measure different
+properties. The suboptimality gap compares objective bounds, whereas the
+rank condition evaluates whether the moment solution admits a unique
+rank-one extraction. Therefore, a small objective gap does not by itself
+guarantee that every sparse moment matrix is numerically rank one.
+
+\paragraph{Terminal rotation error.}
+For the 3D pendulum, the terminal rotation error is defined by
+\begin{equation}
+    e_R(T)
+    =
+    \left\|
+        R_N-R_{\mathrm{des}}
+    \right\|_F .
+    \label{eq:terminal_error_3d_pendulum}
+\end{equation}
+For the Acrobot, the terminal errors of both links are combined as
+\begin{equation}
+    e_R(T)
+    =
+    \left(
+        \sum_{i=1}^{2}
+        \left\|
+            R_{i,N}-R_{i,\mathrm{des}}
+        \right\|_F^2
+    \right)^{1/2}.
+    \label{eq:terminal_error_acrobot}
+\end{equation}
+These errors are computed directly from the ordered SDP extraction.
+A small terminal matrix error should only be interpreted as a physically
+meaningful terminal state when the corresponding extracted matrices also
+satisfy the rotation-manifold constraints.
+
+\paragraph{Manifold violation.}
+For the 3D pendulum, the maximum violation of the $\mathrm{SO}(3)$
+constraint along the extracted rotation trajectory is
+\begin{equation}
+    \varepsilon_{\mathrm{SO}(3)}^{\max}
+    =
+    \max_{0\leq k\leq N}
+    \left\|
+        R_k^\top R_k-I_3
+    \right\|_F .
+    \label{eq:so3_manifold_violation}
+\end{equation}
+Only the extracted configuration matrices $R_k$ are considered in this
+metric.
+
+For the Acrobot, the maximum $\mathrm{SO}(2)$ violation is evaluated over
+the configuration rotations and relative step rotations of both links:
+\begin{equation}
+    \varepsilon_{\mathrm{SO}(2)}^{\max}
+    =
+    \max_{\substack{
+        i\in\{1,2\},\,0\leq k\leq N\\
+        X\in\{R,F\}
+    }}
+    \left\|
+        X_{i,k}^{\top}X_{i,k}-I_2
+    \right\|_F .
+    \label{eq:so2_manifold_violation}
+\end{equation}
+The manifold errors are evaluated before any projection or normalization
+of the extracted matrices. They therefore directly quantify whether the
+raw SDP extraction lies on the required rotation manifold.
+
+\paragraph{Runtime.}
+The reported runtime corresponds to the MOSEK optimizer time required to
+solve the SDP. Model construction, file output, and subsequent NLP
+refinement are not included.
 
 \subsection{Model Predictive SDP Control Results}
 
@@ -843,53 +1290,56 @@ Tightness during MPC: plot delta
 first over MPC iterations, optionally together with
 max
 
+\begin{figure}[t]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/u5_target_rotation_error_norm.png}
+        \caption*{(a) Target rotation error norm.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/u5_control_inputs.png}
+        \caption*{(b) Applied MPC control input $u_1$.}
+    \end{minipage}
+
+    \vspace{0.5em}
+
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/u5_SO2_errors_R_F.png}
+        \caption*{(c) $SO(2)$ orthogonality errors of $\bm{R}_1,\bm{R}_2,\bm{F}_1,\bm{F}_2$.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/rank_condition_u5.pdf}
+        \caption*{(d) Moment-relaxation rank condition $\delta_{\mathrm{first}}$ and $\delta_{\max}$.}
+    \end{minipage}
+
+    \caption{Closed-loop SDP-MPC results for the Acrobot with $u_{\max}=5\,\mathrm{Nm}$: (a) tracking error to the target rotation, (b) applied control input, (c) $SO(2)$ orthogonality error of the link rotations and relative rotations, (d) first-step and maximum moment-relaxation rank condition over the MPC iterations, indicating the tightness of the SDP relaxation.}
+    \label{fig:acrobot_mpc_u5_closed_loop}
+\end{figure}
 
 \begin{figure}[t]
     \centering
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf}
-        \caption*{(a) Center-of-mass trajectory.}
+        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/basin_of_attraction_00025.pdf}
+        \caption*{(a) $\Delta t_{\mathrm{sim}}=0.0025\,\mathrm{s}$.}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_90_deg_Pendulum_control_input.pdf}
-        \caption*{(b) Control inputs $\bm{u}_{p,k}$.}
+        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/basin_of_attraction_01.pdf}
+        \caption*{(b) $\Delta t_{\mathrm{sim}}=0.1\,\mathrm{s}$.}
     \end{minipage}
 
-    \vspace{0.5em}
-
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_90_deg_Pendulum_frobenius.pdf}
-        \caption*{(c) Frobenius tracking error $\|\bm{R}_k-\bm{R}_{\mathrm{des}}\|_F$.}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_90_deg_Pendulum_F_speed.pdf}
-        \caption*{(d) Relative rotation speed $\theta(\bm{F}_k)/h$.}
-    \end{minipage}
-
-    \vspace{0.5em}
-
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_90_deg_Pendulum_orthogonality.pdf}
-        \caption*{(e) Orthogonality errors of $\bm{R}_k$ and $\bm{F}_k$.}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_90_deg_Pendulum_determinant.pdf}
-        \caption*{(f) Determinant errors of $\bm{R}_k$ and $\bm{F}_k$.}
-    \end{minipage}
-
-
-    \caption{SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ$ rotation about the $x$-axis using the MD sparsity setting.}
-    \label{fig:optimization_results_x180_md}
+    \caption{Comparison of the SDP-MPC basin of attraction under model mismatch between the SDP prediction model and the simulated plant, for $\Delta t_{\mathrm{SDP}}=0.1\,\mathrm{s}$ and (a) $\Delta t_{\mathrm{sim}}=0.0025\,\mathrm{s}$ versus (b) $\Delta t_{\mathrm{sim}}=0.1\,\mathrm{s}$.}
+    \label{fig:acrobot_basin_comparison}
 \end{figure}
+
 
 %\begin{figure}[h]
 %	\centering

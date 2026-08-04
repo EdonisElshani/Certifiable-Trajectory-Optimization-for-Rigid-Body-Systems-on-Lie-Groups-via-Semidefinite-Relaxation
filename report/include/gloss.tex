@@ -1,8 +1,8 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTE: Using this is optional.
-% 	Nonetheless, feel free to include this file and adjust the 
+% 	Nonetheless, feel free to include this file and adjust the
 % 	examples below as needed.
-%   
+%
 %
 % Further reading:
 %	https://ctan.org/pkg/glossaries?lang=en
@@ -21,7 +21,7 @@
 \newglossary{notation}{not}{nt}{\Notation}
 \newglossary{symbols}{sym}{sbl}{\Symbols}
 
-\glssetwidest{THISWIDE} % adjust width of glossary
+\glssetwidest{$\bm{\lambda}_{0,k},\bm{\lambda}_{12,k}$} % adjust width of glossary
 
 \makeglossaries
 
@@ -31,42 +31,353 @@
 \newacronym{MPC}{MPC}{model-predictive control}
 \newacronym{BIBO}{BIBO}{bounded-input bounded-output}
 \newacronym{HRC}{HRC}{human-robot collaboration}
+\newacronym{LGVI}{LGVI}{Lie group variational integrator}
+\newacronym{RK4}{RK4}{fourth-order Runge-Kutta method}
+\newacronym{SDP}{SDP}{semidefinite program(ming)}
+\newacronym{SOS}{SOS}{sum-of-squares}
+\newacronym{OCP}{OCP}{optimal control problem}
 
-%============%
-% SYMBOLS	%
-%===========%
-\newglossaryentry{control}{type=symbols,
-	sort={control},
-	name={\ensuremath{\vec{u}}},
-	description={control input vector}
-}
-\newglossaryentry{uk}{type=symbols,
-	sort={control},
-	name={\ensuremath{\vec{u}_k}},
-	description={control input vector with time step}
-}
+%============================%
+% NOTATION (general rules)	  %
+%============================%
+% General typesetting conventions used throughout the thesis. These describe
+% *how* a symbol is dressed (font, accent, index), not what a specific
+% symbol means -- see the List of Symbols for concrete quantities.
 
-\newglossaryentry{xk}{type=symbols,
-	sort={state},
-	name={\ensuremath{\vec{x}_k}},
-	description={state vector with time step}
+\newglossaryentry{not:scalar}{type=notation,
+	sort={01},
+	name={\ensuremath{x}},
+	description={italic, non-bold lowercase letter: a real scalar}
 }
 
-%============%
-% NOTATION	%
-%===========%
-\newglossaryentry{vector}{type=notation,
-	sort={vector},
-	name={\ensuremath{\vec{x}_n}},
-	description={$n$-dimensional vector named $x$}
-}	
+\newglossaryentry{not:vector}{type=notation,
+	sort={02},
+	name={\ensuremath{\bm{x}}},
+	description={bold lowercase letter: a vector, \(\bm{x}\in\mathbb{R}^n\)}
+}
 
-\newglossaryentry{matrix}{type=notation,
-	sort={vector-matrix},
-	name={\ensuremath{\Mat{x}_{m\times n}}},
+\newglossaryentry{not:matrix}{type=notation,
+	sort={03},
+	name={\ensuremath{\bm{X}}},
 	plural={matrices},
-	user1={Mat},
-	description={\ensuremath{m\times n} dimensional matrix  named \ensuremath{X}}
+	description={bold uppercase letter: a matrix, \(\bm{X}\in\mathbb{R}^{m\times n}\)}
+}
+
+\newglossaryentry{not:liegroupelement}{type=notation,
+	sort={04},
+	name={\ensuremath{g,f,h}},
+	description={italic, non-bold lowercase letter: an element of an abstract matrix Lie group}
+}
+
+\newglossaryentry{not:liegroup}{type=notation,
+	sort={05},
+	name={\ensuremath{G,H}},
+	description={italic, non-bold uppercase letter: an abstract matrix Lie group, \(G\subset\mathrm{GL}(N,\mathbb{R})\)}
+}
+
+\newglossaryentry{not:liealgebra}{type=notation,
+	sort={06},
+	name={\ensuremath{\mathfrak{g}}},
+	description={Fraktur lowercase letter: the Lie algebra of \(G\), \(\mathfrak{g}=T_eG\)}
+}
+
+\newglossaryentry{not:liealgebradual}{type=notation,
+	sort={07},
+	name={\ensuremath{\mathfrak{g}^*}},
+	description={Fraktur letter with star: the dual space of the Lie algebra \(\mathfrak{g}\)}
+}
+
+\newglossaryentry{not:hatmap}{type=notation,
+	sort={08},
+	name={\ensuremath{\widehat{(\cdot)}}},
+	description={hat accent: the hat map \(\mathbb{R}^n\rightarrow\mathfrak{so}(n)\), mapping a vector to its associated skew-symmetric matrix}
+}
+
+\newglossaryentry{not:veemap}{type=notation,
+	sort={09},
+	name={\ensuremath{(\cdot)^\vee}},
+	description={vee accent: the inverse hat map \(\mathfrak{so}(n)\rightarrow\mathbb{R}^n\)}
+}
+
+\newglossaryentry{not:dot}{type=notation,
+	sort={10},
+	name={\ensuremath{\dot{x}}},
+	description={overdot: time derivative, \(\dot{x}=dx/dt\)}
+}
+
+\newglossaryentry{not:subscriptk}{type=notation,
+	sort={11},
+	name={\ensuremath{(\cdot)_k}},
+	description={subscript \(k\): value of a continuous-time quantity sampled at discrete time \(t_k=t_0+kh\)}
+}
+
+\newglossaryentry{not:superscriptdes}{type=notation,
+	sort={12},
+	name={\ensuremath{(\cdot)^{\mathrm{des}}}},
+	description={superscript ``des'': desired or reference value of a quantity}
+}
+
+\newglossaryentry{not:superscripthat}{type=notation,
+	sort={13},
+	name={\ensuremath{\widehat{(\cdot)}\ \text{(scaled)}}},
+	description={superscript/overhat on a control or multiplier: normalized quantity rescaled to \([-1,1]\), e.g.\ \(\hat{u}_k=u_k/u_{\max}\)}
+}
+
+\newglossaryentry{not:frobenius}{type=notation,
+	sort={14},
+	name={\ensuremath{\lVert\bm{X}\rVert_F}},
+	description={Frobenius norm of the matrix \(\bm{X}\)}
+}
+
+%======================================%
+% SYMBOLS (concrete, thesis-specific)	%
+%======================================%
+
+%--- Time and index sets --------------------------------------------------
+\newglossaryentry{sym:h}{type=symbols,
+	sort={01},
+	name={\ensuremath{h}},
+	description={fixed integration/discretization time step}
+}
+
+\newglossaryentry{sym:N}{type=symbols,
+	sort={02},
+	name={\ensuremath{N}},
+	description={number of discrete time steps / prediction horizon}
+}
+
+\newglossaryentry{sym:tk}{type=symbols,
+	sort={03},
+	name={\ensuremath{t_k}},
+	description={\(k\)-th discrete time instant, \(t_k=t_0+kh\), \(k=0,\dots,N\)}
+}
+
+%--- Single rigid body on a Lie group (minimal coordinates) ---------------
+\newglossaryentry{sym:g}{type=symbols,
+	sort={04},
+	name={\ensuremath{g_k\in G}},
+	description={configuration of a \emph{single} rigid body, represented directly as an element of the matrix Lie group \(G\) (e.g.\ \(SO(3)\)); this is the \textbf{minimal-coordinate} representation used for the unconstrained 3D pendulum. Contrast with \(\bm{q}\in\bm{Q}_{\mathrm{max}}\), the maximal-coordinate configuration of a constrained multi-body system}
+}
+
+\newglossaryentry{sym:f}{type=symbols,
+	sort={05},
+	name={\ensuremath{f_k\in G}},
+	description={relative (incremental) Lie group element between two time steps, \(g_{k+1}=g_kf_k\)}
+}
+
+\newglossaryentry{sym:Ltrans}{type=symbols,
+	sort={05a},
+	name={\ensuremath{\mathbb{L}_h}},
+	description={left-translation map, \(\mathbb{L}_h(g)=hg\); its differential \(T_e\mathbb{L}_g\) and dual \(T_e^*\mathbb{L}_g\) appear throughout the derivative computations. Blackboard-bold distinguishes it from the Lagrangian \(L\), \(L_d\)}
+}
+
+\newglossaryentry{sym:eta}{type=symbols,
+	sort={06},
+	name={\ensuremath{\eta_k,X_k}},
+	description={Lie-algebra-valued infinitesimal variations of \(g_k\) and \(f_k\), \(\delta g_k=g_k\eta_k\)}
+}
+
+\newglossaryentry{sym:mu}{type=symbols,
+	sort={07},
+	name={\ensuremath{\mu_k\in\mathfrak{g}^*}},
+	description={discrete (body-fixed) momentum, obtained from the discrete Legendre transform \(\mathbb{F}^{\pm}L_d\) of the discrete Lagrangian; used generically for arbitrary \(G\), forced or unforced. Contrast with \(\bm{\Pi}_k\), its concrete specialization once \(G=SO(d)\)}
+}
+
+%--- Constrained multi-body system (maximal coordinates) ------------------
+\newglossaryentry{sym:q}{type=symbols,
+	sort={08},
+	name={\ensuremath{\bm{q}\in\bm{Q}_{\mathrm{max}}}},
+	description={stacked configuration of a \emph{constrained multi-body} system in \textbf{maximal coordinates}, \(\bm{q}=(\bm{x}_1,\bm{R}_1,\dots,\bm{x}_{n_b},\bm{R}_{n_b})\); used for the Acrobot. Contrast with \(g\in G\), the minimal-coordinate configuration of a single unconstrained body}
+}
+
+\newglossaryentry{sym:Qmax}{type=symbols,
+	sort={09},
+	name={\ensuremath{\bm{Q}_{\mathrm{max}}}},
+	description={maximal-coordinate configuration manifold of a multi-body system, \(\bm{Q}_{\mathrm{max}}=\prod_{i=1}^{n_b}\left(\mathbb{R}^d\times SO(d)\right)\)}
+}
+
+\newglossaryentry{sym:nb}{type=symbols,
+	sort={10},
+	name={\ensuremath{n_b}},
+	description={number of rigid bodies in a multi-body system}
+}
+
+\newglossaryentry{sym:d}{type=symbols,
+	sort={11},
+	name={\ensuremath{d}},
+	description={spatial dimension of the ambient space, \(d\in\{2,3\}\)}
+}
+
+\newglossaryentry{sym:xi}{type=symbols,
+	sort={12},
+	name={\ensuremath{\bm{x}_i,\bm{R}_i}},
+	description={center-of-mass position and orientation of rigid body \(i\), the per-body components of \(\bm{q}\)}
+}
+
+\newglossaryentry{sym:phi}{type=symbols,
+	sort={13},
+	name={\ensuremath{\bm{\phi}(\bm{q})}},
+	description={holonomic joint-constraint map, \(\bm{\phi}:\bm{Q}_{\mathrm{max}}\rightarrow\mathbb{R}^{n_c}\), enforced via \(\bm{\phi}(\bm{q})=\bm{0}\)}
+}
+
+\newglossaryentry{sym:nc}{type=symbols,
+	sort={14},
+	name={\ensuremath{n_c}},
+	description={number of scalar holonomic joint-constraint equations}
+}
+
+\newglossaryentry{sym:lambda}{type=symbols,
+	sort={15},
+	name={\ensuremath{\bm{\lambda}_k}},
+	description={Lagrange multipliers enforcing the holonomic joint constraints at time step \(k\)}
+}
+
+\newglossaryentry{sym:rho}{type=symbols,
+	sort={16},
+	name={\ensuremath{\bm{\rho}_c,\bm{\rho}_i}},
+	description={constant, body-fixed vector from a rigid body's center of mass to a reference point (pivot or joint location)}
+}
+
+\newglossaryentry{sym:p0}{type=symbols,
+	sort={17},
+	name={\ensuremath{\bm{p}_0}},
+	description={fixed base position of the Acrobot in the inertial frame}
+}
+
+%--- Kinematics and rotation ----------------------------------------------
+\newglossaryentry{sym:R}{type=symbols,
+	sort={18},
+	name={\ensuremath{\bm{R},\bm{R}_k}},
+	description={rotation matrix / orientation, \(\bm{R}\in SO(d)\)}
+}
+
+\newglossaryentry{sym:F}{type=symbols,
+	sort={19},
+	name={\ensuremath{\bm{F}_k}},
+	description={relative (incremental) rotation update, \(\bm{R}_{k+1}=\bm{R}_k\bm{F}_k\); the \(SO(d)\)-specialization of \(f_k\)}
+}
+
+\newglossaryentry{sym:omega}{type=symbols,
+	sort={20},
+	name={\ensuremath{\bm{\omega}}},
+	description={angular velocity vector, expressed in the body-fixed frame; also written \(\bm{\Omega}\) (bold) as the state-variable name in the numerical-simulation chapter. Do not confuse either with the non-bold \(\Omega_L\), the Lagrangian symplectic two-form}
+}
+
+\newglossaryentry{sym:e3}{type=symbols,
+	sort={21},
+	name={\ensuremath{\bm{e}_3,\bm{e}_2}},
+	description={unit vector marking the gravity direction in the inertial frame (3D pendulum / planar Acrobot, respectively)}
+}
+
+%--- Dynamics: energies, Lagrangian, inertia ------------------------------
+\newglossaryentry{sym:L}{type=symbols,
+	sort={22},
+	name={\ensuremath{L,L_d}},
+	description={continuous and discrete Lagrangian of the mechanical system}
+}
+
+\newglossaryentry{sym:T}{type=symbols,
+	sort={23},
+	name={\ensuremath{T}},
+	description={kinetic energy}
+}
+
+\newglossaryentry{sym:ThetaOmega}{type=symbols,
+	sort={23c},
+	name={\ensuremath{\Theta_L,\Omega_L}},
+	description={\textbf{non-bold}: Lagrangian one-form and symplectic two-form, \(\Omega_L=d\Theta_L\) (discrete analogues \(\Theta_{L_d}^{\pm},\Omega_{L_d}\)); properties of the Lagrangian flow. Do not confuse with the bold \(\bm{\omega},\bm{\Omega}\), the angular velocity}
+}
+
+\newglossaryentry{sym:U}{type=symbols,
+	sort={23a},
+	name={\ensuremath{U(g)}},
+	description={potential energy of the \emph{generic}, abstract single rigid body on a Lie group \(G\), as used in the general Lagrangian/Legendre-transform theory before specializing to a concrete system}
+}
+
+\newglossaryentry{sym:V}{type=symbols,
+	sort={23b},
+	name={\ensuremath{V,V_R,V_T}},
+	description={potential energy of a \emph{concrete} mechanical system (3D pendulum, Acrobot); \(V_R\), \(V_T\) split the Acrobot's potential into rotational and translational contributions. Contrast with the generic \(U(g)\)}
+}
+
+\newglossaryentry{sym:J}{type=symbols,
+	sort={24},
+	name={\ensuremath{\bm{J}}},
+	description={standard (physical) inertia tensor of a rigid body}
+}
+
+\newglossaryentry{sym:Jd}{type=symbols,
+	sort={25},
+	name={\ensuremath{\bm{J}_d}},
+	description={non-standard discrete inertia matrix, \(\bm{J}_d=\tfrac{1}{2}\operatorname{tr}(\bm{J})\bm{I}-\bm{J}\), used in the discrete Legendre transform}
+}
+
+\newglossaryentry{sym:Mi}{type=symbols,
+	sort={26},
+	name={\ensuremath{\bm{M}_i}},
+	description={mass matrix of rigid body \(i\), \(\bm{M}_i=m_i\bm{I}_d\)}
+}
+
+\newglossaryentry{sym:Pi}{type=symbols,
+	sort={27},
+	name={\ensuremath{\bm{\Pi}_k}},
+	description={discrete body-fixed angular momentum, \(\bm{\Pi}_k=\bm{J}\bm{\Omega}_k\); the concrete \(SO(d)\)-specialization of the generic momentum \(\mu_k\) (same discrete Legendre transform, applied to the 3D pendulum or an Acrobot link), analogous to \(g_k\) specializing to \(\bm{R}_k\)}
+}
+
+%--- Control ---------------------------------------------------------------
+\newglossaryentry{sym:u}{type=symbols,
+	sort={28},
+	name={\ensuremath{\bm{u},\bm{u}_k}},
+	description={continuous / discrete control input (generalized force), acting through \(\mathfrak{g}^*\); used as-is whenever a system has only one type of degree of freedom (e.g.\ the 3D pendulum). For a multi-body system, splits per body into a translational part \(\bm{u}_i^x\) and a rotational part \(\bm{\tau}_i\)}
+}
+
+\newglossaryentry{sym:ux}{type=symbols,
+	sort={28a},
+	name={\ensuremath{\bm{u}_i^x}},
+	description={translational component of the generalized force on body \(i\), dual to \(\bm{x}_i\); zero for the Acrobot, which is actuated only at the joint}
+}
+
+\newglossaryentry{sym:tau}{type=symbols,
+	sort={28b},
+	name={\ensuremath{\bm{\tau}_k,\bm{\tau}_g}},
+	description={rotational component of the generalized force (torque), dual to \(\bm{R}_i\); \(\bm{\tau}_k\) is the Acrobot's generalized joint (control) torque. \(\bm{\tau}_g(\bm{g}_k)\) is the potential-energy-derived generalized torque -- generic (arbitrary \(G\)) in the forced discrete Euler-Lagrange equations, and \(\bm{\tau}_{g,k}=mg\,\bm{\rho}_c\times\bm{R}_k^\top\bm{e}_3\) for the concrete 3D pendulum -- matching the gravity torque \(\tau_{g,k}\) of the reduced Newton-Euler model in the Appendix. Replaces the earlier \(\bm{M}(\bm{g}_k)\)/\(\bm{M}_k\) notation, which clashed with the mass matrix \(\bm{M}_i\)}
+}
+
+\newglossaryentry{sym:umax}{type=symbols,
+	sort={29},
+	name={\ensuremath{u_{\max}}},
+	description={maximum admissible magnitude of the control input}
+}
+
+\newglossaryentry{sym:x}{type=symbols,
+	sort={30},
+	name={\ensuremath{\bm{x},\bm{x}_k}},
+	description={state vector used in the optimal control / MPC formulation, stacking configuration and velocity or momentum variables}
+}
+
+%--- Optimization / SDP relaxation ------------------------------------------
+\newglossaryentry{sym:costJ}{type=symbols,
+	sort={31},
+	name={\ensuremath{J}},
+	description={scalar cost function of the optimal control problem (OCP)}
+}
+
+\newglossaryentry{sym:weights}{type=symbols,
+	sort={32},
+	name={\ensuremath{\rho_R,\rho_F,\alpha_R,\alpha_F,\gamma}},
+	description={terminal / running cost weights penalizing orientation error, relative-rotation error, and control effort}
+}
+
+\newglossaryentry{sym:eps}{type=symbols,
+	sort={33},
+	name={\ensuremath{\epsilon}},
+	description={suboptimality gap between the SDP relaxation and the original polynomial OCP}
+}
+
+\newglossaryentry{sym:deltamax}{type=symbols,
+	sort={34},
+	name={\ensuremath{\delta_{\max}}},
+	description={rank/tightness metric of the SDP relaxation: the largest second-eigenvalue weight over all moment matrices in the solution}
 }
 
 \glsaddall % Print all glossary entries
@@ -75,12 +386,12 @@
 \newcommand{\AddMyGloss}{
 	\cleardoublepage
    	\printglossary[type=acronym, nogroupskip]
-	
+
 	\ifdefined\Notation
 		\cleardoublepage
 		\printglossary[type=notation, nogroupskip]
 	\fi
-	
+
   	\ifdefined\Symbols
   		\cleardoublepage
 		\printglossary[type=symbols, nogroupskip]

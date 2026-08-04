@@ -1,11 +1,85 @@
 \glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
 \begin{theglossary}\glossaryheader
-\glsgroupheading{C}\relax \glsresetentrylist %
-\glossentry{control}{\glossaryentrynumbers{\relax 
+\glsgroupheading{glssymbols}\relax \glsresetentrylist %
+\glossentry{sym:Ltrans}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{1}}}%
-\glossentry{uk}{\glossaryentrynumbers{\relax 
+\glossentry{sym:U}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:V}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:ThetaOmega}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:ux}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:tau}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{1}}}\glsgroupskip
-\glsgroupheading{S}\relax \glsresetentrylist %
-\glossentry{xk}{\glossaryentrynumbers{\relax 
+\glsgroupheading{glsnumbers}\relax \glsresetentrylist %
+\glossentry{sym:h}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:N}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:tk}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:g}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:f}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:eta}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:mu}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:q}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:Qmax}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:nb}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:d}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:xi}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:phi}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:nc}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:lambda}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:rho}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:p0}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:R}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:F}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:omega}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:e3}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:L}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:T}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:J}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:Jd}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:Mi}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:Pi}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:u}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:umax}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:x}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:costJ}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:weights}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:eps}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
+\glossentry{sym:deltamax}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{1}}}%
 \end{theglossary}\glossarypostamble
