@@ -617,8 +617,8 @@
         Chair of Information-Oriented Control\strut
         \\
         \\
-        Shucheng Kang\\
         Prof. Heng Yang\\
+        Shucheng Kang\\
         Harvard SEAS - Computational Robotics Group
       \fi
     \end{minipage}\\[4.3mm]

@@ -717,10 +717,11 @@ are numerically rank one.
     $e_R(T)=\lVert R_N-R_{\mathrm{des}}\rVert_F$. The manifold violation is
     $\max_k\varepsilon_{R,k}$ with
     $\varepsilon_{R,k}=\lVert R_k^\top R_k-I_3\rVert_F$.
-    The rank metric $\delta_{\max}$ is the maximum second eigenvalue weight
-    over all moment matrices. The trajectory quantities are evaluated using
-    the ordered extraction, and the reported runtime is the MOSEK optimizer
-    time.}
+    The rank metric $\delta_{\max}$ follows Teng's definition
+    $\delta_k=|\lambda_{k,2}|/|\lambda_{k,1}|$, computed over the
+    actual sub-moment matrices used for trajectory extraction. The trajectory
+    quantities are evaluated using the ordered extraction, and the reported
+    runtime is the MOSEK optimizer time.}
     \label{tab:pendulum_3d_sdp_statistics}
 
     \setlength{\tabcolsep}{6pt}
@@ -751,7 +752,7 @@ are numerically rank one.
         & $2.55\!\times\!10^{-9}$
         & $4.46\!\times\!10^{-8}$ \\
 
-        Suboptimality gap $\epsilon$
+        Suboptimality gap $\epsilon_{warm}$
         & $1.83\!\times\!10^{-6}$
         & $8.80\!\times\!10^{-8}$
         & $5.55\!\times\!10^{-10}$
@@ -760,21 +761,27 @@ are numerically rank one.
 
         Rank condition $\delta_{\max}$
         & $3.00\!\times\!10^{-9}$
-        & $7.52\!\times\!10^{-8}$
-        & $0.1414$
-        & $0.1852$
-        & $0.2156$ \\
+        & $7.28\!\times\!10^{-8}$
+        & $1.13\!\times\!10^{-11}$
+        & $3.24\!\times\!10^{-9}$
+        & $2.32\!\times\!10^{-8}$ \\
 
         Runtime (s)
-        & $2266.75$
-        & $2577.55$
-        & $2905.99$
-        & $3476.31$
-        & $4243.66$ \\
+        & $3349.46$
+        & $3706.36$
+        & $4032.72$
+        & $4128.29$
+        & $3873.03$ \\
         \bottomrule
     \end{tabular}%
     }
 \end{table}
+
+The 3D pendulum SDP results show that all desired rotations about the \(x\)-axis can be solved with very small manifold violations. In all cases, the maximum violation of the \(SO(3)\) constraints remains close to numerical precision, which indicates that the ordered extraction produces trajectories that stay on the rotation manifold. The suboptimality gaps between the SDP lower bound and the NLP-refined upper bound are also very small for all target rotations. Together with the Teng rank ratios, this suggests that the MD relaxation is tight for these test cases up to numerical accuracy.
+
+The terminal rotation error is not monotonic with respect to the desired angle. In particular, the \(180^\circ\) case reaches the desired terminal attitude with a very small final error, although it has the largest objective value. This is not contradictory, since the terminal error only measures the final attitude \(R_N\), while the objective also includes stage tracking, final step tracking, and control effort over the complete trajectory. Moreover, the \(0^\circ\) and \(180^\circ\) target attitudes correspond to configurations in which the gravitational moment vanishes, making it easier to end close to a rest-like configuration with \(F_{N-1}\approx I\). In contrast, the intermediate target rotations \(45^\circ\), \(90^\circ\), and \(135^\circ\) are not equilibrium-type attitudes under gravity, so the optimizer trades final attitude accuracy against control effort and trajectory regularization.
+
+The runtime is of the same order for all five cases and does not increase monotonically with the target angle. Therefore, the solver time should not be interpreted as a direct measure of physical task difficulty. Instead, it reflects the numerical behavior of the SDP solver for each particular instance. Overall, the results indicate that the 3D pendulum formulation yields accurate manifold-consistent and rank-tight SDP solutions, while the objective value and terminal error capture different aspects of the trajectory quality.
 
 \paragraph{Comparison with the results of Teng et al.}
 Teng et al.~\cite{Sangli2025} evaluate the same relative
@@ -908,9 +915,9 @@ first, since only the first control input is applied before replanning.
     =
     \max_{i,k,X\in\{R,F\}}
     \|X_{i,k}^{\top}X_{i,k}-I_2\|_F$.
-    For each moment block $j$, $\delta_j$ denotes its normalized second
-    eigenvalue weight. Thus,
-    $\delta_{\max}=\max_j\delta_j$, while
+    For each moment block $j$, $\delta_j$ denotes Teng's rank ratio
+    $\delta_j=|\lambda_{j,2}|/|\lambda_{j,1}|$, where the eigenvalues are
+    sorted by magnitude. Thus, $\delta_{\max}=\max_j\delta_j$, while
     $\delta_{\mathrm{first}}$ is evaluated for the first moment block.
     All trajectory metrics use the ordered extraction, and the runtime is
     the solver operation time.}
@@ -920,7 +927,7 @@ first, since only the first control input is applied before replanning.
     \renewcommand{\arraystretch}{1.15}
 
     \resizebox{\textwidth}{!}{%
-    \begin{tabular}{@{}lccccc@{}}
+    \begin{tabular}{@{}lcccccc@{}}
         \toprule
         $R_{1,\mathrm{des}}=R_{2,\mathrm{des}}$
         & $0^\circ$
@@ -943,6 +950,13 @@ first, since only the first control input is applied before replanning.
         & $1.0368$
         & $1.3688$
         & $1.4053$ \\
+
+        Suboptimality gap $\epsilon_{cold}$
+        & $2.0\!\times\!10^{-6}$
+        & $4.8\!\times\!10^{-10}$
+        & $0.0717$
+        & $0.4126$
+        & $0.5233$ \\
 
         Rank condition $\delta_{\max}$
         & $1.3537\!\times\!10^{-8}$
@@ -1008,6 +1022,13 @@ first, since only the first control input is applied before replanning.
         & $1.4103$
         & $1.3931$ \\
 
+        Suboptimality gap $\epsilon_{cold}$
+        & $1.1\!\times\!10^{-10}$
+        & $9.2\!\times\!10^{-9}$
+        & $0.0778$
+        & $0.4500$
+        & $0.5668$ \\
+
         Rank condition $\delta_{\max}$
         & $2.1039\!\times\!10^{-12}$
         & $2.3616\!\times\!10^{-6}$
@@ -1032,6 +1053,8 @@ first, since only the first control input is applied before replanning.
     \end{tabular}%
     }
 \end{table}
+
+COLD START
 
 \subsubsection{Acrobot Test Configuration and Results}
 \label{subsubsec:acrobot_sdp_summary}
@@ -1340,6 +1363,201 @@ max
     \label{fig:acrobot_basin_comparison}
 \end{figure}
 
+
+\chapter{Sequential Full-Clique SPOT Evaluation}
+\label{chap:sequential_spot_evaluation}
+
+This chapter evaluates the sequential full-clique SPOT approach for the reduced LGVI Acrobot. The purpose of this experiment is to test whether a feasible trajectory can be obtained by using only the SDP relaxation itself, without any additional post-processing such as NLP refinement, projection onto $SO(2)$, soft fixing, or backtracking. In other words, the experiment is designed to answer the following question:
+
+\begin{center}
+\emph{Can the Acrobot swing-up trajectory be constructed by repeatedly solving the remaining-horizon SDP, directly extracting the first clique, fixing it exactly, and continuing iteratively?}
+\end{center}
+
+The answer from the experiments is negative for the tested configurations. Although the SDPs are solved accurately and provide meaningful lower bounds, the first active clique is not sufficiently rank one. As a consequence, its direct first moments do not satisfy the original $SO(2)$ constraints, and exact hard fixing of these values renders the next conditioned SDP infeasible.
+
+\section{Sequential SPOT procedure}
+\label{sec:sequential_spot_procedure}
+
+The implemented sequential method follows the pure SPOT philosophy. At each iteration, the SDP is solved over the complete remaining horizon, the first active full clique is extracted directly from the corresponding moment matrix, and the newly obtained variables are fixed exactly for the next remaining-horizon problem. No rescue attempt is used. The high-level loop is therefore:
+
+\begin{equation}
+\label{eq:seq_spot_loop}
+(R_0,F_0,R_1)
+\;\longrightarrow\;
+\text{solve remaining-horizon SDP}
+\;\longrightarrow\;
+\text{extract first full clique}
+\;\longrightarrow\;
+\text{hard-fix }(R_2,F_1,\lambda_1,u_1)
+\;\longrightarrow\;
+(R_0,F_0,R_1)\leftarrow(R_1,F_1,R_2)
+\;\longrightarrow\;\cdots
+\end{equation}
+
+More explicitly, each iteration performs:
+\begin{enumerate}
+    \item construct the SDP for the complete remaining horizon,
+    \item solve the sparse moment relaxation with the \texttt{full\_Ik} clique structure,
+    \item extract the direct first moments of the first active clique,
+    \item commit the newly extracted variables $R_2$, $F_1$, $\lambda_{0,1}$, $\lambda_{12,1}$, and $u_1$,
+    \item define the next exact boundary by
+    \[
+    R_0^{+}=R_1,\qquad F_0^{+}=F_1,\qquad R_1^{+}=R_2,
+    \]
+    \item solve the next remaining-horizon SDP.
+\end{enumerate}
+
+The critical point is that the values are fixed exactly as extracted. Hence, if the direct first moments of the first clique are not feasible in the original polynomial problem, the next conditioned SDP becomes infeasible. This is not a bug but the intended diagnostic outcome of the method.
+
+\section{Experimental results}
+\label{sec:sequential_spot_results}
+
+Table~\ref{tab:sequential_spot_summary} summarizes the tested runs. For each experiment, the table reports the horizon length $N$, the torque bound $u_{\max}$, the first full-horizon SDP lower bound, the Teng rank condition of the first active clique,
+\[
+\delta_{\mathrm{first}}
+=
+\frac{|\lambda_2|}{|\lambda_1|},
+\]
+the maximum rank condition over all clique moment matrices of the solve,
+\[
+\delta_{\max}
+=
+\max_k \frac{|\lambda_{k,2}|}{|\lambda_{k,1}|},
+\]
+the maximum $SO(2)$ violation of the directly extracted separator variables, and the observed outcome.
+
+\begin{table}[t]
+\centering
+\caption{Summary of the sequential full-clique SPOT runs. The SDP lower bound is the objective value of the initial full-horizon SDP. The quantity $\delta_{\mathrm{first}}$ is the Teng rank condition of the first active clique, while $\delta_{\max}$ is the maximum Teng ratio over all clique matrices of the solve.}
+\label{tab:sequential_spot_summary}
+\begin{tabular}{lccccccp{4.4cm}}
+\toprule
+Run & $N$ & $u_{\max}$ & $J_{\mathrm{SDP,LB}}$ & $\delta_{\mathrm{first}}$ & $\delta_{\max}$ & $\max e_{SO(2)}$ & Outcome \\
+\midrule
+Sequential SPOT & 40 & 5  & 4253.554 & 0.2168 & 0.6201 & 0.1957 & Stage 1 solved optimally, but the directly extracted first clique violates $SO(2)$; Stage 2 becomes infeasible. \\
+Sequential SPOT & 40 & 15 & 3245.175 & 0.2037 & 0.5438 & 0.4174 & Stage 1 solved optimally, but the directly extracted first clique violates $SO(2)$ more strongly; Stage 2 becomes infeasible. \\
+Sequential SPOT & 60 & 15 & 3229.627 & 0.2066 & 0.5596 & 0.4213 & Stage 1 shows the same behavior. The exported run contains only the first stage, but the extracted boundary already violates $SO(2)$, so the next conditioned SDP is expected to be infeasible as well. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Several important observations follow from Table~\ref{tab:sequential_spot_summary}.
+
+\paragraph{1. The SDP itself is solved accurately.}
+In all runs, the first full-horizon SDP was solved with primal and dual feasible status and a very small primal-dual gap. Hence, the failure is not caused by poor numerical convergence of MOSEK or by an inaccurate SDP solve. The computed value $J_{\mathrm{SDP,LB}}$ should therefore be interpreted as a meaningful lower bound of the relaxation.
+
+\paragraph{2. The first active clique is not rank one.}
+In all tested cases, the first-clique rank condition remains around
+\[
+\delta_{\mathrm{first}}\approx 0.20.
+\]
+This is far from the behavior expected for a rank-one moment matrix. Therefore, the first active clique does not represent a single atomic solution, but rather a mixture of different possible trajectories.
+
+\paragraph{3. The first direct moments are not feasible points on $SO(2)$.}
+The extracted pairs $(c,s)$ and $(a,b)$ satisfy
+\[
+c^2+s^2 \neq 1,
+\qquad
+a^2+b^2 \neq 1,
+\]
+with large errors, especially for the second link. Therefore, the extracted separator variables lie inside the unit disk rather than on the unit circle, even though the SDP moment constraints are satisfied at the level of moments.
+
+\paragraph{4. Exact hard fixing exposes the issue immediately.}
+Because the extracted values are fixed exactly and the original $SO(2)$ polynomial constraints are kept in the next problem, the second conditioned SDP becomes infeasible. This is the expected behavior of the no-rescue experiment: if the first clique is not tight enough, the iterative SPOT construction cannot continue.
+
+\section{Why the trajectories are not feasible}
+\label{sec:sequential_spot_infeasibility}
+
+The key mechanism behind the infeasibility is the difference between \emph{moment feasibility} and \emph{pointwise feasibility}. The SDP enforces the unit-circle relation only at the moment level, for example,
+\[
+L_y(c^2+s^2)=1.
+\]
+However, the directly extracted first moments are
+\[
+\hat c = L_y(c),\qquad \hat s = L_y(s),
+\]
+and in general this does not imply
+\[
+\hat c^2+\hat s^2=1.
+\]
+Instead, one typically has
+\[
+\hat c^2+\hat s^2 < 1,
+\]
+which means that the extracted pair is the barycenter of a higher-rank moment distribution rather than a true element of $SO(2)$.
+
+This explains why the first extracted transition can still show very small kinematic and dynamic residuals while violating the manifold constraints. The LGVI equations are largely linear in the newly extracted first-step variables once the previous boundary is fixed, whereas the unit-circle constraints are nonlinear. Therefore, the mean can approximately satisfy the linear relations while failing the nonlinear manifold conditions.
+
+As soon as these nonphysical values are hard-fixed, the next conditioned SDP must satisfy both:
+\[
+a^2+b^2=1
+\]
+and
+\[
+a=\hat a,\qquad b=\hat b,
+\]
+although $\hat a^2+\hat b^2\neq 1$. Hence the next problem is algebraically inconsistent and becomes infeasible.
+
+\section{Effect of increasing $u_{\max}$ and $N$}
+\label{sec:sequential_spot_parameter_effects}
+
+Increasing the control bound from $u_{\max}=5$ to $u_{\max}=15$ improves the SDP lower bound significantly:
+\[
+4253.554 \;\rightarrow\; 3245.175.
+\]
+Thus, the relaxed optimization problem becomes easier in objective value. However, this does not resolve the extraction issue, since the first-clique rank condition remains essentially unchanged:
+\[
+0.2168 \;\rightarrow\; 0.2037.
+\]
+In fact, the directly extracted $SO(2)$ error becomes larger for the $u_{\max}=15$ case.
+
+Increasing the horizon from $N=40$ to $N=60$ yields only a small further reduction in the lower bound:
+\[
+3245.175 \;\rightarrow\; 3229.627.
+\]
+Again, the first-clique rank condition stays almost unchanged:
+\[
+0.2037 \;\rightarrow\; 0.2066.
+\]
+Hence, the additional horizon mainly improves the terminal portion of the relaxation, not the first committed step.
+
+This behavior is consistent with the clique-wise rank profile. For the $N=60$ run, the later cliques become much tighter as the relaxed trajectory approaches the target. However, the first clique remains non-rank-one. Since the sequential method must commit the first step first, this later improvement cannot rescue the method.
+
+\section{Main takeaways}
+\label{sec:sequential_spot_takeaways}
+
+The experiments lead to the following conclusions.
+
+\begin{enumerate}
+    \item The sparse moment relaxation yields meaningful lower bounds and is solved accurately by the SDP solver.
+    
+    \item The main bottleneck is the \emph{first active clique}. Its moment matrix is not sufficiently rank one, with
+    \[
+    \delta_{\mathrm{first}}\approx 0.20
+    \]
+    in all tested runs.
+    
+    \item As a consequence, the direct first moments do not satisfy the original $SO(2)$ constraints and therefore do not define a feasible physical Acrobot state.
+    
+    \item Exact hard fixing of these values immediately reveals the issue: the next conditioned SDP becomes infeasible.
+    
+    \item Increasing the torque bound or the horizon improves the relaxation objective but does not fix the lack of tightness in the first clique.
+    
+    \item Therefore, for the tested Acrobot swing-up problems, the trajectory cannot be obtained by \emph{iterative pure SPOT extraction and hard fixing alone}.
+\end{enumerate}
+
+In summary, the sequential full-clique SPOT experiment is scientifically informative even though it fails to produce a feasible trajectory. The failure shows that the first-step relaxation is not tight enough for direct iterative extraction. Hence, the difficulty does not lie in the implementation loop itself, but in the fact that the first active clique does not yet encode a sufficiently atomic solution.
+
+\section{Conclusion}
+\label{sec:sequential_spot_conclusion}
+
+The sequential full-clique SPOT method was introduced to test whether the reduced LGVI Acrobot trajectory can be generated solely from the SDP relaxation, without any auxiliary nonlinear refinement. The experiments show that this is not the case for the tested settings. Even though the SDP lower bounds are meaningful and the later part of the trajectory becomes increasingly tight, the first active clique remains too high-rank. Its direct first moments violate the $SO(2)$ constraints, and exact hard fixing therefore makes the next conditioned SDP infeasible.
+
+Consequently, the main conclusion is:
+
+\begin{quote}
+\emph{For the investigated Acrobot swing-up problem, pure iterative SPOT extraction with direct hard fixing of the first clique is not sufficient to generate a feasible trajectory, because the first active clique is not tight enough.}
+\end{quote}
 
 %\begin{figure}[h]
 %	\centering
