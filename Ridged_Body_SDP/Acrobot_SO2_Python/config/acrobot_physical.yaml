@@ -1,0 +1,71 @@
+# SPOT_MPC_Acrobot/config/acrobot_physical.yaml
+
+system:
+  name: acrobot_so2_absolute
+  angle_convention: "absolute body-frame angles"
+  description: "thetaR1 and thetaR2 are absolute SO(2) link orientations"
+
+physical:
+  m1: 1.0
+  m2: 1.0
+
+  l1: 1.0
+  l2: 1.0
+
+  deltaJ1: 0.04167
+  deltaJ2: 0.04167
+
+  g: 9.81
+
+  p0:
+    - 0.0
+    - 0.0
+
+time:
+  dt_sdp: 0.05
+  dt_sim: 0.05
+  control_interval: 0.05
+
+simulation:
+  lgvi_maxfev: 5000
+  accept_residual: true
+  accept_residual_tol: 2.0e-3
+  plot_results: false
+
+mpc:
+  max_iterations: 400
+  stop_angle_tol_deg: 2.0
+  stop_step_angle_tol_deg: 2.0
+  stable_steps_required: 3
+  cleanup_solver_artifacts: true
+
+initial:
+  thetaR1_deg: 0.0
+  thetaR2_deg: 0.0
+  thetaF1_deg: 0.0
+  thetaF2_deg: 0.0
+
+target:
+  thetaR1_deg: 180.0
+  thetaR2_deg: 180.0
+  thetaF1_deg: 0.0
+  thetaF2_deg: 0.0
+
+bounds:
+  u_max: 15.0
+  lambda_max: 40.0
+  max_step_angle_deg_link1: 70.0
+  max_step_angle_deg_link2: 60.0
+
+sdp:
+  horizon_N: 40
+  relaxation_order: 2
+  clique_mode: "SELF"
+  extraction: "ordered"
+
+cost:
+  rho_R: 20.0
+  rho_F: 8.0
+  alpha_R: 15.0
+  alpha_F: 2.0
+  gamma: 0.09
