@@ -192,7 +192,7 @@ a multivariate polynomial is defined as
 \begin{equation}
  p(\mathbf{z})=\sum_{\alpha\in\mathbb{N}^{n_z}}p_{\alpha}\mathbf{z}^{\alpha},
  \qquad
- \mathbf{z}^{\alpha}:=\prod_{r=1}^{n_z}z_r^{\alpha_r},
+ \mathbf{z}^{\alpha}:=\prod_{i=1}^{n_z}z_i^{\alpha_i},
  \label{eq:multivariate_polynomial}
 \end{equation} 
 where $\alpha_i$ are nonnegative integers and \(p_{\alpha}\) are nonzero \cite{Yang2024Semidefinite}.
@@ -203,245 +203,281 @@ lower bounds on the optimal solution \(p^\star\) \cite{Yang2024Semidefinite}.
 \subsection{Semidefinite Relaxation and the Moment--SOS Hierarchy}
 \label{subsec:moment_sos_hierarchy}
 
-\paragraph{Semidefinite programming.}
-Let \(\mathbb{S}^{q}\) denote the vector space of symmetric \(q\times q\)
-matrices. A matrix \(\mathbf{X}\in\mathbb{S}^{q}\) is positive semidefinite,
+\paragraph{Semidefinite programming (SDP).}
+Let \(\mathbb{S}^{q}\) denote the vector space of symmetric \(n\times n\)
+matrices. A matrix \(\mathbf{X}\in\mathbb{S}^{n}\) is positive semidefinite,
 written as \(\mathbf{X}\succeq0\), if
 \(\mathbf{v}^{\top}\mathbf{X}\mathbf{v}\geq0\) for all
-\(\mathbf{v}\in\mathbb{R}^{q}\). A semidefinite program (SDP) has the standard
+\(\mathbf{v}\in\mathbb{R}^{n}\). A semidefinite program (SDP) has the standard
 primal form
 \begin{equation}
+\begin{aligned}
  p_{\mathrm{SDP}}^\star
  =\min_{\mathbf{X}\in\mathbb{S}^{q}}
- \left\langle\mathbf{C},\mathbf{X}\right\rangle
- \quad\text{s.t.}\quad
- \mathcal{A}(\mathbf{X})=\mathbf{b},\qquad
- \mathbf{X}\succeq0,
- \label{eq:standard_sdp}
+ &\quad \left\langle\mathbf{C},\mathbf{X}\right\rangle\\
+ \text{s.t.}\quad
+ &\mathcal{A}(\mathbf{X})=\mathbf{b},\\
+ &\mathbf{X}\succeq0.
+\end{aligned}
+\label{eq:standard_sdp}
 \end{equation}
-where \(\langle\mathbf{C},\mathbf{X}\rangle=
-\operatorname{tr}(\mathbf{C}\mathbf{X})\) and \(\mathcal{A}\) is a linear map.
-In contrast to \eqref{eq:pop_general}, both the objective and the affine
-constraints in \eqref{eq:standard_sdp} are convex. The central idea of the
-following relaxation is to replace nonconvex polynomial relations by affine
-relations between moments and positive-semidefinite matrix constraints
-\cite{Yang2024Semidefinite}.
+with $\bm{C} \in \mathbb{S}^{n}$, $\bm{b} \in \mathbb{R}^{m}$ and \(\mathcal{A}: \mathbb{S}^{n} \to \mathbb{R}^{m}\) is a linear map, which is defined as
+\begin{equation}
+ \mathcal{A}(\mathbf{X})
+ :=
+ \begin{bmatrix}
+ \langle\mathbf{A}_1,\mathbf{X}\rangle\\
+ \vdots\\
+ \langle\mathbf{A}_i,\mathbf{X}\rangle\\
+ \langle\mathbf{A}_m,\mathbf{X}\rangle
+ \end{bmatrix}.
+ \label{eq:linear_map}
+\end{equation}
+Here, \(\langle\mathbf{C},\mathbf{X}\rangle=
+\operatorname{tr}(\mathbf{C}\mathbf{X})\). 
+In contrast to \eqref{eq:pop_general}, the objective and the
+constraints in \eqref{eq:standard_sdp} are convex. In the following, the Moment-SOS 
+relaxation approximates the nonconvex polynomial problem by a convex SDP \cite{Yang2024Semidefinite}.
 
-\paragraph{Sum-of-squares relaxation.}
-For a multi-index \(\alpha=(\alpha_1,\ldots,\alpha_{n_z})\in\mathbb{N}^{n_z}\),
-define
+\paragraph{Sum-of-squares (SOS) relaxation.}
+\cite{Yang2024Semidefinite} defines the a monomial
+of the optimization variables \(\mathbf{z}=(z_1,\ldots,z_{n_z})\) as
 \begin{equation}
- \mathbf{z}^{\alpha}:=\prod_{r=1}^{n_z}z_r^{\alpha_r},
- \qquad
- |\alpha|:=\sum_{r=1}^{n_z}\alpha_r,
- \qquad
- [\mathbf{z}]_d:=
- \left(\mathbf{z}^{\alpha}\right)_{|\alpha|\leq d}.
- \label{eq:monomial_basis}
+\mathbf{z}^{\alpha}:=\prod_{i=1}^{n_z}z_i^{\alpha_i},
+\label{eq:monomial_basis_comparison}
 \end{equation}
-The vector \([\mathbf{z}]_d\) contains all monomials of degree at most \(d\)
-and has dimension
+with \(\alpha=(\alpha_1,\ldots,\alpha_{n_z})\in\mathbb{N}_0^{n_z}\). Thereby, 
+$|\alpha|:=\sum_{i=1}^{n_z}\alpha_i$ is the total degree of the monomial $\bm{z}^\alpha$. 
+Moreover, the standard basis of monomials with
+degree up to \( |\alpha|\leq d\) is given as
+\[
+[\mathbf{z}]_d:=
+\begin{bmatrix}
+1 & z_1 & \cdots & z_{n_z} & z_1^2 & z_1z_2 & \cdots & z_{n_z}^d
+\end{bmatrix}^{\top}
+=
+\left[\mathbf{z}^{\alpha}\right]_{\alpha\in\mathbb{N}_0^{n_z}},
+\]
+with the vector having the dimension
 \begin{equation}
- s(n_z,d)=\binom{n_z+d}{d}.
- \label{eq:monomial_basis_dimension}
+s(n_z,d)=\binom{n_z+d}{d}.
+\label{eq:monomial_basis_dimension_comparison}
 \end{equation}
-A polynomial \(q\) of degree at most \(2d\) is a sum of squares (SOS) if it can
-be written as \(q=\sum_r q_r^2\). Equivalently, an SOS polynomial admits the
-Gram-matrix representation
+\cite{Yang2024Semidefinite} defines a sum of squares (SOS) as a polynomial \(p\) of degree at most \(2d\), 
+if it can be written as
+\(p(\mathbf{z})=\sum_i q_i(\mathbf{z})^2\). Here, each \(q_i\) has degree at
+most \(d\) and the polynomial \(p\) is globally nonnegative. 
+Equivalently, \(p\) is SOS if the Gram-matrix $Q \in \mathbb{S}^{d+1}$ satisfies
 \begin{equation}
- q(\mathbf{z})=[\mathbf{z}]_d^{\top}
- \mathbf{Q}[\mathbf{z}]_d,
- \qquad \mathbf{Q}\succeq0.
- \label{eq:sos_gram_matrix}
+p(\mathbf{z})=[\mathbf{z}]_d^{\top}
+\mathbf{Q}[\mathbf{z}]_d,
+\qquad \mathbf{Q}\succeq0.
+\label{eq:sos_gram_matrix_comparison}
 \end{equation}
-Matching the coefficients on both sides of \eqref{eq:sos_gram_matrix} gives
-affine constraints on the entries of \(\mathbf{Q}\). Hence, verifying the
-existence of an SOS representation is an SDP feasibility problem. Every SOS
-polynomial is globally nonnegative, while the converse does not hold for a
-general multivariate polynomial.
+Finding an SOS representation can be formulated
+as an SDP feasibility problem.
+For the POP \eqref{eq:pop_general}, any value \(\gamma\)
+satisfying \(p(\mathbf{z})-\gamma\geq0\) on the feasible set \(\mathcal{K}\) is
+a lower bound on \(p^\star\) \cite{Yang2024Semidefinite}. 
+Since verifying this nonnegativity directly is
+difficult, the SOS relaxation searches for the certificate
+\begin{equation}
+p(\mathbf{z})-\gamma
+=
+\sigma_0(\mathbf{z})
++\sum_{j=1}^{m_g}\sigma_j(\mathbf{z})g_j(\mathbf{z})
++\sum_{l=1}^{m_h}\chi_l(\mathbf{z})h_l(\mathbf{z}),
+\label{eq:putinar_certificate_comparison}
+\end{equation}
+where \(\sigma_0\) and \(\sigma_j\) are SOS polynomials and \(\chi_l\) are
+arbitrary polynomials \cite{Putinar1993Positive}. On
+\(\mathcal{K}\), the inequalities satisfy \(g_j\geq0\) and the equalities
+satisfy \(h_l=0\). Therefore, the right-hand side of
+\eqref{eq:putinar_certificate_comparison} is nonnegative and proves
+\(p(\mathbf{z})\geq\gamma\).
 
-The global optimum in \eqref{eq:pop_general} is the largest value \(\gamma\)
-for which \(p(\mathbf{z})-\gamma\) is nonnegative on \(\mathcal{K}\). Following
-Putinar's positivity certificate, nonnegativity on \(\mathcal{K}\) is relaxed by
-searching for the polynomial identity
-\begin{equation}
- p(\mathbf{z})-\gamma
- =\sigma_0(\mathbf{z})
- +\sum_{j=1}^{m_g}\sigma_j(\mathbf{z})g_j(\mathbf{z})
- +\sum_{l=1}^{m_h}\tau_l(\mathbf{z})h_l(\mathbf{z}),
- \label{eq:putinar_certificate}
-\end{equation}
-where \(\sigma_0,\sigma_j\) are SOS polynomials and \(\tau_l\) are arbitrary
-polynomials \cite{Putinar1993Positive,Yang2024Semidefinite}. Restricting every
-term in \eqref{eq:putinar_certificate} to degree at most \(2\kappa\) yields the
-order-\(\kappa\) SOS relaxation
+By restricting the degree of $\sigma_0, \sigma_j g_j, \chi_l h_l$ in
+\eqref{eq:putinar_certificate_comparison} to at most \(2\kappa\) gives the
+finite-dimensional order-\(\kappa\) SOS relaxation
 \begin{subequations}\label{eq:sos_relaxation}
 \begin{align}
- \rho_{\kappa}^{\mathrm{SOS}}=
- \max_{\gamma,\{\sigma_j\},\{\tau_l\}}
+ \gamma_{\kappa}^{*}=
+ \max_{\gamma,\{\sigma_j\},\{\chi_l\}}
  &\quad \gamma
  \label{eq:sos_relaxation_objective}\\
  \text{s.t.}\quad
  &p-\gamma=\sigma_0+
  \sum_{j=1}^{m_g}\sigma_jg_j+
- \sum_{l=1}^{m_h}\tau_lh_l,
+ \sum_{l=1}^{m_h}\chi_lh_l,
  \label{eq:sos_relaxation_identity}\\
- &\deg(\sigma_0),\ \deg(\sigma_jg_j),\ \deg(\tau_lh_l)
+ &\deg(\sigma_0),\ \deg(\sigma_jg_j),\ \deg(\chi_lh_l)
  \leq2\kappa,
  \label{eq:sos_relaxation_degree}\\
- &\sigma_0,\sigma_j\ \text{SOS}.
+ &\sigma_j\in\Sigma[\mathbf{z}],
+ \qquad
+ \chi_l\in\mathbb{R}[\mathbf{z}].
  \label{eq:sos_relaxation_cones}
 \end{align}
 \end{subequations}
-Every feasible identity in \eqref{eq:sos_relaxation} proves
-\(p(\mathbf{z})\geq\gamma\) for all \(\mathbf{z}\in\mathcal{K}\). Consequently,
-\(\rho_{\kappa}^{\mathrm{SOS}}\leq p^\star\). The relaxation order must satisfy
-\begin{equation}
- \kappa\geq\kappa_{\min}:=
- \max\left\{
- \left\lceil\frac{\deg p}{2}\right\rceil,
- \max_j\left\lceil\frac{\deg g_j}{2}\right\rceil,
- \max_l\left\lceil\frac{\deg h_l}{2}\right\rceil
- \right\}.
- \label{eq:minimum_relaxation_order}
-\end{equation}
+Here, \(\Sigma[\mathbf{z}]\) denotes the set of SOS polynomials in
+\(\mathbf{z}\), and \(\mathbb{R}[\mathbf{z}]\) denotes the set of real
+polynomials in \(\mathbf{z}\). $\kappa$ is called the relaxation order. 
+Consequently, every feasible certificate provides the lower bound
+\(\gamma_{\kappa}^{*}\leq p^\star\).
 
 \paragraph{Moment relaxation.}
-The dual viewpoint replaces each monomial \(\mathbf{z}^{\alpha}\) by a scalar
-moment \(y_{\alpha}\). For a polynomial
-\(q(\mathbf{z})=\sum_{\alpha}q_{\alpha}\mathbf{z}^{\alpha}\), define the Riesz
-linear functional
+The moment relaxation is the SDP dual of the SOS relaxation. \cite{Yang2024Semidefinite} 
+introduces a scalar variable \(y_{\alpha}\), called a moment, for each monomial
+\(\mathbf{z}^{\alpha}\). Additionally, the linear functional \(\mathcal{L}_{\mathbf{y}}:\mathbb{R}[x] \to 
+\mathbb{R}\) is defined as
 \begin{equation}
- \mathcal{L}_{\mathbf{y}}(q)
- :=\sum_{\alpha}q_{\alpha}y_{\alpha}.
- \label{eq:riesz_functional}
+q(\mathbf{z})=\sum_{\alpha}q_{\alpha}\mathbf{z}^{\alpha}
+\to 
+\mathcal{L}_{\mathbf{y}}(q) =
+\sum_{\alpha}q_{\alpha}y_{\alpha},
+\label{eq:riesz_functional_comparison}
 \end{equation}
-The truncated moment sequence
-\(\mathbf{y}=(y_{\alpha})_{|\alpha|\leq2\kappa}\) generates the moment matrix
+which is the substitution of the monomials $\mathbf{z}^{\alpha}$ in $q(\mathbf{z})$ obtaining a numercial value \cite{Sangli2025}.
+The moment matrix $\mathbf{M}_{\kappa}(\mathbf{y})$ is defined as
 \begin{equation}
- \mathbf{M}_{\kappa}(\mathbf{y})
- :=\mathcal{L}_{\mathbf{y}}
- \left([\mathbf{z}]_{\kappa}[\mathbf{z}]_{\kappa}^{\top}\right),
- \qquad
- [\mathbf{M}_{\kappa}(\mathbf{y})]_{\alpha,\beta}
- =y_{\alpha+\beta}.
- \label{eq:moment_matrix}
+\mathbf{M}_{\kappa}(\mathbf{y})
+:=
+\mathcal{L}_{\mathbf{y}}
+\left(
+[\mathbf{z}]_{\kappa}[\mathbf{z}]_{\kappa}^{\top}
+\right).
+\label{eq:moment_matrix_comparison}
 \end{equation}
-For the inequality \(g_j\geq0\), let
-\(d_j:=\lceil\deg(g_j)/2\rceil\). Its localizing matrix is
+The polynomial constraints are included similarily. For an inequality
+\(g_j(\mathbf{z})\geq0\), let
+\(d_j:=\lceil\deg(g_j)/2\rceil\).\cite{Sangli2025} defines the corresponding localizing matrix as
 \begin{equation}
- \mathbf{M}_{\kappa-d_j}(g_j\mathbf{y})
- :=\mathcal{L}_{\mathbf{y}}\left(
- g_j(\mathbf{z})
- [\mathbf{z}]_{\kappa-d_j}
- [\mathbf{z}]_{\kappa-d_j}^{\top}\right).
- \label{eq:localizing_matrix}
+\mathbf{M}_{\kappa-d_j}(g_j\mathbf{y})
+:=
+\mathcal{L}_{\mathbf{y}}
+\left(
+g_j(\mathbf{z})
+[\mathbf{z}]_{\kappa-d_j}
+[\mathbf{z}]_{\kappa-d_j}^{\top}
+\right).
+\label{eq:localizing_matrix_comparison}
 \end{equation}
-The positive-semidefinite constraint on \eqref{eq:localizing_matrix} enforces
-\(\mathcal{L}_{\mathbf{y}}(g_jq^2)\geq0\) for every polynomial \(q\) of the
-admissible degree. Equality constraints are imposed by multiplying \(h_l\) by
-all monomials whose products have degree at most \(2\kappa\). This results in
-the order-\(\kappa\) moment relaxation
-\begin{subequations}\label{eq:moment_relaxation}
+Requiring this matrix to be positive semidefinite represents the inequality
+\(g_j\geq0\). Similarly, for an equality $h_l(\mathbf{z})=0$, 
+with $e_l:=\lceil\deg(h_l)/2\rceil$, the corresponding localization matrix is 
+\begin{equation}
+\mathbf{M}_{\kappa-e_l}(h_l\mathbf{y})
+:=
+\mathcal{L}_{\mathbf{y}}
+\left(
+h_l(\mathbf{z})
+[\mathbf{z}]_{\kappa-e_l}
+[\mathbf{z}]_{\kappa-e_l}^{\top}
+\right).
+\label{eq:localizing_matrix_comparison}
+\end{equation}
+For relaxation order \(\kappa\), a solution is approximated by 
+sequences $y_\alpha$ with finite order $|\alpha|=2 \kappa$.
+This gives the order-\(\kappa\) moment
+relaxation
+\begin{subequations}\label{eq:moment_relaxation_comparison}
 \begin{align}
- \rho_{\kappa}^{\mathrm{mom}}=
- \min_{\mathbf{y}}
- &\quad\mathcal{L}_{\mathbf{y}}(p)
- \label{eq:moment_relaxation_objective}\\
- \text{s.t.}\quad
- &y_{\mathbf{0}}=1,
- \label{eq:moment_relaxation_normalization}\\
- &\mathbf{M}_{\kappa}(\mathbf{y})\succeq0,
- \label{eq:moment_relaxation_psd}\\
- &\mathbf{M}_{\kappa-d_j}(g_j\mathbf{y})\succeq0,
- &&j=1,\ldots,m_g,
- \label{eq:moment_relaxation_inequalities}\\
- &\mathcal{L}_{\mathbf{y}}\left(
- h_l(\mathbf{z})[\mathbf{z}]_{2\kappa-\deg h_l}\right)=\mathbf{0},
- &&l=1,\ldots,m_h.
- \label{eq:moment_relaxation_equalities}
+\beta_{\kappa}^{*}
+=
+\min_{\mathbf{y}}
+&\quad \mathcal{L}_{\mathbf{y}}(p)
+\label{eq:moment_relaxation_objective_comparison}\\
+\text{s.t.}\quad
+&y_{\mathbf{0}}=1,
+\label{eq:moment_relaxation_normalization_comparison}\\
+&\mathbf{M}_{\kappa}(\mathbf{y})\succeq0,
+\label{eq:moment_relaxation_psd_comparison}\\
+&\mathbf{M}_{\kappa-d_j}(g_j\mathbf{y})\succeq0,
+&&j=1,\ldots,m_g,
+\label{eq:moment_relaxation_inequalities_comparison}\\
+&\mathbf{M}_{\kappa-e_l}(h_l\mathbf{y})=\bm{0}
+&&l=1,\ldots,m_h.
+\label{eq:moment_relaxation_equalities_comparison}
 \end{align}
 \end{subequations}
-In \eqref{eq:moment_relaxation_equalities}, \(\mathcal{L}_{\mathbf{y}}\) is
-applied component-wise. The moment
-and SOS relaxations form a primal--dual SDP pair. Therefore,
-\begin{equation}
- \rho_{\kappa}^{\mathrm{SOS}}
- \leq\rho_{\kappa}^{\mathrm{mom}}
- \leq p^\star,
- \label{eq:moment_sos_bounds}
-\end{equation}
-and the first inequality becomes an equality whenever the finite-dimensional SDP
-pair has no duality gap.
+with \(y_{\mathbf{0}}=1\) being the monomial
+\(\mathbf{z}^{\mathbf{0}}=1\) \cite{Yang2024Semidefinite}. 
 
-If a moment sequence admits a representing probability measure
-\(\mu\) supported on \(\mathcal{K}\), then its entries satisfy
+The moment and SOS relaxations
+form a primal-dual SDP pair. Therefore, the Moment-SOS hierarchy provides the sequence of lower bounds
 \begin{equation}
- y_{\alpha}=\int_{\mathcal{K}}\mathbf{z}^{\alpha}\,\mathrm{d}\mu(\mathbf{z}),
- \label{eq:moment_measure_interpretation}
+\gamma_{\kappa}^{*}
+\leq
+\beta_{\kappa}^{*}
+\leq
+p^\star.
+\label{eq:moment_sos_bounds_comparison}
 \end{equation}
-A feasible point \(\widehat{\mathbf{z}}\in\mathcal{K}\) corresponds to the Dirac measure
-concentrated at \(\widehat{\mathbf{z}}\) and generates
-\(y_{\alpha}=\widehat{\mathbf{z}}^{\alpha}\). The relaxation in
-\eqref{eq:moment_relaxation} keeps only finitely many moments and necessary
-positive-semidefinite conditions for such a representing measure
-\cite{Lasserre2001Global,Yang2024Semidefinite,Sangli2025}.
+If the SDP pair has no duality, then $\gamma_{\kappa}^{*} = \beta_{\kappa}^{*}$ 
+gap \cite{Lasserre2001Global}.
 
-\paragraph{Convergence and solution extraction.}
-Assume that the quadratic module generated by the inequalities is Archimedean.
-In practice, this condition can be enforced when finite variable bounds are known
-by adding a redundant ball constraint
+\paragraph{Convergence.}
+Solving the SOS and moment relaxations for increasing orders \(\kappa\) defines
+Lasserre's hierarchy. Higher orders give tighter lower bounds but larger SDPs.
+For a nonempty feasible set, both bound sequences increase monotonically and
+converge to the global optimum
 \begin{equation}
- R^2-\|\mathbf{z}\|_2^2\geq0.
- \label{eq:archimedean_ball_constraint}
+\gamma_{\kappa}^{\star}\leq\gamma_{\kappa+1}^{\star}\leq p^\star,
+\qquad
+\beta_{\kappa}^{\star}\leq\beta_{\kappa+1}^{\star}\leq p^\star,
+\qquad
+\lim_{\kappa\rightarrow\infty}\gamma_\kappa^\star
+=
+\lim_{\kappa\rightarrow\infty}\beta_\kappa^{\mathrm{mom}}
+=
+p^\star.
+\label{eq:convergence_of_moment_sos_hierarchy}
 \end{equation}
-This connects the bounds introduced in Section~5.1 to the convergence of the
-hierarchy. Under this assumption, the lower bounds improve monotonically and
-converge to the global optimum,
-\begin{equation}
- \rho_{\kappa}^{\mathrm{mom}}
- \leq\rho_{\kappa+1}^{\mathrm{mom}}
- \leq p^\star,
- \qquad
- \lim_{\kappa\rightarrow\infty}
- \rho_{\kappa}^{\mathrm{mom}}=p^\star.
- \label{eq:moment_hierarchy_convergence}
-\end{equation}
-This is an asymptotic statement; exactness at a prescribed finite order is not
-guaranteed.
+This convergence is asymptotic \cite{Lasserre2001Global}.
 
-If an optimal moment sequence is generated by one optimizer
-\(\mathbf{z}^\star\), its moment matrix factorizes as
+Additionally, if the Archimedean condition is enforced by
+\(R^2-\|\mathbf{z}\|_2^2\geq0\) and the POP satisfies suitable
+optimality conditions, then
 \begin{equation}
- \mathbf{M}_{\kappa}(\mathbf{y}^\star)
- =[\mathbf{z}^\star]_{\kappa}
- [\mathbf{z}^\star]_{\kappa}^{\top}
- \label{eq:rank_one_moment_factorization}
-\end{equation}
-and therefore has rank one. Conversely, if the optimal moment matrix in
-\eqref{eq:moment_relaxation} has rank one, the relaxation is tight and the
-globally optimal decision vector can be recovered from the first-order moments,
+\gamma_{\kappa^\star}^\star
+=
+\beta_{\kappa^\star}^{\star}
+=
+p^\star.
+\label{eq:finite_convergence}
+\end{equation} 
+at a finite but generally unknown relaxation order \(\kappa^\star<\infty\).
+This property is referred to as finite convergence \cite{Lasserre2001Global}.
+
+\paragraph{Solution extraction.}
+A simple finite-order certificate is obtained from the optimal moment matrix $\mathbf{M}_{\kappa}(\mathbf{y}^\star)$
+\cite{Yang2024Semidefinite}.
+If it has rank one $\operatorname{rank}\!\left(
+\mathbf{M}_{\kappa}(\mathbf{y}^\star)\right)=1$, then
 \begin{equation}
- z_r^\star=y_{\mathbf{e}_r}^\star,
- \qquad r=1,\ldots,n_z,
- \label{eq:first_moment_extraction}
+\mathbf{M}_{\kappa}(\mathbf{y}^\star)
+=
+[\mathbf{z}^\star]_{\kappa}
+[\mathbf{z}^\star]_{\kappa}^{\top}.
+\label{eq:2}
 \end{equation}
-where \(\mathbf{e}_r\) is the \(r\)-th unit multi-index and
-\(y_{\mathbf{0}}^\star=1\). More generally, a flat-extension rank condition can
-certify a finite set of global minimizers. The rank-one case is the tightness
-condition evaluated for the trajectory solutions in this thesis
-\cite{Sangli2025,Kang_2026Fast}.
-If a feasible trajectory \(\widehat{\mathbf{z}}\) is instead obtained by extraction
-and local refinement, the exact relaxation value gives the certified bracket
+Therefore, the relaxation is tight, and a globally optimal decision vector is
+recovered from the first-order moments as
 \begin{equation}
- \rho_{\kappa}^{\mathrm{mom}}
- \leq p^\star
- \leq p(\widehat{\mathbf{z}}).
- \label{eq:certified_objective_bracket}
+z_r^\star=y_{\mathbf{e}_r}^\star,
+\qquad r=1,\ldots,n_z,
+\label{eq:1}
 \end{equation}
-For a numerical SDP solution, the lower endpoint must be obtained from a
-dual-feasible SOS certificate, or otherwise validated while accounting for the
-solver tolerances, before the bracket is interpreted as certified.
+where \(\mathbf{e}_r\) is the \(r\)-th unit multi-index \cite{Yang2024Semidefinite}. 
+If the moment matrix has higher rank, the rank-one condition does not certify
+that the relaxation is tight \cite{Sangli2025}. Moreover, any
+feasible trajectory \(\widehat{\mathbf{z}}\) provides an upper bound, such that
+\begin{equation}
+\gamma_{\kappa}^{\star}
+\leq p^\star
+\leq p(\widehat{\mathbf{z}}).
+\label{eq:certified_objective_bracket}
+\end{equation}
 
 \subsection{Sparse Relaxations}
 \label{subsec:sparse_relaxations}
@@ -517,7 +553,7 @@ satisfy the chain condition
 \begin{equation}
  \bigcup_{k=1}^{N} I_k=\{1,\ldots,n_z\},
  \qquad
- \left(\bigcup_{r=1}^{k-1}I_r\right)\cap I_k
+ \left(\bigcup_{i=1}^{k-1}I_i\right)\cap I_k
  =I_{k-1}\cap I_k,
  \quad k=2,\ldots,N.
  \label{eq:chain_sparsity_condition}
@@ -552,24 +588,24 @@ matrices represent consistency of their shared moments.
 Let \(I_1,\ldots,I_q\) be the maximal variable cliques after chordal extension.
 Assume that the objective decomposes as
 \begin{equation}
- p(\mathbf{z})=\sum_{r=1}^{q}p_r(\mathbf{z}(I_r)),
+ p(\mathbf{z})=\sum_{i=1}^{q}p_i(\mathbf{z}(I_i)),
  \label{eq:sparse_objective_decomposition}
 \end{equation}
 and that every constraint polynomial is contained in at least one clique. Denote
-by \(\mathcal{G}_r\) and \(\mathcal{H}_r\) the inequality and equality constraints
-assigned to clique \(I_r\), respectively. The local moment and localizing matrices
+by \(\mathcal{G}_i\) and \(\mathcal{H}_i\) the inequality and equality constraints
+assigned to clique \(I_i\), respectively. The local moment and localizing matrices
 are
 \begin{align}
- \mathbf{M}_{\kappa,r}(\mathbf{y})
+ \mathbf{M}_{\kappa,i}(\mathbf{y})
  &:={\mathcal{L}}_{\mathbf{y}}\left(
- [\mathbf{z}(I_r)]_{\kappa}
- [\mathbf{z}(I_r)]_{\kappa}^{\top}\right),
+ [\mathbf{z}(I_i)]_{\kappa}
+ [\mathbf{z}(I_i)]_{\kappa}^{\top}\right),
  \label{eq:sparse_moment_matrix}\\
- \mathbf{L}_{\kappa,r,j}(\mathbf{y})
+ \mathbf{L}_{\kappa,i,j}(\mathbf{y})
  &:={\mathcal{L}}_{\mathbf{y}}\left(
- g_j[\mathbf{z}(I_r)]_{\kappa-d_j}
- [\mathbf{z}(I_r)]_{\kappa-d_j}^{\top}\right),
- \qquad j\in\mathcal{G}_r.
+ g_j[\mathbf{z}(I_i)]_{\kappa-d_j}
+ [\mathbf{z}(I_i)]_{\kappa-d_j}^{\top}\right),
+ \qquad j\in\mathcal{G}_i.
  \label{eq:sparse_localizing_matrix}
 \end{align}
 The order-\(\kappa\) sparse moment relaxation is then written as
@@ -577,21 +613,21 @@ The order-\(\kappa\) sparse moment relaxation is then written as
 \begin{align}
  \rho_{\kappa}^{\mathrm{sp}}=
  \min_{\mathbf{y}}
- &\quad\sum_{r=1}^{q}
- \mathcal{L}_{\mathbf{y}}(p_r)
+ &\quad\sum_{i=1}^{q}
+ \mathcal{L}_{\mathbf{y}}(p_i)
  \label{eq:sparse_moment_relaxation_objective}\\
  \text{s.t.}\quad
  &y_{\mathbf{0}}=1,
  \label{eq:sparse_moment_relaxation_normalization}\\
- &\mathbf{M}_{\kappa,r}(\mathbf{y})\succeq0,
- &&r=1,\ldots,q,
+ &\mathbf{M}_{\kappa,i}(\mathbf{y})\succeq0,
+ &&i=1,\ldots,q,
  \label{eq:sparse_moment_relaxation_psd}\\
- &\mathbf{L}_{\kappa,r,j}(\mathbf{y})\succeq0,
- &&j\in\mathcal{G}_r,\quad r=1,\ldots,q,
+ &\mathbf{L}_{\kappa,i,j}(\mathbf{y})\succeq0,
+ &&j\in\mathcal{G}_i,\quad i=1,\ldots,q,
  \label{eq:sparse_moment_relaxation_inequalities}\\
  &\mathcal{L}_{\mathbf{y}}\left(
- h_l[\mathbf{z}(I_r)]_{2\kappa-\deg h_l}\right)=\mathbf{0},
- &&l\in\mathcal{H}_r,\quad r=1,\ldots,q.
+ h_l[\mathbf{z}(I_i)]_{2\kappa-\deg h_l}\right)=\mathbf{0},
+ &&l\in\mathcal{H}_i,\quad i=1,\ldots,q.
  \label{eq:sparse_moment_relaxation_equalities}
 \end{align}
 \end{subequations}
@@ -602,7 +638,7 @@ constraints on every overlap.
 
 Instead of one dense matrix of dimension
 \(\binom{n_z+\kappa}{\kappa}\), the sparse relaxation contains moment matrices
-of dimension \(\binom{|I_r|+\kappa}{\kappa}\). For the temporal construction in
+of dimension \(\binom{|I_i|+\kappa}{\kappa}\). For the temporal construction in
 \eqref{eq:trajectory_clique}, the clique dimension remains independent of \(N\)
 when the per-stage model size is fixed, while the number of blocks grows linearly
 with the planning horizon. This describes the representation size; the numerical
@@ -621,13 +657,13 @@ and one globally optimal trajectory can be extracted. Rank one of only the first
 clique is not a certificate for the complete horizon.
 
 For numerical solutions, let
-\(\lambda_{1,r}\geq\lambda_{2,r}\geq\cdots\geq0\) be the eigenvalues of
-\(\mathbf{M}_{\kappa,r}\). Following \cite{Sangli2025}, proximity to rank one is
+\(\lambda_{1,i}\geq\lambda_{2,i}\geq\cdots\geq0\) be the eigenvalues of
+\(\mathbf{M}_{\kappa,i}\). Following \cite{Sangli2025}, proximity to rank one is
 evaluated by
 \begin{equation}
- \delta_r:=\frac{\lambda_{2,r}}{\lambda_{1,r}},
+ \delta_i:=\frac{\lambda_{2,i}}{\lambda_{1,i}},
  \qquad
- \delta_{\max}:=\max_{r=1,\ldots,q}\delta_r.
+ \delta_{\max}:=\max_{i=1,\ldots,q}\delta_i.
  \label{eq:numerical_rank_metric}
 \end{equation}
 A small value of \(\delta_{\max}\) indicates an approximately rank-one solution,
@@ -638,7 +674,7 @@ solver to return a higher-rank convex combination.
 \paragraph{Term sparsity and SPOT.}
 Correlative sparsity groups variables, whereas term sparsity further exploits
 relations between monomials inside each variable clique. For a fixed clique
-\(I_r\), the vertices of the term sparsity pattern are the monomials in the
+\(I_i\), the vertices of the term sparsity pattern are the monomials in the
 relevant local bases. Two monomials are connected when their
 product contributes to the support of the objective or a constraint after support
 extension. A chordal extension of this term graph divides the local monomial

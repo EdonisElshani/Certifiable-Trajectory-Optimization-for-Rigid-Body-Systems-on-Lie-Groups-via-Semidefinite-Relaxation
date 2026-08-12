@@ -8,13 +8,13 @@
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Acrobot configuration manifold in maximal coordinates.}}{35}{figure.caption.26}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Comparison of the numerical preservation properties for the unforced $3$D pendulum.}}{64}{figure.caption.44}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Comparison of the forced LGVI and RK4 simulation for the controlled $3$D pendulum.}}{67}{figure.caption.46}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of the numerical preservation properties for the unforced Acrobot.}}{71}{figure.caption.48}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Numerical simulation results for the controlled Acrobot.}}{72}{figure.caption.50}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ $ rotation about the $x$-axis using the MD sparsity setting.}}{81}{figure.caption.54}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Closed-loop SDP-MPC results for the Acrobot with $u_{\max }=5\,\mathrm {Nm}$: (a) tracking error to the target rotation, (b) applied control input, (c) $SO(2)$ orthogonality error of the link rotations and relative rotations, (d) first-step and maximum moment-relaxation rank condition over the MPC iterations, indicating the tightness of the SDP relaxation.}}{82}{figure.caption.64}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparison of the SDP-MPC basin of attraction under model mismatch between the SDP prediction model and the simulated plant, for $\Delta t_{\mathrm {SDP}}=0.1\,\mathrm {s}$ and (a) $\Delta t_{\mathrm {sim}}=0.0025\,\mathrm {s}$ versus (b) $\Delta t_{\mathrm {sim}}=0.1\,\mathrm {s}$.}}{83}{figure.caption.65}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Comparison of the numerical preservation properties for the unforced $3$D pendulum.}}{64}{figure.caption.45}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Comparison of the forced LGVI and RK4 simulation for the controlled $3$D pendulum.}}{67}{figure.caption.47}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of the numerical preservation properties for the unforced Acrobot.}}{71}{figure.caption.49}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Numerical simulation results for the controlled Acrobot.}}{72}{figure.caption.51}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ $ rotation about the $x$-axis using the MD sparsity setting.}}{81}{figure.caption.55}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Closed-loop SDP-MPC results for the Acrobot with $u_{\max }=5\,\mathrm {Nm}$: (a) tracking error to the target rotation, (b) applied control input, (c) $SO(2)$ orthogonality error of the link rotations and relative rotations, (d) first-step and maximum moment-relaxation rank condition over the MPC iterations, indicating the tightness of the SDP relaxation.}}{82}{figure.caption.65}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparison of the SDP-MPC basin of attraction under model mismatch between the SDP prediction model and the simulated plant, for $\Delta t_{\mathrm {SDP}}=0.1\,\mathrm {s}$ and (a) $\Delta t_{\mathrm {sim}}=0.0025\,\mathrm {s}$ versus (b) $\Delta t_{\mathrm {sim}}=0.1\,\mathrm {s}$.}}{83}{figure.caption.66}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

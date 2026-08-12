@@ -52,43 +52,44 @@
 \contentsline {section}{\numberline {5.1}Discrete Motion Planning of Rigid-Body Systems}{43}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Semidefinite Optimization and Relaxation}{45}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Semidefinite Relaxation and the Moment--SOS Hierarchy}{46}{subsection.5.2.1}%
-\contentsline {paragraph}{Semidefinite programming.}{46}{section*.31}%
-\contentsline {paragraph}{Sum-of-squares relaxation.}{46}{section*.32}%
+\contentsline {paragraph}{Semidefinite programming (SDP).}{46}{section*.31}%
+\contentsline {paragraph}{Sum-of-squares (SOS) relaxation.}{46}{section*.32}%
 \contentsline {paragraph}{Moment relaxation.}{47}{section*.33}%
-\contentsline {paragraph}{Convergence and solution extraction.}{48}{section*.34}%
+\contentsline {paragraph}{Convergence.}{48}{section*.34}%
+\contentsline {paragraph}{Solution extraction.}{48}{section*.35}%
 \contentsline {subsection}{\numberline {5.2.2}Sparse Relaxations}{49}{subsection.5.2.2}%
-\contentsline {paragraph}{Correlative sparsity and chordal extension.}{49}{section*.35}%
-\contentsline {paragraph}{Chain-like sparsity of trajectory optimization.}{49}{section*.36}%
-\contentsline {paragraph}{Sparse Moment--SOS relaxation.}{50}{section*.37}%
-\contentsline {paragraph}{Term sparsity and SPOT.}{51}{section*.38}%
+\contentsline {paragraph}{Correlative sparsity and chordal extension.}{49}{section*.36}%
+\contentsline {paragraph}{Chain-like sparsity of trajectory optimization.}{50}{section*.37}%
+\contentsline {paragraph}{Sparse Moment--SOS relaxation.}{50}{section*.38}%
+\contentsline {paragraph}{Term sparsity and SPOT.}{51}{section*.39}%
 \contentsline {section}{\numberline {5.3}Discrete Motion Planning for 3D Pendulum}{53}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Discrete Motion Planning for an Acrobot}{56}{section.5.4}%
 \contentsline {subsection}{\numberline {5.4.1}Trajectory Optimization via SDP Relaxation}{56}{subsection.5.4.1}%
-\contentsline {paragraph}{Scalar polynomial form.}{58}{section*.39}%
+\contentsline {paragraph}{Scalar polynomial form.}{58}{section*.40}%
 \contentsline {subsection}{\numberline {5.4.2}Trajectory Optimization via SDP Relaxation using Model Predictive Control}{59}{subsection.5.4.2}%
 \contentsline {chapter}{\numberline {6}Evaluation}{61}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Numerical Simulation Results}{61}{section.6.1}%
-\contentsline {paragraph}{Runge--Kutta 4th order}{61}{section*.41}%
-\contentsline {paragraph}{RK4 projected to $SO(3)$}{62}{section*.42}%
+\contentsline {paragraph}{Runge--Kutta 4th order}{61}{section*.42}%
+\contentsline {paragraph}{RK4 projected to $SO(3)$}{62}{section*.43}%
 \contentsline {subsection}{\numberline {6.1.1}3D Pendulum}{63}{subsection.6.1.1}%
-\contentsline {subsubsection}{Unforced 3D-Pendulum}{64}{section*.43}%
-\contentsline {subsubsection}{Controlled 3D-Pendulum}{65}{section*.45}%
+\contentsline {subsubsection}{Unforced 3D-Pendulum}{64}{section*.44}%
+\contentsline {subsubsection}{Controlled 3D-Pendulum}{65}{section*.46}%
 \contentsline {subsection}{\numberline {6.1.2}Acrobot}{68}{subsection.6.1.2}%
-\contentsline {subsubsection}{Unforced Acrobot}{70}{section*.47}%
-\contentsline {subsubsection}{Controlled Acrobot}{71}{section*.49}%
+\contentsline {subsubsection}{Unforced Acrobot}{70}{section*.48}%
+\contentsline {subsubsection}{Controlled Acrobot}{71}{section*.50}%
 \contentsline {section}{\numberline {6.2}3D-Pendulum Optimization Results}{73}{section.6.2}%
-\contentsline {subsubsection}{3D-Pendulum Test Configuration and Results}{73}{section*.51}%
-\contentsline {paragraph}{Comparison with the results of Teng et al.}{75}{section*.53}%
+\contentsline {subsubsection}{3D-Pendulum Test Configuration and Results}{73}{section*.52}%
+\contentsline {paragraph}{Comparison with the results of Teng et al.}{75}{section*.54}%
 \contentsline {section}{\numberline {6.3}Acrobot Optimization Results}{75}{section.6.3}%
 \contentsline {subsection}{\numberline {6.3.1}Semidefinite Optimization Results}{75}{subsection.6.3.1}%
-\contentsline {subsubsection}{Acrobot Test Configuration and Results}{76}{section*.57}%
-\contentsline {paragraph}{Relation to the drone-landing benchmark.}{78}{section*.58}%
+\contentsline {subsubsection}{Acrobot Test Configuration and Results}{76}{section*.58}%
+\contentsline {paragraph}{Relation to the drone-landing benchmark.}{78}{section*.59}%
 \contentsline {subsection}{\numberline {6.3.2}Evaluation Metrics and Test Configuration}{78}{subsection.6.3.2}%
-\contentsline {paragraph}{Relative suboptimality gap.}{78}{section*.59}%
-\contentsline {paragraph}{Rank condition.}{78}{section*.60}%
-\contentsline {paragraph}{Terminal rotation error.}{79}{section*.61}%
-\contentsline {paragraph}{Manifold violation.}{79}{section*.62}%
-\contentsline {paragraph}{Runtime.}{80}{section*.63}%
+\contentsline {paragraph}{Relative suboptimality gap.}{78}{section*.60}%
+\contentsline {paragraph}{Rank condition.}{78}{section*.61}%
+\contentsline {paragraph}{Terminal rotation error.}{79}{section*.62}%
+\contentsline {paragraph}{Manifold violation.}{79}{section*.63}%
+\contentsline {paragraph}{Runtime.}{80}{section*.64}%
 \contentsline {subsection}{\numberline {6.3.3}Model Predictive SDP Control Results}{80}{subsection.6.3.3}%
 \contentsline {chapter}{\numberline {7}Discussion}{85}{chapter.7}%
 \contentsline {chapter}{\numberline {8}Conclusion}{87}{chapter.8}%
@@ -96,15 +97,15 @@
 \contentsline {section}{\numberline {A.1}Acrobot Evaluation Models}{89}{section.A.1}%
 \contentsline {subsection}{\numberline {A.1.1}Reduced Maximal-Coordinates LGVI Model}{89}{subsection.A.1.1}%
 \contentsline {subsection}{\numberline {A.1.2}Discretized Newton-Euler-Lagrange Model}{90}{subsection.A.1.2}%
-\contentsline {paragraph}{Coordinates and approximation.}{90}{section*.66}%
-\contentsline {paragraph}{Discrete Newton--Euler--Lagrange dynamics.}{91}{section*.67}%
-\contentsline {paragraph}{Trajectory optimization and chain clique.}{91}{section*.68}%
+\contentsline {paragraph}{Coordinates and approximation.}{90}{section*.67}%
+\contentsline {paragraph}{Discrete Newton--Euler--Lagrange dynamics.}{91}{section*.68}%
+\contentsline {paragraph}{Trajectory optimization and chain clique.}{91}{section*.69}%
 \contentsline {section}{\numberline {A.2}Model Evaluation}{91}{section.A.2}%
 \contentsline {subsection}{\numberline {A.2.1}Numerical Simulation Validation}{91}{subsection.A.2.1}%
 \contentsline {subsection}{\numberline {A.2.2}SDP Tightness and Dynamic Residuals}{91}{subsection.A.2.2}%
-\contentsline {chapter}{List of Figures}{93}{section*.69}%
-\contentsline {chapter}{List of Tables}{95}{section*.71}%
-\contentsline {chapter}{Acronyms}{97}{section*.73}%
-\contentsline {chapter}{Notation}{99}{section*.75}%
-\contentsline {chapter}{List of Symbols}{101}{section*.77}%
-\contentsline {chapter}{Bibliography}{105}{section*.79}%
+\contentsline {chapter}{List of Figures}{93}{section*.70}%
+\contentsline {chapter}{List of Tables}{95}{section*.72}%
+\contentsline {chapter}{Acronyms}{97}{section*.74}%
+\contentsline {chapter}{Notation}{99}{section*.76}%
+\contentsline {chapter}{List of Symbols}{101}{section*.78}%
+\contentsline {chapter}{Bibliography}{105}{section*.80}%
