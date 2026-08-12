@@ -1,35 +1,672 @@
 \chapter{Certifiable Trajectory Optimization via Semidefinite Relaxation}
 \label{chapter:certifiable_trajectory_optimization}
 
-\section{Trajectory Optimization with Variational Integrators}
-\label{sec:trajectory_optimization_variational_integrators}
+This chapter formulates the discrete rigid-body models derived in 
+Chapter \ref{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups} as 
+finite-horizon trajectory optimization problems. Section \ref{sec:discrete_motion_planning_of_rigid_body_systems} 
+intoduces the geometric motion planning 
+formulation of \cite{Sangli2025}, which expresses the Lie group variational 
+integrators and their kinematic constraints by polynomial equalities and inequalities. 
+In general, a nonconvex polynomial optimization problem is relaxed to a convex semidefinite 
+program. Therefore, Section \ref{sec:semidefinite_optimization_relaxation} gives an 
+overall introduction to semidefinite programming and presents the 
+Moment-SOS hierarchy and the exploitation of correlative and term sparsity. 
+Finally, Section \ref{sec:discrete_motion_planning_3d_pendulum} and 
+\ref{sec:discrete_motion_planning_acrobot} defines the optimization formulation for 
+the controlled 3D-pendulum and the Acrobot. The resulting construction follows the sparse 
+semidefinite trajectory optimization framework SPOT of \cite{Kang_2026Fast,Kang_2025Global}.
+In case of the Acrobot, Model-Predictive Control is applied to the semidefinite relaxation
+to obtain certifiable solutions. 
 
-\subsection{Optimization Problem Formulation}
-\label{sec:optimization_problem_formulation}
+\section{Discrete Motion Planning of Rigid-Body Systems}
+\label{sec:discrete_motion_planning_of_rigid_body_systems}
 
-\newpage
+A general robot motion planning problem is considered as a mechanical system 
+consisting of \(n_{\mathrm b}\) rigid links, 
+indexed by \(i\in\mathcal I:=\{1,\ldots,n_{\mathrm b}\}\), with $N$ steps starting at $k=0$. 
+The robot configuration state \(Y_k\) consits the center-of-mass positions \(x_{i,k}\), 
+rotations \(R_{i,k}\), and relative rotations \(F_{i,k}\). The control input is given 
+as \(U_k\), with \(\lambda_k\) being the Lagrange multipliers of the holonomic joint 
+constraints. Adapted from the discrete kinodynamic motion planning problem of 
+\cite{Sangli2025}, the general multi-body problem is written as
+\begin{subequations}
+\label{eq:general_motion_optimization}
+\begin{align}
+\min_{\{Y_k\}_{k=0}^{N},\{U_k,\lambda_k\}_{k=1}^{N}}
+&\quad \Psi(Y_N)+\sum_{k=0}^{N-1}\psi(Y_k,U_{k+1},\lambda_{k+1})\\
+\text{s.t.}\quad
+&\mathcal D_i(Y_{k+1},Y_k,U_{k+1},\lambda_{k+1})=0, \qquad i\in\mathcal I,\\
+&Y_k\in\mathcal Y_i, \\
+&H(Y_{k+1},U_{k+1},\lambda_{k+1})\geq0,\\
+&U_{\min}\leq U_k\leq U_{\max},\\
+&Y_0=Y_{\mathrm{init}},\\
+&k=0,\ldots,N-1. \nonumber
+\end{align}
+\end{subequations}
+Here, \(\Psi(\cdot)\) dentotes the terminal costs and \(\psi(\cdot)\) the running costs. 
+The equality constraint set \(\mathcal D_i=0\) represent the forced 
+discrete Euler--Lagrange equations of link \(i\) derived in Chapter \ref{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups}, 
+including the set of control inputs $U_{k+1}$ and Lagrange multipliers $\lambda_{k+1}$. Additionally,
+for multi-body systems, the set
+\(\mathcal D_i\) contains the holonomic joint constraints \eqref{eq:holonomic_constraints_general}.
+The inequalities \(H\geq0\) describe rotation-step limits, 
+geometric constraints such as collision avoidance, and bounds introduced to obtain a compact feasible set \cite{Kang_2026Fast}. 
+Control limits are set by \(U_{\min}\leq U_k\leq U_{\max}\) in \eqref{eq:general_motion_optimization}.
+
+The set \(\mathcal Y_i\) enforces the matrix Lie-group structure of the set of states $Y_k$. 
+Thereby, the multiplicative kinematic update 
+\begin{equation}
+R_{i,k+1}=R_{i,k}F_{i,k}
+\label{eq:general_lie_group_kinematics}
+\end{equation}
+preserves the corresponding Lie group structure for each link \(i\). 
+
+For rigid-body motion on $SO(3)$, 
+the rotation of link \(i\) is given by
+\[
+R_{i,k}=
+\begin{bmatrix}
+r^{1}_{i,k},&r^{2}_{i,k},&r^{3}_{i,k}
+\end{bmatrix}
+\in\mathbb R^{3\times3}.
+\]
+Following \cite{Sangli2025}, 
+$R_{i,k} \in \mathrm{SO}(3)$ is represented by the 
+15 quadratic polynomial equalities
+\begin{align}
+&\|r^{1}_{i,k}\|_2^2-1
+=
+\|r^{2}_{i,k}\|_2^2-1
+=
+\|r^{3}_{i,k}\|_2^2-1
+=0,\nonumber\\
+&(r^{1}_{i,k})^\top r^{2}_{i,k}
+=
+(r^{2}_{i,k})^\top r^{3}_{i,k}
+=
+(r^{1}_{i,k})^\top r^{3}_{i,k}
+=0,
+\label{eq:so3_polynomial_constraints}\\
+&r^{1}_{i,k}\times r^{2}_{i,k}-r^{3}_{i,k}
+=
+r^{2}_{i,k}\times r^{3}_{i,k}-r^{1}_{i,k}
+=
+r^{3}_{i,k}\times r^{1}_{i,k}-r^{2}_{i,k}
+=0_{3\times1}.
+\nonumber
+\end{align}
+The same constraints are imposed on \(F_{i,k}\) by replacing \(r^{1}_{i,k},r^{2}_{i,k},r^{3}_{i,k}\) with its columns \(f^{1}_{i,k},f^{2}_{i,k},f^{3}_{i,k}\). 
+
+For rigid-body motion on $SO(2)$, the standard polynomial parametrization is
+\begin{equation}
+R_{i,k}=
+\begin{bmatrix}
+c_{i,k}&-s_{i,k}\\
+s_{i,k}&c_{i,k}
+\end{bmatrix},
+\qquad
+F_{i,k}=
+\begin{bmatrix}
+a_{i,k}&-b_{i,k}\\
+b_{i,k}&a_{i,k}
+\end{bmatrix},
+\label{eq:so2_polynomial_constraints}
+\end{equation}
+where \(c_{i,k}=\cos\theta_{i,k}\), \(s_{i,k}=\sin\theta_{i,k}\), \(a_{i,k}=\cos\Delta\theta_{i,k}\), and \(b_{i,k}=\sin\Delta\theta_{i,k}\) \cite{Hall2000LieGroups}. 
+Applying \eqref{eq:so2_polynomial_constraints} 
+to the the kinematic update for each link \(i\) in \eqref{eq:general_lie_group_kinematics}
+its planar version is given by
+\begin{align}
+c_{i,k+1}-c_{i,k}a_{i,k}+s_{i,k}b_{i,k}=0,
+\qquad
+s_{i,k+1}-s_{i,k}a_{i,k}-c_{i,k}b_{i,k}=0,
+\end{align}
+for planar motion. In contrast to \eqref{eq:so3_polynomial_constraints}, the planar rotation matrices \(R_{i,k},F_{i,k} \in \mathrm{SO}(2)\) are imposed by the two quadratic polynomial equalities
+\begin{align}    
+c_{i,k}^2+s_{i,k}^2=1,
+\qquad
+a_{i,k}^2+b_{i,k}^2=1, 
+\end{align}
+\cite{Sangli2025}.
+
+The matrix in \eqref{eq:so2_polynomial_constraints} describes a rotation in the \(xy\)-plane and therefore about the \(z\)-axis. In general, rotations about a fixed axis are
+\begin{equation}
+R_x=
+\begin{bmatrix}
+1&0&0\\
+0&c&-s\\
+0&s&c
+\end{bmatrix},
+\qquad
+R_y=
+\begin{bmatrix}
+c&0&s\\
+0&1&0\\
+-s&0&c
+\end{bmatrix},
+\qquad
+R_z=
+\begin{bmatrix}
+c&-s&0\\
+s&c&0\\
+0&0&1
+\end{bmatrix},
+\label{eq:axis_rotations}
+\end{equation}
+with \(c=\cos\theta\) and \(s=\sin\theta\) \cite{Sangli2025}.
+Consequently, planar motion in the \(yz\)-, \(xz\)-, or \(xy\)-plane corresponds to a rotation about the \(x\)-, \(y\)-, or \(z\)-axis, respectively.
+
+Finally, from an given initial configuration $Y_k$, the target configuration $Y_N$ is reached by minimizing the terminal cost \(\Psi(\cdot)\).
 
 \section{Semidefinite Optimization and Relaxation}
-\label{sec:semidefinite_optimization_and_relaxation}
+\label{sec:semidefinite_optimization_relaxation}
 
-\subsection{Semidefinite Relaxation and the Moment-SOS Hierarchy}
-\label{sec:sdp_moment_sos_relaxation}
+The discrete motion planning problem \eqref{eq:general_motion_optimization} is considered as a 
+polynomial optimization problem (POP) 
+with polynomial objective, equality, and inequality constraints \cite{Sangli2025}. Thereby,
+\(\mathbf{z}\in\mathbb{R}^{n_z}\) is the complete set of states $Y_k$, control
+inputs $U_k$, and Lagrange multipliers $\lambda_{k+1}$ over the planning horizon. 
+Equivalently, the POP can be written in the general form
+\begin{subequations}\label{eq:pop_general}
+\begin{align}
+ p^\star = \min_{\mathbf{z}\in\mathbb{R}^{n_z}}
+ &\quad p(\mathbf{z})
+ \label{eq:pop_general_objective}\\
+ \text{s.t.}\quad
+ &h_l(\mathbf{z})=0, &&l=1,\ldots,m_h,
+ \label{eq:pop_general_equalities}\\
+ &g_j(\mathbf{z})\geq 0, &&j=1,\ldots,m_g,
+ \label{eq:pop_general_inequalities}
+\end{align}
+\end{subequations}
+with the basic closed semialgebraic feasible set
+\begin{equation}
+ \mathcal{K}:=
+ \left\{\mathbf{z}\in\mathbb{R}^{n_z}\ \middle|\
+ h_l(\mathbf{z})=0,\ l=1,\ldots,m_h,\;
+ g_j(\mathbf{z})\geq0,\ j=1,\ldots,m_g\right\}.
+ \label{eq:pop_feasible_set}
+\end{equation}
+Here, \(p\), \(h_l\), and \(g_j\) are real multivariate polynomials. In general,
+a multivariate polynomial is defined as
+\begin{equation}
+ p(\mathbf{z})=\sum_{\alpha\in\mathbb{N}^{n_z}}p_{\alpha}\mathbf{z}^{\alpha},
+ \qquad
+ \mathbf{z}^{\alpha}:=\prod_{r=1}^{n_z}z_r^{\alpha_r},
+ \label{eq:multivariate_polynomial}
+\end{equation} 
+where $\alpha_i$ are nonnegative integers and \(p_{\alpha}\) are nonzero \cite{Yang2024Semidefinite}.
+Although \eqref{eq:pop_general} is generally nonconvex, the Moment--SOS hierarchy constructs a
+sequence of convex semidefinite relaxations whose optimal values are certified
+lower bounds on the optimal solution \(p^\star\) \cite{Yang2024Semidefinite}.
 
-\subsubsection{Sum of Squares (SOS) Relaxation}
-\label{subsec:sos_relaxation}
+\subsection{Semidefinite Relaxation and the Moment--SOS Hierarchy}
+\label{subsec:moment_sos_hierarchy}
 
-\subsubsection{Moment Relaxation}
-\label{subsec:moment_relaxation}
+\paragraph{Semidefinite programming.}
+Let \(\mathbb{S}^{q}\) denote the vector space of symmetric \(q\times q\)
+matrices. A matrix \(\mathbf{X}\in\mathbb{S}^{q}\) is positive semidefinite,
+written as \(\mathbf{X}\succeq0\), if
+\(\mathbf{v}^{\top}\mathbf{X}\mathbf{v}\geq0\) for all
+\(\mathbf{v}\in\mathbb{R}^{q}\). A semidefinite program (SDP) has the standard
+primal form
+\begin{equation}
+ p_{\mathrm{SDP}}^\star
+ =\min_{\mathbf{X}\in\mathbb{S}^{q}}
+ \left\langle\mathbf{C},\mathbf{X}\right\rangle
+ \quad\text{s.t.}\quad
+ \mathcal{A}(\mathbf{X})=\mathbf{b},\qquad
+ \mathbf{X}\succeq0,
+ \label{eq:standard_sdp}
+\end{equation}
+where \(\langle\mathbf{C},\mathbf{X}\rangle=
+\operatorname{tr}(\mathbf{C}\mathbf{X})\) and \(\mathcal{A}\) is a linear map.
+In contrast to \eqref{eq:pop_general}, both the objective and the affine
+constraints in \eqref{eq:standard_sdp} are convex. The central idea of the
+following relaxation is to replace nonconvex polynomial relations by affine
+relations between moments and positive-semidefinite matrix constraints
+\cite{Yang2024Semidefinite}.
+
+\paragraph{Sum-of-squares relaxation.}
+For a multi-index \(\alpha=(\alpha_1,\ldots,\alpha_{n_z})\in\mathbb{N}^{n_z}\),
+define
+\begin{equation}
+ \mathbf{z}^{\alpha}:=\prod_{r=1}^{n_z}z_r^{\alpha_r},
+ \qquad
+ |\alpha|:=\sum_{r=1}^{n_z}\alpha_r,
+ \qquad
+ [\mathbf{z}]_d:=
+ \left(\mathbf{z}^{\alpha}\right)_{|\alpha|\leq d}.
+ \label{eq:monomial_basis}
+\end{equation}
+The vector \([\mathbf{z}]_d\) contains all monomials of degree at most \(d\)
+and has dimension
+\begin{equation}
+ s(n_z,d)=\binom{n_z+d}{d}.
+ \label{eq:monomial_basis_dimension}
+\end{equation}
+A polynomial \(q\) of degree at most \(2d\) is a sum of squares (SOS) if it can
+be written as \(q=\sum_r q_r^2\). Equivalently, an SOS polynomial admits the
+Gram-matrix representation
+\begin{equation}
+ q(\mathbf{z})=[\mathbf{z}]_d^{\top}
+ \mathbf{Q}[\mathbf{z}]_d,
+ \qquad \mathbf{Q}\succeq0.
+ \label{eq:sos_gram_matrix}
+\end{equation}
+Matching the coefficients on both sides of \eqref{eq:sos_gram_matrix} gives
+affine constraints on the entries of \(\mathbf{Q}\). Hence, verifying the
+existence of an SOS representation is an SDP feasibility problem. Every SOS
+polynomial is globally nonnegative, while the converse does not hold for a
+general multivariate polynomial.
+
+The global optimum in \eqref{eq:pop_general} is the largest value \(\gamma\)
+for which \(p(\mathbf{z})-\gamma\) is nonnegative on \(\mathcal{K}\). Following
+Putinar's positivity certificate, nonnegativity on \(\mathcal{K}\) is relaxed by
+searching for the polynomial identity
+\begin{equation}
+ p(\mathbf{z})-\gamma
+ =\sigma_0(\mathbf{z})
+ +\sum_{j=1}^{m_g}\sigma_j(\mathbf{z})g_j(\mathbf{z})
+ +\sum_{l=1}^{m_h}\tau_l(\mathbf{z})h_l(\mathbf{z}),
+ \label{eq:putinar_certificate}
+\end{equation}
+where \(\sigma_0,\sigma_j\) are SOS polynomials and \(\tau_l\) are arbitrary
+polynomials \cite{Putinar1993Positive,Yang2024Semidefinite}. Restricting every
+term in \eqref{eq:putinar_certificate} to degree at most \(2\kappa\) yields the
+order-\(\kappa\) SOS relaxation
+\begin{subequations}\label{eq:sos_relaxation}
+\begin{align}
+ \rho_{\kappa}^{\mathrm{SOS}}=
+ \max_{\gamma,\{\sigma_j\},\{\tau_l\}}
+ &\quad \gamma
+ \label{eq:sos_relaxation_objective}\\
+ \text{s.t.}\quad
+ &p-\gamma=\sigma_0+
+ \sum_{j=1}^{m_g}\sigma_jg_j+
+ \sum_{l=1}^{m_h}\tau_lh_l,
+ \label{eq:sos_relaxation_identity}\\
+ &\deg(\sigma_0),\ \deg(\sigma_jg_j),\ \deg(\tau_lh_l)
+ \leq2\kappa,
+ \label{eq:sos_relaxation_degree}\\
+ &\sigma_0,\sigma_j\ \text{SOS}.
+ \label{eq:sos_relaxation_cones}
+\end{align}
+\end{subequations}
+Every feasible identity in \eqref{eq:sos_relaxation} proves
+\(p(\mathbf{z})\geq\gamma\) for all \(\mathbf{z}\in\mathcal{K}\). Consequently,
+\(\rho_{\kappa}^{\mathrm{SOS}}\leq p^\star\). The relaxation order must satisfy
+\begin{equation}
+ \kappa\geq\kappa_{\min}:=
+ \max\left\{
+ \left\lceil\frac{\deg p}{2}\right\rceil,
+ \max_j\left\lceil\frac{\deg g_j}{2}\right\rceil,
+ \max_l\left\lceil\frac{\deg h_l}{2}\right\rceil
+ \right\}.
+ \label{eq:minimum_relaxation_order}
+\end{equation}
+
+\paragraph{Moment relaxation.}
+The dual viewpoint replaces each monomial \(\mathbf{z}^{\alpha}\) by a scalar
+moment \(y_{\alpha}\). For a polynomial
+\(q(\mathbf{z})=\sum_{\alpha}q_{\alpha}\mathbf{z}^{\alpha}\), define the Riesz
+linear functional
+\begin{equation}
+ \mathcal{L}_{\mathbf{y}}(q)
+ :=\sum_{\alpha}q_{\alpha}y_{\alpha}.
+ \label{eq:riesz_functional}
+\end{equation}
+The truncated moment sequence
+\(\mathbf{y}=(y_{\alpha})_{|\alpha|\leq2\kappa}\) generates the moment matrix
+\begin{equation}
+ \mathbf{M}_{\kappa}(\mathbf{y})
+ :=\mathcal{L}_{\mathbf{y}}
+ \left([\mathbf{z}]_{\kappa}[\mathbf{z}]_{\kappa}^{\top}\right),
+ \qquad
+ [\mathbf{M}_{\kappa}(\mathbf{y})]_{\alpha,\beta}
+ =y_{\alpha+\beta}.
+ \label{eq:moment_matrix}
+\end{equation}
+For the inequality \(g_j\geq0\), let
+\(d_j:=\lceil\deg(g_j)/2\rceil\). Its localizing matrix is
+\begin{equation}
+ \mathbf{M}_{\kappa-d_j}(g_j\mathbf{y})
+ :=\mathcal{L}_{\mathbf{y}}\left(
+ g_j(\mathbf{z})
+ [\mathbf{z}]_{\kappa-d_j}
+ [\mathbf{z}]_{\kappa-d_j}^{\top}\right).
+ \label{eq:localizing_matrix}
+\end{equation}
+The positive-semidefinite constraint on \eqref{eq:localizing_matrix} enforces
+\(\mathcal{L}_{\mathbf{y}}(g_jq^2)\geq0\) for every polynomial \(q\) of the
+admissible degree. Equality constraints are imposed by multiplying \(h_l\) by
+all monomials whose products have degree at most \(2\kappa\). This results in
+the order-\(\kappa\) moment relaxation
+\begin{subequations}\label{eq:moment_relaxation}
+\begin{align}
+ \rho_{\kappa}^{\mathrm{mom}}=
+ \min_{\mathbf{y}}
+ &\quad\mathcal{L}_{\mathbf{y}}(p)
+ \label{eq:moment_relaxation_objective}\\
+ \text{s.t.}\quad
+ &y_{\mathbf{0}}=1,
+ \label{eq:moment_relaxation_normalization}\\
+ &\mathbf{M}_{\kappa}(\mathbf{y})\succeq0,
+ \label{eq:moment_relaxation_psd}\\
+ &\mathbf{M}_{\kappa-d_j}(g_j\mathbf{y})\succeq0,
+ &&j=1,\ldots,m_g,
+ \label{eq:moment_relaxation_inequalities}\\
+ &\mathcal{L}_{\mathbf{y}}\left(
+ h_l(\mathbf{z})[\mathbf{z}]_{2\kappa-\deg h_l}\right)=\mathbf{0},
+ &&l=1,\ldots,m_h.
+ \label{eq:moment_relaxation_equalities}
+\end{align}
+\end{subequations}
+In \eqref{eq:moment_relaxation_equalities}, \(\mathcal{L}_{\mathbf{y}}\) is
+applied component-wise. The moment
+and SOS relaxations form a primal--dual SDP pair. Therefore,
+\begin{equation}
+ \rho_{\kappa}^{\mathrm{SOS}}
+ \leq\rho_{\kappa}^{\mathrm{mom}}
+ \leq p^\star,
+ \label{eq:moment_sos_bounds}
+\end{equation}
+and the first inequality becomes an equality whenever the finite-dimensional SDP
+pair has no duality gap.
+
+If a moment sequence admits a representing probability measure
+\(\mu\) supported on \(\mathcal{K}\), then its entries satisfy
+\begin{equation}
+ y_{\alpha}=\int_{\mathcal{K}}\mathbf{z}^{\alpha}\,\mathrm{d}\mu(\mathbf{z}),
+ \label{eq:moment_measure_interpretation}
+\end{equation}
+A feasible point \(\widehat{\mathbf{z}}\in\mathcal{K}\) corresponds to the Dirac measure
+concentrated at \(\widehat{\mathbf{z}}\) and generates
+\(y_{\alpha}=\widehat{\mathbf{z}}^{\alpha}\). The relaxation in
+\eqref{eq:moment_relaxation} keeps only finitely many moments and necessary
+positive-semidefinite conditions for such a representing measure
+\cite{Lasserre2001Global,Yang2024Semidefinite,Sangli2025}.
+
+\paragraph{Convergence and solution extraction.}
+Assume that the quadratic module generated by the inequalities is Archimedean.
+In practice, this condition can be enforced when finite variable bounds are known
+by adding a redundant ball constraint
+\begin{equation}
+ R^2-\|\mathbf{z}\|_2^2\geq0.
+ \label{eq:archimedean_ball_constraint}
+\end{equation}
+This connects the bounds introduced in Section~5.1 to the convergence of the
+hierarchy. Under this assumption, the lower bounds improve monotonically and
+converge to the global optimum,
+\begin{equation}
+ \rho_{\kappa}^{\mathrm{mom}}
+ \leq\rho_{\kappa+1}^{\mathrm{mom}}
+ \leq p^\star,
+ \qquad
+ \lim_{\kappa\rightarrow\infty}
+ \rho_{\kappa}^{\mathrm{mom}}=p^\star.
+ \label{eq:moment_hierarchy_convergence}
+\end{equation}
+This is an asymptotic statement; exactness at a prescribed finite order is not
+guaranteed.
+
+If an optimal moment sequence is generated by one optimizer
+\(\mathbf{z}^\star\), its moment matrix factorizes as
+\begin{equation}
+ \mathbf{M}_{\kappa}(\mathbf{y}^\star)
+ =[\mathbf{z}^\star]_{\kappa}
+ [\mathbf{z}^\star]_{\kappa}^{\top}
+ \label{eq:rank_one_moment_factorization}
+\end{equation}
+and therefore has rank one. Conversely, if the optimal moment matrix in
+\eqref{eq:moment_relaxation} has rank one, the relaxation is tight and the
+globally optimal decision vector can be recovered from the first-order moments,
+\begin{equation}
+ z_r^\star=y_{\mathbf{e}_r}^\star,
+ \qquad r=1,\ldots,n_z,
+ \label{eq:first_moment_extraction}
+\end{equation}
+where \(\mathbf{e}_r\) is the \(r\)-th unit multi-index and
+\(y_{\mathbf{0}}^\star=1\). More generally, a flat-extension rank condition can
+certify a finite set of global minimizers. The rank-one case is the tightness
+condition evaluated for the trajectory solutions in this thesis
+\cite{Sangli2025,Kang_2026Fast}.
+If a feasible trajectory \(\widehat{\mathbf{z}}\) is instead obtained by extraction
+and local refinement, the exact relaxation value gives the certified bracket
+\begin{equation}
+ \rho_{\kappa}^{\mathrm{mom}}
+ \leq p^\star
+ \leq p(\widehat{\mathbf{z}}).
+ \label{eq:certified_objective_bracket}
+\end{equation}
+For a numerical SDP solution, the lower endpoint must be obtained from a
+dual-feasible SOS certificate, or otherwise validated while accounting for the
+solver tolerances, before the bracket is interpreted as certified.
 
 \subsection{Sparse Relaxations}
-\label{sec:sparse_relaxations_cliques}
+\label{subsec:sparse_relaxations}
+
+The dense moment matrix in \eqref{eq:moment_matrix} has
+\(\binom{n_z+\kappa}{\kappa}\) rows and columns. Since \(n_z\) increases with
+the number of links and the planning horizon, a dense relaxation quickly becomes
+intractable. However, each cost or constraint in a trajectory optimization
+problem usually depends only on a small subset of the complete decision vector.
+Sparse Moment--SOS relaxations exploit this structure at the variable level by
+correlative sparsity and at the monomial level by term sparsity
+\cite{Kang_2025Global,Kang_2026Fast,Sangli2025}.
+
+\paragraph{Correlative sparsity and chordal extension.}
+The correlative sparsity pattern (CSP) is represented by an undirected graph
+\(\mathcal{G}_{\mathrm{csp}}=(\mathcal{V},\mathcal{E})\). Its vertices represent
+the scalar variables \(z_1,\ldots,z_{n_z}\). Two vertices are connected if their
+variables occur together in one monomial of the objective or together in one
+constraint polynomial. Consequently, every constraint involves variables that
+form a clique of \(\mathcal{G}_{\mathrm{csp}}\).
+
+A graph is chordal if every cycle with at least four vertices contains an edge
+between two non-adjacent vertices of that cycle. If the CSP graph is not chordal,
+additional fill edges are introduced until a chordal extension is obtained. The
+maximal cliques of the extended graph then define the variable groups used by the
+sparse relaxation. Finding a chordal extension with the minimum number of fill
+edges is computationally difficult. Therefore, SPOT provides heuristic extensions,
+including minimum degree (MD) and minimum fill (MF) \cite{Kang_2025Global}.
+The MD heuristic repeatedly selects a remaining vertex of minimum degree,
+connects its remaining neighbors, and eliminates the selected vertex. It does not
+guarantee a unique or globally minimum extension.
+
+%\begin{figure}[!ht]
+% \centering
+% \includegraphics[width=0.70\textwidth]
+% {./pics/Optimization/Semidefinite_Relaxation/chordal_extension_cliques.png}
+% \caption{Chordal extension and maximal cliques. The original graph in (a) is
+% non-chordal. One MD extension adds the edges \((B,D)\) and \((B,F)\) in (b),
+% which results in the four maximal cliques shown in (c). Reproduced from
+% \cite{Kang_2025Global}.}
+% \label{fig:chordal_extension_cliques}
+%\end{figure}
+
+For the example in Figure~\ref{fig:chordal_extension_cliques}, the extension
+adds the edges \((B,D)\) and \((B,F)\). The resulting maximal cliques are
+\(\{A,B,D\}\), \(\{B,D,E\}\), \(\{B,E,F\}\), and \(\{B,C,F\}\). Increasing
+the number of fill edges generally produces larger cliques and a tighter but more
+expensive relaxation. Hence, the chordal extension determines a trade-off between
+the SDP block size and the strength of the finite-order lower bound.
+
+\paragraph{Chain-like sparsity of trajectory optimization.}
+For the motion planning formulation of Section~5.1, the vectorized decision
+variables can be ordered as
+\begin{equation}
+ \mathbf{z}=\operatorname{col}
+ \left(Y_0,U_1,\lambda_1,Y_1,\ldots,
+ U_N,\lambda_N,Y_N\right).
+ \label{eq:trajectory_decision_vector}
+\end{equation}
+Let the Roman index set \(I_k\) denote the scalar variables of the \(k\)-th
+trajectory clique,
+\begin{equation}
+ \mathbf{z}(I_k)=\operatorname{col}
+ \left(Y_{k-1},U_k,\lambda_k,Y_k\right),
+ \qquad k=1,\ldots,N.
+ \label{eq:trajectory_clique}
+\end{equation}
+This notation is distinct from the calligraphic set \(\mathcal{I}\), which indexes
+the rigid links in Section~5.1. Each forced discrete Euler--Lagrange equation and
+kinematic constraint for transition \(k\) is contained in \(I_k\). The stage cost
+and path constraints can be assigned to the same clique. Moreover, the cliques
+satisfy the chain condition
+\begin{equation}
+ \bigcup_{k=1}^{N} I_k=\{1,\ldots,n_z\},
+ \qquad
+ \left(\bigcup_{r=1}^{k-1}I_r\right)\cap I_k
+ =I_{k-1}\cap I_k,
+ \quad k=2,\ldots,N.
+ \label{eq:chain_sparsity_condition}
+\end{equation}
+For the ordering in \eqref{eq:trajectory_decision_vector}, the adjacent overlap
+contains the scalar entries of the shared boundary state \(Y_{k-1}\). Equation
+\eqref{eq:chain_sparsity_condition} is a particular running-intersection property
+and follows directly from the Markov structure of the discretized dynamics
+\cite{Kang_2026Fast,Sangli2025}.
+
+%\begin{figure}[!ht]
+% \centering
+% \includegraphics[width=\textwidth]
+% {./pics/Optimization/Semidefinite_Relaxation/temporal_clique_sparsity.png}
+% \caption{Chain-like correlative sparsity of a trajectory optimization problem
+% (left) and the resulting multi-block SDP (right). Each temporal clique generates
+% one moment matrix \(M_k\) and its associated localizing matrices \(L_{k,j}\).
+% Reproduced from \cite{Kang_2026Fast}.}
+% \label{fig:temporal_clique_sparsity}
+%\end{figure}
+
+Figure~\ref{fig:temporal_clique_sparsity} illustrates the generic state--control
+case \(\mathbf{z}(I_k)=(\mathbf{x}_{k-1},\mathbf{u}_{k-1},\mathbf{x}_k)\).
+The cliques in \eqref{eq:trajectory_clique} additionally contain the Lagrange
+multipliers \(\lambda_k\). On the right-hand side, each \(M_k\) is the moment
+matrix of one temporal clique and the matrices \(L_{k,j}\) are generated by its
+inequality constraints. Equality constraints give affine localizing-vector
+conditions and are not shown. The horizontal connections between adjacent moment
+matrices represent consistency of their shared moments.
+
+\paragraph{Sparse Moment--SOS relaxation.}
+Let \(I_1,\ldots,I_q\) be the maximal variable cliques after chordal extension.
+Assume that the objective decomposes as
+\begin{equation}
+ p(\mathbf{z})=\sum_{r=1}^{q}p_r(\mathbf{z}(I_r)),
+ \label{eq:sparse_objective_decomposition}
+\end{equation}
+and that every constraint polynomial is contained in at least one clique. Denote
+by \(\mathcal{G}_r\) and \(\mathcal{H}_r\) the inequality and equality constraints
+assigned to clique \(I_r\), respectively. The local moment and localizing matrices
+are
+\begin{align}
+ \mathbf{M}_{\kappa,r}(\mathbf{y})
+ &:={\mathcal{L}}_{\mathbf{y}}\left(
+ [\mathbf{z}(I_r)]_{\kappa}
+ [\mathbf{z}(I_r)]_{\kappa}^{\top}\right),
+ \label{eq:sparse_moment_matrix}\\
+ \mathbf{L}_{\kappa,r,j}(\mathbf{y})
+ &:={\mathcal{L}}_{\mathbf{y}}\left(
+ g_j[\mathbf{z}(I_r)]_{\kappa-d_j}
+ [\mathbf{z}(I_r)]_{\kappa-d_j}^{\top}\right),
+ \qquad j\in\mathcal{G}_r.
+ \label{eq:sparse_localizing_matrix}
+\end{align}
+The order-\(\kappa\) sparse moment relaxation is then written as
+\begin{subequations}\label{eq:sparse_moment_relaxation}
+\begin{align}
+ \rho_{\kappa}^{\mathrm{sp}}=
+ \min_{\mathbf{y}}
+ &\quad\sum_{r=1}^{q}
+ \mathcal{L}_{\mathbf{y}}(p_r)
+ \label{eq:sparse_moment_relaxation_objective}\\
+ \text{s.t.}\quad
+ &y_{\mathbf{0}}=1,
+ \label{eq:sparse_moment_relaxation_normalization}\\
+ &\mathbf{M}_{\kappa,r}(\mathbf{y})\succeq0,
+ &&r=1,\ldots,q,
+ \label{eq:sparse_moment_relaxation_psd}\\
+ &\mathbf{L}_{\kappa,r,j}(\mathbf{y})\succeq0,
+ &&j\in\mathcal{G}_r,\quad r=1,\ldots,q,
+ \label{eq:sparse_moment_relaxation_inequalities}\\
+ &\mathcal{L}_{\mathbf{y}}\left(
+ h_l[\mathbf{z}(I_r)]_{2\kappa-\deg h_l}\right)=\mathbf{0},
+ &&l\in\mathcal{H}_r,\quad r=1,\ldots,q.
+ \label{eq:sparse_moment_relaxation_equalities}
+\end{align}
+\end{subequations}
+Using one shared truncated moment sequence \(\mathbf{y}\) makes the moments on
+clique intersections identical. If separate local sequences are used in the
+implementation, the same property must be imposed by affine consensus
+constraints on every overlap.
+
+Instead of one dense matrix of dimension
+\(\binom{n_z+\kappa}{\kappa}\), the sparse relaxation contains moment matrices
+of dimension \(\binom{|I_r|+\kappa}{\kappa}\). For the temporal construction in
+\eqref{eq:trajectory_clique}, the clique dimension remains independent of \(N\)
+when the per-stage model size is fixed, while the number of blocks grows linearly
+with the planning horizon. This describes the representation size; the numerical
+solution time still depends on the coupling constraints and the chosen SDP solver.
+
+Assume that the local quadratic module associated with every clique is
+Archimedean, that every polynomial is covered by at least one clique, and that
+the clique family satisfies the running-intersection property. The sparse lower
+bounds then converge to \(p^\star\) as \(\kappa\) increases
+\cite{Lasserre2006Sparse,Waki2006Sparse}. The local Archimedean condition can be
+enforced by adding redundant ball constraints for the individual cliques.
+At a fixed order, the sparse bound can be weaker than its dense counterpart. If
+all optimal clique moment matrices in \eqref{eq:sparse_moment_relaxation} have
+rank one and their overlap moments are consistent, the sparse relaxation is tight
+and one globally optimal trajectory can be extracted. Rank one of only the first
+clique is not a certificate for the complete horizon.
+
+For numerical solutions, let
+\(\lambda_{1,r}\geq\lambda_{2,r}\geq\cdots\geq0\) be the eigenvalues of
+\(\mathbf{M}_{\kappa,r}\). Following \cite{Sangli2025}, proximity to rank one is
+evaluated by
+\begin{equation}
+ \delta_r:=\frac{\lambda_{2,r}}{\lambda_{1,r}},
+ \qquad
+ \delta_{\max}:=\max_{r=1,\ldots,q}\delta_r.
+ \label{eq:numerical_rank_metric}
+\end{equation}
+A small value of \(\delta_{\max}\) indicates an approximately rank-one solution,
+but it is a numerical tightness diagnostic rather than an exact certificate by
+itself. In particular, several global minimizers may also lead an interior-point
+solver to return a higher-rank convex combination.
+
+\paragraph{Term sparsity and SPOT.}
+Correlative sparsity groups variables, whereas term sparsity further exploits
+relations between monomials inside each variable clique. For a fixed clique
+\(I_r\), the vertices of the term sparsity pattern are the monomials in the
+relevant local bases. Two monomials are connected when their
+product contributes to the support of the objective or a constraint after support
+extension. A chordal extension of this term graph divides the local monomial
+basis into smaller blocks and thereby replaces one local positive-semidefinite
+constraint by several smaller ones. At a fixed outer relaxation order, term
+sparsity can weaken the correlative-sparsity bound. When the maximal chordal
+extension, also called block closure, is used, repeated support-extension steps
+generate monotonically improving bounds that converge to the corresponding
+correlative-sparsity bound \cite{Kang_2025Global}. Heuristic MD or MF extensions
+generally produce smaller blocks, but do not provide this convergence guarantee.
+
+SPOT implements the general correlative- and term-sparsity construction and
+provides maximal, MD, MF, and user-defined chordal extensions. User-defined
+cliques make it possible to additionally exploit the kinematic and dynamic
+structure of a specific rigid-body model, provided that all objective and
+constraint polynomials are covered. The chain-like multi-block construction in
+Figure~\ref{fig:temporal_clique_sparsity} is used by the trajectory optimization
+framework STROM \cite{Kang_2026Fast}, while SPOT provides the general sparse
+polynomial optimization machinery used in this thesis \cite{Kang_2025Global}.
+Consequently, the polynomial models introduced in Section~5.1 can be relaxed
+without forming one dense moment matrix. The problem-specific relaxation order
+and clique structures for the controlled 3D-pendulum and the Acrobot are specified
+in the following sections.
 
 \newpage
 
-\section{Optimization Formulation}
-
-\subsection{Control of 3D Pendulum}
-\label{sec:control_3d_pendulum}
+\section{Discrete Motion Planning for 3D Pendulum}
+\label{sec:discrete_motion_planning_3d_pendulum}
 
 \begin{subequations}\label{eq:forced_3d_pendulum_pop}
 \begin{align}
@@ -325,8 +962,14 @@ f_{13,k}f_{21,k}-f_{23,k}f_{11,k}-f_{32,k} &= 0.
 \newpage
 
 
-\subsection{Control of the Acrobot with the Kinematic-Substituted Reduced Model}
-\label{sec:control_acrobot_reduced_model2}
+\section{Discrete Motion Planning for an Acrobot}
+\label{sec:discrete_motion_planning_acrobot}
+
+\subsection{Trajectory Optimization via SDP Relaxation}
+\label{sec:trajectory_optimization_via_sdp_relaxation}
+
+
+APENDIX: Kinematic-Substituted Reduced Model
 
 The second reduced formulation eliminates the translational position and velocity
 variables by reconstructing the center-of-mass positions from the rotations. The
@@ -928,3 +1571,6 @@ j=1,2,\quad k=1,\ldots,N-1,
 \qquad
 j=1,2,\quad k=1,\ldots,N-1.
 \end{align}
+
+\subsection{Trajectory Optimization via SDP Relaxation using Model Predictive Control}
+\label{sec:acrobot_trajectory_optimization_SDP_MPC}

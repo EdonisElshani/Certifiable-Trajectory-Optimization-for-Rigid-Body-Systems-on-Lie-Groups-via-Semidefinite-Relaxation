@@ -163,13 +163,13 @@ The tolerance for the Newton iteration is defined to $\left\lVert \bm{f}^{(i+1)}
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Total_Energy.pdf}
         \caption*{(a) Total energy $E_k$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Delta_E.pdf}
         \caption*{(b) Energy deviation $\Delta E_k$.}
@@ -177,13 +177,13 @@ The tolerance for the Newton iteration is defined to $\left\lVert \bm{f}^{(i+1)}
 
     \vspace{0.5em}
 
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Momentum_error.pdf}
         \caption*{(c) Momentum error $\Delta \mu_k$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Orthogonality_error.pdf}
         \caption*{(d) Orthogonality error $e_{orth}$.}
@@ -195,7 +195,7 @@ The tolerance for the Newton iteration is defined to $\left\lVert \bm{f}^{(i+1)}
 
 The results of the numerical simulation for the unforced case, with 
 $\bm{u}_k=\bm{0}$, are shown in Fig.~\ref{fig:simulation_results_3d_pendulum}. 
-The simulation is performed over $1000$ discrete-time steps with a step size of 
+The simulation is performed over $20000$ discrete-time steps with a step size of 
 $h=\SI{0.05}{\second}$. Thereby, the accuracy of the different integrator methods, given in Table \ref{tab:integrator_comparison}, are compared to each other, by plotting the corresponding total energy
 \[
  E_k
@@ -309,7 +309,7 @@ is not considered in this comparison. The same physical parameters and initial
 conditions as in the unforced case are used.
 
 Fig.~\ref{fig:forced_3d_pendulum_results} shows the numerical results for the
-controlled 3D-pendulum. The simulation is performed over $N=100$ discrete-time
+controlled 3D-pendulum. The simulation is performed over $N=100000$ discrete-time
 steps with step size $h=\SI{0.001}{\second}$. This shorter time interval is chosen
 because the differences between the RK4 method and the forced LGVI already become
 visible after a small number of time steps. During approximately the first eight
@@ -319,13 +319,13 @@ progresses, however, the trajectories begin to separate.
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf}
         \caption*{(a) Position error norm $\|\Delta \bm{x}_k \||$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf}
         \caption*{(b) Total energy $E_k$.}
@@ -333,13 +333,13 @@ progresses, however, the trajectories begin to separate.
 
     \vspace{0.5em}
 
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf}
         \caption*{(c) Orthogonality error $e_{\mathrm{orth},k}$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf}
         \caption*{(d) Angular velocity components $\bm{\omega}_k$.}
@@ -551,13 +551,13 @@ The first Acrobot simulation considers the unforced case with $u_k=0$. The simul
 over the final time $ t_f=\SI{10000}{\second}$, which corresponds to $N=100000$ discrete-time steps.
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf}
         \caption*{(a) Total energy $E_k$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf}
         \caption*{(b) Position error norm $\|\Delta \bm{x}_k \||$.}
@@ -565,13 +565,13 @@ over the final time $ t_f=\SI{10000}{\second}$, which corresponds to $N=100000$ 
 
     \vspace{0.5em}
 
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf}
         \caption*{(c) Holonomic constraint residual $\bm{\phi}$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf}
         \caption*{(d) Orthogonality error $e_{orth}$.}
@@ -608,13 +608,13 @@ corresponding to N=100000 discrete-time steps. The same metrics as in the unforc
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/forced_sine_total_energy.pdf}
         \caption*{(a) Total energy $E_k$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf}
         \caption*{(b) Position error norm $\|\Delta \bm{x}_k \||$.}
@@ -622,13 +622,13 @@ corresponding to N=100000 discrete-time steps. The same metrics as in the unforc
 
     \vspace{0.5em}
 
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/forced_sine_constraint_residuals.pdf}
         \caption*{(c) Holonomic constraint residual $\bm{\phi}$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/forced_sine_orthogonality_error.pdf}
         \caption*{(d) Orthogonality error $e_{orth}$.}
@@ -837,13 +837,13 @@ from successful moment-relaxation examples in the literature.
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf}
         \caption*{(a) Center-of-mass trajectory.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf}
         \caption*{(b) Control inputs $\bm{u}_{p,k}$.}
@@ -851,13 +851,13 @@ from successful moment-relaxation examples in the literature.
 
     \vspace{0.5em}
 
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf}
         \caption*{(c) Frobenius tracking error $\|\bm{R}_k-\bm{R}_{\mathrm{des}}\|_F$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_F_speed.pdf}
         \caption*{(d) Relative rotation speed $\theta(\bm{F}_k)/h$.}
@@ -865,13 +865,13 @@ from successful moment-relaxation examples in the literature.
 
     \vspace{0.5em}
 
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf}
         \caption*{(e) Orthogonality errors of $\bm{R}_k$ and $\bm{F}_k$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_determinant.pdf}
         \caption*{(f) Determinant errors of $\bm{R}_k$ and $\bm{F}_k$.}
@@ -1315,13 +1315,13 @@ max
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/u5_target_rotation_error_norm.png}
         \caption*{(a) Target rotation error norm.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/u5_control_inputs.png}
         \caption*{(b) Applied MPC control input $u_1$.}
@@ -1329,13 +1329,13 @@ max
 
     \vspace{0.5em}
 
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/u5_SO2_errors_R_F.png}
         \caption*{(c) $SO(2)$ orthogonality errors of $\bm{R}_1,\bm{R}_2,\bm{F}_1,\bm{F}_2$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/rank_condition_u5.pdf}
         \caption*{(d) Moment-relaxation rank condition $\delta_{\mathrm{first}}$ and $\delta_{\max}$.}
@@ -1347,13 +1347,13 @@ max
 
 \begin{figure}[t]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/basin_of_attraction_00025.pdf}
         \caption*{(a) $\Delta t_{\mathrm{sim}}=0.0025\,\mathrm{s}$.}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/basin_of_attraction_01.pdf}
         \caption*{(b) $\Delta t_{\mathrm{sim}}=0.1\,\mathrm{s}$.}
@@ -1363,201 +1363,6 @@ max
     \label{fig:acrobot_basin_comparison}
 \end{figure}
 
-
-\chapter{Sequential Full-Clique SPOT Evaluation}
-\label{chap:sequential_spot_evaluation}
-
-This chapter evaluates the sequential full-clique SPOT approach for the reduced LGVI Acrobot. The purpose of this experiment is to test whether a feasible trajectory can be obtained by using only the SDP relaxation itself, without any additional post-processing such as NLP refinement, projection onto $SO(2)$, soft fixing, or backtracking. In other words, the experiment is designed to answer the following question:
-
-\begin{center}
-\emph{Can the Acrobot swing-up trajectory be constructed by repeatedly solving the remaining-horizon SDP, directly extracting the first clique, fixing it exactly, and continuing iteratively?}
-\end{center}
-
-The answer from the experiments is negative for the tested configurations. Although the SDPs are solved accurately and provide meaningful lower bounds, the first active clique is not sufficiently rank one. As a consequence, its direct first moments do not satisfy the original $SO(2)$ constraints, and exact hard fixing of these values renders the next conditioned SDP infeasible.
-
-\section{Sequential SPOT procedure}
-\label{sec:sequential_spot_procedure}
-
-The implemented sequential method follows the pure SPOT philosophy. At each iteration, the SDP is solved over the complete remaining horizon, the first active full clique is extracted directly from the corresponding moment matrix, and the newly obtained variables are fixed exactly for the next remaining-horizon problem. No rescue attempt is used. The high-level loop is therefore:
-
-\begin{equation}
-\label{eq:seq_spot_loop}
-(R_0,F_0,R_1)
-\;\longrightarrow\;
-\text{solve remaining-horizon SDP}
-\;\longrightarrow\;
-\text{extract first full clique}
-\;\longrightarrow\;
-\text{hard-fix }(R_2,F_1,\lambda_1,u_1)
-\;\longrightarrow\;
-(R_0,F_0,R_1)\leftarrow(R_1,F_1,R_2)
-\;\longrightarrow\;\cdots
-\end{equation}
-
-More explicitly, each iteration performs:
-\begin{enumerate}
-    \item construct the SDP for the complete remaining horizon,
-    \item solve the sparse moment relaxation with the \texttt{full\_Ik} clique structure,
-    \item extract the direct first moments of the first active clique,
-    \item commit the newly extracted variables $R_2$, $F_1$, $\lambda_{0,1}$, $\lambda_{12,1}$, and $u_1$,
-    \item define the next exact boundary by
-    \[
-    R_0^{+}=R_1,\qquad F_0^{+}=F_1,\qquad R_1^{+}=R_2,
-    \]
-    \item solve the next remaining-horizon SDP.
-\end{enumerate}
-
-The critical point is that the values are fixed exactly as extracted. Hence, if the direct first moments of the first clique are not feasible in the original polynomial problem, the next conditioned SDP becomes infeasible. This is not a bug but the intended diagnostic outcome of the method.
-
-\section{Experimental results}
-\label{sec:sequential_spot_results}
-
-Table~\ref{tab:sequential_spot_summary} summarizes the tested runs. For each experiment, the table reports the horizon length $N$, the torque bound $u_{\max}$, the first full-horizon SDP lower bound, the Teng rank condition of the first active clique,
-\[
-\delta_{\mathrm{first}}
-=
-\frac{|\lambda_2|}{|\lambda_1|},
-\]
-the maximum rank condition over all clique moment matrices of the solve,
-\[
-\delta_{\max}
-=
-\max_k \frac{|\lambda_{k,2}|}{|\lambda_{k,1}|},
-\]
-the maximum $SO(2)$ violation of the directly extracted separator variables, and the observed outcome.
-
-\begin{table}[t]
-\centering
-\caption{Summary of the sequential full-clique SPOT runs. The SDP lower bound is the objective value of the initial full-horizon SDP. The quantity $\delta_{\mathrm{first}}$ is the Teng rank condition of the first active clique, while $\delta_{\max}$ is the maximum Teng ratio over all clique matrices of the solve.}
-\label{tab:sequential_spot_summary}
-\begin{tabular}{lccccccp{4.4cm}}
-\toprule
-Run & $N$ & $u_{\max}$ & $J_{\mathrm{SDP,LB}}$ & $\delta_{\mathrm{first}}$ & $\delta_{\max}$ & $\max e_{SO(2)}$ & Outcome \\
-\midrule
-Sequential SPOT & 40 & 5  & 4253.554 & 0.2168 & 0.6201 & 0.1957 & Stage 1 solved optimally, but the directly extracted first clique violates $SO(2)$; Stage 2 becomes infeasible. \\
-Sequential SPOT & 40 & 15 & 3245.175 & 0.2037 & 0.5438 & 0.4174 & Stage 1 solved optimally, but the directly extracted first clique violates $SO(2)$ more strongly; Stage 2 becomes infeasible. \\
-Sequential SPOT & 60 & 15 & 3229.627 & 0.2066 & 0.5596 & 0.4213 & Stage 1 shows the same behavior. The exported run contains only the first stage, but the extracted boundary already violates $SO(2)$, so the next conditioned SDP is expected to be infeasible as well. \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Several important observations follow from Table~\ref{tab:sequential_spot_summary}.
-
-\paragraph{1. The SDP itself is solved accurately.}
-In all runs, the first full-horizon SDP was solved with primal and dual feasible status and a very small primal-dual gap. Hence, the failure is not caused by poor numerical convergence of MOSEK or by an inaccurate SDP solve. The computed value $J_{\mathrm{SDP,LB}}$ should therefore be interpreted as a meaningful lower bound of the relaxation.
-
-\paragraph{2. The first active clique is not rank one.}
-In all tested cases, the first-clique rank condition remains around
-\[
-\delta_{\mathrm{first}}\approx 0.20.
-\]
-This is far from the behavior expected for a rank-one moment matrix. Therefore, the first active clique does not represent a single atomic solution, but rather a mixture of different possible trajectories.
-
-\paragraph{3. The first direct moments are not feasible points on $SO(2)$.}
-The extracted pairs $(c,s)$ and $(a,b)$ satisfy
-\[
-c^2+s^2 \neq 1,
-\qquad
-a^2+b^2 \neq 1,
-\]
-with large errors, especially for the second link. Therefore, the extracted separator variables lie inside the unit disk rather than on the unit circle, even though the SDP moment constraints are satisfied at the level of moments.
-
-\paragraph{4. Exact hard fixing exposes the issue immediately.}
-Because the extracted values are fixed exactly and the original $SO(2)$ polynomial constraints are kept in the next problem, the second conditioned SDP becomes infeasible. This is the expected behavior of the no-rescue experiment: if the first clique is not tight enough, the iterative SPOT construction cannot continue.
-
-\section{Why the trajectories are not feasible}
-\label{sec:sequential_spot_infeasibility}
-
-The key mechanism behind the infeasibility is the difference between \emph{moment feasibility} and \emph{pointwise feasibility}. The SDP enforces the unit-circle relation only at the moment level, for example,
-\[
-L_y(c^2+s^2)=1.
-\]
-However, the directly extracted first moments are
-\[
-\hat c = L_y(c),\qquad \hat s = L_y(s),
-\]
-and in general this does not imply
-\[
-\hat c^2+\hat s^2=1.
-\]
-Instead, one typically has
-\[
-\hat c^2+\hat s^2 < 1,
-\]
-which means that the extracted pair is the barycenter of a higher-rank moment distribution rather than a true element of $SO(2)$.
-
-This explains why the first extracted transition can still show very small kinematic and dynamic residuals while violating the manifold constraints. The LGVI equations are largely linear in the newly extracted first-step variables once the previous boundary is fixed, whereas the unit-circle constraints are nonlinear. Therefore, the mean can approximately satisfy the linear relations while failing the nonlinear manifold conditions.
-
-As soon as these nonphysical values are hard-fixed, the next conditioned SDP must satisfy both:
-\[
-a^2+b^2=1
-\]
-and
-\[
-a=\hat a,\qquad b=\hat b,
-\]
-although $\hat a^2+\hat b^2\neq 1$. Hence the next problem is algebraically inconsistent and becomes infeasible.
-
-\section{Effect of increasing $u_{\max}$ and $N$}
-\label{sec:sequential_spot_parameter_effects}
-
-Increasing the control bound from $u_{\max}=5$ to $u_{\max}=15$ improves the SDP lower bound significantly:
-\[
-4253.554 \;\rightarrow\; 3245.175.
-\]
-Thus, the relaxed optimization problem becomes easier in objective value. However, this does not resolve the extraction issue, since the first-clique rank condition remains essentially unchanged:
-\[
-0.2168 \;\rightarrow\; 0.2037.
-\]
-In fact, the directly extracted $SO(2)$ error becomes larger for the $u_{\max}=15$ case.
-
-Increasing the horizon from $N=40$ to $N=60$ yields only a small further reduction in the lower bound:
-\[
-3245.175 \;\rightarrow\; 3229.627.
-\]
-Again, the first-clique rank condition stays almost unchanged:
-\[
-0.2037 \;\rightarrow\; 0.2066.
-\]
-Hence, the additional horizon mainly improves the terminal portion of the relaxation, not the first committed step.
-
-This behavior is consistent with the clique-wise rank profile. For the $N=60$ run, the later cliques become much tighter as the relaxed trajectory approaches the target. However, the first clique remains non-rank-one. Since the sequential method must commit the first step first, this later improvement cannot rescue the method.
-
-\section{Main takeaways}
-\label{sec:sequential_spot_takeaways}
-
-The experiments lead to the following conclusions.
-
-\begin{enumerate}
-    \item The sparse moment relaxation yields meaningful lower bounds and is solved accurately by the SDP solver.
-    
-    \item The main bottleneck is the \emph{first active clique}. Its moment matrix is not sufficiently rank one, with
-    \[
-    \delta_{\mathrm{first}}\approx 0.20
-    \]
-    in all tested runs.
-    
-    \item As a consequence, the direct first moments do not satisfy the original $SO(2)$ constraints and therefore do not define a feasible physical Acrobot state.
-    
-    \item Exact hard fixing of these values immediately reveals the issue: the next conditioned SDP becomes infeasible.
-    
-    \item Increasing the torque bound or the horizon improves the relaxation objective but does not fix the lack of tightness in the first clique.
-    
-    \item Therefore, for the tested Acrobot swing-up problems, the trajectory cannot be obtained by \emph{iterative pure SPOT extraction and hard fixing alone}.
-\end{enumerate}
-
-In summary, the sequential full-clique SPOT experiment is scientifically informative even though it fails to produce a feasible trajectory. The failure shows that the first-step relaxation is not tight enough for direct iterative extraction. Hence, the difficulty does not lie in the implementation loop itself, but in the fact that the first active clique does not yet encode a sufficiently atomic solution.
-
-\section{Conclusion}
-\label{sec:sequential_spot_conclusion}
-
-The sequential full-clique SPOT method was introduced to test whether the reduced LGVI Acrobot trajectory can be generated solely from the SDP relaxation, without any auxiliary nonlinear refinement. The experiments show that this is not the case for the tested settings. Even though the SDP lower bounds are meaningful and the later part of the trajectory becomes increasingly tight, the first active clique remains too high-rank. Its direct first moments violate the $SO(2)$ constraints, and exact hard fixing therefore makes the next conditioned SDP infeasible.
-
-Consequently, the main conclusion is:
-
-\begin{quote}
-\emph{For the investigated Acrobot swing-up problem, pure iterative SPOT extraction with direct hard fixing of the first clique is not sufficient to generate a feasible trajectory, because the first active clique is not tight enough.}
-\end{quote}
 
 %\begin{figure}[h]
 %	\centering

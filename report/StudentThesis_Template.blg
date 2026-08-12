@@ -12,45 +12,45 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: refs/mybib.bib
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Warning--empty publisher in tedrake_underactuated
-You've used 23 entries,
+You've used 30 entries,
             3368 wiz_defined-function locations,
-            877 strings with 10724 characters,
-and the built_in function-call counts, 12110 in all, are:
-= -- 1319
-> -- 409
-< -- 16
-+ -- 125
-- -- 121
-* -- 706
-:= -- 1721
-add.period$ -- 93
-call.type$ -- 23
-change.case$ -- 131
-chr.to.int$ -- 22
-cite$ -- 24
-duplicate$ -- 369
-empty$ -- 1087
-format.name$ -- 152
-if$ -- 3064
-int.to.chr$ -- 2
+            931 strings with 12366 characters,
+and the built_in function-call counts, 16136 in all, are:
+= -- 1751
+> -- 571
+< -- 20
++ -- 179
+- -- 172
+* -- 983
+:= -- 2288
+add.period$ -- 120
+call.type$ -- 30
+change.case$ -- 176
+chr.to.int$ -- 28
+cite$ -- 31
+duplicate$ -- 478
+empty$ -- 1434
+format.name$ -- 212
+if$ -- 4066
+int.to.chr$ -- 3
 int.to.str$ -- 0
-missing$ -- 23
-newline$ -- 139
-num.names$ -- 69
-pop$ -- 261
+missing$ -- 28
+newline$ -- 179
+num.names$ -- 92
+pop$ -- 340
 preamble$ -- 1
-purify$ -- 159
+purify$ -- 211
 quote$ -- 0
-skip$ -- 850
+skip$ -- 1113
 stack$ -- 0
-substring$ -- 479
-swap$ -- 86
-text.length$ -- 42
-text.prefix$ -- 9
+substring$ -- 646
+swap$ -- 114
+text.length$ -- 56
+text.prefix$ -- 12
 top$ -- 0
-type$ -- 160
+type$ -- 216
 warning$ -- 1
-while$ -- 77
-width$ -- 25
-write$ -- 345
+while$ -- 103
+width$ -- 32
+write$ -- 450
 (There was 1 warning)
