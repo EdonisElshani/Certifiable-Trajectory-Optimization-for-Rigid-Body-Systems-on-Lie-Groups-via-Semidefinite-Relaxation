@@ -360,7 +360,7 @@ g_j(\mathbf{z})
 [\mathbf{z}]_{\kappa-d_j}
 [\mathbf{z}]_{\kappa-d_j}^{\top}
 \right).
-\label{eq:localizing_matrix_comparison}
+\label{eq:localizing_matrix_g}
 \end{equation}
 Requiring this matrix to be positive semidefinite represents the inequality
 \(g_j\geq0\). Similarly, for an equality $h_l(\mathbf{z})=0$, 
@@ -374,7 +374,7 @@ h_l(\mathbf{z})
 [\mathbf{z}]_{\kappa-e_l}
 [\mathbf{z}]_{\kappa-e_l}^{\top}
 \right).
-\label{eq:localizing_matrix_comparison}
+\label{eq:localizing_matrix_h}
 \end{equation}
 For relaxation order \(\kappa\), a solution is approximated by 
 sequences $y_\alpha$ with finite order $|\alpha|=2 \kappa$.
@@ -414,7 +414,7 @@ p^\star.
 \label{eq:moment_sos_bounds_comparison}
 \end{equation}
 If the SDP pair has no duality, then $\gamma_{\kappa}^{*} = \beta_{\kappa}^{*}$ 
-gap \cite{Lasserre2001Global}.
+\cite{Lasserre2001Global}.
 
 \paragraph{Convergence.}
 Solving the SOS and moment relaxations for increasing orders \(\kappa\) defines
@@ -443,14 +443,16 @@ optimality conditions, then
 =
 \beta_{\kappa^\star}^{\star}
 =
-p^\star.
+p^\star,
 \label{eq:finite_convergence}
 \end{equation} 
 at a finite but generally unknown relaxation order \(\kappa^\star<\infty\).
 This property is referred to as finite convergence \cite{Lasserre2001Global}.
 
 \paragraph{Solution extraction.}
-A simple finite-order certificate is obtained from the optimal moment matrix $\mathbf{M}_{\kappa}(\mathbf{y}^\star)$
+Let \(\mathbf{y}^\star\) denote an optimal moment sequence of the order-\(\kappa\)
+moment relaxation. A simple finite-order certificate is obtained from the
+optimal moment matrix \(\mathbf{M}_{\kappa}(\mathbf{y}^\star)\)
 \cite{Yang2024Semidefinite}.
 If it has rank one $\operatorname{rank}\!\left(
 \mathbf{M}_{\kappa}(\mathbf{y}^\star)\right)=1$, then
@@ -482,74 +484,99 @@ feasible trajectory \(\widehat{\mathbf{z}}\) provides an upper bound, such that
 \subsection{Sparse Relaxations}
 \label{subsec:sparse_relaxations}
 
-The dense moment matrix in \eqref{eq:moment_matrix} has
+The dense moment matrix in \eqref{eq:moment_matrix_comparison} has
 \(\binom{n_z+\kappa}{\kappa}\) rows and columns. Since \(n_z\) increases with
-the number of links and the planning horizon, a dense relaxation quickly becomes
-intractable. However, each cost or constraint in a trajectory optimization
-problem usually depends only on a small subset of the complete decision vector.
-Sparse Moment--SOS relaxations exploit this structure at the variable level by
-correlative sparsity and at the monomial level by term sparsity
-\cite{Kang_2025Global,Kang_2026Fast,Sangli2025}.
+the number of links and the planning horizon \(N\), a dense relaxation quickly
+becomes computationally intractable. However, each cost or constraint in a
+trajectory optimization problem usually depends only on a small subset of the
+complete decision vector. Sparse Moment--SOS relaxations exploit this structure
+at the variable level by correlative sparsity (CS) and at the monomial level by
+term sparsity (TS) \cite{Kang_2025Global,Kang_2026Fast,Sangli2025}.
 
 \paragraph{Correlative sparsity and chordal extension.}
 The correlative sparsity pattern (CSP) is represented by an undirected graph
-\(\mathcal{G}_{\mathrm{csp}}=(\mathcal{V},\mathcal{E})\). Its vertices represent
-the scalar variables \(z_1,\ldots,z_{n_z}\). Two vertices are connected if their
-variables occur together in one monomial of the objective or together in one
-constraint polynomial. Consequently, every constraint involves variables that
-form a clique of \(\mathcal{G}_{\mathrm{csp}}\).
+\(\mathcal{G}=(\mathcal{V},\mathcal{E})\). Its vertices represent
+the scalar variables \(z_1,\ldots,z_{n_z}\), and two vertices are connected if
+their variables occur together in one monomial of the objective or in one
+constraint polynomial. A clique $\mathcal{C}$ is a subset of vertices 
+$\mathcal{C} \subset \mathcal{V} $ in which every pair of vertices is
+connected by an edge. Thus, the variables of each constraint are 
+contained in one clique. Thereby, a clique is considered as maximal, if it is not 
+properly contained within any other clique inside the graph $\mathcal{G}$ \cite{Kang_2025Global}.
 
-A graph is chordal if every cycle with at least four vertices contains an edge
-between two non-adjacent vertices of that cycle. If the CSP graph is not chordal,
-additional fill edges are introduced until a chordal extension is obtained. The
-maximal cliques of the extended graph then define the variable groups used by the
-sparse relaxation. Finding a chordal extension with the minimum number of fill
-edges is computationally difficult. Therefore, SPOT provides heuristic extensions,
-including minimum degree (MD) and minimum fill (MF) \cite{Kang_2025Global}.
-The MD heuristic repeatedly selects a remaining vertex of minimum degree,
-connects its remaining neighbors, and eliminates the selected vertex. It does not
-guarantee a unique or globally minimum extension.
+In addation, a graph is chordal if every cycle with at least four vertices 
+has an edge between
+two non-adjacent vertices in the cycle. However, if the graph is not chordal, 
+edges are added to obtain a chordal extension. Its maximal cliques then define
+the variable groups of the sparse relaxation. Finding an extension with the
+minimum number of edges to $\mathcal{G}$ is computationally difficult. 
+Therefore, heuristic extensions such as minimum degree (MD) and minimum fill (MF) 
+are commonly used \cite{Kang_2025Global}. Larger cliques generally produce a 
+tighter but more expensive relaxation, such that the extension 
+determines a trade-off between relaxation strength and SDP block size.
 
-%\begin{figure}[!ht]
-% \centering
-% \includegraphics[width=0.70\textwidth]
-% {./pics/Optimization/Semidefinite_Relaxation/chordal_extension_cliques.png}
-% \caption{Chordal extension and maximal cliques. The original graph in (a) is
-% non-chordal. One MD extension adds the edges \((B,D)\) and \((B,F)\) in (b),
-% which results in the four maximal cliques shown in (c). Reproduced from
-% \cite{Kang_2025Global}.}
-% \label{fig:chordal_extension_cliques}
-%\end{figure}
+Figure~\ref{fig:chordal_extension_cliques} illustrates an chordal extension. 
+The original graph in Figure~\ref{fig:chordal_extension_cliques}(a) is non-chordal.
+The MD extension adds the fill edges \((B,D)\) and \((B,F)\) in (b), and the
+resulting maximal cliques are illustrated in (c) \cite{Kang_2025Global}.
 
-For the example in Figure~\ref{fig:chordal_extension_cliques}, the extension
-adds the edges \((B,D)\) and \((B,F)\). The resulting maximal cliques are
-\(\{A,B,D\}\), \(\{B,D,E\}\), \(\{B,E,F\}\), and \(\{B,C,F\}\). Increasing
-the number of fill edges generally produces larger cliques and a tighter but more
-expensive relaxation. Hence, the chordal extension determines a trade-off between
-the SDP block size and the strength of the finite-order lower bound.
+\begin{figure}[!ht]
+ \centering
+ \begin{minipage}[t]{0.15\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/a_MD.pdf}
+  \caption*{(a)}
+ \end{minipage}
+ \hspace{0.08\textwidth}
+ \begin{minipage}[t]{0.15\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/b_MD.pdf}
+  \caption*{(b)}
+ \end{minipage}
+ \hspace{0.08\textwidth}
+ \begin{minipage}[t]{0.15\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/c_MD.pdf}
+  \caption*{(c)}
+ \end{minipage}
+ \caption{An example of a chordal extension and its maximal cliques. (a) non-chordal. 
+ (b) MD chordal extension. (c) maximal cliques. Adapted
+ from \cite{Kang_2025Global}.}
+ \label{fig:chordal_extension_cliques}
+\end{figure}
 
 \paragraph{Chain-like sparsity of trajectory optimization.}
-For the motion planning formulation of Section~5.1, the vectorized decision
-variables can be ordered as
+For the motion planning formulation of Section 
+\ref{sec:discrete_motion_planning_of_rigid_body_systems}, the vectorized 
+decision variables can be ordered as
 \begin{equation}
- \mathbf{z}=\operatorname{col}
- \left(Y_0,U_1,\lambda_1,Y_1,\ldots,
- U_N,\lambda_N,Y_N\right).
+    \mathbf{z}=
+    \begin{bmatrix}
+    Y_0&
+    U_1&
+    \lambda_1&
+    Y_1&
+    \cdots&
+    U_N&
+    \lambda_N&
+    Y_N
+    \end{bmatrix}^{\top}.
  \label{eq:trajectory_decision_vector}
 \end{equation}
-Let the Roman index set \(I_k\) denote the scalar variables of the \(k\)-th
+\cite{Kang_2026Fast} defines the set \(I_k\), which 
+denotes the scalar variables of the \(k\)-th
 trajectory clique,
 \begin{equation}
- \mathbf{z}(I_k)=\operatorname{col}
- \left(Y_{k-1},U_k,\lambda_k,Y_k\right),
+ \mathbf{z}(I_k)=
+ \begin{bmatrix}
+ Y_{k-1}&U_k&\lambda_k&Y_k
+ \end{bmatrix}^{\top},
  \qquad k=1,\ldots,N.
  \label{eq:trajectory_clique}
 \end{equation}
-This notation is distinct from the calligraphic set \(\mathcal{I}\), which indexes
-the rigid links in Section~5.1. Each forced discrete Euler--Lagrange equation and
-kinematic constraint for transition \(k\) is contained in \(I_k\). The stage cost
-and path constraints can be assigned to the same clique. Moreover, the cliques
-satisfy the chain condition
+For multi Rigid-body systems, each link constraint 
+and stage cost for transition \(k\) is contained inside \(I_k\).
+Additionally, the temporal cliques satisfy
 \begin{equation}
  \bigcup_{k=1}^{N} I_k=\{1,\ldots,n_z\},
  \qquad
@@ -558,107 +585,104 @@ satisfy the chain condition
  \quad k=2,\ldots,N.
  \label{eq:chain_sparsity_condition}
 \end{equation}
-For the ordering in \eqref{eq:trajectory_decision_vector}, the adjacent overlap
-contains the scalar entries of the shared boundary state \(Y_{k-1}\). Equation
-\eqref{eq:chain_sparsity_condition} is a particular running-intersection property
-and follows directly from the Markov structure of the discretized dynamics
-\cite{Kang_2026Fast,Sangli2025}.
+Their adjacent overlap contains the shared boundary state \(Y_{k-1}\). Therefore,
+the property \eqref{eq:chain_sparsity_condition} results from the Markov structure 
+of the discretized dynamics
+\cite{Sangli2025}.
 
-%\begin{figure}[!ht]
-% \centering
-% \includegraphics[width=\textwidth]
-% {./pics/Optimization/Semidefinite_Relaxation/temporal_clique_sparsity.png}
-% \caption{Chain-like correlative sparsity of a trajectory optimization problem
-% (left) and the resulting multi-block SDP (right). Each temporal clique generates
-% one moment matrix \(M_k\) and its associated localizing matrices \(L_{k,j}\).
-% Reproduced from \cite{Kang_2026Fast}.}
-% \label{fig:temporal_clique_sparsity}
-%\end{figure}
+Figure~\ref{fig:temporal_clique_sparsity} illustrates the chain-like sparsity
+pattern for the clique \eqref{eq:trajectory_clique} and the
+resulting multi-block SDP, forming a chain-like graph. Thereby,
+\(\psi(Y_{k-1},U_k,\lambda_k)\) denotes the stage cost, \(\mathcal{D}(Y_k,Y_{k-1},U_k,\lambda_k)=0\) the polynomial
+equality constraints, and \(H(Y_k,U_k,\lambda_k)\geq0\) the polynomial inequality constraints.
 
-Figure~\ref{fig:temporal_clique_sparsity} illustrates the generic state--control
-case \(\mathbf{z}(I_k)=(\mathbf{x}_{k-1},\mathbf{u}_{k-1},\mathbf{x}_k)\).
-The cliques in \eqref{eq:trajectory_clique} additionally contain the Lagrange
-multipliers \(\lambda_k\). On the right-hand side, each \(M_k\) is the moment
-matrix of one temporal clique and the matrices \(L_{k,j}\) are generated by its
-inequality constraints. Equality constraints give affine localizing-vector
-conditions and are not shown. The horizontal connections between adjacent moment
-matrices represent consistency of their shared moments.
+\begin{figure}[!ht]
+ \centering
+ \includegraphics[width=0.6\textwidth]
+ {./pics/sparse_relaxation/I_k.pdf}
+ \caption{Illustration of a chain-like sparsity pattern.
+ Adapted from \cite{Kang_2026Fast}.}
+ \label{fig:temporal_clique_sparsity}
+\end{figure}
+
+\paragraph{Multi Rigid-Body specific sparsity}
+Many robotic systems consist local dependencies. 
+\cite{Kang_2025Global} gives the example, of an 
+one-dimensional two-link chain in discrete-time 
+with the three states $x_{1.k}, x_{2,k}, x_{3,k}$ and the corsponding
+control inputs $u_{1,k},u_{2,k},u_{3,k}$,
+\begin{align}
+&x_{1,k+1} = x_{1,k}+u_{1,k},\\
+&x_{2,k+1} = x_{2,k}+u_{2,k},\\
+&x_{3,k+1} = x_{3,k}+u_{3,k},\\
+&(x_{1,k}-x_{2,k})^2 = r^2, \\
+&(x_{2,k}-x_{3,k})^2 = r^2.
+\end{align}
+Thereby, using the chain-like sparity condition 
+\eqref{eq:chain_sparsity_condition} gives the nine-variable clique
+\begin{equation}
+\left\{x_{1,k},x_{2,k},x_{3,k},x_{1,k+1},x_{2,k+1},x_{3,k+1},u_{1,k},u_{2,k},u_{3,k}\right\}.
+\end{equation}
+\cite{Kang_2025Global} elaborates that each input affects only its corresponding 
+state and the geometric constraints couple only neighboring states.
+Therefore, this clique can be decomposed further into
+\begin{equation}
+\left\{x_{i,k},x_{i,k+1},u_{i,k}\right\},
+\quad i=1,2,3,
+\qquad
+\left\{x_{i,m},x_{i+1,m}\right\},
+\quad i=1,2,\quad m\in\{k,k+1\}.
+\end{equation}
+In consequence, the original clique of size nine is replaced by three 
+cliques of size three and four cliques of size two.
 
 \paragraph{Sparse Moment--SOS relaxation.}
-Let \(I_1,\ldots,I_q\) be the maximal variable cliques after chordal extension.
-Assume that the objective decomposes as
-\begin{equation}
- p(\mathbf{z})=\sum_{i=1}^{q}p_i(\mathbf{z}(I_i)),
- \label{eq:sparse_objective_decomposition}
-\end{equation}
-and that every constraint polynomial is contained in at least one clique. Denote
-by \(\mathcal{G}_i\) and \(\mathcal{H}_i\) the inequality and equality constraints
-assigned to clique \(I_i\), respectively. The local moment and localizing matrices
-are
-\begin{align}
- \mathbf{M}_{\kappa,i}(\mathbf{y})
- &:={\mathcal{L}}_{\mathbf{y}}\left(
- [\mathbf{z}(I_i)]_{\kappa}
- [\mathbf{z}(I_i)]_{\kappa}^{\top}\right),
- \label{eq:sparse_moment_matrix}\\
- \mathbf{L}_{\kappa,i,j}(\mathbf{y})
- &:={\mathcal{L}}_{\mathbf{y}}\left(
- g_j[\mathbf{z}(I_i)]_{\kappa-d_j}
- [\mathbf{z}(I_i)]_{\kappa-d_j}^{\top}\right),
- \qquad j\in\mathcal{G}_i.
- \label{eq:sparse_localizing_matrix}
-\end{align}
-The order-\(\kappa\) sparse moment relaxation is then written as
-\begin{subequations}\label{eq:sparse_moment_relaxation}
-\begin{align}
- \rho_{\kappa}^{\mathrm{sp}}=
- \min_{\mathbf{y}}
- &\quad\sum_{i=1}^{q}
- \mathcal{L}_{\mathbf{y}}(p_i)
- \label{eq:sparse_moment_relaxation_objective}\\
- \text{s.t.}\quad
- &y_{\mathbf{0}}=1,
- \label{eq:sparse_moment_relaxation_normalization}\\
- &\mathbf{M}_{\kappa,i}(\mathbf{y})\succeq0,
- &&i=1,\ldots,q,
- \label{eq:sparse_moment_relaxation_psd}\\
- &\mathbf{L}_{\kappa,i,j}(\mathbf{y})\succeq0,
- &&j\in\mathcal{G}_i,\quad i=1,\ldots,q,
- \label{eq:sparse_moment_relaxation_inequalities}\\
- &\mathcal{L}_{\mathbf{y}}\left(
- h_l[\mathbf{z}(I_i)]_{2\kappa-\deg h_l}\right)=\mathbf{0},
- &&l\in\mathcal{H}_i,\quad i=1,\ldots,q.
- \label{eq:sparse_moment_relaxation_equalities}
-\end{align}
-\end{subequations}
-Using one shared truncated moment sequence \(\mathbf{y}\) makes the moments on
-clique intersections identical. If separate local sequences are used in the
-implementation, the same property must be imposed by affine consensus
-constraints on every overlap.
+After defining the variable cliques \(I_1,\ldots,I_q\), 
+\(p(\mathbf{z})=\sum_{i=1}^{q}p_i(\mathbf{z}(I_i))\) and every
+constraint polynomial is assigned to a clique containing all of its variables,
+the $\kappa$-order moment relaxation problem \eqref{eq:moment_relaxation_comparison}
+can be solved. For the sparse Moment-SOS relaxation, the moment and
+localizing conditions are imposed separately on the local monomial bases \cite{Kang_2025Global}.
+Consequently, instead of one matrix of dimension
+\(\binom{n_z+\kappa}{\kappa}\), the sparse relaxation contains blocks of
+dimension \(\binom{|I_i|+\kappa}{\kappa}\). Using the chain-like cliques
+\eqref{eq:trajectory_clique}, its size remains independent of \(N\) if the
+per-stage model size is fixed. Only the number of blocks grows linearly with
+\(N\) \cite{Kang_2026Fast}.
 
-Instead of one dense matrix of dimension
-\(\binom{n_z+\kappa}{\kappa}\), the sparse relaxation contains moment matrices
-of dimension \(\binom{|I_i|+\kappa}{\kappa}\). For the temporal construction in
-\eqref{eq:trajectory_clique}, the clique dimension remains independent of \(N\)
-when the per-stage model size is fixed, while the number of blocks grows linearly
-with the planning horizon. This describes the representation size; the numerical
-solution time still depends on the coupling constraints and the chosen SDP solver.
+Figure~\ref{fig:dense_sparse_moment_comparison} illustrates 
+\cite{Kang_2025Global} example of an reduction for
+a POP with two variables \(\mathbf{x}=(x_1,x_2)\) and relaxation order
+\(\kappa=2\). The dense moment matrix has dimension
+\(\binom{2+2}{2}=6\). If the variables are separated into the cliques
+\(\{x_1\}\) and \(\{x_2\}\), the sparse relaxation instead contains two moment
+matrices of dimension \(\binom{1+2}{2}=3\). TIn consequence, one \(6\times6\)
+positive-semidefinite constraint is replaced by two \(3\times3\)
+positive-semidefinite constraints \cite{Kang_2025Global}.
 
-Assume that the local quadratic module associated with every clique is
-Archimedean, that every polynomial is covered by at least one clique, and that
-the clique family satisfies the running-intersection property. The sparse lower
-bounds then converge to \(p^\star\) as \(\kappa\) increases
-\cite{Lasserre2006Sparse,Waki2006Sparse}. The local Archimedean condition can be
-enforced by adding redundant ball constraints for the individual cliques.
-At a fixed order, the sparse bound can be weaker than its dense counterpart. If
-all optimal clique moment matrices in \eqref{eq:sparse_moment_relaxation} have
-rank one and their overlap moments are consistent, the sparse relaxation is tight
-and one globally optimal trajectory can be extracted. Rank one of only the first
-clique is not a certificate for the complete horizon.
+\begin{figure}[!ht]
+ \centering
+ \begin{minipage}[t]{0.44\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/dense_moment_relaxation.pdf}
+  \caption*{(a) Dense Moment Relaxation}
+ \end{minipage}
+ \begin{minipage}[t]{0.25\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/sparse_moment_relaxation.pdf}
+  \caption*{(b) Sparse Moment Relaxation}
+ \end{minipage}
+ \caption{Comparison of dense and sparse moment matrices for a two-variable POP
+ at relaxation order \(\kappa=2\). Reproduced from
+ \cite{Kang_2025Global}.}
+ \label{fig:dense_sparse_moment_comparison}
+\end{figure}
 
-For numerical solutions, let
-\(\lambda_{1,i}\geq\lambda_{2,i}\geq\cdots\geq0\) be the eigenvalues of
-\(\mathbf{M}_{\kappa,i}\). Following \cite{Sangli2025}, proximity to rank one is
+At a fixed order $\kappa$, the sparse lower-bound may
+be further away from the optimal solution $p^*$ than the dense bound. 
+Still, if all optimal clique moment matrices have rank one, a globally optimal 
+trajectory $z^*$ can be extracted. However, rank one of only the first
+clique does not certify the complete horizon. Following \cite{Sangli2025}, proximity to rank one is
 evaluated by
 \begin{equation}
  \delta_i:=\frac{\lambda_{2,i}}{\lambda_{1,i}},
@@ -666,37 +690,25 @@ evaluated by
  \delta_{\max}:=\max_{i=1,\ldots,q}\delta_i.
  \label{eq:numerical_rank_metric}
 \end{equation}
-A small value of \(\delta_{\max}\) indicates an approximately rank-one solution,
-but it is a numerical tightness diagnostic rather than an exact certificate by
-itself. In particular, several global minimizers may also lead an interior-point
-solver to return a higher-rank convex combination.
+Here, 
+\(\lambda_{1,i}\geq\lambda_{2,i}\geq\cdots\geq0\) are the eigenvalues of
+\(\mathbf{M}_{\kappa,i}\). A small value of \(\delta_{\max}\) indicates an approximately rank-one solution.
+Nevertheless, it remains a numerical tightness diagnostic and is not an exact certificate.
 
-\paragraph{Term sparsity and SPOT.}
-Correlative sparsity groups variables, whereas term sparsity further exploits
-relations between monomials inside each variable clique. For a fixed clique
-\(I_i\), the vertices of the term sparsity pattern are the monomials in the
-relevant local bases. Two monomials are connected when their
-product contributes to the support of the objective or a constraint after support
-extension. A chordal extension of this term graph divides the local monomial
-basis into smaller blocks and thereby replaces one local positive-semidefinite
-constraint by several smaller ones. At a fixed outer relaxation order, term
-sparsity can weaken the correlative-sparsity bound. When the maximal chordal
-extension, also called block closure, is used, repeated support-extension steps
-generate monotonically improving bounds that converge to the corresponding
-correlative-sparsity bound \cite{Kang_2025Global}. Heuristic MD or MF extensions
-generally produce smaller blocks, but do not provide this convergence guarantee.
-
-SPOT implements the general correlative- and term-sparsity construction and
-provides maximal, MD, MF, and user-defined chordal extensions. User-defined
-cliques make it possible to additionally exploit the kinematic and dynamic
-structure of a specific rigid-body model, provided that all objective and
-constraint polynomials are covered. The chain-like multi-block construction in
-Figure~\ref{fig:temporal_clique_sparsity} is used by the trajectory optimization
-framework STROM \cite{Kang_2026Fast}, while SPOT provides the general sparse
-polynomial optimization machinery used in this thesis \cite{Kang_2025Global}.
-Consequently, the polynomial models introduced in Section~5.1 can be relaxed
-without forming one dense moment matrix. The problem-specific relaxation order
-and clique structures for the controlled 3D-pendulum and the Acrobot are specified
+\paragraph{Sparse Polynomial Optimization Toolbox (SPOT).}
+The sparse Moment--SOS relaxations in this thesis are constructed 
+using the Sparse Polynomial Optimization Toolbox (SPOT) developed by 
+\cite{Kang_2025Global}. Given a POP, SPOT automatically constructs its 
+correlative sparsity graph, applies a chordal extension, identifies 
+the maximal variable cliques, groups the polynomial constraints, and 
+generates the corresponding sparse moment or SOS relaxation. For both 
+CS and TS, SPOT provides maximal (MAX), minimum-degree (MD), and minimum-fill 
+(MF) chordal-extension options, as well as user-defined (SELF) cliques. TS further 
+decomposes the monomial bases within the variable cliques, but is not considered 
+in this thesis, because of limited computational capabilities. 
+In this thesis, the controlled 3D-pendulum of Section \ref{sec:discrete_3D_pendulum} uses automatic CS with the MD 
+extension, whereas the Acrobot of Section \ref{subsection:discrete_Acrobot} uses problem-specific SELF cliques. 
+Their exact clique constructions and relaxation orders are specified 
 in the following sections.
 
 \newpage
