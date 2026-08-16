@@ -702,7 +702,7 @@ Therefore,
     \frac{h}{2}\,\hat{\bm{\tau}}_{g,k+1},
 \end{equation}
     with the definition of
-\begin{equation}
+\begin{equation}\label{eq:3d_pendulum_gravity_moment}
     \bm{\tau}_{g,k} = mg\,\bm{\rho}_c\times \bm{R}_{k}^{\top}\bm{e}_3,
 \end{equation}
 being the moment due to the potential energy in body frame \cite{Lee2008}.
@@ -1682,7 +1682,7 @@ Firstly, the directional derivative $\left\langle D_{\bm{F_{i,k}}}L_d(\bm{F}_{i,
 corresponding to the derivative of the single body 3D-pendulum derived in Section \ref{sec:discrete_3D_pendulum}. 
 Here,
 \begin{equation}
-    \bm{\Pi}_{i,k}
+    \bm{\hat{\Pi}}_{i,k}
     =
     \frac{1}{h}
     \left(
@@ -1917,9 +1917,9 @@ Finally, the full discrete Euler-Lagrange equations of the unforced Acrobot in m
 \begin{align}
     \intertext{\textit{Rotation:}}
     \vspace{-0.1cm}
-    \bm{\Pi}_{1,k}
+    \bm{\hat{\Pi}}_{1,k}
     -
-    \bm{\Pi}_{1,k+1}
+    \bm{\hat{\Pi}}_{1,k+1}
     +
     h
     \left[
@@ -1940,9 +1940,9 @@ Finally, the full discrete Euler-Lagrange equations of the unforced Acrobot in m
     \label{eq:acrobot_full_del_shifted_rotation_1}
     \\
 \hspace{-2em}
-    \bm{\Pi}_{2,k}
+    \bm{\hat{\Pi}}_{2,k}
     -
-    \bm{\Pi}_{2,k+1}
+    \bm{\hat{\Pi}}_{2,k+1}
     -
     h
     \left[
@@ -2051,9 +2051,9 @@ Therefore, the controlled rotational discrete Euler-Lagrange equations are deriv
 \footnotesize
 \setlength{\jot}{0.25em}
 \begin{align}
-    \bm{\Pi}_{1,k}
+    \bm{\hat{\Pi}}_{1,k}
     -
-    \bm{\Pi}_{1,k+1}
+    \bm{\hat{\Pi}}_{1,k+1}
     +
     h
     \left[
@@ -2075,9 +2075,9 @@ Therefore, the controlled rotational discrete Euler-Lagrange equations are deriv
     \bm{0},
     \label{eq:forced_acrobot_rotation_link1}
     \\
-    \bm{\Pi}_{2,k}
+    \bm{\hat{\Pi}}_{2,k}
     -
-    \bm{\Pi}_{2,k+1}
+    \bm{\hat{\Pi}}_{2,k+1}
     +
     h
     \left[

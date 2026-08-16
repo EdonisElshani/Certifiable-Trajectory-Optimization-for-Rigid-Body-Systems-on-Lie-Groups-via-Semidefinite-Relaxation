@@ -1,5 +1,5 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{WKKM06}
+\begin{thebibliography}{{MOS}26}
 
 \bibitem[BLdD23]{Barbero-Linan2023_Cayley_Formula}
 Mar{\'i}a Barbero-Li{\~n}{\'a}n and David~Mart{\'i}n de~Diego.
@@ -67,12 +67,13 @@ Edonis Elshani.
 \newblock URL:
   \url{https://github.com/EdonisElshani/Certifiable_Trajectory_Optimization}.
 
-\bibitem[GQ25]{GallierQuaintance2025LinearAlgebra}
-Jean Gallier and Jocelyn Quaintance.
-\newblock Linear algebra for computer vision, robotics, and machine learning,
-  October 2025.
-\newblock Lecture notes, accessed 7 May 2026.
-\newblock URL: \url{https://www.cis.upenn.edu/~cis5150/linalg-I.pdf}.
+\bibitem[GQ20]{GallierQuaintance2020LinearAlgebra}
+Jean~H. Gallier and Jocelyn Quaintance.
+\newblock {\em Linear Algebra and Optimization with Applications to Machine
+  Learning, Volume {I}: Linear Algebra for Computer Vision, Robotics, and
+  Machine Learning}.
+\newblock World Scientific, 2020.
+\newblock \href {https://doi.org/10.1142/11446} {\path{doi:10.1142/11446}}.
 
 \bibitem[Hai94]{Hairer1994}
 Ernst Hairer.
@@ -91,6 +92,15 @@ Brian~C. Hall.
 \newblock An elementary introduction to groups and representations, 2000.
 \newblock URL: \url{https://arxiv.org/abs/math-ph/0005032}, \href
   {https://arxiv.org/abs/math-ph/0005032} {\path{arXiv:math-ph/0005032}}.
+
+\bibitem[HKD{\etalchar{+}}26]{Hartmann_2026SDP}
+Luca~M. Hartmann, Orcun Karaca, Tinus Dorfling, Tobias Geyer, and Adam Kurpisz.
+\newblock On the {SDP} relaxation of direct torque finite control set model
+  predictive control.
+\newblock {\em IEEE Transactions on Control Systems Technology},
+  34(3):1608--1616, 2026.
+\newblock \href {https://doi.org/10.1109/TCST.2026.3662319}
+  {\path{doi:10.1109/TCST.2026.3662319}}.
 
 \bibitem[Ise01]{Arieh_Cayley_Motivation}
 Arieh Iserles.
@@ -115,15 +125,7 @@ Shucheng Kang, Xiaoyang Xu, Jay Sarva, Ling Liang, and Heng Yang.
   Robotics XVI, Volume 1}, pages 43--65, Cham, 2026. Springer Nature
   Switzerland.
 
-\bibitem[Las06a]{Lasserre2006Sparse}
-Jean~B. Lasserre.
-\newblock Convergent sdp-relaxations in polynomial optimization with sparsity.
-\newblock {\em SIAM Journal on Optimization}, 17(3):822--843, 2006.
-\newblock \href {https://arxiv.org/abs/https://doi.org/10.1137/05064504X}
-  {\path{arXiv:https://doi.org/10.1137/05064504X}}, \href
-  {https://doi.org/10.1137/05064504X} {\path{doi:10.1137/05064504X}}.
-
-\bibitem[Las06b]{Lasserre2001Global}
+\bibitem[Las06]{Lasserre2001Global}
 Jean-Bernard Lasserre.
 \newblock Global optimization with polynomials and the problem of moments.
 \newblock {\em SIAM Journal on Optimization}, 11:796--817, 07 2006.
@@ -147,6 +149,11 @@ Benedict Leimkuhler and Sebastian Reich.
 \newblock {\em Simulating Hamiltonian Dynamics}.
 \newblock Cambridge Monographs on Applied and Computational Mathematics.
   Cambridge University Press, 2005.
+
+\bibitem[{MOS}26]{MOSEK}
+{MOSEK ApS}.
+\newblock {\em The {MOSEK} Optimization Suite Manual, Version 11.2}, 2026.
+\newblock URL: \url{https://docs.mosek.com/latest/intro/index.html}.
 
 \bibitem[MR99]{MarsdenRatiu1999}
 Jerrold~E. Marsden and Tudor~S. Ratiu.
@@ -204,15 +211,6 @@ Sangli Teng, Ashkan Jasour, Ram Vasudevan, and Maani Ghaffari.
   44(10-11):1784--1813, September 2025.
 \newblock \href {https://doi.org/10.1177/02783649241296160}
   {\path{doi:10.1177/02783649241296160}}.
-
-\bibitem[WKKM06]{Waki2006Sparse}
-Hayato Waki, Sunyoung Kim, Masakazu Kojima, and Masakazu Muramatsu.
-\newblock Sums of squares and semidefinite program relaxations for polynomial
-  optimization problems with structured sparsity.
-\newblock {\em SIAM Journal on Optimization}, 17(1):218--242, 2006.
-\newblock \href {https://arxiv.org/abs/https://doi.org/10.1137/050623802}
-  {\path{arXiv:https://doi.org/10.1137/050623802}}, \href
-  {https://doi.org/10.1137/050623802} {\path{doi:10.1137/050623802}}.
 
 \bibitem[Yan24]{Yang2024Semidefinite}
 Heng Yang.

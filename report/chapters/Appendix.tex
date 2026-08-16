@@ -22,6 +22,521 @@
 Before handing in your thesis, even for an intermediate review, please perform a proper spellcheck and correct grammar mistakes. Otherwise, there is a high likelihood that your supervisor will return your report immediately without making any comments.
 \fi
 
+% Insert this chapter after \appendix in the main thesis file.
+\chapter{Scalar Implementation of the 3D-Pendulum Optimization Problem}
+\label{app:controlled_3d_pendulum_scalar_pop}
+
+This appendix expands the matrix formulation
+\eqref{eq:controlled_3d_pendulum_pop} into the scalar polynomial equations used
+to construct the semidefinite relaxation. Let
+\begin{equation}
+R_k=[r_{ij,k}]_{i,j=1}^{3},
+\qquad
+F_k=[f_{ij,k}]_{i,j=1}^{3},
+\qquad
+J_d=\operatorname{diag}(\delta_1,\delta_2,\delta_3),
+\label{eq:app_3d_scalar_matrices}
+\end{equation}
+and define
+\begin{equation}
+\rho_c=
+\begin{bmatrix}\rho_1&\rho_2&\rho_3\end{bmatrix}^{\top},
+\qquad
+u_{p,k}=
+\begin{bmatrix}u_{p1,k}&u_{p2,k}&u_{p3,k}\end{bmatrix}^{\top}.
+\label{eq:app_3d_scalar_vectors}
+\end{equation}
+
+\section{Objective and Discrete Dynamics}
+
+Writing \(R_N^{\mathrm{des}}=[r_{ij,N}^{\mathrm{des}}]\) and
+\(F^{\mathrm{des}}=[f_{ij}^{\mathrm{des}}]\), the scalar objective is
+\begin{align}
+J
+=\;&
+\rho_R\sum_{i=1}^{3}\sum_{j=1}^{3}
+\left(r_{ij,N}-r_{ij,N}^{\mathrm{des}}\right)^2
++\rho_F\sum_{i=1}^{3}\sum_{j=1}^{3}
+\left(f_{ij,N-1}-f_{ij}^{\mathrm{des}}\right)^2
+\notag\\
+&+\sum_{k=0}^{N-1}\alpha_R
+\sum_{i=1}^{3}\sum_{j=1}^{3}
+\left(r_{ij,k}-r_{ij,N}^{\mathrm{des}}\right)^2
+\notag\\
+&+\sum_{k=0}^{N-2}\alpha_F
+\sum_{i=1}^{3}\sum_{j=1}^{3}
+\left(f_{ij,k}-f_{ij}^{\mathrm{des}}\right)^2
+\notag\\
+&+\sum_{k=1}^{N-1}\gamma^{-1}
+\left(u_{p1,k}^2+u_{p2,k}^2+u_{p3,k}^2\right).
+\label{eq:app_3d_scalar_objective}
+\end{align}
+
+Since \(R_k^{\top}e_3=[r_{31,k}\;r_{32,k}\;r_{33,k}]^{\top}\), write the
+gravity moment as
+\[
+\tau_{g,k}=
+\begin{bmatrix}\tau_{g1,k}&\tau_{g2,k}&\tau_{g3,k}\end{bmatrix}^{\top}.
+\]
+Its components are
+\begin{subequations}
+\label{eq:app_3d_scalar_gravity}
+\begin{align}
+\tau_{g1,k}&=mg\left(\rho_2r_{33,k}-\rho_3r_{32,k}\right),\\
+\tau_{g2,k}&=mg\left(\rho_3r_{31,k}-\rho_1r_{33,k}\right),\\
+\tau_{g3,k}&=mg\left(\rho_1r_{32,k}-\rho_2r_{31,k}\right).
+\end{align}
+\end{subequations}
+Likewise, for \(u_k=[u_{1,k}\;u_{2,k}\;u_{3,k}]^{\top}\),
+\begin{subequations}
+\label{eq:app_3d_scalar_control_moment}
+\begin{align}
+u_{1,k}&=r_{32,k}u_{p3,k}-r_{33,k}u_{p2,k},\\
+u_{2,k}&=r_{33,k}u_{p1,k}-r_{31,k}u_{p3,k},\\
+u_{3,k}&=r_{31,k}u_{p2,k}-r_{32,k}u_{p1,k}.
+\end{align}
+\end{subequations}
+After multiplying
+\eqref{eq:controlled_3d_pendulum_pop_dynamics} by \(h\), the three independent
+entries of the skew-symmetric dynamics constraint are
+therefore
+\begin{subequations}
+\label{eq:app_3d_scalar_dynamics}
+\begin{align}
+&\delta_2f_{32,k+1}-\delta_3f_{23,k+1}
+-\delta_3f_{32,k}+\delta_2f_{23,k}
+-h^2\left(\tau_{g1,k+1}+u_{1,k+1}\right)=0,
+\label{eq:app_3d_scalar_dynamics_1}
+\\
+&\delta_3f_{13,k+1}-\delta_1f_{31,k+1}
+-\delta_1f_{13,k}+\delta_3f_{31,k}
+-h^2\left(\tau_{g2,k+1}+u_{2,k+1}\right)=0,
+\label{eq:app_3d_scalar_dynamics_2}
+\\
+&\delta_1f_{21,k+1}-\delta_2f_{12,k+1}
+-\delta_2f_{21,k}+\delta_1f_{12,k}
+-h^2\left(\tau_{g3,k+1}+u_{3,k+1}\right)=0.
+\label{eq:app_3d_scalar_dynamics_3}
+\end{align}
+\end{subequations}
+for \(k=0,\ldots,N-2\).
+
+\section{Kinematics and Rotation Constraints}
+
+The nine scalar equations corresponding to \(R_{k+1}=R_kF_k\) are
+\begin{subequations}
+\label{eq:app_3d_scalar_kinematics}
+\begin{align}
+r_{11,k+1}-r_{11,k}f_{11,k}-r_{12,k}f_{21,k}-r_{13,k}f_{31,k}&=0,\\
+r_{12,k+1}-r_{11,k}f_{12,k}-r_{12,k}f_{22,k}-r_{13,k}f_{32,k}&=0,\\
+r_{13,k+1}-r_{11,k}f_{13,k}-r_{12,k}f_{23,k}-r_{13,k}f_{33,k}&=0,\\
+r_{21,k+1}-r_{21,k}f_{11,k}-r_{22,k}f_{21,k}-r_{23,k}f_{31,k}&=0,\\
+r_{22,k+1}-r_{21,k}f_{12,k}-r_{22,k}f_{22,k}-r_{23,k}f_{32,k}&=0,\\
+r_{23,k+1}-r_{21,k}f_{13,k}-r_{22,k}f_{23,k}-r_{23,k}f_{33,k}&=0,\\
+r_{31,k+1}-r_{31,k}f_{11,k}-r_{32,k}f_{21,k}-r_{33,k}f_{31,k}&=0,\\
+r_{32,k+1}-r_{31,k}f_{12,k}-r_{32,k}f_{22,k}-r_{33,k}f_{32,k}&=0,\\
+r_{33,k+1}-r_{31,k}f_{13,k}-r_{32,k}f_{23,k}-r_{33,k}f_{33,k}&=0.
+\end{align}
+\end{subequations}
+for \(k=0,\ldots,N-1\).
+
+For every \(k=0,\ldots,N\), the six independent scalar equations in
+\(R_k^{\top}R_k=I_3\) are
+\begin{subequations}
+\label{eq:app_3d_scalar_R_orthogonality}
+\begin{align}
+r_{11,k}^2+r_{21,k}^2+r_{31,k}^2-1&=0,\\
+r_{12,k}^2+r_{22,k}^2+r_{32,k}^2-1&=0,\\
+r_{13,k}^2+r_{23,k}^2+r_{33,k}^2-1&=0,\\
+r_{11,k}r_{12,k}+r_{21,k}r_{22,k}+r_{31,k}r_{32,k}&=0,\\
+r_{12,k}r_{13,k}+r_{22,k}r_{23,k}+r_{32,k}r_{33,k}&=0,\\
+r_{11,k}r_{13,k}+r_{21,k}r_{23,k}+r_{31,k}r_{33,k}&=0.
+\end{align}
+\end{subequations}
+The nine right-handedness equations for \(R_k\) are
+\begin{subequations}
+\label{eq:app_3d_scalar_R_right_handedness}
+\begin{align}
+r_{21,k}r_{32,k}-r_{31,k}r_{22,k}-r_{13,k}&=0,\\
+r_{31,k}r_{12,k}-r_{11,k}r_{32,k}-r_{23,k}&=0,\\
+r_{11,k}r_{22,k}-r_{21,k}r_{12,k}-r_{33,k}&=0,\\
+r_{22,k}r_{33,k}-r_{32,k}r_{23,k}-r_{11,k}&=0,\\
+r_{32,k}r_{13,k}-r_{12,k}r_{33,k}-r_{21,k}&=0,\\
+r_{12,k}r_{23,k}-r_{22,k}r_{13,k}-r_{31,k}&=0,\\
+r_{23,k}r_{31,k}-r_{33,k}r_{21,k}-r_{12,k}&=0,\\
+r_{33,k}r_{11,k}-r_{13,k}r_{31,k}-r_{22,k}&=0,\\
+r_{13,k}r_{21,k}-r_{23,k}r_{11,k}-r_{32,k}&=0.
+\end{align}
+\end{subequations}
+
+For every \(k=0,\ldots,N-1\), the corresponding six equations in
+\(F_k^{\top}F_k=I_3\) are
+\begin{subequations}
+\label{eq:app_3d_scalar_F_orthogonality}
+\begin{align}
+f_{11,k}^2+f_{21,k}^2+f_{31,k}^2-1&=0,\\
+f_{12,k}^2+f_{22,k}^2+f_{32,k}^2-1&=0,\\
+f_{13,k}^2+f_{23,k}^2+f_{33,k}^2-1&=0,\\
+f_{11,k}f_{12,k}+f_{21,k}f_{22,k}+f_{31,k}f_{32,k}&=0,\\
+f_{12,k}f_{13,k}+f_{22,k}f_{23,k}+f_{32,k}f_{33,k}&=0,\\
+f_{11,k}f_{13,k}+f_{21,k}f_{23,k}+f_{31,k}f_{33,k}&=0.
+\end{align}
+\end{subequations}
+The nine right-handedness equations for \(F_k\) are
+\begin{subequations}
+\label{eq:app_3d_scalar_F_right_handedness}
+\begin{align}
+f_{21,k}f_{32,k}-f_{31,k}f_{22,k}-f_{13,k}&=0,\\
+f_{31,k}f_{12,k}-f_{11,k}f_{32,k}-f_{23,k}&=0,\\
+f_{11,k}f_{22,k}-f_{21,k}f_{12,k}-f_{33,k}&=0,\\
+f_{22,k}f_{33,k}-f_{32,k}f_{23,k}-f_{11,k}&=0,\\
+f_{32,k}f_{13,k}-f_{12,k}f_{33,k}-f_{21,k}&=0,\\
+f_{12,k}f_{23,k}-f_{22,k}f_{13,k}-f_{31,k}&=0,\\
+f_{23,k}f_{31,k}-f_{33,k}f_{21,k}-f_{12,k}&=0,\\
+f_{33,k}f_{11,k}-f_{13,k}f_{31,k}-f_{22,k}&=0,\\
+f_{13,k}f_{21,k}-f_{23,k}f_{11,k}-f_{32,k}&=0.
+\end{align}
+\end{subequations}
+
+\section{Bounds, Initial Values, and Normalization}
+
+The relative-rotation and control bounds become
+\begin{subequations}
+\label{eq:app_3d_scalar_bounds}
+\begin{align}
+f_{11,k}+f_{22,k}+f_{33,k}-1
+-2\cos(\Delta\theta_{\max})&\geq0,
+&&k=0,\ldots,N-1,
+\\
+u_{\max}^2-u_{p1,k}^2-u_{p2,k}^2-u_{p3,k}^2&\geq0,
+&&k=1,\ldots,N-1.
+\end{align}
+\end{subequations}
+The fixed initial matrices are imposed entrywise as
+\begin{equation}
+r_{ij,0}=r_{ij}^{\mathrm{init}},
+\qquad
+f_{ij,0}=f_{ij}^{\mathrm{init}},
+\qquad i,j=1,2,3.
+\label{eq:app_3d_scalar_initial_values}
+\end{equation}
+
+For the normalized variables used to construct the SDP, set
+\begin{equation}
+u_{pi,k}=u_{\max}\bar u_{pi,k},
+\qquad i=1,2,3,
+\label{eq:app_3d_scalar_control_scaling}
+\end{equation}
+and substitute this relation into
+\eqref{eq:app_3d_scalar_objective} and
+\eqref{eq:app_3d_scalar_control_moment}. The control bound then reads
+\begin{equation}
+1-\bar u_{p1,k}^2-\bar u_{p2,k}^2-\bar u_{p3,k}^2\geq0.
+\label{eq:app_3d_scalar_normalized_control_bound}
+\end{equation}
+Together with
+\eqref{eq:app_3d_scalar_dynamics}--
+\eqref{eq:app_3d_scalar_initial_values}, these equations give the complete
+scalar POP used for the controlled 3D-Pendulum relaxation.
+
+\chapter{Scalar Implementation of the Acrobot Optimization Problem}
+\label{app:controlled_acrobot_scalar_pop}
+
+This appendix expands the reduced matrix formulation
+\eqref{eq:controlled_acrobot_pop} into the scalar polynomial equations used to
+construct the sparse semidefinite relaxation. The equations below reproduce the
+implemented Model~2 reduction without introducing center-of-mass positions or
+velocities as decision variables.
+
+\section{Reduced Variables and Objective}
+
+For $i\in\{1,2\}$, let
+\begin{equation}
+R_{i,k}=
+\begin{bmatrix}
+c_{i,k}&-s_{i,k}\\
+s_{i,k}& c_{i,k}
+\end{bmatrix},
+\qquad
+F_{i,k}=
+\begin{bmatrix}
+a_{i,k}&-b_{i,k}\\
+b_{i,k}& a_{i,k}
+\end{bmatrix}.
+\label{eq:app_acrobot_scalar_rotations}
+\end{equation}
+For the uniform-rod geometry used in the implementation,
+\begin{equation}
+\rho_{1,0}=\begin{bmatrix}0\\ l_1/2\end{bmatrix},
+\qquad
+\rho_{1,12}=\begin{bmatrix}0\\-l_1/2\end{bmatrix},
+\qquad
+\rho_{2,12}=\begin{bmatrix}0\\ l_2/2\end{bmatrix}.
+\label{eq:app_acrobot_geometry_vectors}
+\end{equation}
+Hence, the holonomic geometry reconstructs the center-of-mass positions as
+\begin{subequations}
+\label{eq:app_acrobot_reconstructed_positions}
+\begin{align}
+x_{1,k}
+&=p_0+
+\begin{bmatrix}
+\frac{l_1}{2}s_{1,k}\\[0.1em]
+-\frac{l_1}{2}c_{1,k}
+\end{bmatrix},
+\label{eq:app_acrobot_reconstructed_x1}\\
+x_{2,k}
+&=p_0+
+\begin{bmatrix}
+l_1s_{1,k}+\frac{l_2}{2}s_{2,k}\\[0.1em]
+-l_1c_{1,k}-\frac{l_2}{2}c_{2,k}
+\end{bmatrix}.
+\label{eq:app_acrobot_reconstructed_x2}
+\end{align}
+\end{subequations}
+These expressions are used only for the exact elimination and for trajectory
+reconstruction; $x_{1,k}$ and $x_{2,k}$ are not optimization variables.
+
+Using $R_{i,k+1}=R_{i,k}F_{i,k}$ and
+$R_{i,k-1}=R_{i,k}F_{i,k-1}^{\top}$, define the reduced second differences
+\begin{subequations}
+\label{eq:app_acrobot_reduced_second_differences}
+\begin{align}
+\widehat{\Delta s}_{i,k}
+&:=s_{i,k}(a_{i,k}+a_{i,k-1}-2)
+  +c_{i,k}(b_{i,k}-b_{i,k-1}),
+\label{eq:app_acrobot_delta_s}\\
+\widehat{\Delta c}_{i,k}
+&:=c_{i,k}(a_{i,k}+a_{i,k-1}-2)
+  -s_{i,k}(b_{i,k}-b_{i,k-1}),
+\label{eq:app_acrobot_delta_c}
+\end{align}
+\end{subequations}
+for $i=1,2$ and $k=1,\ldots,N-1$. These are the scalar components of
+\eqref{eq:acrobot_reduced_differences}.
+
+Let
+\begin{equation}
+\begin{aligned}
+R_i^{\mathrm{des}}
+&=\begin{bmatrix}c_i^{\mathrm{des}}&-s_i^{\mathrm{des}}\\
+s_i^{\mathrm{des}}&c_i^{\mathrm{des}}\end{bmatrix},\\
+F_i^{\mathrm{des}}
+&=\begin{bmatrix}a_i^{\mathrm{des}}&-b_i^{\mathrm{des}}\\
+b_i^{\mathrm{des}}&a_i^{\mathrm{des}}\end{bmatrix}.
+\end{aligned}
+\label{eq:app_acrobot_desired_rotations}
+\end{equation}
+Since the structured $SO(2)$ matrices satisfy
+$\|R-R^{\mathrm{des}}\|_F^2=2[(c-c^{\mathrm{des}})^2+
+(s-s^{\mathrm{des}})^2]$, the scalar objective is
+\begin{align}
+J=\;&2\rho_R\sum_{i=1}^{2}
+\left[(c_{i,N}-c_i^{\mathrm{des}})^2
+     +(s_{i,N}-s_i^{\mathrm{des}})^2\right]
+\notag\\
+&+2\rho_F\sum_{i=1}^{2}
+\left[(a_{i,N-1}-a_i^{\mathrm{des}})^2
+     +(b_{i,N-1}-b_i^{\mathrm{des}})^2\right]
+\notag\\
+&+2\alpha_R\sum_{k=0}^{N-1}\sum_{i=1}^{2}
+\left[(c_{i,k}-c_i^{\mathrm{des}})^2
+     +(s_{i,k}-s_i^{\mathrm{des}})^2\right]
+\notag\\
+&+2\alpha_F\sum_{k=0}^{N-2}\sum_{i=1}^{2}
+\left[(a_{i,k}-a_i^{\mathrm{des}})^2
+     +(b_{i,k}-b_i^{\mathrm{des}})^2\right]
++\gamma^{-1}\sum_{k=1}^{N-1}\widehat u_k^2.
+\label{eq:app_acrobot_scalar_objective}
+\end{align}
+There is no multiplier regularization term in the optimization problem evaluated
+in this thesis.
+
+\section{Reduced Discrete Dynamics}
+
+The normalized solver variables are mapped to the physical quantities by
+\begin{equation}
+u_k^{\mathrm{phys}}=u_{\max}\widehat u_k,
+\qquad
+\bar\lambda_{0,k}^{(j)}
+=\lambda_{\max}\widehat\lambda_{0,k}^{(j)},
+\qquad
+\bar\lambda_{12,k}^{(j)}
+=\lambda_{\max}\widehat\lambda_{12,k}^{(j)},
+\quad j=1,2.
+\label{eq:app_acrobot_scaling}
+\end{equation}
+After substituting
+\eqref{eq:app_acrobot_reduced_second_differences} into the translational
+discrete Euler--Lagrange equations, their four scalar components are
+\begin{subequations}
+\label{eq:app_acrobot_scalar_translational_dynamics}
+\begin{align}
+&m_1\frac{l_1}{2}\widehat{\Delta s}_{1,k}
+-h^2\lambda_{\max}
+ \left(\widehat\lambda_{0,k}^{(1)}
+      +\widehat\lambda_{12,k}^{(1)}\right)=0,
+\label{eq:app_acrobot_translation_1x}\\
+&-m_1\frac{l_1}{2}\widehat{\Delta c}_{1,k}
++h^2m_1g
+-h^2\lambda_{\max}
+ \left(\widehat\lambda_{0,k}^{(2)}
+      +\widehat\lambda_{12,k}^{(2)}\right)=0,
+\label{eq:app_acrobot_translation_1y}\\
+&m_2\left(l_1\widehat{\Delta s}_{1,k}
+          +\frac{l_2}{2}\widehat{\Delta s}_{2,k}\right)
++h^2\lambda_{\max}\widehat\lambda_{12,k}^{(1)}=0,
+\label{eq:app_acrobot_translation_2x}\\
+&-m_2\left(l_1\widehat{\Delta c}_{1,k}
+           +\frac{l_2}{2}\widehat{\Delta c}_{2,k}\right)
++h^2m_2g
++h^2\lambda_{\max}\widehat\lambda_{12,k}^{(2)}=0,
+\label{eq:app_acrobot_translation_2y}
+\end{align}
+\end{subequations}
+for $k=1,\ldots,N-1$.
+
+For the geometry~\eqref{eq:app_acrobot_geometry_vectors}, the scalar moments
+generated by the constraint forces are
+\begin{subequations}
+\label{eq:app_acrobot_scalar_constraint_moments}
+\begin{align}
+\mu_{1,0,k}
+&=-\frac{l_1}{2}
+  \left(c_{1,k}\bar\lambda_{0,k}^{(1)}
+       +s_{1,k}\bar\lambda_{0,k}^{(2)}\right),
+\label{eq:app_acrobot_mu_10}\\
+\mu_{1,12,k}
+&=\frac{l_1}{2}
+  \left(c_{1,k}\bar\lambda_{12,k}^{(1)}
+       +s_{1,k}\bar\lambda_{12,k}^{(2)}\right),
+\label{eq:app_acrobot_mu_112}\\
+\mu_{2,12,k}
+&=-\frac{l_2}{2}
+  \left(c_{2,k}\bar\lambda_{12,k}^{(1)}
+       +s_{2,k}\bar\lambda_{12,k}^{(2)}\right).
+\label{eq:app_acrobot_mu_212}
+\end{align}
+\end{subequations}
+Here,
+$\mu_{1,0,k}=\rho_{1,0}\times
+(R_{1,k}^{\top}\bar\lambda_{0,k})$,
+$\mu_{1,12,k}=\rho_{1,12}\times
+(R_{1,k}^{\top}\bar\lambda_{12,k})$, and
+$\mu_{2,12,k}=\rho_{2,12}\times
+(R_{2,k}^{\top}\bar\lambda_{12,k})$.
+Accordingly, the moment convention in the matrix POP is
+$\mu_{1,k}=\mu_{1,0,k}+\mu_{1,12,k}$ and
+$\mu_{2,k}=-\mu_{2,12,k}$.
+The two independent scalar rotational equations are therefore
+\begin{subequations}
+\label{eq:app_acrobot_scalar_rotational_dynamics}
+\begin{align}
+&\operatorname{tr}(J_{d,1})(b_{1,k-1}-b_{1,k})
++h^2\left(
+\mu_{1,0,k}+\mu_{1,12,k}-u_{\max}\widehat u_k
+\right)=0,
+\label{eq:app_acrobot_rotation_1}\\
+&\operatorname{tr}(J_{d,2})(b_{2,k-1}-b_{2,k})
++h^2\left(
+u_{\max}\widehat u_k-\mu_{2,12,k}
+\right)=0,
+\label{eq:app_acrobot_rotation_2}
+\end{align}
+\end{subequations}
+for $k=1,\ldots,N-1$. Equations
+\eqref{eq:app_acrobot_scalar_translational_dynamics} and
+\eqref{eq:app_acrobot_scalar_rotational_dynamics} are all quadratic
+polynomials in the reduced decision variables.
+
+\section{Kinematics, Rotation Constraints, and Bounds}
+
+For each link, $R_{i,k+1}=R_{i,k}F_{i,k}$ gives the two independent scalar
+kinematic equations
+\begin{subequations}
+\label{eq:app_acrobot_scalar_kinematics}
+\begin{align}
+c_{i,k+1}-c_{i,k}a_{i,k}+s_{i,k}b_{i,k}&=0,
+\label{eq:app_acrobot_kinematics_c}\\
+s_{i,k+1}-s_{i,k}a_{i,k}-c_{i,k}b_{i,k}&=0,
+\label{eq:app_acrobot_kinematics_s}
+\end{align}
+\end{subequations}
+for $i=1,2$ and $k=0,\ldots,N-1$. Owing to the structured
+parameterization~\eqref{eq:app_acrobot_scalar_rotations}, the $SO(2)$
+constraints reduce to
+\begin{subequations}
+\label{eq:app_acrobot_scalar_so2_constraints}
+\begin{align}
+c_{i,k}^2+s_{i,k}^2-1&=0,
+&&i=1,2,\quad k=0,\ldots,N,
+\label{eq:app_acrobot_so2_R}\\
+a_{i,k}^2+b_{i,k}^2-1&=0,
+&&i=1,2,\quad k=0,\ldots,N-1.
+\label{eq:app_acrobot_so2_F}
+\end{align}
+\end{subequations}
+The increment, control, and componentwise multiplier bounds are
+\begin{subequations}
+\label{eq:app_acrobot_scalar_bounds}
+\begin{align}
+a_{i,k}-\cos(\Delta\theta_{i,\max})&\geq0,
+&&i=1,2,\quad k=1,\ldots,N-1,
+\label{eq:app_acrobot_step_bounds}\\
+1-\widehat u_k^2&\geq0,
+&&k=1,\ldots,N-1,
+\label{eq:app_acrobot_control_bounds}\\
+1-\bigl(\widehat\lambda_{0,k}^{(j)}\bigr)^2&\geq0,
+&&j=1,2,\quad k=1,\ldots,N-1,
+\label{eq:app_acrobot_lambda0_bounds}\\
+1-\bigl(\widehat\lambda_{12,k}^{(j)}\bigr)^2&\geq0,
+&&j=1,2,\quad k=1,\ldots,N-1.
+\label{eq:app_acrobot_lambda12_bounds}
+\end{align}
+\end{subequations}
+Thus, the physical quantities satisfy
+$|u_k^{\mathrm{phys}}|\leq u_{\max}$ and
+$|\bar\lambda_{0,k}^{(j)}|,
+ |\bar\lambda_{12,k}^{(j)}|\leq\lambda_{\max}$.
+
+Finally, write
+\begin{equation}
+R_i^{\mathrm{init}}=
+\begin{bmatrix}c_i^{\mathrm{init}}&-s_i^{\mathrm{init}}\\
+s_i^{\mathrm{init}}&c_i^{\mathrm{init}}\end{bmatrix},
+\qquad
+F_i^{\mathrm{init}}=
+\begin{bmatrix}a_i^{\mathrm{init}}&-b_i^{\mathrm{init}}\\
+b_i^{\mathrm{init}}&a_i^{\mathrm{init}}\end{bmatrix}.
+\label{eq:app_acrobot_initial_matrices}
+\end{equation}
+The implementation fixes $R_{i,1}=R_i^{\mathrm{init}}$,
+$F_{i,0}=F_i^{\mathrm{init}}$, and
+$R_{i,0}=R_i^{\mathrm{init}}(F_i^{\mathrm{init}})^{\top}$. Entrywise, this is
+\begin{subequations}
+\label{eq:app_acrobot_scalar_initial_values}
+\begin{align}
+c_{i,1}&=c_i^{\mathrm{init}},
+&s_{i,1}&=s_i^{\mathrm{init}},
+&a_{i,0}&=a_i^{\mathrm{init}},
+&b_{i,0}&=b_i^{\mathrm{init}},
+\label{eq:app_acrobot_fixed_R1_F0}\\
+c_{i,0}&=c_i^{\mathrm{init}}a_i^{\mathrm{init}}
+          +s_i^{\mathrm{init}}b_i^{\mathrm{init}},
+&s_{i,0}&=s_i^{\mathrm{init}}a_i^{\mathrm{init}}
+          -c_i^{\mathrm{init}}b_i^{\mathrm{init}},
+&&&
+\label{eq:app_acrobot_reconstructed_R0}
+\end{align}
+\end{subequations}
+for $i=1,2$. For the rest initial condition used in the numerical study,
+$a_i^{\mathrm{init}}=1$ and $b_i^{\mathrm{init}}=0$, such that
+$R_{i,0}=R_{i,1}=R_i^{\mathrm{init}}$. Together with the objective
+\eqref{eq:app_acrobot_scalar_objective}, equations
+\eqref{eq:app_acrobot_scalar_translational_dynamics}--
+\eqref{eq:app_acrobot_scalar_initial_values} give the complete scalar POP
+implemented for the Acrobot relaxation.
+
 \chapter{Experimental Details}
 \label{appendix:experimental_details}
 
