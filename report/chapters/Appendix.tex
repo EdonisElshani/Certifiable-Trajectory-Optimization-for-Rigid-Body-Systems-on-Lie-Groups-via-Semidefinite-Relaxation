@@ -584,7 +584,7 @@ m_2\left[\ell_1\widehat\Delta^s_{1,k}+\frac{\ell_2}{2}\widehat\Delta^s_{2,k}\rig
 
 \textbf{Clique choice.} Since \(R_{k-1}\) does not appear explicitly after substitution, one interior stage can be covered by
 \[
-\boxed{\mathcal C^{21}_k=
+\boxed{\mathcal I_{k}^{\mathrm{A},21}=
 \{R_k,R_{k+1},F_{k-1},F_k,\lambda_{0,k},\lambda_{12,k},u_k\}},
 \qquad k=1,\dots,N-1.
 \]
@@ -594,10 +594,14 @@ The size is
 \]
 Boundary and terminal cliques remain
 \[
-\mathcal C_0=\{R_0,R_1, R_2, F_0, F_1, \lambda_{0,1},\lambda_{12,1},u_1\},\qquad |\mathcal C_0|=25,
+\mathcal I_{\mathrm{init}}^{\mathrm{A},25}
+=\{R_0,R_1, R_2, F_0, F_1, \lambda_{0,1},\lambda_{12,1},u_1\},
+\qquad |\mathcal I_{\mathrm{init}}^{\mathrm{A},25}|=25,
 \]
 \[
-\mathcal C_N=\{R_{N-1}, R_N, F_{N-2}, F_{N-1}, \lambda_{0,N-1},\lambda_{12,N-1},u_{N-1}\},\qquad |\mathcal C_N|=21.
+\mathcal I_{\mathrm{term}}^{\mathrm{A},21}
+=\{R_{N-1}, R_N, F_{N-2}, F_{N-1}, \lambda_{0,N-1},\lambda_{12,N-1},u_{N-1}\},
+\qquad |\mathcal I_{\mathrm{term}}^{\mathrm{A},21}|=21.
 \]
 The total number of variables is again \(13N-1\). The advantage is the smaller clique. The drawback is that the sparse relaxation can become weaker,
 because \(R_{k-1}\) is not in the same moment block as the rest of the three-node stencil.
@@ -605,7 +609,7 @@ because \(R_{k-1}\) is not in the same moment block as the rest of the three-nod
 \subsection{Discretized Newton-Euler-Lagrange Model}
 \label{appendix:discretized_newton_euler_lagrange_model}
 
-\paragraph{Coordinates and approximation.}
+\paragraph{Coordinates and approximation}
 Let
 \[
 q_k=
@@ -664,7 +668,7 @@ a_{i,k}^2+b_{i,k}^2=1,\qquad
 a_{i,k}\geq a_{\min}>0.
 \]
 
-\paragraph{Discrete Newton--Euler--Lagrange dynamics.}
+\paragraph{Discrete Newton--Euler--Lagrange dynamics}
 The mass matrix, Coriolis vector, and gravity torque evaluated at node
 $k$ are
 \[
@@ -731,7 +735,7 @@ These two scalar equations, together with the reconstruction, cubic-step,
 and circle constraints, form the discrete transition model. The highest
 polynomial degree is three.
 
-\paragraph{Trajectory optimization and chain clique.}
+\paragraph{Trajectory optimization and chain clique}
 Define the augmented polynomial state
 \[
 x_k=
@@ -744,8 +748,8 @@ c_{2,k}&s_{2,k}&a_{2,k}&b_{2,k}&\omega_{2,k}
 The standard interior chain clique is
 \[
 \boxed{
-z(I_k)=\{x_{k-1},u_{k-1},x_k\},
-\qquad |I_k|=10+1+10=21.
+\bm{z}_{\mathrm{A}}(\mathcal I_k^{\mathrm{A}})=\{\bm{x}_{k-1},u_{k-1},\bm{x}_k\},
+\qquad |\mathcal I_k^{\mathrm{A}}|=10+1+10=21.
 }
 \]
 

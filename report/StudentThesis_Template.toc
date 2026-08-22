@@ -1,124 +1,136 @@
 \contentsline {chapter}{\numberline {1}Introduction}{7}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Problem Statement}{7}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Related Work}{7}{section.1.2}%
-\contentsline {chapter}{\numberline {2}Preliminaries on Special Embedded Matrix Lie Groups}{9}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Special Matrix Lie Groups}{9}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Special Lie Algebras}{10}{section.2.2}%
-\contentsline {paragraph}{Lie algebras and the exponential map}{10}{section*.2}%
-\contentsline {paragraph}{Left and right translations}{10}{section*.3}%
-\contentsline {paragraph}{Differential of left translation $T_R\mathbb {L}_H$ on $SO(n)$}{11}{section*.4}%
-\contentsline {paragraph}{Adjoint and coadjoint operators}{11}{section*.5}%
-\contentsline {paragraph}{Variations on Matrix Lie Groups}{12}{section*.6}%
-\contentsline {chapter}{\numberline {3}Continuous Mechanics of Rigid Bodies on Lie Groups}{13}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Lagrangian Mechanics}{13}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Euler--Lagrange Equations}{14}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Legendre Transformation and Hamiltonian Mechanics}{16}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Properties of the Lagrangian Flow}{16}{subsection.3.1.3}%
-\contentsline {paragraph}{Symplecticity}{17}{section*.8}%
-\contentsline {paragraph}{Noether's theorem}{17}{section*.9}%
-\contentsline {section}{\numberline {3.2}Unforced 3D-Pendulum}{17}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Derivation of Lie Group Mechanics}{18}{subsection.3.2.1}%
-\contentsline {paragraph}{Configuration Manifold}{18}{section*.10}%
-\contentsline {paragraph}{Lagrangian}{18}{section*.11}%
-\contentsline {paragraph}{Euler-Lagrange Equations}{19}{section*.12}%
-\contentsline {paragraph}{Legendre Transformation}{20}{section*.13}%
-\contentsline {subsection}{\numberline {3.2.2}Verification of Momentum Conservation}{20}{subsection.3.2.2}%
-\contentsline {chapter}{\numberline {4}Discrete Mechanics for Rigid Bodies on Lie Groups}{23}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Discrete Lagrangian Mechanics}{23}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Discrete Euler--Lagrange Equations}{24}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Discrete Legendre Transformation and Hamiltonian Mechanics}{27}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Properties of the Discrete Lagrangian Flow}{28}{subsection.4.1.3}%
-\contentsline {paragraph}{Symplecticity}{28}{section*.15}%
-\contentsline {paragraph}{Discrete Noether's theorem}{28}{section*.16}%
-\contentsline {subsection}{\numberline {4.1.4}Forced Discrete Euler-Lagrange Equations}{28}{subsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.1.5}Computational Implementation}{29}{subsection.4.1.5}%
-\contentsline {paragraph}{Cayley Transformation}{30}{section*.17}%
-\contentsline {paragraph}{Newton Iteration}{30}{section*.18}%
-\contentsline {section}{\numberline {4.2}Single Rigid Body Systems}{31}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}3D-Pendulum}{31}{subsection.4.2.1}%
-\contentsline {paragraph}{Configuration Manifold}{31}{section*.19}%
-\contentsline {paragraph}{Discrete Lagrangian}{31}{section*.20}%
-\contentsline {paragraph}{Discrete Euler-Lagrange Equations}{32}{section*.21}%
-\contentsline {paragraph}{Discrete Legendre Transformation}{34}{section*.22}%
-\contentsline {paragraph}{Controlled 3D Pendulum}{35}{section*.23}%
-\contentsline {section}{\numberline {4.3}Multi-body Systems}{35}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Acrobot}{37}{subsection.4.3.1}%
-\contentsline {paragraph}{Configuration Manifold}{37}{figure.caption.26}%
-\contentsline {paragraph}{Continuous Lagrangian}{38}{section*.27}%
-\contentsline {paragraph}{Discrete Lagrangian}{39}{section*.28}%
-\contentsline {paragraph}{Discrete Euler-Lagrange Equations}{40}{section*.29}%
-\contentsline {paragraph}{Controlled Acrobot}{43}{section*.30}%
-\contentsline {chapter}{\numberline {5}Certifiable Trajectory Optimization via Semidefinite Relaxation}{45}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Discrete Motion Planning of Rigid-Body Systems}{45}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Semidefinite Optimization and Relaxation}{47}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Semidefinite Relaxation and the Moment-SOS Hierarchy}{48}{subsection.5.2.1}%
-\contentsline {paragraph}{Semidefinite programming (SDP).}{48}{section*.31}%
-\contentsline {paragraph}{Sum-of-squares (SOS) relaxation.}{48}{section*.32}%
-\contentsline {paragraph}{Moment relaxation.}{49}{section*.33}%
-\contentsline {paragraph}{Convergence.}{50}{section*.34}%
-\contentsline {paragraph}{Solution extraction.}{50}{section*.35}%
-\contentsline {subsection}{\numberline {5.2.2}Sparse Relaxations}{51}{subsection.5.2.2}%
-\contentsline {paragraph}{Correlative sparsity and chordal extension.}{51}{section*.36}%
-\contentsline {paragraph}{Chain-like sparsity of trajectory optimization.}{52}{section*.38}%
-\contentsline {paragraph}{Multi Rigid-Body specific sparsity}{52}{section*.40}%
-\contentsline {paragraph}{Sparse Moment--SOS relaxation.}{53}{section*.41}%
-\contentsline {paragraph}{Sparse Polynomial Optimization Toolbox (SPOT).}{54}{section*.43}%
-\contentsline {section}{\numberline {5.3}Discrete Motion Planning for the 3D-Pendulum}{55}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Discrete Motion Planning for an Acrobot}{57}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Trajectory Optimization via SDP Relaxation}{57}{subsection.5.4.1}%
-\contentsline {paragraph}{Chain-like sparsity.}{60}{section*.45}%
-\contentsline {paragraph}{Special multi-body sparsity.}{60}{section*.46}%
-\contentsline {subsection}{\numberline {5.4.2}Trajectory Optimization via Semidefinite Relaxation using Model Predictive Control}{61}{subsection.5.4.2}%
-\contentsline {paragraph}{Receding-horizon}{62}{section*.47}%
-\contentsline {paragraph}{Control application.}{62}{section*.48}%
-\contentsline {paragraph}{Prediction horizon.}{63}{section*.49}%
-\contentsline {chapter}{\numberline {6}Evaluation}{65}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Numerical Simulation Results}{65}{section.6.1}%
-\contentsline {paragraph}{Runge--Kutta 4th order}{65}{section*.51}%
-\contentsline {paragraph}{RK4 projected to $SO(3)$}{66}{section*.52}%
-\contentsline {subsection}{\numberline {6.1.1}3D Pendulum}{67}{subsection.6.1.1}%
-\contentsline {subsubsection}{Unforced 3D-Pendulum}{68}{section*.53}%
-\contentsline {subsubsection}{Controlled 3D-Pendulum}{69}{section*.55}%
-\contentsline {subsection}{\numberline {6.1.2}Acrobot}{72}{subsection.6.1.2}%
-\contentsline {subsubsection}{Unforced Acrobot}{74}{section*.57}%
-\contentsline {subsubsection}{Controlled Acrobot}{75}{section*.59}%
-\contentsline {section}{\numberline {6.2}3D-Pendulum Optimization Results}{77}{section.6.2}%
-\contentsline {subsubsection}{3D-Pendulum Test Configuration and Results}{77}{section*.61}%
-\contentsline {paragraph}{Comparison with the results of Teng et al.}{79}{section*.63}%
-\contentsline {section}{\numberline {6.3}Acrobot Optimization Results}{79}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Semidefinite Optimization Results}{80}{subsection.6.3.1}%
-\contentsline {subsubsection}{Acrobot Test Configuration and Results}{81}{section*.67}%
-\contentsline {paragraph}{Relation to the drone-landing benchmark.}{82}{section*.68}%
-\contentsline {subsection}{\numberline {6.3.2}Evaluation Metrics and Test Configuration}{82}{subsection.6.3.2}%
-\contentsline {paragraph}{Relative suboptimality gap.}{82}{section*.69}%
-\contentsline {paragraph}{Rank condition.}{83}{section*.70}%
-\contentsline {paragraph}{Terminal rotation error.}{83}{section*.71}%
-\contentsline {paragraph}{Manifold violation.}{84}{section*.72}%
-\contentsline {paragraph}{Runtime.}{84}{section*.73}%
-\contentsline {subsection}{\numberline {6.3.3}Model Predictive SDP Control Results}{84}{subsection.6.3.3}%
-\contentsline {chapter}{\numberline {7}Discussion}{89}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Conclusion}{91}{chapter.8}%
-\contentsline {chapter}{\numberline {A}Scalar Implementation of the 3D-Pendulum Optimization Problem}{93}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Objective and Discrete Dynamics}{93}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Kinematics and Rotation Constraints}{94}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Bounds, Initial Values, and Normalization}{95}{section.A.3}%
-\contentsline {chapter}{\numberline {B}Scalar Implementation of the Acrobot Optimization Problem}{97}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Reduced Variables and Objective}{97}{section.B.1}%
-\contentsline {section}{\numberline {B.2}Reduced Discrete Dynamics}{98}{section.B.2}%
-\contentsline {section}{\numberline {B.3}Kinematics, Rotation Constraints, and Bounds}{99}{section.B.3}%
-\contentsline {chapter}{\numberline {C}Experimental Details}{101}{appendix.C}%
-\contentsline {section}{\numberline {C.1}Acrobot Evaluation Models}{101}{section.C.1}%
-\contentsline {subsection}{\numberline {C.1.1}Reduced Maximal-Coordinates LGVI Model}{101}{subsection.C.1.1}%
-\contentsline {subsection}{\numberline {C.1.2}Discretized Newton-Euler-Lagrange Model}{102}{subsection.C.1.2}%
-\contentsline {paragraph}{Coordinates and approximation.}{102}{section*.76}%
-\contentsline {paragraph}{Discrete Newton--Euler--Lagrange dynamics.}{103}{section*.77}%
-\contentsline {paragraph}{Trajectory optimization and chain clique.}{103}{section*.78}%
-\contentsline {section}{\numberline {C.2}Model Evaluation}{103}{section.C.2}%
-\contentsline {subsection}{\numberline {C.2.1}Numerical Simulation Validation}{103}{subsection.C.2.1}%
-\contentsline {subsection}{\numberline {C.2.2}SDP Tightness and Dynamic Residuals}{103}{subsection.C.2.2}%
-\contentsline {chapter}{List of Figures}{105}{section*.79}%
-\contentsline {chapter}{List of Tables}{107}{section*.81}%
-\contentsline {chapter}{Acronyms}{109}{section*.83}%
-\contentsline {chapter}{Notation}{111}{section*.85}%
-\contentsline {chapter}{List of Symbols}{113}{section*.87}%
-\contentsline {chapter}{Bibliography}{117}{section*.89}%
+\contentsline {section}{\numberline {1.1}Problem Statement}{10}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Related Work}{11}{section.1.2}%
+\contentsline {paragraph}{Trajectory optimization and global planning}{11}{section*.4}%
+\contentsline {paragraph}{Geometric mechanics and variational integration}{11}{section*.5}%
+\contentsline {paragraph}{Polynomial optimization and sparse semidefinite relaxation}{12}{section*.6}%
+\contentsline {section}{\numberline {1.3}Research Gap}{13}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Thesis Structure}{13}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Preliminaries on Special Embedded Matrix Lie Groups}{15}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Special Matrix Lie Groups}{15}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Special Lie Algebras}{16}{section.2.2}%
+\contentsline {paragraph}{Lie algebras and the exponential map}{16}{section*.7}%
+\contentsline {paragraph}{Left and right translations}{16}{section*.8}%
+\contentsline {paragraph}{Differential of left translation $T_R\mathbb {L}_H$ on $SO(n)$}{17}{section*.9}%
+\contentsline {paragraph}{Adjoint and coadjoint operators}{17}{section*.10}%
+\contentsline {paragraph}{Variations on Matrix Lie Groups}{18}{section*.11}%
+\contentsline {chapter}{\numberline {3}Continuous Mechanics of Rigid Bodies on Lie Groups}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Lagrangian Mechanics}{19}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Euler--Lagrange Equations}{20}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Legendre Transformation and Hamiltonian Mechanics}{22}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Properties of the Lagrangian Flow}{22}{subsection.3.1.3}%
+\contentsline {paragraph}{Symplecticity}{23}{section*.13}%
+\contentsline {paragraph}{Noether's theorem}{23}{section*.14}%
+\contentsline {section}{\numberline {3.2}Unforced 3D-Pendulum}{23}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Derivation of Lie Group Mechanics}{24}{subsection.3.2.1}%
+\contentsline {paragraph}{Configuration Manifold}{24}{section*.15}%
+\contentsline {paragraph}{Lagrangian}{24}{section*.16}%
+\contentsline {paragraph}{Euler-Lagrange Equations}{25}{section*.17}%
+\contentsline {paragraph}{Legendre Transformation}{26}{section*.18}%
+\contentsline {subsection}{\numberline {3.2.2}Verification of Momentum Conservation}{26}{subsection.3.2.2}%
+\contentsline {chapter}{\numberline {4}Discrete Mechanics for Rigid Bodies on Lie Groups}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Discrete Lagrangian Mechanics}{29}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Discrete Euler--Lagrange Equations}{30}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Discrete Legendre Transformation and Hamiltonian Mechanics}{33}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Properties of the Discrete Lagrangian Flow}{34}{subsection.4.1.3}%
+\contentsline {paragraph}{Symplecticity}{34}{section*.20}%
+\contentsline {paragraph}{Discrete Noether's theorem}{34}{section*.21}%
+\contentsline {subsection}{\numberline {4.1.4}Forced Discrete Euler-Lagrange Equations}{34}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}Computational Implementation}{35}{subsection.4.1.5}%
+\contentsline {paragraph}{Cayley Transformation}{36}{section*.22}%
+\contentsline {paragraph}{Newton Iteration}{36}{section*.23}%
+\contentsline {section}{\numberline {4.2}Single Rigid Body Systems}{37}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}3D-Pendulum}{37}{subsection.4.2.1}%
+\contentsline {paragraph}{Configuration Manifold}{37}{section*.24}%
+\contentsline {paragraph}{Discrete Lagrangian}{37}{section*.25}%
+\contentsline {paragraph}{Discrete Euler-Lagrange Equations}{38}{section*.26}%
+\contentsline {paragraph}{Discrete Legendre Transformation}{40}{section*.27}%
+\contentsline {paragraph}{Controlled 3D Pendulum}{41}{section*.28}%
+\contentsline {section}{\numberline {4.3}Multi-body Systems}{41}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Acrobot}{43}{subsection.4.3.1}%
+\contentsline {paragraph}{Configuration Manifold}{43}{figure.caption.31}%
+\contentsline {paragraph}{Continuous Lagrangian}{44}{section*.32}%
+\contentsline {paragraph}{Discrete Lagrangian}{45}{section*.33}%
+\contentsline {paragraph}{Discrete Euler-Lagrange Equations}{46}{section*.34}%
+\contentsline {paragraph}{Controlled Acrobot}{49}{section*.35}%
+\contentsline {chapter}{\numberline {5}Certifiable Trajectory Optimization via Semidefinite Relaxation}{51}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Discrete Motion Planning of Rigid-Body Systems}{51}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Semidefinite Optimization and Relaxation}{53}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Semidefinite Relaxation and the Moment-SOS Hierarchy}{54}{subsection.5.2.1}%
+\contentsline {paragraph}{Semidefinite programming (SDP)}{54}{section*.36}%
+\contentsline {paragraph}{Sum-of-squares (SOS) relaxation}{54}{section*.37}%
+\contentsline {paragraph}{Moment relaxation}{55}{section*.38}%
+\contentsline {paragraph}{Convergence}{56}{section*.39}%
+\contentsline {paragraph}{Solution extraction}{56}{section*.40}%
+\contentsline {subsection}{\numberline {5.2.2}Sparse Relaxations}{57}{subsection.5.2.2}%
+\contentsline {paragraph}{Correlative sparsity and chordal extension}{57}{section*.41}%
+\contentsline {paragraph}{Chain-like sparsity of trajectory optimization}{58}{section*.43}%
+\contentsline {paragraph}{Multi Rigid-Body specific sparsity}{58}{section*.45}%
+\contentsline {paragraph}{Sparse Moment--SOS relaxation}{59}{section*.46}%
+\contentsline {paragraph}{Sparse Polynomial Optimization Toolbox (SPOT)}{60}{section*.48}%
+\contentsline {section}{\numberline {5.3}Discrete Motion Planning for the 3D-Pendulum}{61}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Discrete Motion Planning for an Acrobot}{63}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Trajectory Optimization via SDP Relaxation}{63}{subsection.5.4.1}%
+\contentsline {paragraph}{Chain-like sparsity}{66}{section*.50}%
+\contentsline {paragraph}{Special multi-body sparsity}{66}{section*.51}%
+\contentsline {subsection}{\numberline {5.4.2}Trajectory Optimization via Semidefinite Relaxation using Model Predictive Control}{67}{subsection.5.4.2}%
+\contentsline {paragraph}{Receding-horizon}{68}{section*.53}%
+\contentsline {paragraph}{Control application}{69}{section*.54}%
+\contentsline {paragraph}{Prediction horizon}{69}{section*.55}%
+\contentsline {chapter}{\numberline {6}Evaluation}{71}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Numerical Simulation Results}{71}{section.6.1}%
+\contentsline {paragraph}{Runge--Kutta 4th order}{71}{section*.58}%
+\contentsline {paragraph}{RK4 projected to $SO(3)$}{72}{section*.59}%
+\contentsline {subsection}{\numberline {6.1.1}3D Pendulum}{73}{subsection.6.1.1}%
+\contentsline {subsubsection}{Unforced 3D-Pendulum}{74}{section*.60}%
+\contentsline {subsubsection}{Controlled 3D-Pendulum}{75}{section*.62}%
+\contentsline {subsection}{\numberline {6.1.2}Acrobot}{78}{subsection.6.1.2}%
+\contentsline {subsubsection}{Unforced Acrobot}{80}{section*.64}%
+\contentsline {subsubsection}{Controlled Acrobot}{81}{section*.66}%
+\contentsline {section}{\numberline {6.2}3D-Pendulum Optimization Results}{83}{section.6.2}%
+\contentsline {paragraph}{Optimization Configuration}{83}{section*.68}%
+\contentsline {paragraph}{Evaluation metrics}{84}{section*.69}%
+\contentsline {paragraph}{Results}{84}{section*.71}%
+\contentsline {section}{\numberline {6.3}Acrobot Optimization Results}{85}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Semidefinite Optimization Results}{87}{subsection.6.3.1}%
+\contentsline {paragraph}{Optimization configuration}{87}{section*.73}%
+\contentsline {paragraph}{Evaluation metrics}{88}{section*.75}%
+\contentsline {paragraph}{Results.}{89}{section*.78}%
+\contentsline {subsection}{\numberline {6.3.2}Model Predictive SDP Control Results}{90}{subsection.6.3.2}%
+\contentsline {paragraph}{MPC configuration for $u_{\max }=5\,\mathrm {N\,m}$.}{91}{section*.79}%
+\contentsline {paragraph}{Results for $u_{\max }=5\,\mathrm {N\,m}$.}{91}{section*.81}%
+\contentsline {paragraph}{Empirical basin of attraction and time-discretization mismatch.}{93}{section*.82}%
+\contentsline {paragraph}{Summary}{96}{section*.86}%
+\contentsline {chapter}{\numberline {7}Discussion}{97}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Discussion of main Findings}{97}{section.7.1}%
+\contentsline {paragraph}{Single-body optimization}{97}{section*.87}%
+\contentsline {paragraph}{Multibody formulation and sparsity}{98}{section*.88}%
+\contentsline {paragraph}{Open-loop Acrobot optimization}{99}{section*.89}%
+\contentsline {paragraph}{Closed-loop Acrobot stabilization}{99}{section*.90}%
+\contentsline {section}{\numberline {7.2}Comparison to the State of the Art}{100}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Potential Applications}{101}{section.7.3}%
+\contentsline {chapter}{\numberline {8}Conclusion}{103}{chapter.8}%
+\contentsline {chapter}{\numberline {A}Scalar Implementation of the 3D-Pendulum Optimization Problem}{105}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Objective and Discrete Dynamics}{105}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Kinematics and Rotation Constraints}{106}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Bounds, Initial Values, and Normalization}{107}{section.A.3}%
+\contentsline {chapter}{\numberline {B}Scalar Implementation of the Acrobot Optimization Problem}{109}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Reduced Variables and Objective}{109}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Reduced Discrete Dynamics}{110}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Kinematics, Rotation Constraints, and Bounds}{111}{section.B.3}%
+\contentsline {chapter}{\numberline {C}Experimental Details}{113}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Acrobot Evaluation Models}{113}{section.C.1}%
+\contentsline {subsection}{\numberline {C.1.1}Reduced Maximal-Coordinates LGVI Model}{113}{subsection.C.1.1}%
+\contentsline {subsection}{\numberline {C.1.2}Discretized Newton-Euler-Lagrange Model}{114}{subsection.C.1.2}%
+\contentsline {paragraph}{Coordinates and approximation}{114}{section*.91}%
+\contentsline {paragraph}{Discrete Newton--Euler--Lagrange dynamics}{115}{section*.92}%
+\contentsline {paragraph}{Trajectory optimization and chain clique}{115}{section*.93}%
+\contentsline {section}{\numberline {C.2}Model Evaluation}{115}{section.C.2}%
+\contentsline {subsection}{\numberline {C.2.1}Numerical Simulation Validation}{115}{subsection.C.2.1}%
+\contentsline {subsection}{\numberline {C.2.2}SDP Tightness and Dynamic Residuals}{115}{subsection.C.2.2}%
+\contentsline {chapter}{List of Figures}{117}{section*.94}%
+\contentsline {chapter}{List of Tables}{119}{section*.96}%
+\contentsline {chapter}{Acronyms}{121}{section*.98}%
+\contentsline {chapter}{Notation}{123}{section*.100}%
+\contentsline {chapter}{List of Symbols}{125}{section*.102}%
+\contentsline {chapter}{Bibliography}{129}{section*.104}%

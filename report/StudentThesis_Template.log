@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.26)  16 AUG 2026 02:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.26)  22 AUG 2026 17:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -577,6 +577,12 @@ File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgfarrowlength=\dimen292
 \pgfarrowwidth=\dimen293
 \pgfarrowlinewidth=\dimen294
+) (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)) (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryfit.code.tex
+File: tikzlibraryfit.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/latex/pgfplots\pgfplots.sty (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.revision.tex)
 Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
  (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.code.tex (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotscore.code.tex
@@ -746,14 +752,39 @@ Package: amsthm 2020/05/29 v2.20.6
 \c@theorem=\count378
 \c@definition=\count379
 \c@remark=\count380
-\pgf@layerbox@background=\box81
-\pgf@layerboxsaved@background=\box82
-\pgf@layerbox@nodelayer=\box83
-\pgf@layerboxsaved@nodelayer=\box84
-\pgf@layerbox@edgelayer=\box85
-\pgf@layerboxsaved@edgelayer=\box86
-\pgf@layerbox@foreground=\box87
-\pgf@layerboxsaved@foreground=\box88
+ (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodepartlowerbox=\box81
+\pgfnodeparttwobox=\box82
+\pgfnodepartthreebox=\box83
+\pgfnodepartfourbox=\box84
+\pgfnodeparttwentybox=\box85
+\pgfnodepartnineteenbox=\box86
+\pgfnodeparteighteenbox=\box87
+\pgfnodepartseventeenbox=\box88
+\pgfnodepartsixteenbox=\box89
+\pgfnodepartfifteenbox=\box90
+\pgfnodepartfourteenbox=\box91
+\pgfnodepartthirteenbox=\box92
+\pgfnodeparttwelvebox=\box93
+\pgfnodepartelevenbox=\box94
+\pgfnodeparttenbox=\box95
+\pgfnodepartninebox=\box96
+\pgfnodeparteightbox=\box97
+\pgfnodepartsevenbox=\box98
+\pgfnodepartsixbox=\box99
+\pgfnodepartfivebox=\box100
+))
+\pgf@layerbox@background=\box101
+\pgf@layerboxsaved@background=\box102
+\pgf@layerbox@nodelayer=\box103
+\pgf@layerboxsaved@nodelayer=\box104
+\pgf@layerbox@edgelayer=\box105
+\pgf@layerboxsaved@edgelayer=\box106
+\pgf@layerbox@foreground=\box107
+\pgf@layerboxsaved@foreground=\box108
 ) (include/gloss.tex (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/base\glossaries.sty
 Package: glossaries 2026/03/06 v5.0 (NLCT)
  (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/latex/mfirstuc\mfirstuc.sty
@@ -783,7 +814,7 @@ File: datatool-l3fp.def 2025/12/04 v3.4.3 (NLCT)
 \@dtl@toks=\toks69
 \@dtl@tmpcount=\count387
 \dtl@tmplength=\skip84
-\l__datatool_measure_box=\box89
+\l__datatool_measure_box=\box109
 \dtl@sortresult=\count388
  (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-utf8.ldf
 File: datatool-utf8.ldf 2025/12/04 v3.4.3 (NLCT)
@@ -834,11 +865,11 @@ Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \LTpost=\skip90
 \LTchunksize=\count407
 \LTcapwidth=\dimen341
-\LT@head=\box90
-\LT@firsthead=\box91
-\LT@foot=\box92
-\LT@lastfoot=\box93
-\LT@gbox=\box94
+\LT@head=\box110
+\LT@firsthead=\box111
+\LT@foot=\box112
+\LT@lastfoot=\box113
+\LT@gbox=\box114
 \LT@cols=\count408
 \LT@rows=\count409
 \c@LT@tables=\count410
@@ -865,7 +896,7 @@ Package: supertabular 2025/06/26 v4.2d the supertabular environment
 \ST@prevht=\dimen349
 \ST@toadd=\dimen350
 \ST@dimen=\dimen351
-\ST@pbox=\box95
+\ST@pbox=\box115
 )) (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\glossary-tree.sty
 Package: glossary-tree 2026/03/06 v5.0 (NLCT)
 \l__glossaries_tree_max_known_level_int=\count413
@@ -936,7 +967,7 @@ LaTeX Font Info:    ... okay on input line 34.
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count416
 \scratchdimen=\dimen361
-\scratchbox=\box96
+\scratchbox=\box116
 \nofMPsegments=\count417
 \nofMParguments=\count418
 \everyMPshowfont=\toks76
@@ -988,7 +1019,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 67.
  (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<pics/harvard_logo.png, id=270, 246.9225pt x 284.06125pt>
+<pics/harvard_logo.png, id=286, 246.9225pt x 284.06125pt>
 File: pics/harvard_logo.png Graphic file (type png)
 <use pics/harvard_logo.png>
 Package pdftex.def Info: pics/harvard_logo.png  used on input line 67.
@@ -1017,12 +1048,12 @@ Non-PDF special ignored!
 {C:/Users/ASUS/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./pics/harvard_logo.png (PNG copy)>] [2
 
 ]
-<./include/Master_Thesis_Task_Description.pdf, id=282, 597.50829pt x 845.0471pt>
+<./include/Master_Thesis_Task_Description.pdf, id=298, 597.50829pt x 845.0471pt>
 File: ./include/Master_Thesis_Task_Description.pdf Graphic file (type pdf)
 <use ./include/Master_Thesis_Task_Description.pdf>
 Package pdftex.def Info: ./include/Master_Thesis_Task_Description.pdf  used on input line 90.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-<./include/Master_Thesis_Task_Description.pdf, id=284, page=1, 597.50829pt x 845.0471pt>
+<./include/Master_Thesis_Task_Description.pdf, id=300, page=1, 597.50829pt x 845.0471pt>
 File: ./include/Master_Thesis_Task_Description.pdf Graphic file (type pdf)
 <use ./include/Master_Thesis_Task_Description.pdf, page 1>
 Package pdftex.def Info: ./include/Master_Thesis_Task_Description.pdf , page1 used on input line 90.
@@ -1073,11 +1104,11 @@ l.129 \tableofcontents
 pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.67 ... Planning for an Acrobot}{57}{section.5.4}
+l.65 ...}Sparse Relaxations}{57}{subsection.5.2.2}
                                                   % [3{C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 ]
-Overfull \hbox (14.96521pt too wide) in paragraph at lines 71--71
+Overfull \hbox (14.96521pt too wide) in paragraph at lines 76--76
  [][] [][]\OT1/cmr/m/n/12 Trajectory Op-ti-miza-tion via Semidef-i-nite Re-lax-ation us-ing Model 
  []
 
@@ -1089,60 +1120,90 @@ Overfull \hbox (14.96521pt too wide) in paragraph at lines 71--71
 
 ]
 Chapter 1.
-Excluding 'comment' comment. Excluding 'comment' comment.) (chapters/Preliminaries.tex [7] [8
+<pics/Introduction/Legged_Robot_high_resolution.pdf, id=427, 355.80931pt x 210.30571pt>
+File: pics/Introduction/Legged_Robot_high_resolution.pdf Graphic file (type pdf)
+<use pics/Introduction/Legged_Robot_high_resolution.pdf>
+Package pdftex.def Info: pics/Introduction/Legged_Robot_high_resolution.pdf  used on input line 25.
+(pdftex.def)             Requested size: 200.59244pt x 118.56622pt.
+<pics/Introduction/KUKA_high_resolution.pdf, id=428, 362.07271pt x 213.6783pt>
+File: pics/Introduction/KUKA_high_resolution.pdf Graphic file (type pdf)
+<use pics/Introduction/KUKA_high_resolution.pdf>
+Package pdftex.def Info: pics/Introduction/KUKA_high_resolution.pdf  used on input line 30.
+(pdftex.def)             Requested size: 200.59244pt x 118.38092pt.
+[7] [8 <./pics/Introduction/Legged_Robot_high_resolution.pdf> <./pics/Introduction/KUKA_high_resolution.pdf>]
+Overfull \hbox (6.97083pt too wide) in paragraph at lines 216--219
+\OT1/cmr/m/n/12 as a poly-no-mial op-ti-miza-tion prob-lem and its so-lu-tion through a sparse Moment-
+ []
 
-]
+[9]
+Overfull \hbox (13.42781pt too wide) in paragraph at lines 220--225
+\OT1/cmr/m/n/12 problem-specific sparse SDP struc-tures and its so-lu-tion through a sparse Moment-
+ []
+
+[10]
+Overfull \hbox (5.9338pt too wide) in paragraph at lines 297--298
+[]\OT1/cmr/m/it/12 What are the ca-pa-bil-i-ties and lim-i-ta-tions of com-bin-ing structure-preserving
+ []
+
+
+Overfull \hbox (0.51147pt too wide) in paragraph at lines 297--298
+\OT1/cmr/m/it/12 fea-si-ble and cer-ti-fi-ably op-ti-mal tra-jec-to-ries for single- and multi-body rigid-
+ []
+
+[11] [12] [13]) (chapters/Preliminaries.tex [14]
 Chapter 2.
 LaTeX Font Info:    Trying to load font information for U+euf on input line 55.
 (C:\Users\ASUS\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
-) [9] [10] [11]) (chapters/Continuous_Mechanics.tex [12]
+) [15
+
+] [16] [17]) (chapters/Continuous_Mechanics.tex [18]
 Chapter 3.
 
-LaTeX Warning: Reference `chap:certifiable_trajectory_optimization' on page 13 undefined on input line 30.
+LaTeX Warning: Reference `chap:certifiable_trajectory_optimization' on page 19 undefined on input line 30.
 
-[13
+[19
 
-] [14] [15] [16]
+] [20] [21] [22]
 
-LaTeX Warning: Reference `sec:momentum_conservation_3d_pendulum' on page 17 undefined on input line 332.
+LaTeX Warning: Reference `sec:momentum_conservation_3d_pendulum' on page 23 undefined on input line 332.
 
 
-LaTeX Warning: Reference `fig:3d_pendulum' on page 17 undefined on input line 354.
+LaTeX Warning: Reference `fig:3d_pendulum' on page 23 undefined on input line 354.
 
-[17]
+[23]
 Overfull \hbox (2.28084pt too wide) in paragraph at lines 401--402
  []\OT1/cmr/bx/n/12 Euler-Lagrange Equa-tions[] \OT1/cmr/m/n/12 In or-der to de-fine the Euler-Lagrange Equa-tion [],
  []
 
-[18] [19] [20]
+[24] [25] [26]
 Overfull \hbox (19.84982pt too wide) in paragraph at lines 532--534
 \OT1/cmr/m/n/12 consequently pre-serv-ing the La-grangian mo-men-tum map along the flow $\OML/cmm/m/it/12 J[]  [] \OT1/cmr/m/n/12 =
  []
 
-[21]) (chapters/Discrete_Mechanics.tex [22]
+[27]) (chapters/Discrete_Mechanics.tex [28]
 Chapter 4.
 
 Overfull \hbox (7.98056pt too wide) in paragraph at lines 51--56
 []\OT1/cmr/m/n/12 Figure []4.1[] sum-ma-rizes the gen-eral method for de-riv-ing the dis-crete Euler--Lagrange
  []
 
-[23
+[29
 
-] [24] [25] [26] [27] [28] [29]
+] [30] [31] [32] [33] [34] [35]
 Overfull \hbox (6.4858pt too wide) in paragraph at lines 528--529
  []\OT1/cmr/bx/n/12 Newton It-er-a-tion[] \OT1/cmr/m/n/12 For solv-ing the im-plicit vec-tor equa-tion [] New-ton's method
  []
 
-[30]
+[36]
 Overfull \hbox (9.48476pt too wide) in paragraph at lines 544--545
  []\OT1/cmr/bx/n/12 Configuration Man-i-fold[] \OT1/cmr/m/n/12 The con-fig-u-ra-tion man-i-fold of the un-forced 3D-pendulum
  []
 
 
-LaTeX Warning: Reference `eq:discrete_exact_lagrangian' on page 31 undefined on input line 565.
+LaTeX Warning: Reference `eq:discrete_exact_lagrangian' on page 37 undefined on input line 565.
 
-[31] [32]
+[37] [38]
 Overfull \hbox (32.4251pt too wide) detected at line 695
 []
  []
@@ -1162,7 +1223,7 @@ Overfull \hbox (51.88774pt too wide) detected at line 777
 []
  []
 
-[33]
+[39]
 Overfull \hbox (3.09558pt too wide) in paragraph at lines 849--852
 \OT1/cmr/m/n/12 [[]] de-scribes the pro-ce-dure of ob-tain-ing the discrete-time flow map $(\OML/cmm/b/it/12 R[]\OML/cmm/m/it/12 ; \OML/cmm/b/it/12 R[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 !
  []
@@ -1172,359 +1233,385 @@ Overfull \hbox (6.58966pt too wide) in paragraph at lines 849--852
 \OT1/cmr/m/n/12 (\OML/cmm/b/it/12 R[]\OML/cmm/m/it/12 ; \OML/cmm/b/it/12 R[]\OT1/cmr/m/n/12 )$, by solv-ing [] find-ing $\OML/cmm/b/it/12 F[]$ \OT1/cmr/m/n/12 for given $(\OML/cmm/b/it/12 R[]\OML/cmm/m/it/12 ; \OML/cmm/b/it/12 R[]\OT1/cmr/m/n/12 )$ and $\OML/cmm/b/it/12 F[] \OT1/cmr/m/n/12 = \OML/cmm/b/it/12 R[]R[]$\OT1/cmr/m/n/12 .
  []
 
-[34] [35]
+[40] [41]
 
 pdfTeX warning: pdflatex (file ./pics/Maximal_Coordinates_Joint.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<pics/Maximal_Coordinates_Joint.pdf, id=990, 845.04686pt x 478.53882pt>
+<pics/Maximal_Coordinates_Joint.pdf, id=1174, 845.04686pt x 478.53882pt>
 File: pics/Maximal_Coordinates_Joint.pdf Graphic file (type pdf)
 <use pics/Maximal_Coordinates_Joint.pdf>
 Package pdftex.def Info: pics/Maximal_Coordinates_Joint.pdf  used on input line 1052.
 (pdftex.def)             Requested size: 256.0774pt x 145.00853pt.
-[36 <./pics/Maximal_Coordinates_Joint.pdf>]
+[42 <./pics/Maximal_Coordinates_Joint.pdf>]
 
 pdfTeX warning: pdflatex (file ./pics/Acrobot.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<pics/Acrobot.pdf, id=1007, 845.04686pt x 633.78517pt>
+<pics/Acrobot.pdf, id=1189, 845.04686pt x 633.78517pt>
 File: pics/Acrobot.pdf Graphic file (type pdf)
 <use pics/Acrobot.pdf>
 Package pdftex.def Info: pics/Acrobot.pdf  used on input line 1126.
 (pdftex.def)             Requested size: 213.39566pt x 160.04158pt.
-[37 <./pics/Acrobot.pdf>] [38] [39] [40] [41] [42]) (chapters/Optimization.tex [43] [44
+[43 <./pics/Acrobot.pdf>] [44] [45] [46] [47] [48]) (chapters/Optimization.tex [49] [50
 
 ]
 Chapter 5.
-[45] [46] [47] [48] [49] [50]
-<pics/sparse_relaxation/a_MD.pdf, id=1283, 50.69048pt x 69.67702pt>
+[51] [52] [53] [54] [55] [56]
+<pics/sparse_relaxation/a_MD.pdf, id=1459, 50.69048pt x 69.67702pt>
 File: pics/sparse_relaxation/a_MD.pdf Graphic file (type pdf)
 <use pics/sparse_relaxation/a_MD.pdf>
 Package pdftex.def Info: pics/sparse_relaxation/a_MD.pdf  used on input line 527.
 (pdftex.def)             Requested size: 64.01608pt x 87.99867pt.
-<pics/sparse_relaxation/b_MD.pdf, id=1284, 51.0975pt x 67.87427pt>
+<pics/sparse_relaxation/b_MD.pdf, id=1460, 51.0975pt x 67.87427pt>
 File: pics/sparse_relaxation/b_MD.pdf Graphic file (type pdf)
 <use pics/sparse_relaxation/b_MD.pdf>
 Package pdftex.def Info: pics/sparse_relaxation/b_MD.pdf  used on input line 533.
 (pdftex.def)             Requested size: 64.01608pt x 85.03938pt.
-<pics/sparse_relaxation/c_MD.pdf, id=1285, 52.04042pt x 75.61841pt>
+<pics/sparse_relaxation/c_MD.pdf, id=1461, 52.04042pt x 75.61841pt>
 File: pics/sparse_relaxation/c_MD.pdf Graphic file (type pdf)
 <use pics/sparse_relaxation/c_MD.pdf>
 Package pdftex.def Info: pics/sparse_relaxation/c_MD.pdf  used on input line 539.
 (pdftex.def)             Requested size: 64.01608pt x 93.0216pt.
- [51]
+ [57]
 Overfull \hbox (16.83672pt too wide) in paragraph at lines 587--592
 \OT1/cmr/m/n/12 prop-erty [] re-sults from the Markov struc-ture of the dis-cretized dy-nam-ics [[]]. 
  []
 
-<./pics/sparse_relaxation/I_k.pdf, id=1303, 1211.5156pt x 583.7055pt>
+<./pics/sparse_relaxation/I_k.pdf, id=1479, 1211.5156pt x 583.7055pt>
 File: ./pics/sparse_relaxation/I_k.pdf Graphic file (type pdf)
 <use ./pics/sparse_relaxation/I_k.pdf>
 Package pdftex.def Info: ./pics/sparse_relaxation/I_k.pdf  used on input line 602.
 (pdftex.def)             Requested size: 256.0774pt x 123.37447pt.
-[52 <./pics/sparse_relaxation/a_MD.pdf> <./pics/sparse_relaxation/b_MD.pdf> <./pics/sparse_relaxation/c_MD.pdf>]
-<pics/sparse_relaxation/dense_moment_relaxation.pdf, id=1547, 132.37537pt x 107.10916pt>
+[58 <./pics/sparse_relaxation/a_MD.pdf> <./pics/sparse_relaxation/b_MD.pdf> <./pics/sparse_relaxation/c_MD.pdf>]
+<pics/sparse_relaxation/dense_moment_relaxation.pdf, id=1723, 132.37537pt x 107.10916pt>
 File: pics/sparse_relaxation/dense_moment_relaxation.pdf Graphic file (type pdf)
 <use pics/sparse_relaxation/dense_moment_relaxation.pdf>
 Package pdftex.def Info: pics/sparse_relaxation/dense_moment_relaxation.pdf  used on input line 667.
 (pdftex.def)             Requested size: 187.78922pt x 151.9457pt.
-<pics/sparse_relaxation/sparse_moment_relaxation.pdf, id=1548, 75.01988pt x 115.18202pt>
+<pics/sparse_relaxation/sparse_moment_relaxation.pdf, id=1724, 75.01988pt x 115.18202pt>
 File: pics/sparse_relaxation/sparse_moment_relaxation.pdf Graphic file (type pdf)
 <use pics/sparse_relaxation/sparse_moment_relaxation.pdf>
 Package pdftex.def Info: pics/sparse_relaxation/sparse_moment_relaxation.pdf  used on input line 672.
 (pdftex.def)             Requested size: 106.69783pt x 163.82674pt.
- [53 <./pics/sparse_relaxation/I_k.pdf>] [54 <./pics/sparse_relaxation/dense_moment_relaxation.pdf> <./pics/sparse_relaxation/sparse_moment_relaxation.pdf>]
+ [59 <./pics/sparse_relaxation/I_k.pdf>] [60 <./pics/sparse_relaxation/dense_moment_relaxation.pdf> <./pics/sparse_relaxation/sparse_moment_relaxation.pdf>]
 Overfull \hbox (14.56647pt too wide) in paragraph at lines 716--716
 []\OT1/cmr/bx/n/17.28 Discrete Mo-tion Plan-ning for the 3D-Pendulum 
  []
 
-[55] [56] [57]
+[61] [62]
 
-LaTeX Warning: Citation `eq:acrobot_full_del_shifted_kinematics_1' on page 58 undefined on input line 954.
+LaTeX Warning: Reference `sec:optimization_results' on page 63 undefined on input line 908.
+
+[63]
+
+LaTeX Warning: Citation `eq:acrobot_full_del_shifted_kinematics_1' on page 64 undefined on input line 957.
 
 
-LaTeX Warning: Citation `eq:acrobot_full_del_shifted_kinematics_2' on page 58 undefined on input line 954.
+LaTeX Warning: Citation `eq:acrobot_full_del_shifted_kinematics_2' on page 64 undefined on input line 957.
 
-[58] [59] [60]
-
-LaTeX Warning: Reference `fig:acrobot_sdp_mpc_loop' on page 61 undefined on input line 1374.
-
-[61]
-Overfull \hbox (17.00821pt too wide) in paragraph at lines 1440--1446
-\OT1/cmr/m/n/12 pro-vides the nor-mal-ized first con-trol $[]$ out of the so-lu-tion vec-tor $[[]\OML/cmm/m/it/12 ; []; [] ; []\OT1/cmr/m/n/12 ]$.
+[64] [65] [66] [67]
+<pics/Optimization/Acrobot/MPC_SDP_Loop.pdf, id=2127, 1187.34926pt x 335.5221pt>
+File: pics/Optimization/Acrobot/MPC_SDP_Loop.pdf Graphic file (type pdf)
+<use pics/Optimization/Acrobot/MPC_SDP_Loop.pdf>
+Package pdftex.def Info: pics/Optimization/Acrobot/MPC_SDP_Loop.pdf  used on input line 1390.
+(pdftex.def)             Requested size: 426.79134pt x 120.59843pt.
+ [68 <./pics/Optimization/Acrobot/MPC_SDP_Loop.pdf>]
+Overfull \hbox (22.48053pt too wide) in paragraph at lines 1448--1454
+\OT1/cmr/m/n/12 pro-vides the nor-mal-ized first con-trol $[]$ out of the so-lu-tion vec-tor $\OMS/cmsy/m/n/12 f[]\OML/cmm/m/it/12 ; []; [] ; []\OMS/cmsy/m/n/12 g$\OT1/cmr/m/n/12 .
  []
 
-[62]) (chapters/Evaluation.tex [63] [64
-
-]
+[69] (pics/Optimization/Acrobot/mpc_logic.tikz)) (chapters/Evaluation.tex [70]
 Chapter 6.
 
-LaTeX Warning: Reference `sec:' on page 65 undefined on input line 7.
+LaTeX Warning: Reference `sec:' on page 71 undefined on input line 7.
 
-[65]
+[71
 
-LaTeX Warning: Reference `sec:discrete_3d_pendulum' on page 66 undefined on input line 87.
+]
 
-[66]
-
-LaTeX Warning: Reference `eq:forced_3D_pendulum_hamilton' on page 67 undefined on input line 135.
-
-[67]
-<pics/Numerical_Simulation/Total_Energy.pdf, id=2038, 578.16pt x 397.485pt>
-File: pics/Numerical_Simulation/Total_Energy.pdf Graphic file (type pdf)
-<use pics/Numerical_Simulation/Total_Energy.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Total_Energy.pdf  used on input line 168.
-(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Delta_E.pdf, id=2039, 578.16pt x 397.485pt>
-File: pics/Numerical_Simulation/Delta_E.pdf Graphic file (type pdf)
-<use pics/Numerical_Simulation/Delta_E.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Delta_E.pdf  used on input line 174.
-(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Momentum_error.pdf, id=2040, 578.16pt x 397.485pt>
-File: pics/Numerical_Simulation/Momentum_error.pdf Graphic file (type pdf)
-<use pics/Numerical_Simulation/Momentum_error.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Momentum_error.pdf  used on input line 182.
-(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Orthogonality_error.pdf, id=2041, 578.16pt x 397.485pt>
-File: pics/Numerical_Simulation/Orthogonality_error.pdf Graphic file (type pdf)
-<use pics/Numerical_Simulation/Orthogonality_error.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Orthogonality_error.pdf  used on input line 188.
-(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
- [68 <./pics/Numerical_Simulation/Total_Energy.pdf> <./pics/Numerical_Simulation/Delta_E.pdf> <./pics/Numerical_Simulation/Momentum_error.pdf> <./pics/Numerical_Simulation/Orthogonality_error.pdf>] [69]
-
-LaTeX Warning: Reference `eq:forced_3D_pendulum_hamilton' on page 70 undefined on input line 279.
-
-<pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf, id=2237, 578.16pt x 397.485pt>
-File: pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf Graphic file (type pdf)
-<use pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf  used on input line 324.
-(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf, id=2238, 578.16pt x 397.19592pt>
-File: pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf Graphic file (type pdf)
-<use pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf  used on input line 330.
-(pdftex.def)             Requested size: 209.1301pt x 143.6692pt.
-<pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf, id=2239, 578.16pt x 397.485pt>
-File: pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf Graphic file (type pdf)
-<use pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf  used on input line 338.
-(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf, id=2240, 650.43pt x 578.16pt>
-File: pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf Graphic file (type pdf)
-<use pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf  used on input line 344.
-(pdftex.def)             Requested size: 209.1301pt x 185.88835pt.
-[70] [71 <./pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf> <./pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf> <./pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf> <./pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf>]
-
-LaTeX Warning: Reference `sec:acrobot' on page 72 undefined on input line 402.
-
-
-LaTeX Warning: Reference `sec:numerical_simulation_3d_pendulum' on page 72 undefined on input line 404.
+LaTeX Warning: Reference `sec:discrete_3d_pendulum' on page 72 undefined on input line 88.
 
 [72]
 
-LaTeX Warning: Reference `eq:' on page 73 undefined on input line 502.
-
-
-LaTeX Warning: Reference `eq:Rotationmatrices_angle_constructions' on page 73 undefined on input line 504.
+LaTeX Warning: Reference `eq:forced_3D_pendulum_hamilton' on page 73 undefined on input line 136.
 
 [73]
-<pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf, id=2441, 578.16pt x 397.485pt>
+<pics/Numerical_Simulation/Total_Energy.pdf, id=2243, 578.16pt x 397.485pt>
+File: pics/Numerical_Simulation/Total_Energy.pdf Graphic file (type pdf)
+<use pics/Numerical_Simulation/Total_Energy.pdf>
+Package pdftex.def Info: pics/Numerical_Simulation/Total_Energy.pdf  used on input line 171.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
+<pics/Numerical_Simulation/Delta_E.pdf, id=2244, 578.16pt x 392.42609pt>
+File: pics/Numerical_Simulation/Delta_E.pdf Graphic file (type pdf)
+<use pics/Numerical_Simulation/Delta_E.pdf>
+Package pdftex.def Info: pics/Numerical_Simulation/Delta_E.pdf  used on input line 177.
+(pdftex.def)             Requested size: 209.1301pt x 141.94392pt.
+<pics/Numerical_Simulation/Momentum_error.pdf, id=2245, 578.16pt x 397.485pt>
+File: pics/Numerical_Simulation/Momentum_error.pdf Graphic file (type pdf)
+<use pics/Numerical_Simulation/Momentum_error.pdf>
+Package pdftex.def Info: pics/Numerical_Simulation/Momentum_error.pdf  used on input line 185.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
+<pics/Numerical_Simulation/Orthogonality_error.pdf, id=2246, 578.16pt x 397.485pt>
+File: pics/Numerical_Simulation/Orthogonality_error.pdf Graphic file (type pdf)
+<use pics/Numerical_Simulation/Orthogonality_error.pdf>
+Package pdftex.def Info: pics/Numerical_Simulation/Orthogonality_error.pdf  used on input line 191.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
+ [74 <./pics/Numerical_Simulation/Total_Energy.pdf> <./pics/Numerical_Simulation/Delta_E.pdf> <./pics/Numerical_Simulation/Momentum_error.pdf> <./pics/Numerical_Simulation/Orthogonality_error.pdf>] [75]
+
+LaTeX Warning: Reference `eq:forced_3D_pendulum_hamilton' on page 76 undefined on input line 282.
+
+<pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf, id=2446, 578.16pt x 397.485pt>
+File: pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf Graphic file (type pdf)
+<use pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf>
+Package pdftex.def Info: pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf  used on input line 327.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
+<pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf, id=2447, 578.16pt x 397.485pt>
+File: pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf Graphic file (type pdf)
+<use pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf>
+Package pdftex.def Info: pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf  used on input line 333.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
+<pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf, id=2448, 578.16pt x 397.485pt>
+File: pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf Graphic file (type pdf)
+<use pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf>
+Package pdftex.def Info: pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf  used on input line 341.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
+<pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf, id=2449, 650.43pt x 578.16pt>
+File: pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf Graphic file (type pdf)
+<use pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf>
+Package pdftex.def Info: pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf  used on input line 347.
+(pdftex.def)             Requested size: 209.1301pt x 185.88835pt.
+[76] [77 <./pics/Numerical_Simulation/Forced_3D_Pendulum_Trajectory.pdf> <./pics/Numerical_Simulation/Forced_3D_Pendulum_Ek.pdf> <./pics/Numerical_Simulation/Forced_3D_Pendulum_Orth_Error.pdf> <./pics/Numerical_Simulation/Forced_3D_Pendulum_Omega.pdf>]
+
+LaTeX Warning: Reference `sec:acrobot' on page 78 undefined on input line 405.
+
+
+LaTeX Warning: Reference `sec:numerical_simulation_3d_pendulum' on page 78 undefined on input line 407.
+
+[78]
+
+LaTeX Warning: Reference `eq:' on page 79 undefined on input line 505.
+
+
+LaTeX Warning: Reference `eq:Rotationmatrices_angle_constructions' on page 79 undefined on input line 507.
+
+[79]
+<pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf, id=2632, 578.16pt x 397.485pt>
 File: pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf Graphic file (type pdf)
 <use pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf  used on input line 556.
+Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf  used on input line 559.
 (pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf, id=2442, 578.16pt x 397.485pt>
+<pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf, id=2633, 578.16pt x 397.485pt>
 File: pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf Graphic file (type pdf)
 <use pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf  used on input line 562.
+Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf  used on input line 565.
 (pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf, id=2443, 578.16pt x 397.485pt>
+<pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf, id=2634, 578.16pt x 397.485pt>
 File: pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf Graphic file (type pdf)
 <use pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf  used on input line 570.
+Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf  used on input line 573.
 (pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf, id=2444, 578.16pt x 397.485pt>
+<pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf, id=2635, 578.16pt x 397.485pt>
 File: pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf Graphic file (type pdf)
 <use pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf  used on input line 576.
+Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf  used on input line 579.
 (pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
 
 
-LaTeX Warning: Reference `sec:--' on page 74 undefined on input line 584.
+LaTeX Warning: Reference `sec:--' on page 80 undefined on input line 587.
 
 
-LaTeX Warning: Reference `sec:...' on page 74 undefined on input line 588.
+LaTeX Warning: Reference `sec:...' on page 80 undefined on input line 591.
 
-[74]
-<pics/Numerical_Simulation/Acrobot/forced_sine_total_energy.pdf, id=2457, 578.16pt x 397.485pt>
+[80] [81 <./pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf> <./pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf> <./pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf> <./pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf>]
+<pics/Numerical_Simulation/Acrobot/forced_sine_total_energy.pdf, id=2801, 578.16pt x 397.485pt>
 File: pics/Numerical_Simulation/Acrobot/forced_sine_total_energy.pdf Graphic file (type pdf)
 <use pics/Numerical_Simulation/Acrobot/forced_sine_total_energy.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/forced_sine_total_energy.pdf  used on input line 613.
+Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/forced_sine_total_energy.pdf  used on input line 616.
 (pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf, id=2458, 578.16pt x 397.485pt>
+<pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf, id=2802, 578.16pt x 397.485pt>
 File: pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf Graphic file (type pdf)
 <use pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf  used on input line 619.
+Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf  used on input line 622.
 (pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Acrobot/forced_sine_constraint_residuals.pdf, id=2459, 578.16pt x 397.485pt>
+<pics/Numerical_Simulation/Acrobot/forced_sine_constraint_residuals.pdf, id=2803, 578.16pt x 397.485pt>
 File: pics/Numerical_Simulation/Acrobot/forced_sine_constraint_residuals.pdf Graphic file (type pdf)
 <use pics/Numerical_Simulation/Acrobot/forced_sine_constraint_residuals.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/forced_sine_constraint_residuals.pdf  used on input line 627.
+Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/forced_sine_constraint_residuals.pdf  used on input line 630.
 (pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
-<pics/Numerical_Simulation/Acrobot/forced_sine_orthogonality_error.pdf, id=2460, 578.16pt x 397.485pt>
+<pics/Numerical_Simulation/Acrobot/forced_sine_orthogonality_error.pdf, id=2804, 578.16pt x 397.485pt>
 File: pics/Numerical_Simulation/Acrobot/forced_sine_orthogonality_error.pdf Graphic file (type pdf)
 <use pics/Numerical_Simulation/Acrobot/forced_sine_orthogonality_error.pdf>
-Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/forced_sine_orthogonality_error.pdf  used on input line 633.
+Package pdftex.def Info: pics/Numerical_Simulation/Acrobot/forced_sine_orthogonality_error.pdf  used on input line 636.
 (pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
- [75 <./pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf> <./pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf> <./pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf> <./pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf>]
+ [82 <./pics/Numerical_Simulation/Acrobot/forced_sine_total_energy.pdf> <./pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf> <./pics/Numerical_Simulation/Acrobot/forced_sine_constraint_residuals.pdf> <./pics/Numerical_Simulation/Acrobot/forced_sine_orthogonality_error.pdf>]
 
-LaTeX Warning: Reference `sec:' on page 76 undefined on input line 645.
+LaTeX Warning: Reference `sec:' on page 83 undefined on input line 648.
 
-[76 <./pics/Numerical_Simulation/Acrobot/forced_sine_total_energy.pdf> <./pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf> <./pics/Numerical_Simulation/Acrobot/forced_sine_constraint_residuals.pdf> <./pics/Numerical_Simulation/Acrobot/forced_sine_orthogonality_error.pdf>]
 
-LaTeX Warning: Reference `sec:multi_body_system' on page 77 undefined on input line 651.
+LaTeX Warning: Reference `sec:multi_body_system' on page 83 undefined on input line 654.
 
-[77] [78]
-<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf, id=2822, 650.43pt x 505.89pt>
+[83] [84]
+<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf, id=2999, 508.0581pt x 435.0654pt>
 File: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf Graphic file (type pdf)
 <use pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf>
-Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf  used on input line 845.
-(pdftex.def)             Requested size: 209.1301pt x 162.6523pt.
-<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf, id=2823, 578.16pt x 361.35pt>
+Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf  used on input line 873.
+(pdftex.def)             Requested size: 209.1301pt x 179.08163pt.
+<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf, id=3000, 578.16pt x 397.485pt>
 File: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf Graphic file (type pdf)
 <use pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf>
-Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf  used on input line 851.
-(pdftex.def)             Requested size: 209.1301pt x 130.70343pt.
-<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf, id=2824, 578.16pt x 361.35pt>
+Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf  used on input line 879.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
+<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf, id=3001, 578.16pt x 397.485pt>
 File: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf Graphic file (type pdf)
 <use pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf>
-Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf  used on input line 859.
-(pdftex.def)             Requested size: 209.1301pt x 130.70343pt.
-
-Underfull \hbox (badness 3078) in paragraph at lines 860--860
-[]|\OT1/cmr/m/n/12 (c) Frobe-nius track-ing er-ror $\OMS/cmsy/m/n/12 k\OML/cmm/b/it/12 R[] \OMS/cmsy/m/n/12 ^^@
- []
-
-<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_F_speed.pdf, id=2825, 578.16pt x 361.35pt>
-File: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_F_speed.pdf Graphic file (type pdf)
-<use pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_F_speed.pdf>
-Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_F_speed.pdf  used on input line 865.
-(pdftex.def)             Requested size: 209.1301pt x 130.70343pt.
-<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf, id=2826, 578.16pt x 361.35pt>
+Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf  used on input line 887.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
+<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf, id=3002, 578.16pt x 397.485pt>
 File: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf Graphic file (type pdf)
 <use pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf>
-Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf  used on input line 873.
-(pdftex.def)             Requested size: 209.1301pt x 130.70343pt.
-<pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_determinant.pdf, id=2827, 578.16pt x 361.35pt>
-File: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_determinant.pdf Graphic file (type pdf)
-<use pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_determinant.pdf>
-Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_determinant.pdf  used on input line 879.
-(pdftex.def)             Requested size: 209.1301pt x 130.70343pt.
-[79] [80] [81] [82] [83]
-<pics/Optimization/Acrobot/u5_target_rotation_error_norm.png, id=2865, 569.0058pt x 353.6412pt>
-File: pics/Optimization/Acrobot/u5_target_rotation_error_norm.png Graphic file (type png)
-<use pics/Optimization/Acrobot/u5_target_rotation_error_norm.png>
-Package pdftex.def Info: pics/Optimization/Acrobot/u5_target_rotation_error_norm.png  used on input line 1323.
-(pdftex.def)             Requested size: 209.1301pt x 129.97641pt.
-<pics/Optimization/Acrobot/u5_control_inputs.png, id=2867, 569.4876pt x 353.6412pt>
-File: pics/Optimization/Acrobot/u5_control_inputs.png Graphic file (type png)
-<use pics/Optimization/Acrobot/u5_control_inputs.png>
-Package pdftex.def Info: pics/Optimization/Acrobot/u5_control_inputs.png  used on input line 1329.
-(pdftex.def)             Requested size: 209.1301pt x 129.86308pt.
-<pics/Optimization/Acrobot/u5_SO2_errors_R_F.png, id=2868, 569.9694pt x 353.6412pt>
-File: pics/Optimization/Acrobot/u5_SO2_errors_R_F.png Graphic file (type png)
-<use pics/Optimization/Acrobot/u5_SO2_errors_R_F.png>
-Package pdftex.def Info: pics/Optimization/Acrobot/u5_SO2_errors_R_F.png  used on input line 1337.
-(pdftex.def)             Requested size: 209.1301pt x 129.75517pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1338--1338
-[]|\OT1/cmr/m/n/12 (c) $\OML/cmm/m/it/12 SO\OT1/cmr/m/n/12 (2)$ or-thog-o-nal-ity er-rors of
+Package pdftex.def Info: pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf  used on input line 893.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
+ [85] [86 <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf> <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf> <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf> <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf>] [87]
+Overfull \hbox (32.71817pt too wide) in paragraph at lines 1081--1085
+[]\OT1/cmr/m/n/12 The max-i-mum nu-mer-i-cal rank con-di-tion $\OML/cmm/m/it/12 ^^N[]$ \OT1/cmr/m/n/12 is eval-u-ated ac-cord-ing to [] [[]].
  []
 
-<pics/Optimization/Acrobot/rank_condition_u5.pdf, id=2869, 578.16pt x 361.35pt>
+[88] [89] [90]
+<pics/Optimization/Acrobot/u5_target_rotation_error_norm.pdf, id=3212, 539.14223pt x 358.83374pt>
+File: pics/Optimization/Acrobot/u5_target_rotation_error_norm.pdf Graphic file (type pdf)
+<use pics/Optimization/Acrobot/u5_target_rotation_error_norm.pdf>
+Package pdftex.def Info: pics/Optimization/Acrobot/u5_target_rotation_error_norm.pdf  used on input line 1363.
+(pdftex.def)             Requested size: 209.1301pt x 139.189pt.
+<pics/Optimization/Acrobot/u5_control_inputs.pdf, id=3213, 539.39064pt x 358.83374pt>
+File: pics/Optimization/Acrobot/u5_control_inputs.pdf Graphic file (type pdf)
+<use pics/Optimization/Acrobot/u5_control_inputs.pdf>
+Package pdftex.def Info: pics/Optimization/Acrobot/u5_control_inputs.pdf  used on input line 1369.
+(pdftex.def)             Requested size: 209.1301pt x 139.12875pt.
+<pics/Optimization/Acrobot/u5_SO2_errors_R_F.pdf, id=3214, 539.22818pt x 358.83374pt>
+File: pics/Optimization/Acrobot/u5_SO2_errors_R_F.pdf Graphic file (type pdf)
+<use pics/Optimization/Acrobot/u5_SO2_errors_R_F.pdf>
+Package pdftex.def Info: pics/Optimization/Acrobot/u5_SO2_errors_R_F.pdf  used on input line 1377.
+(pdftex.def)             Requested size: 209.1301pt x 139.16708pt.
+<pics/Optimization/Acrobot/rank_condition_u5.pdf, id=3215, 578.16pt x 397.485pt>
 File: pics/Optimization/Acrobot/rank_condition_u5.pdf Graphic file (type pdf)
 <use pics/Optimization/Acrobot/rank_condition_u5.pdf>
-Package pdftex.def Info: pics/Optimization/Acrobot/rank_condition_u5.pdf  used on input line 1343.
-(pdftex.def)             Requested size: 209.1301pt x 130.70343pt.
+Package pdftex.def Info: pics/Optimization/Acrobot/rank_condition_u5.pdf  used on input line 1383.
+(pdftex.def)             Requested size: 209.1301pt x 143.77377pt.
 
-Underfull \hbox (badness 1158) in paragraph at lines 1344--1344
-[]|\OT1/cmr/m/n/12 (d) Moment-relaxation rank con-di-tion
+Overfull \hbox (20.9932pt too wide) in paragraph at lines 1393--1403
+\OT1/cmr/m/n/12 and achieved sta-bi-liza-tion. The com-bined start-ing at-ti-tude er-ror $\OML/cmm/m/it/12 e[] \OT1/cmr/m/n/12 = [][]$
  []
 
-<pics/Optimization/Acrobot/basin_of_attraction_00025.pdf, id=2870, 569.48758pt x 375.804pt>
-File: pics/Optimization/Acrobot/basin_of_attraction_00025.pdf Graphic file (type pdf)
-<use pics/Optimization/Acrobot/basin_of_attraction_00025.pdf>
-Package pdftex.def Info: pics/Optimization/Acrobot/basin_of_attraction_00025.pdf  used on input line 1355.
-(pdftex.def)             Requested size: 209.1301pt x 138.00166pt.
-<pics/Optimization/Acrobot/basin_of_attraction_01.pdf, id=2871, 626.58089pt x 375.804pt>
+[91] [92 <./pics/Optimization/Acrobot/u5_target_rotation_error_norm.pdf> <./pics/Optimization/Acrobot/u5_control_inputs.pdf> <./pics/Optimization/Acrobot/u5_SO2_errors_R_F.pdf> <./pics/Optimization/Acrobot/rank_condition_u5.pdf>]
+<pics/Optimization/Acrobot/basin_of_attraction_01.pdf, id=3376, 688.0104pt x 730.64969pt>
 File: pics/Optimization/Acrobot/basin_of_attraction_01.pdf Graphic file (type pdf)
 <use pics/Optimization/Acrobot/basin_of_attraction_01.pdf>
-Package pdftex.def Info: pics/Optimization/Acrobot/basin_of_attraction_01.pdf  used on input line 1361.
-(pdftex.def)             Requested size: 209.1301pt x 125.42633pt.
-) (chapters/Discussion.tex [84] [85 <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf> <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf> <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf> <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_F_speed.pdf> <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf> <./pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_determinant.pdf>] [86 <./pics/Optimization/Acrobot/u5_target_rotation_error_norm.png> <./pics/Optimization/Acrobot/u5_control_inputs.png> <./pics/Optimization/Acrobot/u5_SO2_errors_R_F.png> <./pics/Optimization/Acrobot/rank_condition_u5.pdf>] [87 <./pics/Optimization/Acrobot/basin_of_attraction_00025.pdf> <./pics/Optimization/Acrobot/basin_of_attraction_01.pdf>] [88
-
-]
+Package pdftex.def Info: pics/Optimization/Acrobot/basin_of_attraction_01.pdf  used on input line 1497.
+(pdftex.def)             Requested size: 192.0548pt x 188.86566pt.
+<pics/Optimization/Acrobot/basin_of_attraction_005.pdf, id=3378, 620.79929pt x 661.2705pt>
+File: pics/Optimization/Acrobot/basin_of_attraction_005.pdf Graphic file (type pdf)
+<use pics/Optimization/Acrobot/basin_of_attraction_005.pdf>
+Package pdftex.def Info: pics/Optimization/Acrobot/basin_of_attraction_005.pdf  used on input line 1503.
+(pdftex.def)             Requested size: 192.0548pt x 187.84415pt.
+<pics/Optimization/Acrobot/basin_of_attraction_00025.pdf, id=3380, 665.60669pt x 706.0779pt>
+File: pics/Optimization/Acrobot/basin_of_attraction_00025.pdf Graphic file (type pdf)
+<use pics/Optimization/Acrobot/basin_of_attraction_00025.pdf>
+Package pdftex.def Info: pics/Optimization/Acrobot/basin_of_attraction_00025.pdf  used on input line 1509.
+(pdftex.def)             Requested size: 192.0548pt x 188.13518pt.
+ [93] [94 <./pics/Optimization/Acrobot/basin_of_attraction_01.pdf> <./pics/Optimization/Acrobot/basin_of_attraction_005.pdf> <./pics/Optimization/Acrobot/basin_of_attraction_00025.pdf>]
+<pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_01_20_140.pdf, id=3476, 421.55243pt x 409.5231pt>
+File: pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_01_20_140.pdf Graphic file (type pdf)
+<use pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_01_20_140.pdf>
+Package pdftex.def Info: pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_01_20_140.pdf  used on input line 1564.
+(pdftex.def)             Requested size: 209.1301pt x 203.16135pt.
+<pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_00025_20_140.pdf, id=3477, 421.55243pt x 409.5231pt>
+File: pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_00025_20_140.pdf Graphic file (type pdf)
+<use pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_00025_20_140.pdf>
+Package pdftex.def Info: pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_00025_20_140.pdf  used on input line 1570.
+(pdftex.def)             Requested size: 209.1301pt x 203.16135pt.
+ [95 <./pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_01_20_140.pdf> <./pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_00025_20_140.pdf>]) (chapters/Discussion.tex [96]
 Chapter 7.
-) (chapters/Conclusion.tex [89] [90
 
-]
-Chapter 8.
-Excluding 'comment' comment.) (chapters/Appendix.tex [91] [92
-
-]
-Appendix A.
-[93] [94] [95] [96]
-Appendix B.
-
-LaTeX Warning: Reference `eq:acrobot_reduced_differences' on page 97 undefined on input line 316.
+Overfull \hbox (2.41971pt too wide) in paragraph at lines 41--51
+ []\OT1/cmr/bx/n/12 Single-body op-ti-miza-tion[] \OT1/cmr/m/n/12 The 3D pen-du-lum demon-strates the com-plete method
+ []
 
 [97
 
 ] [98]
+Overfull \hbox (5.40207pt too wide) in paragraph at lines 104--112
+ []\OT1/cmr/bx/n/12 Open-loop Ac-robot op-ti-miza-tion[] \OT1/cmr/m/n/12 The open-loop SDP eval-u-a-tion in Sec-tion[]6.3.1[]
+ []
+
+[99] [100]) (chapters/Conclusion.tex [101] [102
+
+]
+Chapter 8.
+Excluding 'comment' comment.) (chapters/Appendix.tex [103] [104
+
+]
+Appendix A.
+[105] [106] [107] [108]
+Appendix B.
+
+LaTeX Warning: Reference `eq:acrobot_reduced_differences' on page 109 undefined on input line 316.
+
+[109
+
+] [110]
 Overfull \hbox (13.17451pt too wide) in paragraph at lines 452--452
 []\OT1/cmr/bx/n/17.28 Kinematics, Ro-ta-tion Con-straints, and Bounds 
  []
 
-[99] [100]
+[111] [112]
 Appendix C.
-[101
+[113
 
-] [102]) [103] [104
+] [114]) [115] [116
 
-] (StudentThesis_Template.lof)
+] (StudentThesis_Template.lof [117
+
+]
+Overfull \hbox (8.7426pt too wide) in paragraph at lines 26--26
+ \OT1/cmr/m/n/12 with $\OML/cmm/m/it/12 u[] \OT1/cmr/m/n/12 = 15 []$. The tu-ples $(^^A\OML/cmm/m/it/12 t[]; \OT1/cmr/m/n/12 ^^A\OML/cmm/m/it/12 t[]; \OT1/cmr/m/n/12 ^^A\OML/cmm/m/it/12 t[]\OT1/cmr/m/n/12 )$ are $(0\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 0\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 0\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 1) s$ 
+ []
+
+)
 \tf@lof=\write13
 \openout13 = `StudentThesis_Template.lof'.
 
- [105
+ [118] (StudentThesis_Template.lot
+Overfull \hbox (0.40846pt too wide) in paragraph at lines 12--12
+ [][] [][]\OT1/cmr/m/n/12 Results of the Ac-robot tra-jec-tory op-ti-miza-tion us-ing the spe-cial multi- 
+ []
 
-] [106
 
-] (StudentThesis_Template.lot
-Overfull \hbox (0.4049pt too wide) in paragraph at lines 10--10
- [][] [][]\OT1/cmr/m/n/12 Statistics of the Ac-robot tra-jec-tory op-ti-miza-tion us-ing the \OT1/cmr/bx/n/12 Full SELF 
+Overfull \hbox (22.68733pt too wide) in paragraph at lines 12--12
+ \OT1/cmr/m/n/12 body SELF clique con-struc-tion $\OML/cmm/b/it/12 z[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 I[]\OT1/cmr/m/n/12 )$, $\OML/cmm/b/it/12 z[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 I[]\OT1/cmr/m/n/12 )$, $\OML/cmm/b/it/12 z[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 I[]\OT1/cmr/m/n/12 )$, and $\OML/cmm/b/it/12 z[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 I[]\OT1/cmr/m/n/12 )$. 
  []
 
 )
 \tf@lot=\write14
 \openout14 = `StudentThesis_Template.lot'.
 
- [107
-
-] [108
-
-] (StudentThesis_Template.acr) [109
+ [119
 
 
-] [110
+] [120
+
+] (StudentThesis_Template.acr) [121
+
+
+] [122
 
 ] (StudentThesis_Template.not
 Overfull \hbox (7.58409pt too wide) in paragraph at lines 29--29
 [][]\OT1/cmr/m/n/12 superscript/overhat on a con-trol or mul-ti-plier: nor-mal-ized quan-tity rescaled
  []
 
-) [111
+) [123
 
 
-] [112
+] [124
 
-] (StudentThesis_Template.sym [113
+] (StudentThesis_Template.sym [125
 
 
 ]
@@ -1537,42 +1624,73 @@ Overfull \hbox (26.07213pt too wide) in paragraph at lines 54--54
 [][]\OT1/cmr/m/n/12 relative (in-cre-men-tal) ro-ta-tion up-date, $\OML/cmm/b/it/12 R[] \OT1/cmr/m/n/12 = \OML/cmm/b/it/12 R[]F[]$\OT1/cmr/m/n/12 ; the $\OML/cmm/m/it/12 SO\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m/n/12 )$-specialization
  []
 
-[114]
+[126]
 Overfull \hbox (1.11621pt too wide) in paragraph at lines 84--84
 [][]\OT1/cmr/m/n/12 rank/tightness met-ric of the SDP re-lax-ation: the largest second-eigenvalue
  []
 
-) [115] [116
+) [127] [128
 
 ] (StudentThesis_Template.bbl
-Underfull \hbox (badness 1939) in paragraph at lines 42--50
-[]\OT1/cmr/m/n/12 Leonardo Colombo and Fer-nando Jim^^Senez.  Con-tin-u-ous and dis-
+Underfull \hbox (badness 1762) in paragraph at lines 59--68
+[]\OT1/cmr/m/n/12 Elena Celle-doni and Bryn-julf Owren.  Lie group meth-ods for
  []
 
+[129
 
-Underfull \hbox (badness 5460) in paragraph at lines 63--69
-[]\OT1/cmr/m/n/12 Edonis Elshani.  Cer-ti-fi-able tra-jec-tory op-ti-miza-tion.  GitHub
+]
+Underfull \hbox (badness 1609) in paragraph at lines 87--93
+\OT1/cmr/m/n/12 2026.  URL: []$\OT1/cmtt/m/n/12 https : / / github . com / EdonisElshani / Certifiable _
  []
 
-
-Underfull \hbox (badness 1917) in paragraph at lines 63--69
-\OT1/cmr/m/n/12 repos-i-tory, 2026.  Nu-mer-i-cal[]Simulation di-rec-tory, ac-cessed March
- []
-
-[117
-
-] [118]
-Underfull \hbox (badness 3302) in paragraph at lines 168--173
+[130]
+Underfull \hbox (badness 1394) in paragraph at lines 224--229
 \OT1/cmr/m/n/12 in-te-gra-tors.  \OT1/cmr/m/it/12 Acta Nu-mer-ica\OT1/cmr/m/n/12 , 10:357--514, 2001.  []$\OT1/cmtt/m/n/12 doi : 10 . 1017 /
  []
 
-
-Underfull \hbox (badness 1454) in paragraph at lines 201--205
-[]\OT1/cmr/m/n/12 Russ Tedrake.  \OT1/cmr/m/it/12 Un-der-ac-tu-ated Robotics\OT1/cmr/m/n/12 .  2023.  URL: []$\OT1/cmtt/m/n/12 https : / /
+[131]
+Underfull \hbox (badness 10000) in paragraph at lines 248--256
+\OT1/cmtt/m/n/12 sciencedirect . com / science / article / pii / S0764444299802511$[]\OT1/cmr/m/n/12 ,
  []
 
-[119]) [120] [121
 
+Underfull \hbox (badness 10000) in paragraph at lines 258--264
+\OT1/cmtt/m/n/12 spiff . rit . edu / classes / phys216 / workshops / w9b / momi _ table . pdf$[]\OT1/cmr/m/n/12 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 266--273
+[]\OT1/cmr/m/n/12 Vishwam Sankaran.  Sci-en-tists de-velop four-legged
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 266--273
+\OT1/cmr/m/n/12 robot that hikes dif-fi-cult ter-rain faster than av-er-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 266--273
+\OT1/cmr/m/n/12 age hu-man.  []$\OT1/cmtt/m/n/12 https : / / www . the-[]independent . com / tech /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 266--273
+\OT1/cmtt/m/n/12 legged-[]robot-[]hikes-[]faster-[]superhuman-[]b1999222 . html$[]\OT1/cmr/m/n/12 , Jan-
+ []
+
+[132]
+Underfull \hbox (badness 5133) in paragraph at lines 306--312
+\OT1/cmr/m/n/12 so-lu-tions at fabtech.  []$\OT1/cmtt/m/n/12 https : / / thermalprocessing . com / news /
+ []
+
+
+Overfull \hbox (59.45816pt too wide) in paragraph at lines 306--312
+\OT1/cmtt/m/n/12 kuka-[]plasmatreat-[]to-[]highlight-[]surface-[]bonding-[]solutions-[]at-[]fabtech/$[]\OT1/cmr/m/n/12 ,
+ []
+
+) [133] [134
+
+] [135
 
 ] (StudentThesis_Template.aux)
  ***********
@@ -1587,20 +1705,20 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `StudentThesis_Template.out' has not changed.
-(rerunfilecheck)             Checksum: FF63DBC16B4763DADF2879DE0939360B;14249.
+(rerunfilecheck)             Checksum: 6B7717FD8D8B55417FA07DFD2786D3D3;14839.
  ) 
 Here is how much of TeX's memory you used:
- 49430 strings out of 467867
- 1180964 string characters out of 5418818
- 1644490 words of memory out of 5000000
- 76751 multiletter control sequences out of 15000+600000
- 652895 words of font info for 127 fonts, out of 8000000 for 9000
+ 50848 strings out of 467867
+ 1221919 string characters out of 5418818
+ 1696576 words of memory out of 5000000
+ 78081 multiletter control sequences out of 15000+600000
+ 653831 words of font info for 130 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
  114i,18n,134p,2630b,1240s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmbsy8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib6.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eufb10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eufm10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on StudentThesis_Template.pdf (125 pages, 10335031 bytes).
+ <C:\Users\ASUS\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmbsy8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib6.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eufb10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eufm10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on StudentThesis_Template.pdf (139 pages, 17343234 bytes).
 PDF statistics:
- 4011 PDF objects out of 4296 (max. 8388607)
- 804 named destinations out of 1000 (max. 500000)
- 741 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 4402 PDF objects out of 5155 (max. 8388607)
+ 868 named destinations out of 1000 (max. 500000)
+ 811 words of extra memory for PDF output out of 10000 (max. 10000000)
 

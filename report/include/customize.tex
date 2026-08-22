@@ -5,7 +5,7 @@
 % CUSTOM PACKAGES	%
 %%%%%%%%%%%%%%%%%%%%%
 \usepackage{tikz}
-\usetikzlibrary{positioning, arrows.meta}
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, calc, fit}
 \usepackage{pgfplots}
 \usepackage{graphicx}
 \usepackage{subcaption}
@@ -28,6 +28,16 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 \newtheorem{remark}{Remark}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
+
+\usepackage{xcolor}
+\usetikzlibrary{arrows.meta,positioning,shapes.multipart}
+\definecolor{tum_blue}{RGB}{0,101,189}
+\definecolor{tum_orange}{RGB}{227,114,34}
+
+\newcommand{\figureboxtitle}[1]{%
+    {\sffamily\bfseries #1}%
+}
 
 % \usepackage{IEEEtrantools}
 
@@ -49,4 +59,3 @@
 % HYPHENATIONS 		%
 %%%%%%%%%%%%%%%%%%%%%
 \hyphenation{Lya-pu-nov}
-

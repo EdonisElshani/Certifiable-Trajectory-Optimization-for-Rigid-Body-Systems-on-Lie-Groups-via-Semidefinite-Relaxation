@@ -1,37 +1,452 @@
-%_________Einleitung__________________________________
 \chapter{Introduction}
 \label{sec:introduction}
-\begin{comment}
-Your first chapter in the document.
-Introduce the problem (gently!). Try to give the reader an appreciation of the difficulty, and an idea of how you will go about it. It is like the overture of an opera: it plays on all the relevant themes.
 
-Make sure you clearly state the vision/aims of your work, which problem you are trying to solve, and why it is important. While the introduction is the part that is read first (ignoring title and abstract), it is usually best written last (when you actually know what you have really achieved). Remember, it is the first thing that is read and will have a major influence on the how the reader approaches your work. If you bore them now, you have most likely lost them already. If you make outrageous claims, pretend to solve the world's problems, etc, you are likely fighting an uphill battle later on. Also, make sure you pick up any threads spun in the introduction later on, to ensure that the reader thinks they get what they have been promised. Do not create an expectation that you will deliver more than you actually do. Remember, the reader may be your marker (of a thesis) or referee (of a paper), and you do not want to annoy them.
-\end{comment}
-\section{Problem Statement}
+The future of robotic systems trends towards autonomous operations in unstructured environments.
+Thereby, reliable and dynamically accurate motion planning is a fundamental requirement for robotic systems,
+operation. Essential applications are search and rescue operations, naturally hazardous to humans,
+in which especially legged robots have the potential to gain access and precisely navigate 
+through complex terrain (see Figure~\ref{fig:introduction_applications_legged}) \cite{Intro_Legged,LIU}. 
+But also in industrial contexts, robots assembling various components require careful and 
+precise motion planning. For example,
+Figure~\ref{fig:introduction_applications_kuka} illustrates an thermal processing application
+\cite{Intro_KUKA}. 
+Both applications consist of different tasks and 
+constraints. However both systems pose the same fundamental problem. 
+Several rigid bodies must be moved from an initial configuration to a desired configuration by
+admissible control inputs, while their rotations, joint connections, nonlinear
+dynamics, and actuator limits must be satisfied simultaneously. Thereby,
+generated trajectories must be collision-free and especially dynamically feasible \cite{Kang_2025Global}.
 
-%You can either state the problem you are trying to solve in the general introduction, providing the transition from the overall picture to your specific approach, or state it in a separate section. Even if you do not use the separate section, writing down in a few sentences why the problem you are trying to solve is actually hard and has not been solved before can give you a better idea of how to approach the topic. This can be also merged with the related work part.
+\begin{figure}[tb]
+    \centering
+    \subfigure[Legged locomotion]{
+        \includegraphics[width=0.47\textwidth]{pics/Introduction/Legged_Robot_high_resolution.pdf}
+        \label{fig:introduction_applications_legged}
+    }
+    \hfill
+    \subfigure[Industrial robot]{
+        \includegraphics[width=0.47\textwidth]{pics/Introduction/KUKA_high_resolution.pdf}
+        \label{fig:introduction_applications_kuka}
+    }
+    \caption{Examples of robotic systems composed of coupled rigid bodies: (a) legged
+    locomotion taken from \cite{Intro_Legged} and (b) industrial manipulation taken from \cite{Intro_KUKA}.}
+    \label{fig:introduction_applications}
+\end{figure}
 
-\section{Related Work}
-\begin{comment}
+In addition to a large number of system-variables, Rigid-body attitudes
+belong to rotation groups, considered as Lie-groups, rather than to a Euclidean vector
+space. Joint constraints couple the configuration of neighbouring bodies, and the
+equations of motion couple states and controls over time \cite{Sangli2025}. Consequently, even a
+finite-horizon problem without contact or obstacles generally contains nonlinear
+equalities and nonconvex rotation constraints. Its feasible set can have several
+disconnected regions, and its objective can contain many local minima \cite{Kang_2026Fast}.
+Moreover, the continuous-time dynamics are infinite-dimensional, so any numerical
+solution must discretize the problem. Nevertheless, classic global optimization methods simplify
+the dynamics of robotic systems by approximating them with simpler models \cite{Sangli2025}. 
+Thereby, the discrete dynamics can differ from the continuous dynamics, 
+resulting in deviations from the true solution and 
+numerical infeasibility.
 
-From Kevin Elphinstone's \emph{A Small Guide to Writing Your Thesis }\cite{Elphinstone2014}:
+Currently, nonlinear programming is one of the most common approaches for computing robot 
+trajectories. Starting from an initial guess, these methods repeatedly adjust the states and 
+control inputs to find a trajectory with a low objective value that satisfies the given 
+constraints \cite{Betts1998TrajectoryOptimization,tedrake_underactuated}. Sequential convex 
+methods, such as TrajOpt, follow a similar idea but replace the original difficult problem 
+with a sequence of simpler convex problems \cite{Schulman2014TrajOpt}. Both approaches can 
+find useful motions efficiently, even for relatively large robot models. However, the final 
+result may depend strongly on the initial guess and is generally only locally optimal.
+Sampling-based methods instead explore many possible configurations and connect them to 
+construct a path. Although some of these methods are asymptotically optimal. A path obtained 
+after a finite computation does not provide a certificate of global optimality 
+\cite{KaramanFrazzoli2011Sampling}.
 
-``The related work section (sometimes called literature review) is just that, a review of work related to the problem you are attempting to solve. It should identify and evaluate past approaches to the problem. It should also identify similar solutions to yours that have been applied to other problems not necessarily directly related to the one your solving. Reviewing the successes or limitations of your proposed solution in other contexts provides important understanding that should result in avoiding past mistakes, taking advantage of previous successes, and most importantly, potentially improving your solution or the technique in general when applied in your context and others.
+To address the limitations of local methods, this thesis investigates semidefinite 
+programming (SDP) for multibody systems. An SDP is a convex optimization problem formulated
+using matrix variables. Instead of solving the original nonconvex motion-planning problem directly, a semidefinite 
+relaxation constructs a convex approximation that can be solved reliably and provides a lower 
+bound on the globally optimal objective value \cite{VandenbergheBoyd1996SDP,Lasserre2001Global}. 
+In contrast, a feasible trajectory, for example generated by a local optimization method
+as NLP or TrajOpt, provides an upper bound. 
+If the suboptimality gap between the SDP lower bound and the feasible-trajectory 
+upper bound is within the specified numerical tolerance, the trajectory is \emph{certified} 
+as globally optimal for the considered discrete motion-planning problem.
+If the bounds do not agree, the SDP still provides a lower bound, 
+but no global optimality certificate is obtained.
 
-In addition to the obvious purpose indicated, the related work section also can serve to:
+However, realistic trajectory optimization also requires a discrete model that represents
+the rigid-body dynamics accurately. Lie group variational integrators (LGVIs) discretize the 
+equations of motion directly on the configuration manifold and update rotations through the 
+Lie-group structure \cite{Marsden2001,Lee2008}. Consequently, the numerical rotations remain 
+on the rotation group. LGVIs also preserve important 
+geometric properties of the mechanical system, such as its symplectic structure and 
+energy conservation over a long time duration. 
+
+Therefore, the key idea of this thesis is to combine these two approaches. For the considered 
+rigid-body systems, the LGVI dynamics can be expressed through low-degree polynomial equations. 
+The resulting polynomial motion-planning problem can then be approximated by a Moment--SOS 
+semidefinite relaxation \cite{Sangli2025}. In this way, the LGVI provides a structure-preserving 
+model of the rigid-body dynamics, while the SDP provides a global lower bound and, when the 
+relaxation is sufficiently accurate, a certificate of global optimality. The complete 
+concept is summarized in Figure~\ref{fig:intro_pipeline}.
+
+\begin{figure}[t!]
+    \centering
+
+    \begin{tikzpicture}[
+        >=Latex,
+        node distance=5mm,
+        block/.style={
+            rounded corners=1.5mm,
+            draw=black!45,
+            fill=black!2,
+            thick,
+            align=center,
+            text width=8.8cm,
+            minimum height=0.75cm,
+            font=\small
+        },
+        titled/.style={
+            rectangle split,
+            rectangle split parts=2,
+            rectangle split part align={left,center},
+            rounded corners=2mm,
+            line width=1pt,
+            text width=9cm,
+            inner xsep=2mm,
+            inner ysep=1mm,
+            font=\small
+        },
+        arrow/.style={
+            -{Latex[length=2.2mm]},
+            thick,
+            draw=black!65
+        }
+    ]
+
+    % Main problem
+    \node[
+        titled,
+        draw=tum_blue,
+        rectangle split part fill={
+            tum_blue,
+            tum_blue!8!white
+        }
+    ] (problem)
+    {
+        \textcolor{white}{\figureboxtitle{Main Problem}}
+        \nodepart{second}
+        Nonlinear and nonconvex rigid-body trajectory optimization
+    };
+
+    \node[
+        block,
+        below=7mm of problem
+    ] (lgvi)
+    {
+        Lie group variational discretization\\[-1mm]
+        \scriptsize structure-preserving rigid-body dynamics
+    };
+
+    \node[
+        block,
+        below=of lgvi
+    ] (pop)
+    {
+        Polynomial motion-planning formulation
+    };
+
+    \node[
+        block,
+        below=of pop
+    ] (sdp)
+    {
+        Sparse Moment--SOS semidefinite relaxation\\[-1mm]
+        \scriptsize convex global lower bound
+    };
+
+    % Key idea
+    \node[
+        titled,
+        draw=tum_orange,
+        rectangle split part fill={
+            tum_orange,
+            orange!8!white
+        },
+        below=7mm of sdp
+    ] (idea)
+    {
+        \textcolor{white}{\figureboxtitle{Key Idea}}
+        \nodepart{second}
+        Structure-preserving LGVI dynamics combined with
+        semidefinite relaxation
+    };
+
+    \draw[arrow] (problem) -- (lgvi);
+    \draw[arrow] (lgvi) -- (pop);
+    \draw[arrow] (pop) -- (sdp);
+    \draw[arrow] (sdp) -- (idea);
+
+    \end{tikzpicture}
+
+    \caption{Framework of this thesis.
+    Lie group variational discretization provides structure-preserving
+    rigid-body dynamics, while sparse semidefinite relaxation provides
+    a convex lower bound for the resulting polynomial motion-planning
+    problem.}
+    \label{fig:intro_pipeline}
+\end{figure}
+
+This thesis investigates a 3D pendulum as a 
+single-rigid-body system and an Acrobot as a constrained and underactuated multibody system. 
+The main contributions of this thesis are:
 
 \begin{itemize}
-	\item justify that the problem exists by example and argument
-	\item motivate interest in your work by demonstrating relevance and importance
-	\item identify the important issues
-	\item provide background to your solution
+\item the derivation of an LGVI for the controlled and unforced 3D pendulum on $\mathrm{SO}(3)$, 
+providing a structure-preserving discrete model of a single rigid body.
+
+\item The derivation of a constrained LGVI for the Acrobot in maximal coordinates on 
+$(\mathrm{SO}(2)\times \mathbb{R}^2)^2$.
+Thereby, the positions and rotations of both rigid links are represented separately 
+and connected through holonomic joint constraints.
+
+\item The numerical implementation and validation of both LGVI models, including the 
+preservation of the rotation and joint constraints, and the conserved long-term energy 
+behavior.
+
+\item The formulation of the 3D-pendulum polynomial optimization problem (POP) as a polynomial 
+optimization problem and its solution through a sparse Moment-SOS semidefinite relaxation. 
+Following, the evaluation of the extracted trajectories and their global optimality certificates.
+
+\item The formulation of the Acrobot POP using a reduced polynomial 
+model, problem-specific sparse SDP structures and its solution through 
+a sparse Moment-SOS semidefinite relaxation.
+Finally, the evaluation of the extracted trajectories and their global optimality certificates.
+Thereby, the evaluation is extended to a closed-loop implementation of the first extracted control.
 \end{itemize}
 
-Any remaining doubts over the existence, justification, motivation, or relevance of your thesis topic or problem at the end of the introduction should be gone by the end of related work section.
+\section{Problem Statement}
+\label{sec:introduction_problem_statement}
 
-Note that a literature review is just that, a review. It is not a list of papers and a description of their contents! A literature review should critique, categorize, evaluate, and summarize work related to your thesis. Related work is also not a brain dump of everything you know in the field. You are not writing a textbook; only include information directly related to your topic, problem, or solution.''
+The framework illustrated in Figure \ref{fig:intro_pipeline} addresses the
+following general motion planning problem. Therby, optimize the path of a rigid-body system from
+an initial configuration towards a desired configuration, while respecting the system's
+dynamics, geometric structure, joint connections, and physical limits.
+The motion is considered over a finite horizon divided into $N$ intervals. Let $Y_k$ describe
+the configuration and discrete motion of the system at step $k$, let $U_k$ denote
+the applied control input, and let $\lambda_k$ contain joint-constraint multipliers
+when several bodies are connected. At a high level, the corresponding
+motion-planning problem can be written as
 
-Note: Write literature review at an early stage of your project to build on the knowledge of others, not reinvent the wheel over and over again! There is nothing more frustrating after weeks or months of hard work to find that your great solution has been published 5 years ago and is considered old news or that there is a method known that produces superior results.
+\begin{subequations}
+\label{eq:problem_statement}
+\begin{align}
+p^\star = \min_{\{Y_k,U_k,\lambda_k\}}
+\quad & \ell_N(Y_N)+\sum_{k=0}^{N-1}\ell_k(Y_k,U_k),
+\label{eq:problem_statement_objective}\\
+\text{s.t.}\quad
+&Y_0=Y_{\mathrm{init}},
+\label{eq:problem_statement_initial}\\
+&D_k(Y_k,Y_{k+1},U_k,\lambda_k)=0,
+\label{eq:problem_statement_dynamics}\\
+&(Y_k,U_k)\in\mathcal{A}_k.
+\label{eq:problem_statement_admissible}
+\end{align}
+\end{subequations}
 
-%____________________________________________________
-\end{comment}
+The objective combines a terminal cost $\ell_N$ with running costs $\ell_k$. Additionally, the
+constraints $D_k=0$ represent the discrete rigid-body dynamics. Finally, the admissible set $\mathcal{A}_k$
+contains control, state, and rotation-step limits. Therefore, \eqref{eq:problem_statement}
+summarizes the physical requirements of the problem generalizing it to any robotic system \cite{Kang_2026Fast}. 
+
+Generally, the objective appears simple. However, for many rigid-bodies constructing a robotic systems, 
+the equality constraints $D_k$ are nonlinear, where
+the rotation constraints and equations of
+motion make the feasible set nonconvex. The LGVI formulation is useful because the
+considered dynamics can be expressed by low-degree
+polynomials and consits of energy conservation properties \cite{Sangli2025}. 
+After collecting all scalar decision variables in
+$\bm{z}\in\mathbb{R}^{n_z}$, \eqref{eq:problem_statement} takes the standard
+polynomial form
+\begin{equation}
+\label{eq:problem_statement_polynomial_form}
+p^\star=\min_{\bm{z}\in\mathbb{R}^{n_z}}p(\bm{z})
+\quad\text{s.t.}\quad
+h_i(\bm{z})=0,\ i\in\mathcal{E},
+\qquad
+g_j(\bm{z})\geq0,\ j\in\mathcal{J},
+\end{equation}
+\cite{Yang2024Semidefinite}. Here, $p^*$ is a polynomial objective, $h_i$ are polynomial equality constraints,
+and $g_j$ are polynomial inequality constraints, with their respective sets $\mathcal{E}$ and $\mathcal{J}$.
+This polynomial optimization problem remains nonconvex. At a selected relaxation
+order $\kappa$, a Moment-SOS semidefinite relaxation replaces \eqref{eq:problem_statement_polynomial_form}
+by a convex problem and returns a global lower bound $\gamma_\kappa^\star$. In contrast, every
+verified feasible trajectory $\hat{\bm{z}}$ provides an upper bound through its objective
+value. Therefore, the global optimality $p^\star$ of a feasible trajectory is inside the bounds
+\begin{equation}
+\label{eq:problem_statement_bounds}
+\gamma_\kappa^\star\leq p^\star\leq p(\hat{\bm{z}}).
+\end{equation}
+If the lower and upper bounds agree within the specified numerical tolerances, the
+feasible trajectory is certified as globally optimal \cite{Lasserre2001Global}.
+
+Therefore, the thesis central research question is considered as follows:
+
+\begin{quote}
+\emph{What are the capabilities and limitations of combining structure-preserving Lie group variational 
+integrators with semidefinite relaxation to obtain feasible and certifiably 
+optimal trajectories for single- and multibody rigid-body systems?}
+\end{quote}
+
+This question is investigated by first deriving structure-preserving LGVI models,
+then formulating the resulting discrete dynamics as polynomial optimization
+problems, and finally evaluating the SDP relaxations in terms of feasibility,
+tightness, certifiability, and computational cost.
+
+\section{Related Work}
+\label{sec:introduction_related_work}
+
+\paragraph{Trajectory optimization and global planning}
+
+Trajectory optimization represents a robot motion by a finite sequence of states
+and control inputs. Direct nonlinear programming methods are widely used
+because they can solve large problems efficiently
+\cite{Betts1998TrajectoryOptimization,tedrake_underactuated}. Sequential convex
+methods such as TrajOpt, from \cite{Schulman2014TrajOpt}, similarly replace the original problem by a sequence of
+simpler subproblems. These approaches can produce useful
+motions fast, but generally converge only to a local solution and therefore
+depend on the initial guess. Sampling-based planners such as PRM$^*$ and RRT$^*$
+offer asymptotic optimality, but not a global certificate after a finite computation
+\cite{KaramanFrazzoli2011Sampling}. Mixed-integer formulations provide global
+statements for selected problems such as footstep placement and inverse kinematics,
+although their computational cost and model approximations are inefficient for
+general multibody dynamics
+\cite{DeitsTedrake2014Footstep,DaiIzattTedrake2019IK}. Contact-implicit methods
+include contact forces and mode changes directly in the optimization
+\cite{Posa2014Contact,Manchester2019ContactVI}.
+
+\paragraph{Geometric mechanics and variational integration}
+
+Rigid-body attitudes naturally belong to Lie groups rather than Euclidean vector
+spaces. The required foundations of Lie groups, mechanical symmetry, rigid-body
+mechanics, inertia, and matrix analysis are provided in
+\cite{Hall2000LieGroups,MarsdenRatiu1999,Benacquista2018ClassicalMechanics,
+RITInertiaTable216,GallierQuaintance2020LinearAlgebra,YanaiTakeuchiTakane2011SVD}.
+Classical integration methods are summarized by Butcher
+\cite{butcher2016numerical}, whereas geometric integration emphasizes the
+preservation of mechanical structure over long simulations
+\cite{Hairer1994,Leimkuhler_Reich_2005}. Projection can restore manifold
+constraints after a numerical step \cite{Hairer2000}, while Lie-group integrators
+update the configuration directly on the group \cite{CELLEDONI2003421}.
+Retraction maps such as the Cayley transform provide efficient local
+representations of these updates and are therefore relevant to the polynomial
+formulations used in
+\cite{Arieh_Cayley_Motivation,ColomboJimenez2012SO3_Cayley,
+Barbero-Linan2023_Cayley_Formula}.
+
+Variational integrators derive the discrete equations of motion from a discrete
+action principle and thereby preserve important geometric properties of the
+continuous mechanics, which are defined in \cite{Marsden2001}. 
+\cite{Lee2008} develops this approach directly on
+matrix Lie groups and applies it to rigid-body mechanics, optimal control, and the
+full-body problem and extended it in
+\cite{Lee2007,LeeLeokMcClamroch2007DiscreteControlSystems}. The 3D pendulum
+provides a compact benchmark for these rotational dynamics \cite{Shen20043DPendulum}.
+For multibody systems, maximal coordinates assign a pose to every body and impose
+joints through algebraic constraints, derived in 
+\cite{BrudigamManchester2021VariationalIntegrators,BrudigamManchester2021LQR}.
+These works form the basis for the 3D-pendulum and maximal-coordinate Acrobot LGVIs
+derived.
+
+\paragraph{Polynomial optimization and sparse semidefinite relaxation}
+
+Semidefinite programming is a convex optimization framework
+\cite{VandenbergheBoyd1996SDP}. Moment-SOS methods use it to relax polynomial
+optimization problems and obtain global lower bounds. Their theoretical basis is
+given by positivity certificates and the Lasserre hierarchy
+\cite{Putinar1993Positive,Lasserre2001Global,Yang2024Semidefinite}. However,
+tightness at a selected relaxation order is not guaranteed, discussed in
+\cite{Nie2014FiniteConvergence}. Dense moment matrices grow rapidly with the number
+of variables. Correlative sparsity instead constructs smaller overlapping matrices
+and can preserve convergence under suitable conditions given in
+\cite{Waki2006Sparse,Lasserre2006Sparse}.
+
+\cite{Sangli2025} combine Lie-group variational integrators with sparse moment relaxation
+for multibody motion planning and therefore provide the closest methodological
+foundation for this thesis. \cite{Kang_2026Fast} show that specialized
+sparse formulations and first-order GPU solvers can substantially accelerate
+certifiable trajectory optimization. \cite{Kang_2025Global} extend sparsity-rich
+relaxations to contact-rich planning. These developments
+demonstrate the potential of the approach, while also showing that relaxation size
+and solver choice remain decisive. This thesis uses the interior-point solver MOSEK
+for optimization \cite{MOSEK}.
+Related SDP-based MPC research further illustrates the relevance of repeatedly
+solving relaxations in closed loop shown in \cite{Hartmann_2026SDP}. The implementation and
+experiments presented in this thesis are documented in the open-source
+repository \cite{Elshani2026CTO_GitHub}.
+
+\section{Research Gap}
+\label{sec:introduction_research_gap}
+
+The general connection between LGVIs and semidefinite relaxation are already
+analyzed in recent works, however, it does not provide certifiably optimal trajectories for every
+problem. \cite{Sangli2025} combines LGVIs with sparse Moment-SOS relaxations for
+single- and multibody systems. Still, some relaxations are not
+tight, requiring the extracted solutions to be refined using nonlinear programming (NLP),
+inorder to obtain feasible trajectories.
+Similarly, \cite{Kang_2026Fast,Kang_2025Global} develop faster solvers and robotics-specific sparse
+formulations, but the reported suboptimality
+gaps remain problem-dependent and range from below $(1\%)$ to more than
+$(30\%)$. Therefore, semidefinite relaxation can provide useful lower bounds and
+trajectory candidates, but does not generally guarantee a feasible or certifiably
+optimal trajectory.
+
+Following, gap remains of how reliably the complete LGVI--SDP framework can be applied to systems of 
+increasing dynamical complexity.
+In particular,
+relaxation tightness and feasible trajectory extraction are problem-dependent, and
+become more difficult for constrained and underactuated multibody systems. 
+This thesis addresses this gap by comparing the complete
+pipeline on a single-body benchmark and a constrained underactuated multibody
+system. It further investigates whether repeated first-control extraction can
+generate feasible closed-loop trajectories when the complete open-loop relaxation
+is not tight.
+
+The contribution of this thesis is an empirical assessment showing that SDP can generate feasible and, 
+for tight relaxations, certifiably optimal open-loop trajectories for rigid-body problems of increasing 
+difficulty. Additionally, the offline SDP-MPC implementation can generate feasible stabilizing 
+trajectories for harder problems, which can serve as reference or training data for 
+faster online controllers and learning-based methods, such as imitation learning or offline reinforcement 
+learning.
+
+\section{Thesis Structure}
+\label{sec:introduction_structure}
+
+Following the introduction, Chapter \ref{chapter:preliminaries_lie_groups} 
+introduces the required matrix Lie groups and Lie algebras. 
+
+Secondly, Chapter \ref{chapter:continous_mechanics_of_rigid_bodies_on_lie_groups} 
+develops continuous rigid-body mechanics on Lie groups using
+lagrangian variational integration (LGVI),
+and derives the continuous 3D-pendulum model, which momentum conservation
+property is verified.
+
+Chapter \ref{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups}
+introduces discrete mechanics and LGVIs, first for a single rigid body
+and subsequently for constrained multibody systems using maximal coordinates.
+Thereby, a 3D-pendulum and a two-link Acrobot LGVI dynamics are derived. 
+
+Therefore, Chapter \ref{chapter:certifiable_trajectory_optimization}
+formulates their trajectory-optimization problems,
+introduces semidefinite and Moment--SOS relaxations, defines sparse clique
+constructions and certification diagnostics, and presents an closed loop
+SDP implementation for the Acrobot.
+
+Consequently, the numerical simulation  and optimization results 
+of the 3D-pendulum and Acrobot are 
+evaluated in Chapter \ref{chapter:evaluation}.
+
+Chapter \ref{chap:discussion} discusses the previous results, especially 
+not certifiable cases, and which computational and modeling limitations remain. 
+
+Finally, Chapter \ref{chapter:conclusion} summarizes the
+findings and gives the final outlook, proposing future research directions.

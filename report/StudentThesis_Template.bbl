@@ -1,5 +1,12 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{{MOS}26}
+\begin{thebibliography}{WKKM06}
+
+\bibitem[Bet98]{Betts1998TrajectoryOptimization}
+John~T. Betts.
+\newblock Survey of numerical methods for trajectory optimization.
+\newblock {\em Journal of Guidance, Control, and Dynamics}, 21(2):193--207,
+  1998.
+\newblock \href {https://doi.org/10.2514/2.4231} {\path{doi:10.2514/2.4231}}.
 
 \bibitem[BLdD23]{Barbero-Linan2023_Cayley_Formula}
 Mar{\'i}a Barbero-Li{\~n}{\'a}n and David~Mart{\'i}n de~Diego.
@@ -59,6 +66,23 @@ Elena Celledoni and Brynjulf Owren.
   \href {https://doi.org/10.1016/S0045-7825(02)00520-0}
   {\path{doi:10.1016/S0045-7825(02)00520-0}}.
 
+\bibitem[DIT19]{DaiIzattTedrake2019IK}
+Hongkai Dai, Gregory Izatt, and Russ Tedrake.
+\newblock Global inverse kinematics via mixed-integer convex optimization.
+\newblock {\em The International Journal of Robotics Research},
+  38(12--13):1420--1441, 2019.
+\newblock \href {https://doi.org/10.1177/0278364919846512}
+  {\path{doi:10.1177/0278364919846512}}.
+
+\bibitem[DT14]{DeitsTedrake2014Footstep}
+Robin Deits and Russ Tedrake.
+\newblock Footstep planning on uneven terrain with mixed-integer convex
+  optimization.
+\newblock In {\em 2014 IEEE-RAS International Conference on Humanoid Robots},
+  pages 279--286. IEEE, 2014.
+\newblock \href {https://doi.org/10.1109/HUMANOIDS.2014.7041373}
+  {\path{doi:10.1109/HUMANOIDS.2014.7041373}}.
+
 \bibitem[Els26]{Elshani2026CTO_GitHub}
 Edonis Elshani.
 \newblock Certifiable trajectory optimization.
@@ -110,6 +134,14 @@ Arieh Iserles.
 \newblock \href {https://doi.org/10.1007/s102080010003}
   {\path{doi:10.1007/s102080010003}}.
 
+\bibitem[KF11]{KaramanFrazzoli2011Sampling}
+Sertac Karaman and Emilio Frazzoli.
+\newblock Sampling-based algorithms for optimal motion planning.
+\newblock {\em The International Journal of Robotics Research}, 30(7):846--894,
+  2011.
+\newblock \href {https://doi.org/10.1177/0278364911406761}
+  {\path{doi:10.1177/0278364911406761}}.
+
 \bibitem[KLY25]{Kang_2025Global}
 Shucheng Kang, Guorui Liu, and Heng Yang.
 \newblock Global contact-rich planning with sparsity-rich semidefinite
@@ -125,7 +157,15 @@ Shucheng Kang, Xiaoyang Xu, Jay Sarva, Ling Liang, and Heng Yang.
   Robotics XVI, Volume 1}, pages 43--65, Cham, 2026. Springer Nature
   Switzerland.
 
-\bibitem[Las06]{Lasserre2001Global}
+\bibitem[Las06a]{Lasserre2006Sparse}
+Jean~B. Lasserre.
+\newblock Convergent sdp-relaxations in polynomial optimization with sparsity.
+\newblock {\em SIAM Journal on Optimization}, 17(3):822--843, 2006.
+\newblock \href {https://arxiv.org/abs/https://doi.org/10.1137/05064504X}
+  {\path{arXiv:https://doi.org/10.1137/05064504X}}, \href
+  {https://doi.org/10.1137/05064504X} {\path{doi:10.1137/05064504X}}.
+
+\bibitem[Las06b]{Lasserre2001Global}
 Jean-Bernard Lasserre.
 \newblock Global optimization with polynomials and the problem of moments.
 \newblock {\em SIAM Journal on Optimization}, 11:796--817, 07 2006.
@@ -138,17 +178,33 @@ Taeyoung Lee.
 \newblock Phd dissertation, The University of Michigan, Ann Arbor, Michigan,
   2008.
 
-\bibitem[LLM07]{LeeLeokMcClamroch2007DiscreteControlSystems}
+\bibitem[LLM07a]{LeeLeokMcClamroch2007DiscreteControlSystems}
 Taeyoung Lee, Melvin Leok, and N.~Harris McClamroch.
 \newblock Discrete control systems.
 \newblock {\em arXiv preprint arXiv:0705.3868}, 2007.
 \newblock \href {https://arxiv.org/abs/0705.3868} {\path{arXiv:0705.3868}}.
+
+\bibitem[LLM07b]{Lee2007}
+Taeyoung Lee, Melvin Leok, and N~Harris McClamroch.
+\newblock Lie group variational integrators for the full body problem in
+  orbital mechanics.
+\newblock {\em Celestial Mechanics and Dynamical Astronomy}, 98(2):121--144,
+  2007.
 
 \bibitem[LR05]{Leimkuhler_Reich_2005}
 Benedict Leimkuhler and Sebastian Reich.
 \newblock {\em Simulating Hamiltonian Dynamics}.
 \newblock Cambridge Monographs on Applied and Computational Mathematics.
   Cambridge University Press, 2005.
+
+\bibitem[MDWK19]{Manchester2019ContactVI}
+Zachary Manchester, Neel Doshi, Robert~J. Wood, and Scott Kuindersma.
+\newblock Contact-implicit trajectory optimization using variational
+  integrators.
+\newblock {\em The International Journal of Robotics Research},
+  38(12--13):1463--1476, 2019.
+\newblock \href {https://doi.org/10.1177/0278364919849235}
+  {\path{doi:10.1177/0278364919849235}}.
 
 \bibitem[{MOS}26]{MOSEK}
 {MOSEK ApS}.
@@ -171,6 +227,23 @@ J.~E. Marsden and M.~West.
 \newblock \href {https://doi.org/10.1017/S096249290100006X}
   {\path{doi:10.1017/S096249290100006X}}.
 
+\bibitem[Nie14]{Nie2014FiniteConvergence}
+Jiawang Nie.
+\newblock Optimality conditions and finite convergence of {Lasserre's}
+  hierarchy.
+\newblock {\em Mathematical Programming}, 146(1--2):97--121, 2014.
+\newblock \href {https://doi.org/10.1007/s10107-013-0680-x}
+  {\path{doi:10.1007/s10107-013-0680-x}}.
+
+\bibitem[PCT14]{Posa2014Contact}
+Michael Posa, Cecilia Cantu, and Russ Tedrake.
+\newblock A direct method for trajectory optimization of rigid bodies through
+  contact.
+\newblock {\em The International Journal of Robotics Research}, 33(1):69--81,
+  2014.
+\newblock \href {https://doi.org/10.1177/0278364913506757}
+  {\path{doi:10.1177/0278364913506757}}.
+
 \bibitem[PV99]{Putinar1993Positive}
 Mihai Putinar and Florian-Horia Vasilescu.
 \newblock Positive polynomials on semi-algebraic sets.
@@ -189,6 +262,32 @@ Michael Richmond.
 \newblock Course handout, Rochester Institute of Technology, accessed
   2026-03-25.
 
+\bibitem[San22]{Intro_Legged}
+Vishwam Sankaran.
+\newblock Scientists develop four-legged robot that hikes difficult terrain
+  faster than average human.
+\newblock
+  \url{https://www.the-independent.com/tech/legged-robot-hikes-faster-superhuman-b1999222.html},
+  January 2022.
+\newblock Image credit: Takahiro Miki / ETH Zurich. Accessed: 2026-05-12.
+
+\bibitem[SDH{\etalchar{+}}14]{Schulman2014TrajOpt}
+John Schulman, Yan Duan, Jonathan Ho, Alex Lee, Ibrahim Awwal, Henry Bradlow,
+  Jia Pan, Sachin Patil, Ken Goldberg, and Pieter Abbeel.
+\newblock Motion planning with sequential convex optimization and convex
+  collision checking.
+\newblock {\em The International Journal of Robotics Research},
+  33(9):1251--1270, 2014.
+\newblock \href {https://doi.org/10.1177/0278364914528132}
+  {\path{doi:10.1177/0278364914528132}}.
+
+\bibitem[Shu06]{LIU}
+LIU Jinguo;WANG Yuechao;LI~Bin;MA Shugen.
+\newblock Current research, key performances and future development of search
+  and rescue robot.
+\newblock {\em Journal of Mechanical Engineering}, 42(12):1, 2006.
+\newblock URL: \url{http://www.cjmenet.com.cn/EN/abstract/article_1802.shtml}.
+
 \bibitem[SSC{\etalchar{+}}04]{Shen20043DPendulum}
 Jinglai Shen, A.K. Sanyal, N.A. Chaturvedi, D.~Bernstein, and H.~McClamroch.
 \newblock Dynamics and control of a 3d pendulum.
@@ -203,6 +302,14 @@ Russ Tedrake.
 \newblock 2023.
 \newblock URL: \url{https://underactuated.csail.mit.edu}.
 
+\bibitem[{The}24]{Intro_KUKA}
+{Thermal Processing}.
+\newblock Kuka, plasmatreat to highlight surface-bonding solutions at fabtech.
+\newblock
+  \url{https://thermalprocessing.com/news/kuka-plasmatreat-to-highlight-surface-bonding-solutions-at-fabtech/},
+  2024.
+\newblock Accessed: 2026-05-12.
+
 \bibitem[TJVG25]{Sangli2025}
 Sangli Teng, Ashkan Jasour, Ram Vasudevan, and Maani Ghaffari.
 \newblock Convex geometric motion planning of multi-body systems on lie groups
@@ -211,6 +318,21 @@ Sangli Teng, Ashkan Jasour, Ram Vasudevan, and Maani Ghaffari.
   44(10-11):1784--1813, September 2025.
 \newblock \href {https://doi.org/10.1177/02783649241296160}
   {\path{doi:10.1177/02783649241296160}}.
+
+\bibitem[VB96]{VandenbergheBoyd1996SDP}
+Lieven Vandenberghe and Stephen Boyd.
+\newblock Semidefinite programming.
+\newblock {\em SIAM Review}, 38(1):49--95, 1996.
+\newblock \href {https://doi.org/10.1137/1038003} {\path{doi:10.1137/1038003}}.
+
+\bibitem[WKKM06]{Waki2006Sparse}
+Hayato Waki, Sunyoung Kim, Masakazu Kojima, and Masakazu Muramatsu.
+\newblock Sums of squares and semidefinite program relaxations for polynomial
+  optimization problems with structured sparsity.
+\newblock {\em SIAM Journal on Optimization}, 17(1):218--242, 2006.
+\newblock \href {https://arxiv.org/abs/https://doi.org/10.1137/050623802}
+  {\path{arXiv:https://doi.org/10.1137/050623802}}, \href
+  {https://doi.org/10.1137/050623802} {\path{doi:10.1137/050623802}}.
 
 \bibitem[Yan24]{Yang2024Semidefinite}
 Heng Yang.
