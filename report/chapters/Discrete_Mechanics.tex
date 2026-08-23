@@ -1049,14 +1049,16 @@ where \(n_c\) denotes the number of scalar constraint equations.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.60\textwidth]{pics/Maximal_Coordinates_Joint.pdf}
-    \caption{Two rigid bodies connected by a holonomic joint in maximal coordinates. Adapted from \cite{BrudigamManchester2021LQR}.}
-    \label{fig:maximal_joint_constraint}
+    \includegraphics[width=0.65\textwidth]
+        {pics/two_link_maximal_coordinates.pdf}
+    \caption{Two rigid links connected by a joint in maximal coordinates.
+    Adapted from \cite{BrudigamManchester2021LQR}.}
+    \label{fig:maximal_coordinates_joint}
 \end{figure}
 
 A typical holonomic joint constraint can be written by equating two points
 attached to different rigid bodies. This is illustrated in
-Fig.~\ref{fig:maximal_joint_constraint}. Let \(\bm{\rho}_i\) and \(\bm{\rho}_j\) denote
+Fig.~\ref{fig:maximal_coordinates_joint}. Let \(\bm{\rho}_i\) and \(\bm{\rho}_j\) denote
 constant vectors from the corresponding center of mass to the joint location in
 each body-fixed frame. Then a link-connecting constraint is given by
 \begin{equation}
@@ -1123,7 +1125,7 @@ constraint contribution gives the discrete action sum
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.50\textwidth]{pics/Acrobot.pdf}
+    \includegraphics[width=0.75\textwidth]{pics/acrobot_maximal_coordinates.pdf}
     \caption{Acrobot configuration manifold in maximal coordinates.}
     \label{fig:acrobot_maximal_coordinates}
 \end{figure}

@@ -133,106 +133,129 @@ higher order relaxations can be used to tighten the relaxation \eqref{eq:converg
 but at the cost of increased computational complexity.
 
 \paragraph{Closed-loop Acrobot stabilization}
-Tables~6.4 and~6.5 show that $\delta_1$ is smaller than the worst-horizon metric $\delta_{\max}$.
-This motivates the receding-horizon implementation in Section~5.4.2:
-only the first control from Equation~(5.66) is applied,
-the remaining non-tight prediction is discarded,
+Tables \ref{tab:acrobot_sdp_statistics_full} and \ref{tab:acrobot_sdp_statistics_hybrid} 
+show that $\delta_1$ is smaller than the worst-horizon metric $\delta_{\max}$ inside 
+the open loop optimization.
+This motivates the receding-horizon implementation in Section 
+\ref{sec:acrobot_trajectory_optimization_SDP_MPC}, where
+only the first control from \eqref{eq:acrobot_mpc_applied_control} is applied.
+The remaining non-tight prediction is discarded,
 and the SDP is solved again from the simulated state.
-Replanning introduces feedback,
-but $\delta_1<\delta_{\max}$ is not a rank-one condition and does not restore certifiability.
+However, $\delta_1$ is not a rank-one condition and therefore does not restore certifiability.
+Still, the implemented closed loop control consists of a feedback structure, 
+which can stabilize the system even if the open-loop solution is not tight 
+(see Section \ref{subsec:acrobot_sdp_mpc_results}).
 
-Figure~6.6 shows that this procedure stabilizes the symmetric $5^\circ$ state
+Figure \ref{fig:acrobot_mpc_u5_closed_loop} 
+illustrates that this procedure stabilizes starting from a inital rotation of $5^\circ$,
 after approximately $11.9\,\mathrm{s}$ with $u_{\max}=5\,\mathrm{N\,m}$.
-The simulated state remains on $\mathrm{SO}(2)$
-although the predicted blocks are not rank one throughout the maneuver.
-This demonstrates numerical closed-loop feasibility for one state,
-not a globally optimal control sequence,
-a certified region of attraction,
-or robustness.
-The additional failures are also consistent with limited control authority at this bound.
+The simulated trajectory remains on $\mathrm{SO}(2)$
+although the predicted blocks are not rank one throughout the whole maneuver.
+This demonstrates numerical closed-loop feasibility for the tested configuration.
+However, the solution can not be considered as globally optimal, since the 
+optimization problem is not tight. Additionally, failures are also 
+consistent with limited control torque availability for $u_{\max}=5\,\mathrm{N\,m}$.
 
 With $u_{\max}=15\,\mathrm{N\,m}$,
-Figure~6.7 shows that both matched-time Cases~I and~II stabilize $94$ of $100$ initial configurations.
-Thus, consistently refining all intervals from $0.1\,\mathrm{s}$ to $0.05\,\mathrm{s}$
-does not change the aggregate success rate.
-The different failed cells nevertheless reveal numerical sensitivity
-and prevent interpreting the result as a discretization-convergence proof.
+Figure \ref{fig:acrobot_basin_comparison} 
+shows that the matched discretization ($\Delta t_{SDP} = \Delta t_{\mathrm{sim}}= \Delta t_{ctrl}$) 
+Cases~I and~II stabilize $94$ of $100$ initial configurations.
+Therefore, consistently refining all intervals from $0.1\,\mathrm{s}$ to $0.05\,\mathrm{s}$
+does not change the success rate. Nevertheless,
+the failed trails for same initial conditions between Cases~I and~II
+indicate that the success is not guaranteed for all $\Delta t_{SDP} = \Delta t_{\mathrm{sim}}= \Delta t_{ctrl}$
+configurations.
 
-Only $34$ configurations stabilize in the mismatched Case~III.
-Here, a control predicted for $0.1\,\mathrm{s}$ is applied for $0.025\,\mathrm{s}$
-and the coarse incoming rotation is reconstructed from the fine history.
-Figure~6.8 shows a more oscillatory common success requiring approximately $16\,\mathrm{s}$
+In Case~III, where there is a disrectization mismatch 
+between the SDP and simulation time steps
+($\Delta t_{SDP} = 0.1\,\mathrm{s}$, 
+$\Delta t_{\mathrm{sim}}= 0.0025\,\mathrm{s}$,$\Delta t_{ctrl} = 0.025\,\mathrm{s}$)
+stabilize only $34$ of $100$ configurations.
+Thereby, Figure \ref{fig:acrobot_sampled_trajectory_comparison}(b) shows a more oscillatory behaviour
+near the target configuration until the stabilization is reached, compared to
+Case~I in Figure \ref{fig:acrobot_sampled_trajectory_comparison}(a) for the same initial condition of $(\theta_1^{\mathrm{init}},\theta_2^{\mathrm{init}})=(20^\circ,140^\circ)$.
+Here Case~III requires $4.1\,\mathrm{s}$
 instead of $3.1\,\mathrm{s}$ in Case~I.
-The results therefore indicate reduced reliability and efficiency under mismatched time scales.
-Because several sampling ratios and the history reconstruction change together,
-no single cause is isolated.
-An infeasible SDP iteration also indicates controller failure,
-not that the plant state is fundamentally unstabilizable.
+The results indicate that mismatched discretization can lead to 
+reduced reliability for stabilization of the Acrobot.
 
 For the successful $(80^\circ,80^\circ)$ example,
-Cases~I--III require approximately $3.1\,\mathrm{h}$,
+Cases~I, II, and III require approximately $3.1\,\mathrm{h}$,
 $27.3\,\mathrm{h}$,
 and $17.8\,\mathrm{h}$.
 These illustrative runtimes depend on $\Delta t_{\mathrm{SDP}}$ and $N_{\mathrm{SDP}}$,
 which determine each SDP size,
 and on the number of replanning iterations.
-A matched $0.0025\,\mathrm{s}$ case would require $N=800$
-and was computationally intractable.
-The closed-loop implementation is therefore an offline feasibility study rather than a real-time controller.
+A matched discretization case with $\Delta t_{\mathrm{SDP}} =\Delta t_{\mathrm{sim}}=\Delta t_{\mathrm{ctrl}}=0.0025\,\mathrm{s}$ 
+would require $N=800$, which is computationally not feasible with current hardware.
+The closed-loop implementation is therefore an offline feasibility 
+study rather than a real-time controller. However, also the 
+open-loop optimization using semidefinite relaxation is not real-time capable, since the SDP solver requires
+approximately $15$-$31$ minutes for the considered $N=60$ problem.
 
-\section{Comparison to the State of the Art}
+\section{Comparison with the State of the Art}
 \label{sec:comparison_state_of_the_art}
-The preservation properties of both LGVIs agree with the theory
-in \cite{Marsden2001,Lee2008}
-and the maximal-coordinate multibody formulations
-in \cite{BrudigamManchester2021VariationalIntegrators,BrudigamManchester2021LQR}.
-The contribution is therefore not a new conservation theorem,
-but the integration of reduced structure-preserving models into polynomial trajectory optimization.
 
-The closest framework is \cite{Sangli2025}.
-The certified pendulum and easy Acrobot cases confirm its principal benefit,
-whereas the difficult cases confirm that tightness is problem-dependent.
-While \cite{Sangli2025} refines non-tight extractions with NLP,
-this thesis repeatedly applies only the first SDP control.
-NLP refinement seeks a feasible full-horizon trajectory;
-replanning seeks numerical closed-loop stabilization.
-Neither provides a global certificate when the relaxation remains non-tight.
+The first contribution of this thesis is the Acrobot-specific LGVI in maximal coordinates
+\eqref{eq:acrobot_full_del_shifted}, 
+including its underactuation \eqref{eq:forced_acrobot_rotational_equations}, 
+holonomic joint constraints, which align with
+the preservation properties of
+\cite{Marsden2001,Lee2008} and the maximal-coordinate formulations in
+\cite{BrudigamManchester2021VariationalIntegrators,BrudigamManchester2021LQR}.
+Moreover, the reduction in Section \ref{sec:discrete_motion_planning_acrobot}
+resulted in a smaller decision vector $\bm{z}$ and a
+quadratic polynomial model suitable for SDP relaxation \ref{eq:controlled_acrobot_pop}.
 
-The importance of sparsity and solver choice is consistent
-with \cite{Waki2006Sparse,Lasserre2006Sparse,Kang_2026Fast,Kang_2025Global}.
-GPU and first-order solvers may make larger instances accessible,
-but faster solution does not guarantee tighter moment matrices.
-Compared with the local methods reviewed in Section~1.2,
-the present SDP approach is considerably slower
-but supplies a global lower bound and rank diagnostics.
-Its repeated-relaxation structure is related to SDP-based MPC such as \cite{Hartmann_2026SDP},
-here evaluated for constrained underactuated Lie-group dynamics.
+The closest framework to this thesis is \cite{Sangli2025}. In that work, all reported 
+trajectories are passed through a local-search step using IPOPT, including cases for which 
+the SDP relaxation provides a small optimality gap or satisfies the rank condition. 
+In contrast, the second-order relaxations of all considered 3D-pendulum problems in this 
+thesis are numerically rank one and directly yield feasible trajectories without subsequent 
+NLP refinement. The agreement between the SDP lower bound and the objective of the extracted 
+trajectory therefore certifies global optimality using the SDP solution alone. This 
+demonstrates that, for the investigated single-body benchmark, the complete pipeline from the 
+nonconvex LGVI formulation to a feasible and globally optimal trajectory can be performed 
+without depending on the initialization or convergence of a local solver, in contrast to \cite{Sangli2025}. 
+Nevertheless, the drone problems in 
+\cite{Sangli2025} include translational dynamics and obstacle avoidance and are therefore 
+more complex than the present pendulum problem. Whether similarly direct SDP extraction 
+remains possible after introducing obstacle constraints for the 3D-pendulum 
+has to be evaluated in future research.
+%%%%%%%%%%%%%%%
+With respect to the research gap identified in Section~\ref{sec:introduction_research_gap}, this thesis 
+demonstrates that the complete LGVI-SDP framework can be transferred from a single rigid body 
+to a constrained and underactuated multibody system of increased dynamical complexity. 
+The results confirm that globally optimal trajectories can be 
+certified when the relaxation is tight and that closed-loop feedback controls can still be 
+extracted for some non-tight problems, for example the Acrobot stabilization. 
+However, the transfer is not equally reliable for 
+all configurations, since relaxation tightness, solver feasibility, and computational cost 
+remain strongly problem-dependent. In particular, the closed-loop trajectories do not 
+provide certificates of global optimality, and their computation is 
+too slow for real-time application. The research gap is therefore addressed for the 
+investigated single- and multibody models, but remains open for larger systems, contact 
+and obstacle constraints, uncertain dynamics, and hardware experiments.
+
 
 \section{Potential Applications}
 \label{sec:potential_applications}
-The most direct application is offline trajectory generation and assessment.
-Tight cases provide certified benchmarks for evaluating local optimizers,
-initializing an NLP,
-or generating references for faster tracking controllers.
-The terminal errors also show that objective design remains important:
-a globally optimal solution of a soft tracking cost may still be practically unsatisfactory.
 
-For non-tight cases,
-the lower bounds, diagnostics,
-and first controls remain useful even without a feasible open-loop extraction.
-Repeated offline SDP--MPC simulations could generate feasible state--control demonstrations
-for imitation learning or offline reinforcement learning.
-A learned policy could then approximate the demonstrated behavior at substantially lower online cost.
+The most direct application is offline trajectory generation. Tight SDP solutions
+can provide certified benchmarks for evaluating local optimizers, as initial guesses 
+for related NLP problems, 
+or as reference trajectories for online tracking controllers.
 
-Such demonstrations are feasible only for the implemented numerical model
-and are not globally optimal labels when the relaxation is non-tight.
-Solver failures can also bias the data toward easier regions.
-Solver status, residuals, rank metrics,
-objective bounds,
-stabilization time,
-and discretization should therefore accompany each trajectory.
-The results support offline references and data generation,
-but do not yet establish real-time control,
-robustness under uncertainty,
-contact-rich planning,
-or hardware performance.
+For non-tight problems, the SDP--MPC implementation can still generate feasible
+realized trajectories. The resulting state-control sequences could
+be stored as demonstrations for faster online MPC methods or used to construct
+warm starts from previously solved configurations. This is consistent with
+\cite{Kang_2026Fast}, where data-based warm starts substantially reduce repeated
+SDP solution times.
+
+The trajectories could also provide training data for imitation learning or
+offline reinforcement learning. This is particularly relevant for underactuated
+systems such as the Acrobot, where swing-up requires coordinated actions over a
+longer time horizon and can be difficult to explore \cite{acrobot_RL}.
+A learned controller could approximate the SDP closed-loop policy while operating
+at lower online cost.

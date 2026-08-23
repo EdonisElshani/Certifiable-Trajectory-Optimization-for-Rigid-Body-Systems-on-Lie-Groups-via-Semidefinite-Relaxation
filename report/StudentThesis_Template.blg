@@ -14,45 +14,45 @@ Warning--I didn't find a database entry for "eq:acrobot_full_del_shifted_kinemat
 Warning--I didn't find a database entry for "eq:acrobot_full_del_shifted_kinematics_2"
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Warning--empty publisher in tedrake_underactuated
-You've used 45 entries,
+You've used 46 entries,
             3368 wiz_defined-function locations,
-            1046 strings with 15728 characters,
-and the built_in function-call counts, 24586 in all, are:
-= -- 2673
-> -- 903
+            1052 strings with 15914 characters,
+and the built_in function-call counts, 25096 in all, are:
+= -- 2725
+> -- 929
 < -- 27
-+ -- 287
-- -- 277
-* -- 1552
-:= -- 3495
-add.period$ -- 179
-call.type$ -- 45
-change.case$ -- 274
-chr.to.int$ -- 42
-cite$ -- 46
-duplicate$ -- 703
-empty$ -- 2141
-format.name$ -- 336
-if$ -- 6130
++ -- 296
+- -- 286
+* -- 1585
+:= -- 3566
+add.period$ -- 182
+call.type$ -- 46
+change.case$ -- 281
+chr.to.int$ -- 43
+cite$ -- 47
+duplicate$ -- 715
+empty$ -- 2187
+format.name$ -- 346
+if$ -- 6258
 int.to.chr$ -- 4
 int.to.str$ -- 0
 missing$ -- 42
-newline$ -- 267
-num.names$ -- 137
-pop$ -- 493
+newline$ -- 272
+num.names$ -- 140
+pop$ -- 509
 preamble$ -- 1
-purify$ -- 326
+purify$ -- 334
 quote$ -- 0
-skip$ -- 1657
+skip$ -- 1691
 stack$ -- 0
-substring$ -- 1069
-swap$ -- 162
+substring$ -- 1076
+swap$ -- 165
 text.length$ -- 85
 text.prefix$ -- 18
 top$ -- 0
-type$ -- 332
+type$ -- 340
 warning$ -- 1
-while$ -- 166
-width$ -- 47
-write$ -- 669
+while$ -- 169
+width$ -- 48
+write$ -- 682
 (There were 3 warnings)

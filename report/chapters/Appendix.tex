@@ -18,12 +18,14 @@
 %	
 %	... Okay enough. But please check chapter \ref{sec:Tutorial} before starting with your report. 
 
-\section{Spellcheck reminder}
+\paragraph{Spellcheck reminder}
 Before handing in your thesis, even for an intermediate review, please perform a proper spellcheck and correct grammar mistakes. Otherwise, there is a high likelihood that your supervisor will return your report immediately without making any comments.
 \fi
 
+
+\chapter{Scalar Implementation of POPs}
 % Insert this chapter after \appendix in the main thesis file.
-\chapter{Scalar Implementation of the 3D-Pendulum Optimization Problem}
+\section{Scalar Implementation of the 3D-Pendulum Optimization Problem}
 \label{app:controlled_3d_pendulum_scalar_pop}
 
 This appendix expands the matrix formulation
@@ -42,12 +44,14 @@ and define
 \rho_c=
 \begin{bmatrix}\rho_1&\rho_2&\rho_3\end{bmatrix}^{\top},
 \qquad
-u_{p,k}=
-\begin{bmatrix}u_{p1,k}&u_{p2,k}&u_{p3,k}\end{bmatrix}^{\top}.
+\bar u_{p,k}=
+\begin{bmatrix}\bar u_{p1,k}&\bar u_{p2,k}&\bar u_{p3,k}\end{bmatrix}^{\top},
+\qquad
+u_{p,k}=u_{\max}\bar u_{p,k}.
 \label{eq:app_3d_scalar_vectors}
 \end{equation}
 
-\section{Objective and Discrete Dynamics}
+\paragraph{Objective and Discrete Dynamics}
 
 Writing \(R_N^{\mathrm{des}}=[r_{ij,N}^{\mathrm{des}}]\) and
 \(F^{\mathrm{des}}=[f_{ij}^{\mathrm{des}}]\), the scalar objective is
@@ -68,7 +72,7 @@ J
 \left(f_{ij,k}-f_{ij}^{\mathrm{des}}\right)^2
 \notag\\
 &+\sum_{k=1}^{N-1}\gamma^{-1}
-\left(u_{p1,k}^2+u_{p2,k}^2+u_{p3,k}^2\right).
+\left(\bar u_{p1,k}^2+\bar u_{p2,k}^2+\bar u_{p3,k}^2\right).
 \label{eq:app_3d_scalar_objective}
 \end{align}
 
@@ -87,13 +91,18 @@ Its components are
 \tau_{g3,k}&=mg\left(\rho_1r_{32,k}-\rho_2r_{31,k}\right).
 \end{align}
 \end{subequations}
-Likewise, for \(u_k=[u_{1,k}\;u_{2,k}\;u_{3,k}]^{\top}\),
+Likewise, using the thesis definition
+\(u_k=R_k^{\top}e_3\times u_{p,k}\) with
+\(u_{p,k}=u_{\max}\bar u_{p,k}\), the three components are
 \begin{subequations}
 \label{eq:app_3d_scalar_control_moment}
 \begin{align}
-u_{1,k}&=r_{32,k}u_{p3,k}-r_{33,k}u_{p2,k},\\
-u_{2,k}&=r_{33,k}u_{p1,k}-r_{31,k}u_{p3,k},\\
-u_{3,k}&=r_{31,k}u_{p2,k}-r_{32,k}u_{p1,k}.
+u_{1,k}&=u_{\max}
+\left(r_{32,k}\bar u_{p3,k}-r_{33,k}\bar u_{p2,k}\right),\\
+u_{2,k}&=u_{\max}
+\left(r_{33,k}\bar u_{p1,k}-r_{31,k}\bar u_{p3,k}\right),\\
+u_{3,k}&=u_{\max}
+\left(r_{31,k}\bar u_{p2,k}-r_{32,k}\bar u_{p1,k}\right).
 \end{align}
 \end{subequations}
 After multiplying
@@ -121,7 +130,7 @@ therefore
 \end{subequations}
 for \(k=0,\ldots,N-2\).
 
-\section{Kinematics and Rotation Constraints}
+\paragraph{Kinematics and Rotation Constraints}
 
 The nine scalar equations corresponding to \(R_{k+1}=R_kF_k\) are
 \begin{subequations}
@@ -198,7 +207,7 @@ f_{13,k}f_{21,k}-f_{23,k}f_{11,k}-f_{32,k}&=0.
 \end{align}
 \end{subequations}
 
-\section{Bounds, Initial Values, and Normalization}
+\paragraph{Bounds, Initial Values, and Normalization}
 
 The relative-rotation and control bounds become
 \begin{subequations}
@@ -208,7 +217,7 @@ f_{11,k}+f_{22,k}+f_{33,k}-1
 -2\cos(\Delta\theta_{\max})&\geq0,
 &&k=0,\ldots,N-1,
 \\
-u_{\max}^2-u_{p1,k}^2-u_{p2,k}^2-u_{p3,k}^2&\geq0,
+1-\bar u_{p1,k}^2-\bar u_{p2,k}^2-\bar u_{p3,k}^2&\geq0,
 &&k=1,\ldots,N-1.
 \end{align}
 \end{subequations}
@@ -221,34 +230,26 @@ f_{ij,0}=f_{ij}^{\mathrm{init}},
 \label{eq:app_3d_scalar_initial_values}
 \end{equation}
 
-For the normalized variables used to construct the SDP, set
-\begin{equation}
-u_{pi,k}=u_{\max}\bar u_{pi,k},
-\qquad i=1,2,3,
-\label{eq:app_3d_scalar_control_scaling}
-\end{equation}
-and substitute this relation into
-\eqref{eq:app_3d_scalar_objective} and
-\eqref{eq:app_3d_scalar_control_moment}. The control bound then reads
-\begin{equation}
-1-\bar u_{p1,k}^2-\bar u_{p2,k}^2-\bar u_{p3,k}^2\geq0.
-\label{eq:app_3d_scalar_normalized_control_bound}
-\end{equation}
-Together with
+The control scaling is already included in
+\eqref{eq:app_3d_scalar_vectors},
+\eqref{eq:app_3d_scalar_control_moment}, and
+\eqref{eq:app_3d_scalar_bounds}. Together with
 \eqref{eq:app_3d_scalar_dynamics}--
 \eqref{eq:app_3d_scalar_initial_values}, these equations give the complete
 scalar POP used for the controlled 3D-Pendulum relaxation.
 
-\chapter{Scalar Implementation of the Acrobot Optimization Problem}
+\section{Scalar Implementation of the Acrobot Optimization Problem}
 \label{app:controlled_acrobot_scalar_pop}
 
 This appendix expands the reduced matrix formulation
 \eqref{eq:controlled_acrobot_pop} into the scalar polynomial equations used to
-construct the sparse semidefinite relaxation. The equations below reproduce the
-implemented Model~2 reduction without introducing center-of-mass positions or
-velocities as decision variables.
+construct the sparse semidefinite relaxation. It uses exactly the notation of
+Section~\ref{sec:discrete_motion_planning_acrobot}: the normalized control and
+constraint multipliers are denoted by \(\bar u_k\), \(\bar\lambda_{0,k}\), and
+\(\bar\lambda_{12,k}\). The center-of-mass positions and velocities are
+reconstructed from the rotations and are not optimization variables.
 
-\section{Reduced Variables and Objective}
+\paragraph{Reduced Variables and Objective}
 
 For $i\in\{1,2\}$, let
 \begin{equation}
@@ -297,23 +298,13 @@ l_1s_{1,k}+\frac{l_2}{2}s_{2,k}\\[0.1em]
 These expressions are used only for the exact elimination and for trajectory
 reconstruction; $x_{1,k}$ and $x_{2,k}$ are not optimization variables.
 
-Using $R_{i,k+1}=R_{i,k}F_{i,k}$ and
-$R_{i,k-1}=R_{i,k}F_{i,k-1}^{\top}$, define the reduced second differences
-\begin{subequations}
-\label{eq:app_acrobot_reduced_second_differences}
-\begin{align}
-\widehat{\Delta s}_{i,k}
-&:=s_{i,k}(a_{i,k}+a_{i,k-1}-2)
-  +c_{i,k}(b_{i,k}-b_{i,k-1}),
-\label{eq:app_acrobot_delta_s}\\
-\widehat{\Delta c}_{i,k}
-&:=c_{i,k}(a_{i,k}+a_{i,k-1}-2)
-  -s_{i,k}(b_{i,k}-b_{i,k-1}),
-\label{eq:app_acrobot_delta_c}
-\end{align}
-\end{subequations}
-for $i=1,2$ and $k=1,\ldots,N-1$. These are the scalar components of
-\eqref{eq:acrobot_reduced_differences}.
+Using \(R_{i,k+1}=R_{i,k}F_{i,k}\) and
+\(R_{i,k-1}=R_{i,k}F_{i,k-1}^{\top}\), the matrix
+\(A_{i,k}=F_{i,k}-2I_2+F_{i,k-1}^{\top}\), introduced in the reduced
+translational dynamics of Section~\ref{sec:discrete_motion_planning_acrobot},
+contains only \(F_{i,k-1}\) and
+\(F_{i,k}\). Its scalar contributions are substituted directly below; no
+additional hatted variables are introduced.
 
 Let
 \begin{equation}
@@ -346,51 +337,80 @@ J=\;&2\rho_R\sum_{i=1}^{2}
 &+2\alpha_F\sum_{k=0}^{N-2}\sum_{i=1}^{2}
 \left[(a_{i,k}-a_i^{\mathrm{des}})^2
      +(b_{i,k}-b_i^{\mathrm{des}})^2\right]
-+\gamma^{-1}\sum_{k=1}^{N-1}\widehat u_k^2.
++\gamma^{-1}\sum_{k=1}^{N-1}\bar u_k^2.
 \label{eq:app_acrobot_scalar_objective}
 \end{align}
 There is no multiplier regularization term in the optimization problem evaluated
 in this thesis.
 
-\section{Reduced Discrete Dynamics}
+\paragraph{Reduced Discrete Dynamics}
 
-The normalized solver variables are mapped to the physical quantities by
+The normalized variables are mapped to the physical quantities exactly as in
+Section~\ref{sec:discrete_motion_planning_acrobot}:
 \begin{equation}
-u_k^{\mathrm{phys}}=u_{\max}\widehat u_k,
+u_k^{\mathrm{phys}}=u_{\max}\bar u_k,
 \qquad
-\bar\lambda_{0,k}^{(j)}
-=\lambda_{\max}\widehat\lambda_{0,k}^{(j)},
+\lambda_{0,k}^{(j)}
+=\lambda_{\max}\bar\lambda_{0,k}^{(j)},
 \qquad
-\bar\lambda_{12,k}^{(j)}
-=\lambda_{\max}\widehat\lambda_{12,k}^{(j)},
+\lambda_{12,k}^{(j)}
+=\lambda_{\max}\bar\lambda_{12,k}^{(j)},
 \quad j=1,2.
 \label{eq:app_acrobot_scaling}
 \end{equation}
-After substituting
-\eqref{eq:app_acrobot_reduced_second_differences} into the translational
-discrete Euler--Lagrange equations, their four scalar components are
+For the geometry in \eqref{eq:app_acrobot_geometry_vectors} and the gravity
+direction \(e_2=[0\;-1]^{\top}\), the four scalar components of the reduced
+translational dynamics are
 \begin{subequations}
 \label{eq:app_acrobot_scalar_translational_dynamics}
 \begin{align}
-&m_1\frac{l_1}{2}\widehat{\Delta s}_{1,k}
+&m_1\frac{l_1}{2}
+\left[
+s_{1,k}(a_{1,k}+a_{1,k-1}-2)
++c_{1,k}(b_{1,k}-b_{1,k-1})
+\right]
 -h^2\lambda_{\max}
- \left(\widehat\lambda_{0,k}^{(1)}
-      +\widehat\lambda_{12,k}^{(1)}\right)=0,
+ \left(\bar\lambda_{0,k}^{(1)}
+      +\bar\lambda_{12,k}^{(1)}\right)=0,
 \label{eq:app_acrobot_translation_1x}\\
-&-m_1\frac{l_1}{2}\widehat{\Delta c}_{1,k}
+&-m_1\frac{l_1}{2}
+\left[
+c_{1,k}(a_{1,k}+a_{1,k-1}-2)
+-s_{1,k}(b_{1,k}-b_{1,k-1})
+\right]
 +h^2m_1g
 -h^2\lambda_{\max}
- \left(\widehat\lambda_{0,k}^{(2)}
-      +\widehat\lambda_{12,k}^{(2)}\right)=0,
+ \left(\bar\lambda_{0,k}^{(2)}
+      +\bar\lambda_{12,k}^{(2)}\right)=0,
 \label{eq:app_acrobot_translation_1y}\\
-&m_2\left(l_1\widehat{\Delta s}_{1,k}
-          +\frac{l_2}{2}\widehat{\Delta s}_{2,k}\right)
-+h^2\lambda_{\max}\widehat\lambda_{12,k}^{(1)}=0,
+&m_2\Bigl[
+l_1\bigl(
+s_{1,k}(a_{1,k}+a_{1,k-1}-2)
++c_{1,k}(b_{1,k}-b_{1,k-1})
+\bigr)
+\notag\\[-0.2em]
+&\hspace{5.5em}
++\frac{l_2}{2}\bigl(
+s_{2,k}(a_{2,k}+a_{2,k-1}-2)
++c_{2,k}(b_{2,k}-b_{2,k-1})
+\bigr)
+\Bigr]
++h^2\lambda_{\max}\bar\lambda_{12,k}^{(1)}=0,
 \label{eq:app_acrobot_translation_2x}\\
-&-m_2\left(l_1\widehat{\Delta c}_{1,k}
-           +\frac{l_2}{2}\widehat{\Delta c}_{2,k}\right)
+&-m_2\Bigl[
+l_1\bigl(
+c_{1,k}(a_{1,k}+a_{1,k-1}-2)
+-s_{1,k}(b_{1,k}-b_{1,k-1})
+\bigr)
+\notag\\[-0.2em]
+&\hspace{5.5em}
++\frac{l_2}{2}\bigl(
+c_{2,k}(a_{2,k}+a_{2,k-1}-2)
+-s_{2,k}(b_{2,k}-b_{2,k-1})
+\bigr)
+\Bigr]
 +h^2m_2g
-+h^2\lambda_{\max}\widehat\lambda_{12,k}^{(2)}=0,
++h^2\lambda_{\max}\bar\lambda_{12,k}^{(2)}=0,
 \label{eq:app_acrobot_translation_2y}
 \end{align}
 \end{subequations}
@@ -403,28 +423,28 @@ generated by the constraint forces are
 \begin{align}
 \mu_{1,0,k}
 &=-\frac{l_1}{2}
-  \left(c_{1,k}\bar\lambda_{0,k}^{(1)}
+  \lambda_{\max}\left(c_{1,k}\bar\lambda_{0,k}^{(1)}
        +s_{1,k}\bar\lambda_{0,k}^{(2)}\right),
 \label{eq:app_acrobot_mu_10}\\
 \mu_{1,12,k}
 &=\frac{l_1}{2}
-  \left(c_{1,k}\bar\lambda_{12,k}^{(1)}
+  \lambda_{\max}\left(c_{1,k}\bar\lambda_{12,k}^{(1)}
        +s_{1,k}\bar\lambda_{12,k}^{(2)}\right),
 \label{eq:app_acrobot_mu_112}\\
 \mu_{2,12,k}
 &=-\frac{l_2}{2}
-  \left(c_{2,k}\bar\lambda_{12,k}^{(1)}
+  \lambda_{\max}\left(c_{2,k}\bar\lambda_{12,k}^{(1)}
        +s_{2,k}\bar\lambda_{12,k}^{(2)}\right).
 \label{eq:app_acrobot_mu_212}
 \end{align}
 \end{subequations}
 Here,
 $\mu_{1,0,k}=\rho_{1,0}\times
-(R_{1,k}^{\top}\bar\lambda_{0,k})$,
+(R_{1,k}^{\top}\lambda_{0,k})$,
 $\mu_{1,12,k}=\rho_{1,12}\times
-(R_{1,k}^{\top}\bar\lambda_{12,k})$, and
+(R_{1,k}^{\top}\lambda_{12,k})$, and
 $\mu_{2,12,k}=\rho_{2,12}\times
-(R_{2,k}^{\top}\bar\lambda_{12,k})$.
+(R_{2,k}^{\top}\lambda_{12,k})$.
 Accordingly, the moment convention in the matrix POP is
 $\mu_{1,k}=\mu_{1,0,k}+\mu_{1,12,k}$ and
 $\mu_{2,k}=-\mu_{2,12,k}$.
@@ -434,12 +454,12 @@ The two independent scalar rotational equations are therefore
 \begin{align}
 &\operatorname{tr}(J_{d,1})(b_{1,k-1}-b_{1,k})
 +h^2\left(
-\mu_{1,0,k}+\mu_{1,12,k}-u_{\max}\widehat u_k
+\mu_{1,0,k}+\mu_{1,12,k}-u_{\max}\bar u_k
 \right)=0,
 \label{eq:app_acrobot_rotation_1}\\
 &\operatorname{tr}(J_{d,2})(b_{2,k-1}-b_{2,k})
 +h^2\left(
-u_{\max}\widehat u_k-\mu_{2,12,k}
+u_{\max}\bar u_k-\mu_{2,12,k}
 \right)=0,
 \label{eq:app_acrobot_rotation_2}
 \end{align}
@@ -449,7 +469,7 @@ for $k=1,\ldots,N-1$. Equations
 \eqref{eq:app_acrobot_scalar_rotational_dynamics} are all quadratic
 polynomials in the reduced decision variables.
 
-\section{Kinematics, Rotation Constraints, and Bounds}
+\paragraph{Kinematics, Rotation Constraints, and Bounds}
 
 For each link, $R_{i,k+1}=R_{i,k}F_{i,k}$ gives the two independent scalar
 kinematic equations
@@ -483,21 +503,21 @@ The increment, control, and componentwise multiplier bounds are
 a_{i,k}-\cos(\Delta\theta_{i,\max})&\geq0,
 &&i=1,2,\quad k=1,\ldots,N-1,
 \label{eq:app_acrobot_step_bounds}\\
-1-\widehat u_k^2&\geq0,
+1-\bar u_k^2&\geq0,
 &&k=1,\ldots,N-1,
 \label{eq:app_acrobot_control_bounds}\\
-1-\bigl(\widehat\lambda_{0,k}^{(j)}\bigr)^2&\geq0,
+1-\bigl(\bar\lambda_{0,k}^{(j)}\bigr)^2&\geq0,
 &&j=1,2,\quad k=1,\ldots,N-1,
 \label{eq:app_acrobot_lambda0_bounds}\\
-1-\bigl(\widehat\lambda_{12,k}^{(j)}\bigr)^2&\geq0,
+1-\bigl(\bar\lambda_{12,k}^{(j)}\bigr)^2&\geq0,
 &&j=1,2,\quad k=1,\ldots,N-1.
 \label{eq:app_acrobot_lambda12_bounds}
 \end{align}
 \end{subequations}
 Thus, the physical quantities satisfy
 $|u_k^{\mathrm{phys}}|\leq u_{\max}$ and
-$|\bar\lambda_{0,k}^{(j)}|,
- |\bar\lambda_{12,k}^{(j)}|\leq\lambda_{\max}$.
+$|\lambda_{0,k}^{(j)}|,
+ |\lambda_{12,k}^{(j)}|\leq\lambda_{\max}$.
 
 Finally, write
 \begin{equation}
@@ -537,227 +557,109 @@ $R_{i,0}=R_{i,1}=R_i^{\mathrm{init}}$. Together with the objective
 \eqref{eq:app_acrobot_scalar_initial_values} give the complete scalar POP
 implemented for the Acrobot relaxation.
 
-\chapter{Experimental Details}
+\chapter{Validation of the Reduced Acrobot Dynamics}
 \label{appendix:experimental_details}
 
-\section{Acrobot Evaluation Models}
-\label{appendix:acrobot_evaluation_models}
+The reduction used in Section~\ref{sec:discrete_motion_planning_acrobot} is
+validated against two references. The first reference is the full
+maximal-coordinate LGVI used in the numerical simulation, which propagates
+\(x_{i,k}\), \(v_{i,k}\), and \(R_{i,k}\) while enforcing the base and elbow
+constraints. The second is the continuous joint-coordinate Acrobot model used
+in Section~\ref{sec:numerical_simulation_results}, integrated with the adaptive
+DOP853 method. It serves as a high-accuracy numerical approximation of the
+physical dynamics; it is not a hardware measurement.
 
-\subsection{Reduced Maximal-Coordinates LGVI Model}
-\label{appendix:reduced_maximal_coordinates_LGVI_model}
+The reduced LGVI eliminates the position and velocity variables through
+\eqref{eq:app_acrobot_reconstructed_positions}. It replaces the preceding
+rotation by \(R_{i,k-1}=R_{i,k}F_{i,k-1}^{\top}\). Consequently, the full and reduced
+LGVIs describe the same discrete equations after exact elimination. The
+comparison of their reconstructed positions and absolute link rotations
+confirmed agreement within the nonlinear-solver tolerance. The relevant
+remaining error is therefore the common deviation of these discrete LGVI
+trajectories from the continuous reference.
 
-\textbf{Approximation used.} This model is algebraically equivalent to Model 1 in the exact polynomial problem, but uses the kinematics to remove \(R_{k-1}\) from the dynamics clique. The neighboring rotations are replaced by
+For the coarse discretizations \(h\in\{0.1,0.05\}\,\mathrm{s}\), a constant
+elbow torque is applied over \(T_c=0.1\,\mathrm{s}\). The MPC-relevant setting
+uses \(h=0.0025\,\mathrm{s}\) and \(T_c=0.025\,\mathrm{s}\). In all cases,
 \[
-R_{i,k+1}=R_{i,k}F_{i,k},
+u\in\{-20,-10,-5,0,5,10,20\}\,\mathrm{N\,m}.
+\]
+Let \(\Delta\theta_{i,k}\in(-\pi,\pi]\) be the shortest signed difference
+between the absolute angle of link \(i\) in the LGVI and continuous
+trajectories. The terminal and trajectory errors are
+\begin{equation}
+e_{\theta,f}=
+\sqrt{\Delta\theta_{1,N_c}^{2}+\Delta\theta_{2,N_c}^{2}},
 \qquad
-R_{i,k-1}=R_{i,k}F_{i,k-1}^{\top}.
-\]
-Hence
-\[
-\widehat\Delta^s_{i,k}
-=s_{i,k}(a_{i,k}+a_{i,k-1}-2)+c_{i,k}(b_{i,k}-b_{i,k-1}),
-\]
-\[
-\widehat\Delta^c_{i,k}
-=c_{i,k}(a_{i,k}+a_{i,k-1}-2)-s_{i,k}(b_{i,k}-b_{i,k-1}).
-\]
-These are exactly the same second differences as in Model 1, only rewritten with \(R_k,F_{k-1},F_k\).
+e_{\theta,\mathrm{RMSE}}=
+\sqrt{\frac{1}{2(N_c+1)}
+\sum_{k=0}^{N_c}
+\left(\Delta\theta_{1,k}^{2}+\Delta\theta_{2,k}^{2}\right)},
+\label{eq:app_acrobot_validation_errors}
+\end{equation}
+where \(N_c=T_c/h\). Table~\ref{tab:app_acrobot_validation_steps} reports the
+mean over all tested inputs. Since the full and reduced LGVIs coincide within
+the reported precision, one common error pair is shown rather than duplicating
+identical columns.
 
-\textbf{Reduced translational dynamics.}
-\[
-m_1\frac{\ell_1}{2}\widehat\Delta^s_{1,k}
--h^2\Big(\bar\lambda^{(1)}_{0,k}+\bar\lambda^{(1)}_{12,k}\Big)=0,
-\]
-\[
--m_1\frac{\ell_1}{2}\widehat\Delta^c_{1,k}
-+h^2m_1g
--h^2\Big(\bar\lambda^{(2)}_{0,k}+\bar\lambda^{(2)}_{12,k}\Big)=0,
-\]
-\[
-m_2\left[\ell_1\widehat\Delta^s_{1,k}+\frac{\ell_2}{2}\widehat\Delta^s_{2,k}\right]
-+h^2\bar\lambda^{(1)}_{12,k}=0,
-\]
-\[
--m_2\left[\ell_1\widehat\Delta^c_{1,k}+\frac{\ell_2}{2}\widehat\Delta^c_{2,k}\right]
-+h^2m_2g+h^2\bar\lambda^{(2)}_{12,k}=0.
-\]
+\begin{table}[ht]
+\centering
+\caption{Mean angular errors of the full and reduced maximal-coordinate LGVIs
+relative to the continuous physical reference.}
+\label{tab:app_acrobot_validation_steps}
+\small
+\begin{tabular}{ccccc}
+\hline
+\(h\,[\mathrm{s}]\) & \(T_c\,[\mathrm{s}]\) & Steps &
+\(e_{\theta,f}\,[{}^\circ]\) &
+\(e_{\theta,\mathrm{RMSE}}\,[{}^\circ]\)\\
+\hline
+0.1000 & 0.100 & 1  & 7.758 & 3.879\\
+0.0500 & 0.100 & 2  & 4.202 & 1.752\\
+0.0025 & 0.025 & 10 & 0.003 & 0.001\\
+\hline
+\end{tabular}
+\end{table}
 
-\textbf{Clique choice.} Since \(R_{k-1}\) does not appear explicitly after substitution, one interior stage can be covered by
-\[
-\boxed{\mathcal I_{k}^{\mathrm{A},21}=
-\{R_k,R_{k+1},F_{k-1},F_k,\lambda_{0,k},\lambda_{12,k},u_k\}},
-\qquad k=1,\dots,N-1.
-\]
-The size is
-\[
-2\cdot4+2\cdot4+4+1=\boxed{21}.
-\]
-Boundary and terminal cliques remain
-\[
-\mathcal I_{\mathrm{init}}^{\mathrm{A},25}
-=\{R_0,R_1, R_2, F_0, F_1, \lambda_{0,1},\lambda_{12,1},u_1\},
-\qquad |\mathcal I_{\mathrm{init}}^{\mathrm{A},25}|=25,
-\]
-\[
-\mathcal I_{\mathrm{term}}^{\mathrm{A},21}
-=\{R_{N-1}, R_N, F_{N-2}, F_{N-1}, \lambda_{0,N-1},\lambda_{12,N-1},u_{N-1}\},
-\qquad |\mathcal I_{\mathrm{term}}^{\mathrm{A},21}|=21.
-\]
-The total number of variables is again \(13N-1\). The advantage is the smaller clique. The drawback is that the sparse relaxation can become weaker,
-because \(R_{k-1}\) is not in the same moment block as the rest of the three-node stencil.
+The reduction from \(h=0.1\,\mathrm{s}\) to \(h=0.05\,\mathrm{s}\) over the
+same physical interval decreases both errors, although deviations of several
+degrees remain for larger inputs. The last row additionally shortens the
+control interval and must therefore not be interpreted as a pure step-size
+convergence test. It instead measures the prediction accuracy over the interval
+used by the numerical closed-loop implementation.
 
-\subsection{Discretized Newton-Euler-Lagrange Model}
-\label{appendix:discretized_newton_euler_lagrange_model}
+Table~\ref{tab:app_acrobot_validation_torque} separates the influence of the
+input magnitude. For \(|u|>0\), the values are averaged over the corresponding
+positive and negative torques. Each entry gives
+\(e_{\theta,f}/e_{\theta,\mathrm{RMSE}}\) in degrees.
 
-\paragraph{Coordinates and approximation}
-Let
-\[
-q_k=
-\begin{bmatrix}q_{1,k}\\q_{2,k}\end{bmatrix},
-\qquad
-\dot q_k=\omega_k=
-\begin{bmatrix}\omega_{1,k}\\\omega_{2,k}\end{bmatrix},
-\]
-where $q_{1,k}$ is the absolute shoulder angle and $q_{2,k}$ is the
-relative elbow angle. Thus, $R_{2,k}$ represents the relative joint
-coordinate, not the absolute orientation of the second link. For
-$i\in\{1,2\}$, define
-\[
-R_{i,k}=
-\begin{bmatrix}
-c_{i,k}&-s_{i,k}\\
-s_{i,k}&c_{i,k}
-\end{bmatrix},
-\qquad
-F_{i,k}=
-\begin{bmatrix}
-a_{i,k}&-b_{i,k}\\
-b_{i,k}&a_{i,k}
-\end{bmatrix}.
-\]
-Over the interval $[t_{k-1},t_k]$, the torque and angular velocity are
-evaluated at the left endpoint:
-\[
-u(t)\approx u_{k-1},\qquad
-\dot q(t_{k-1})=\omega_{k-1},\qquad
-\ddot q(t_{k-1})
-\approx\frac{\omega_k-\omega_{k-1}}{h}.
-\]
-The Lie-group reconstruction is
-\[
-R_{i,k}=R_{i,k-1}F_{i,k-1},
-\]
-or equivalently
-\[
-c_{i,k}-c_{i,k-1}a_{i,k-1}+s_{i,k-1}b_{i,k-1}=0,
-\]
-\[
-s_{i,k}-s_{i,k-1}a_{i,k-1}-c_{i,k-1}b_{i,k-1}=0.
-\]
-Following the cubic approximation, the step sine is related
-to the physical angular velocity by
-\[
-b_{i,k-1}
--h\omega_{i,k-1}
-+\frac{h^3}{6}\omega_{i,k-1}^3=0.
-\]
-The associated polynomial rotation constraints are
-\[
-c_{i,k}^2+s_{i,k}^2=1,\qquad
-a_{i,k}^2+b_{i,k}^2=1,\qquad
-a_{i,k}\geq a_{\min}>0.
-\]
+\begin{table}[ht]
+\centering
+\caption{Mean angular errors of the full and reduced LGVIs grouped by control
+magnitude relative to the continuous reference.}
+\label{tab:app_acrobot_validation_torque}
+\small
+\begin{tabular}{ccc}
+\hline
+\(|u|\,[\mathrm{N\,m}]\) &
+\(h=0.05\,\mathrm{s},\ T_c=0.1\,\mathrm{s}\) &
+\(h=0.0025\,\mathrm{s},\ T_c=0.025\,\mathrm{s}\)\\
+\hline
+0  & 0.041/0.017 & 0.000026/0.000008\\
+5  & 1.860/0.773 & 0.001144/0.000346\\
+10 & 4.074/1.693 & 0.002512/0.000749\\
+20 & 8.752/3.658 & 0.006794/0.001953\\
+\hline
+\end{tabular}
+\end{table}
 
-\paragraph{Discrete Newton--Euler--Lagrange dynamics}
-The mass matrix, Coriolis vector, and gravity torque evaluated at node
-$k$ are
-\[
-M_k=
-\begin{bmatrix}
-I_1+I_2+m_2l_1^2+2m_2l_1l_{c2}c_{2,k}
-&
-I_2+m_2l_1l_{c2}c_{2,k}
-\\
-I_2+m_2l_1l_{c2}c_{2,k}
-&
-I_2
-\end{bmatrix},
-\]
-\[
-\gamma_k:=C(q_k,\omega_k)\omega_k
-=
-\begin{bmatrix}
--m_2l_1l_{c2}s_{2,k}
-\left(
-2\omega_{1,k}\omega_{2,k}
-+\omega_{2,k}^2
-\right)
-\\
-m_2l_1l_{c2}s_{2,k}\omega_{1,k}^2
-\end{bmatrix},
-\]
-\[
-\tau_{g,k}
-=
-\begin{bmatrix}
--m_1gl_{c1}s_{1,k}
--m_2g\!\left[
-l_1s_{1,k}
-+l_{c2}
-\left(
-s_{1,k}c_{2,k}
-+c_{1,k}s_{2,k}
-\right)
-\right]
-\\
--m_2gl_{c2}
-\left(
-s_{1,k}c_{2,k}
-+c_{1,k}s_{2,k}
-\right)
-\end{bmatrix},
-\qquad
-B=
-\begin{bmatrix}
-0\\1
-\end{bmatrix}.
-\]
-Hence, for $k=1,\ldots,N$, the left-endpoint polynomial dynamics are
-\[
-\boxed{
-M_{k-1}\left(\omega_k-\omega_{k-1}\right)
-+hC(q_{k-1},\omega_{k-1})\omega_{k-1}
--h\tau_{g,k-1}
--hBu_{k-1}=0.
-}
-\]
-These two scalar equations, together with the reconstruction, cubic-step,
-and circle constraints, form the discrete transition model. The highest
-polynomial degree is three.
+The error increases with \(|u|\), because stronger torques produce larger
+intra-step changes that are represented less accurately by a coarse finite
+step. For \(h=0.0025\,\mathrm{s}\) and \(T_c=0.025\,\mathrm{s}\), the mean
+terminal error remains below \(0.01^\circ\), even at
+\(|u|=20\,\mathrm{N\,m}\). These results verify that the reduction preserves
+the full maximal-coordinate LGVI and that the selected fine simulation scale
+provides close agreement with the continuous Acrobot dynamics. The validation
+concerns the prediction model itself and is independent of whether a subsequent
+SDP relaxation is tight.
 
-\paragraph{Trajectory optimization and chain clique}
-Define the augmented polynomial state
-\[
-x_k=
-\begin{bmatrix}
-c_{1,k}&s_{1,k}&a_{1,k}&b_{1,k}&\omega_{1,k}&
-c_{2,k}&s_{2,k}&a_{2,k}&b_{2,k}&\omega_{2,k}
-\end{bmatrix}^{\!T}\in\mathbb{R}^{10}.
-\]
-
-The standard interior chain clique is
-\[
-\boxed{
-\bm{z}_{\mathrm{A}}(\mathcal I_k^{\mathrm{A}})=\{\bm{x}_{k-1},u_{k-1},\bm{x}_k\},
-\qquad |\mathcal I_k^{\mathrm{A}}|=10+1+10=21.
-}
-\]
-
-\section{Model Evaluation}
-\label{appenidx:model_evaluation}
-
-\subsection{Numerical Simulation Validation}
-\label{appendix:numerical_simulation_validation}
-
-\subsection{SDP Tightness and Dynamic Residuals}
-\label{appendix:SDP_tightness_and_dynamic_residuals}

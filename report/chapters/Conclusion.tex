@@ -1,6 +1,191 @@
 %_____Zusammenfassung, Ausblick_________________________________
 \chapter{Conclusion}
-\label{chapter:conclusion}
+\label{chap:conclusion}
+
+This thesis analyzed the combination of Lie group
+variational integrators (LGVIs) with sparse Moment-SOS semidefinite relaxations
+for multi rigid-body trajectory optimization. 
+
+Firstly, Chapter \ref{sec:introduction} 
+formulated the general optimization problem and identified the research gap of 
+semidefinite relaxation providing global optimal solutions
+for some low-dimensional rigid-body systems, however, not analyzed for 
+different complex multibody systems.
+Thereby, accuracy of lower bounds, relaxation tightness and feasible extraction become
+problem dependent as the dynamical complexity increases. This question was
+examined for a single rigid body and a constrained, underactuated multibody
+system.
+
+In order to derive LGVIs, 
+Chapter \ref{chapter:preliminaries_lie_groups} briefly introduced the matrix 
+Lie groups, Lie algebras, and local
+group variations required for the following derivations.
+%%%%%%
+
+Chapter \ref{chapter:continous_mechanics_of_rigid_bodies_on_lie_groups} 
+established the continuous mechanical foundation. The
+Euler-Lagrange equations on a matrix Lie group were derived from Hamilton's
+principle using left-trivialized variations \eqref{eq:continuous_euler_lagrange_lie_group}.
+Additionally, the Legendre transformation was
+used to express the dynamics in Hamiltonian form \eqref{eq:continuous_hamilton_equations_lie_group}. 
+This framework was applied to
+the unforced 3D pendulum on $\mathrm{SO}(3)$, for which the continuous equations
+were derived \eqref{eq:continuous_3D_pendulum_euler_lagrange}. 
+To validate the LGVI properties of the 3D pendulum,
+the momentum conservation associated with rotations about gravity was
+verified \eqref{eq:continuous_3d_pendulum_validation} using Noether's theorem.
+
+Afterwards, Chapter \ref{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups} 
+transferred the continous lagrangian variational construction to discrete time. 
+Instead of
+discretizing the continuous equations of motion directly, the action integral was
+replaced by a discrete action sum \eqref{eq:discrete_action_sum}. 
+This yields to the discrete Euler-Lagrange \eqref{eq:discrete_euler_lagrange_lie_group} 
+and Hamiltonian equations \eqref{eq:discrete_hamilton_equations_lie_group}, 
+discrete Legendre transformations \eqref{eq:discrete_legendre_transformations}, 
+and their forced extension \eqref{eq:discrete_forced_Euler_Lagrange}. 
+A computational approach was introduced to solve the implicit discrete equations of motion. 
+Thereby, multiplicative kinematic updates preserve the Lie-group structure, 
+while a Cayley parametrization and Newton iteration solved the implicit rotation 
+update. In corespondance, to the continous case, the discrete 
+unforced and controlled 3D-pendulum LGVI were derived \eqref{eq:discrete_3D_pendulum_EL}. 
+This single rigid-body formulation was
+extended to a multi-body framework for deriving LGVI for coupled rigid bodies. 
+Therefore, the Acrobot LGVI using maximal coordinates was derived as an example 
+\eqref{eq:acrobot_full_del_shifted}. Its two center-of-mass positions and
+$\mathrm{SO}(2)$ attitudes were coupled by holonomic constraints and
+Lagrangian multipliers.
+
+To optimize these models trajectories, Chapter \ref{chapter:certifiable_trajectory_optimization} 
+transforms these discrete dynamical models into finite-horizon polynomial
+optimization problems (POPs). However, as these equations are nonconvex
+semidefinite programming is introduced to convert these into convex optimization problems.
+Thereby the Moment-SOS hierarchy and sparse relaxations are introduced. 
+Afterwards, the POP of the 3D-pendulum is defined on
+$\mathrm{SO}(3)$ \eqref{eq:controlled_3d_pendulum_pop}. 
+For the Acrobot, the derived LGVI was reduced to a smaller variable size optimization problem.
+Thereby, the holonomic constraints eliminated
+the positions and the velocity variables, which were expressed through rotations, 
+reducing the decision vector from $17N+3$ to $13N-1$ variables. Still, 
+the quadratic structure of the dynamics was preserved. The resulting POP was defined in \eqref{eq:controlled_acrobot_pop}.
+In addition, chain-like cliques \eqref{eq:acrobot_full_self_interior_cliques} 
+were compared with a multibody-specific
+clique construction \eqref{eq:acrobot_hybrid_self_cliques} 
+to seperate moment matrices for computational efficiency.
+Finally, the reduced Acrobot POP was embedded in an SDP-based
+model predictive control (MPC) loop that applied only the first extracted control
+after each SDP optimization itteratively.
+
+In Consequence, Chapter \ref{chapter:evaluation} 
+evaluated the resulting models and optimization problems. 
+Firstly, a numerical simulation of the 3D-pendulum LGVI 
+and the Acrobot LGVI was implemented to verify the derived equations of motion.
+As result, the unforced 3D-pendulum simulation remained on $\mathrm{SO}(3)$, 
+preserved the momentum, and conserved the energy over a long time horizon. 
+Similarly, the Acrobot simulations preserved both $\mathrm{SO}(2)$ attitudes and 
+the base and elbow constraints. 
+Secondly, the POPs were solved using SDP relaxations and evaluated for 
+feasibility and optimality. All five evaluated 3D-pendulum relaxations 
+were numerically rank one, gave feasible extractions, and were certified for 
+their discrete POPs (see Table \ref{tab:pendulum_3d_sdp_statistics}). 
+For the 3D-pendulum minimum degree chordal extension
+was used for the clique construction. Moreover, the Acrobot $0^\circ$ and $45^\circ$ targets were also 
+certified using chain-like cliques and multibody-specific clique constructions. 
+In contrast, the $90^\circ$,
+$135^\circ$, and $180^\circ$ semidefinite relaxation cases produced higher-rank moment
+matrices and infeasible extractions (see Table \ref{tab:acrobot_sdp_statistics_full}-\ref{tab:acrobot_sdp_statistics_hybrid}). 
+Therefore, no global certificate was obtained for these cases. Nevertheless,
+the closed loop MPC implementation with repeated
+first-control extraction generated feasible simulated Acrobot swing-ups. With
+the $15\,\mathrm{N\,m}$ bound, the two matched time-scale cases each stabilized
+$94$ of $100$ sampled states, compared with $34$ of $100$ for the mismatched
+case (see Fig.\ref{fig:acrobot_basin_comparison}). 
+
+Finally, Chapter \ref{chap:discussion} interpreted these findings in relation to the research question and
+the state of the art literature. Additional, possible applications of optimization and learning-based methods were identified.
+
+In connection to the research question the results provide following analysis. 
+The LGVI
+dynamics of both considered systems can be represented by low-degree polynomial
+constraints while retaining their Lie-group structure. The resulting POPs can be solved by sparse Moment-SOS relaxations, 
+which can provide certified global optima for some low-dimensional
+rigid-body problems. Here, Sparse second-order Moment-SOS relaxation recovered feasible trajectories that
+were certified as globally optimal for the tight 3D-pendulum problems and the two
+simpler Acrobot optimization problems. However, the Acrobot cases of 
+$\theta_{des} \geq 90^\circ$ prevent this result from being
+generalized to complex multibody motions. 
+Also, sparsity reduces the SDP computation time, 
+but does not guarantee tightness or feasible extraction.
+The approach of an closed-loop SDP-MPC produces feasible trajectories 
+for even complex optimization problems, for example the stabilization of 
+an underactuated Acrobot,
+when the prediction was not rank one. However, it did not globally certify 
+these solutions.
+
+\paragraph{Limitations}
+
+This thesis does not consider contact, collision avoidance and obstacles. Adittionally,
+hardware experiments were not performed.
+
+Computational scaling is the strongest practical limitation because the moment
+matrix dimension grows with the variables in each clique. Without
+sparsity, the reported problems would require matrices of size
+$91{,}378\times91{,}378$ and $304{,}590\times304{,}590$. Even with sparsity,
+MOSEK required about $56$ to $69$ min for one 3D-pendulum problem,
+$15$--$31$ min for the special-multibody Acrobot cliques, and $45$--$113$ min
+for the complete chain-like cliques on eight CPU cores. The successful initial
+$(80^\circ,80^\circ)$ Acrobot MPC computations required $3.1$, $27.3$, and $17.8$ hours
+in Cases I--III. The implementation is therefore an offline study. In general, larger
+time horizons, systems, or coupled constraints are increasing the computational
+expense significantly.
+
+\paragraph{Future Work}
+
+A first direction is to reduce the polynomial representation before constructing
+the SDP. For spatial rotations, a unit-quaternion formulation should be compared
+with the rotation-matrix formulation used here. The relevant question is not only
+whether fewer scalar attitude variables are obtained, but whether the complete
+quaternion POP produces smaller sparse moment blocks while preserving suitable
+polynomial dynamics and reliable extraction. This comparison should include the
+resulting polynomial degree, constraints, clique structure, numerical conditioning,
+and relaxation tightness.
+
+The framework should next be transferred to additional multibody benchmarks. A
+cart--pole system provides a useful intermediate problem containing translational
+and rotational motion. Its LGVI and reduced POP could be derived, its temporal
+and problem-specific sparsity identified, and the generic and user-defined clique
+constructions compared. The same SDP--MPC procedure could then be applied to
+determine whether the first-control strategy remains effective. This would provide
+a controlled progression toward systems with more links, followed by obstacle,
+contact, uncertainty, and hardware experiments already identified as open in this
+thesis.
+
+The computational backend should also be reconsidered. A first-order GPU solver
+such as CuADMM could replace the interior-point solver MOSEK and substantially
+reduce solution time, although potentially lower numerical accuracy
+would have to be evaluated carefully whenever a certificate is claimed. The solver
+itself would not make a fixed relaxation tighter. However, faster solution of the
+SDP could make larger cliques or higher relaxation orders affordable, which may
+yield tighter bounds for the difficult Acrobot cases, and could reduce the cost of
+longer horizons. Warm starting consecutive MPC problems and reusing their
+unchanged polynomial and sparsity structure should be investigated for the same
+reason.
+
+Finally, future work could examine adaptive and iterative extraction. Rank metrics
+could identify locally tight moment blocks, after which only variables supported by
+verified rank-one blocks would be fixed and the remaining relaxation solved again.
+Clique merging or a higher relaxation order could be applied selectively where the
+rank condition fails. Such a procedure may help construct a feasible full-horizon
+trajectory, but fixing local decisions alone is not a certificate of global optimality.
+A global claim would still require satisfaction of all constraints of the original POP
+and agreement between the objective of the completed feasible trajectory and a
+valid lower bound for that original problem. In parallel, hard terminal constraints
+or terminal sets should be evaluated so that certification refers to reaching the
+target rather than only minimizing a soft tracking cost. For the closed-loop method,
+a systematic study of matched prediction and execution time scales, together with
+terminal stability conditions, would be required before extending the approach
+from empirical stabilization to a certified controller.
+
 
 \begin{comment}
 	

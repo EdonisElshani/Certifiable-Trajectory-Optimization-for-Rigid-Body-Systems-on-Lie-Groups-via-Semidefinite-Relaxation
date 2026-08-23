@@ -344,12 +344,12 @@ In the following Section, the unforced mechanics of a three-degree-of-freedom pe
 
 \paragraph{Configuration Manifold}
 
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=0.7\textwidth]{Pendulum.png}
-%	\caption{3D-pendulum system attached to a fixed pivot.}
-%	\label{fig:3d_pendulum}
-%\end{figure}
+\begin{figure}[t!]
+	\centering
+	\includegraphics[width=0.75\textwidth]{pendulum_3d_so3.pdf}
+	\caption{3D-pendulum system attached to a fixed pivot.}
+	\label{fig:3d_pendulum}
+\end{figure}
 
 The 3D-Pendulum model, illustrated in \ref{fig:3d_pendulum}, consist of a rigid body rotating under the influence of gravity $g$ attached to a fixed frictionless pivot \cite{Shen20043DPendulum}. Moreover, the system has no external control moment, since it is unforced. A space frame and a body-fixed frame attached to the pendulum, with origin at the pivot are defined. The gravity direction in the space frame is represented by the unit vector $\bm{e}_3$, defining the vector from the pivot to the center of mass to $\bm{\rho_{c}}$ in the body frame. Following the fixed pivot, there is no translational degree of freedom. Therefore, the configuration manifold of the model is given by the special orthogonal group
 \[
@@ -604,7 +604,7 @@ L\!\left(\bm{R}\exp\!\left(\epsilon \zeta \bm{R}^{-1}\hat{\bm{e}}_3\bm{R}\right)
 \notag
 \end{align}
 Since only the potential term of the 3D-pendulum $V(\bm{R})$ \eqref{eq:3D_pendulum_potential_energy} depends on $\bm{R}$ and \eqref{eq:continuous_3D_pendulum_variation_eta} is skew symmetric, it can be shown that 
-\begin{align}
+\begin{align} \label{eq:continuous_3d_pendulum_validation}
 \left.\frac{d}{d\epsilon}\right|_{\epsilon=0}
 L\!\left(\bm{R}\exp\!\left(\epsilon \zeta \bm{R}^{-1}\hat{\bm{e}}_3\bm{R}\right),\hat{\bm{\omega}}\right)
 &=
