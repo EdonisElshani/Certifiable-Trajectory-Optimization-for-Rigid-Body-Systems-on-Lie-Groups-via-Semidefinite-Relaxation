@@ -109,7 +109,7 @@ Jean~H. Gallier and Jocelyn Quaintance.
 \bibitem[Hai94]{Hairer1994}
 Ernst Hairer.
 \newblock Backward analysis of numerical integrators and symplectic methods.
-\newblock {\em Annals of Numerical Mathematics}, 1:107 -- 132, 07 1994.
+\newblock {\em Annals of Numerical Mathematics}, 1:107--132, 07 1994.
 
 \bibitem[Hai00]{Hairer2000}
 E.~Hairer.
@@ -132,6 +132,14 @@ Luca~M. Hartmann, Orcun Karaca, Tinus Dorfling, Tobias Geyer, and Adam Kurpisz.
   34(3):1608--1616, 2026.
 \newblock \href {https://doi.org/10.1109/TCST.2026.3662319}
   {\path{doi:10.1109/TCST.2026.3662319}}.
+
+\bibitem[HNW93]{HairerNorsettWanner1993}
+Ernst Hairer, Syvert~P. N{\o}rsett, and Gerhard Wanner.
+\newblock {\em Solving Ordinary Differential Equations I: Nonstiff Problems},
+  volume~8 of {\em Springer Series in Computational Mathematics}.
+\newblock Springer, Berlin, Heidelberg, 2 edition, 1993.
+\newblock \href {https://doi.org/10.1007/978-3-540-78862-1}
+  {\path{doi:10.1007/978-3-540-78862-1}}.
 
 \bibitem[Ise01]{Arieh_Cayley_Motivation}
 Arieh Iserles.
@@ -164,20 +172,23 @@ Shucheng Kang, Xiaoyang Xu, Jay Sarva, Ling Liang, and Heng Yang.
   Robotics XVI, Volume 1}, pages 43--65, Cham, 2026. Springer Nature
   Switzerland.
 
-\bibitem[Las06a]{Lasserre2006Sparse}
+\bibitem[Las01]{Lasserre2001Global}
+Jean~B. Lasserre.
+\newblock Global optimization with polynomials and the problem of moments.
+\newblock {\em SIAM Journal on Optimization}, 11(3):796--817, 2001.
+\newblock \href
+  {https://arxiv.org/abs/https://doi.org/10.1137/S1052623400366802}
+  {\path{arXiv:https://doi.org/10.1137/S1052623400366802}}, \href
+  {https://doi.org/10.1137/S1052623400366802}
+  {\path{doi:10.1137/S1052623400366802}}.
+
+\bibitem[Las06]{Lasserre2006Sparse}
 Jean~B. Lasserre.
 \newblock Convergent sdp-relaxations in polynomial optimization with sparsity.
 \newblock {\em SIAM Journal on Optimization}, 17(3):822--843, 2006.
 \newblock \href {https://arxiv.org/abs/https://doi.org/10.1137/05064504X}
   {\path{arXiv:https://doi.org/10.1137/05064504X}}, \href
   {https://doi.org/10.1137/05064504X} {\path{doi:10.1137/05064504X}}.
-
-\bibitem[Las06b]{Lasserre2001Global}
-Jean-Bernard Lasserre.
-\newblock Global optimization with polynomials and the problem of moments.
-\newblock {\em SIAM Journal on Optimization}, 11:796--817, 07 2006.
-\newblock \href {https://doi.org/10.1137/S1052623400366802}
-  {\path{doi:10.1137/S1052623400366802}}.
 
 \bibitem[Lee08]{Lee2008}
 Taeyoung Lee.
@@ -309,12 +320,12 @@ Russ Tedrake.
 \newblock 2023.
 \newblock URL: \url{https://underactuated.csail.mit.edu}.
 
-\bibitem[{The}24]{Intro_KUKA}
+\bibitem[{The}22]{Intro_KUKA}
 {Thermal Processing}.
 \newblock Kuka, plasmatreat to highlight surface-bonding solutions at fabtech.
 \newblock
   \url{https://thermalprocessing.com/news/kuka-plasmatreat-to-highlight-surface-bonding-solutions-at-fabtech/},
-  2024.
+  2022.
 \newblock Accessed: 2026-05-12.
 
 \bibitem[TJVG25]{Sangli2025}

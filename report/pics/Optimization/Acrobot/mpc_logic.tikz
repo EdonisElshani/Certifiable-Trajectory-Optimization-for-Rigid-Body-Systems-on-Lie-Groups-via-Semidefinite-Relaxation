@@ -64,7 +64,7 @@
      Acrobot LGVI \textcolor{red}{\eqref{eq:acrobot_full_del_shifted}}};
 
 \node[smallprocess, below=0.8cm of simulate] (error)
-    {Compute $e_{R,j+1},\,e_{\omega,j+1}$};
+    {Compute $e_{R,j},\,e_{F,j}$};
 
 \node[decision, below right=0.9cm and 1.9cm of error.south] (terminal)
     {Check\\terminal\\condition\\

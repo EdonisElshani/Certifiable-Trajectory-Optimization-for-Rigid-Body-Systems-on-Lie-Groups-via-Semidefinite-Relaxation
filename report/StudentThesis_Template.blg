@@ -10,49 +10,47 @@ Reallocating 'global_strs' (item size: 1) to 4000000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: refs/mybib.bib
-Warning--I didn't find a database entry for "eq:acrobot_full_del_shifted_kinematics_1"
-Warning--I didn't find a database entry for "eq:acrobot_full_del_shifted_kinematics_2"
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Warning--empty publisher in tedrake_underactuated
-You've used 46 entries,
+You've used 47 entries,
             3368 wiz_defined-function locations,
-            1052 strings with 15914 characters,
-and the built_in function-call counts, 25096 in all, are:
-= -- 2725
-> -- 929
-< -- 27
-+ -- 296
-- -- 286
-* -- 1585
-:= -- 3566
-add.period$ -- 182
-call.type$ -- 46
-change.case$ -- 281
-chr.to.int$ -- 43
-cite$ -- 47
-duplicate$ -- 715
-empty$ -- 2187
-format.name$ -- 346
-if$ -- 6258
-int.to.chr$ -- 4
+            1059 strings with 16108 characters,
+and the built_in function-call counts, 25671 in all, are:
+= -- 2788
+> -- 955
+< -- 28
++ -- 304
+- -- 295
+* -- 1633
+:= -- 3649
+add.period$ -- 186
+call.type$ -- 47
+change.case$ -- 288
+chr.to.int$ -- 45
+cite$ -- 48
+duplicate$ -- 731
+empty$ -- 2233
+format.name$ -- 356
+if$ -- 6399
+int.to.chr$ -- 3
 int.to.str$ -- 0
-missing$ -- 42
-newline$ -- 272
-num.names$ -- 140
-pop$ -- 509
+missing$ -- 44
+newline$ -- 278
+num.names$ -- 143
+pop$ -- 520
 preamble$ -- 1
-purify$ -- 334
+purify$ -- 342
 quote$ -- 0
-skip$ -- 1691
+skip$ -- 1732
 stack$ -- 0
-substring$ -- 1076
-swap$ -- 165
-text.length$ -- 85
+substring$ -- 1079
+swap$ -- 172
+text.length$ -- 88
 text.prefix$ -- 18
 top$ -- 0
-type$ -- 340
+type$ -- 344
 warning$ -- 1
-while$ -- 169
-width$ -- 48
-write$ -- 682
-(There were 3 warnings)
+while$ -- 172
+width$ -- 49
+write$ -- 700
+(There was 1 warning)

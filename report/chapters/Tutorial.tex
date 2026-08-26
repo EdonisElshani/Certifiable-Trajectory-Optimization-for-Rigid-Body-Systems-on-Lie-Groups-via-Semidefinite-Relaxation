@@ -239,8 +239,8 @@ This package is especially useful if custom spacing is required for multiple equ
 Consistency is key: Choose a style for your notation and stick with it. We suggest giving a notation list somewhere in your report (ideally in the beginning). 
 Most often used:
 \begin{itemize}
-	\item vectors: bold, small letters \verb|\mathbf{}| ($\mathbf{a}$) or \verb|\boldsymbol{}| ($\boldsymbol{a}$)
-	\item matrices: bold, capital letters \verb|\mathbf{}| ($\mathbf{A}$) or \verb|\boldsymbol{}| ($\boldsymbol{A}$)
+	\item vectors: bold, small letters \verb|\bm{}| ($\bm{a}$)
+	\item matrices: bold, capital letters \verb|\bm{}| ($\bm{A}$)
 	\item scalars: small (sometimes also capital), non-bold letters ($a$)
 	\item general sets: \verb|\mathcal{}|
 	\item sets of numbers (real, whole, $\ldots$): \verb|\mathbb{}| ($\mathbb{A}$)
@@ -248,7 +248,7 @@ Most often used:
 
 \subsection{Symbol Glossary}
 
-Instead of writing mathematical symbols individually in each equation, you can also use a glossary entry. For example, instead of explicitely writing \verb|\mathbf{u}_k| to denote a control input $\mathbf{u}_k$ at time step $k$, you can define a glossary entry, e.g., ``uk'', and just use \verb|\gls{uk}|, which then also yields \gls{uk}. Glossary entries for symbols are defined in the file ./include/gloss.tex.
+Instead of writing mathematical symbols individually in each equation, you can also use a glossary entry. For example, instead of explicitly writing \verb|\bm{u}_k| to denote a control input $\bm{u}_k$ at time step $k$, you can define a glossary entry, e.g., ``uk'', and just use \verb|\gls{uk}|, which then also yields \gls{uk}. Glossary entries for symbols are defined in the file ./include/gloss.tex.
 
 This procedure is useful for two reasons: 1) You can shorten long symbol expressions significantly. 2) If you later want to change a symbol, you only need to change the glossary entry once - you don't need to change every single symbol in your document.
 
@@ -259,7 +259,7 @@ There are a few important style notes to consider in equations.
 \item Indices: Use italic font for math-related indices (parameters, variables, ...) and non-italic font for other descriptions, e.g., $x_t$ (time $t$) and $x_{\text{ref}}$ (ref: reference).
 \item Mathematics operations are non-italic, e.g., $\sin(x)$. Often, functions are already defined in latex (e.g., use \verb|\sin(x)|). If not, use \verb|\mathrm{}|, e.g., $\mathrm{sin}(x)$.
 \item Make sure parentheses are large enough by using \verb|\left( . \right)|, e.g., \[\left( \frac{1}{2} \right) \textnormal{instead of } ( \frac{1}{2} ) .\]
-\item Use \verb|^\top| for a transpose, e.g., $\boldsymbol{x}^\top$.
+\item Use \verb|^\top| for a transpose, e.g., $\bm{x}^\top$.
 \end{itemize}
 
 
@@ -442,7 +442,5 @@ ps2pdf -sPAPERSIZE=a4 myfile.ps
 Make sure to use the A4 option, when you print the pdf!
 
 Alternatively you can use either Kile, Texmaker, etc. on Linux or TeXnic Centre, etc. on Windows. Please be aware you have to set the required \LaTeX paths in your editors. The most common \LaTeX -editors in Linux are preconfigured at LSR and should work \emph{out-of-the-box}.
-
-
 
 

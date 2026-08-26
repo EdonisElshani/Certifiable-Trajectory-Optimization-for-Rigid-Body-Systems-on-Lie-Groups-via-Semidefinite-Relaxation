@@ -4,59 +4,63 @@
 This chapter formulates the discrete rigid-body models derived in 
 Chapter \ref{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups} as 
 finite-horizon trajectory optimization problems. Section \ref{sec:discrete_motion_planning_of_rigid_body_systems} 
-intoduces the geometric motion planning 
+introduces the geometric motion planning 
 formulation of \cite{Sangli2025}, which expresses the Lie group variational 
 integrators and their kinematic constraints by polynomial equalities and inequalities. 
 In general, a nonconvex polynomial optimization problem is relaxed to a convex semidefinite 
 program. Therefore, Section \ref{sec:semidefinite_optimization_relaxation} gives an 
 overall introduction to semidefinite programming and presents the 
 Moment-SOS hierarchy and the exploitation of correlative and term sparsity. 
-Finally, Section \ref{sec:discrete_motion_planning_3d_pendulum} and 
-\ref{sec:discrete_motion_planning_acrobot} defines the optimization formulation for 
+Finally, Sections \ref{sec:discrete_motion_planning_3d_pendulum} and 
+\ref{sec:discrete_motion_planning_acrobot} define the optimization formulation for 
 the controlled 3D-pendulum and the Acrobot. The resulting construction follows the sparse 
 semidefinite trajectory optimization framework SPOT of \cite{Kang_2026Fast,Kang_2025Global}.
-In case of the Acrobot, Model-Predictive Control is applied to the semidefinite relaxation
-to obtain certifiable solutions. 
+For the Acrobot, the sparse SDP relaxation is embedded in a model predictive control loop. 
+Because the prediction-horizon relaxation is not rank one, the extracted predicted trajectory 
+is not certified as globally optimal or feasible. Nevertheless, applying the first extracted 
+control and simulating the controlled LGVI produces a 
+dynamically consistent numerical closed-loop trajectory.
 
 \section{Discrete Motion Planning of Rigid-Body Systems}
 \label{sec:discrete_motion_planning_of_rigid_body_systems}
 
-A general robot motion planning problem is considered as a mechanical system 
+A general robot motion planning problem is modeled as a mechanical system 
 consisting of \(n_{\mathrm b}\) rigid links, 
-indexed by \(i\in\mathcal I:=\{1,\ldots,n_{\mathrm b}\}\), with $N$ steps starting at $k=0$. 
-The robot configuration state \(Y_k\) consits the center-of-mass positions \(x_{i,k}\), 
-rotations \(R_{i,k}\), and relative rotations \(F_{i,k}\). The control input is given 
-as \(U_k\), with \(\lambda_k\) being the Lagrange multipliers of the holonomic joint 
+indexed by \(i\in\mathcal B:=\{1,\ldots,n_{\mathrm b}\}\), with $N$ steps starting at $k=0$. 
+The robot configuration state \(\bm{Y}_k\) consists of the center-of-mass positions \(\bm{x}_{i,k}\), 
+rotations \(\bm{R}_{i,k}\). The relative rotations \(\bm{F}_{i,k}\) are recunstructed from the 
+kinematic update \eqref{eq:discrete_lie_group_kinematics}. The control input is denoted 
+by \(\bm{U}_{k+1}\), with \(\bm{\lambda}_{k+1}\) being the Lagrange multipliers of the holonomic joint 
 constraints. Adapted from the discrete kinodynamic motion planning problem of 
 \cite{Sangli2025}, the general multi-body problem is written as
 \begin{subequations}
 \label{eq:general_motion_optimization}
 \begin{align}
-\min_{\{Y_k\}_{k=0}^{N},\{U_k,\lambda_k\}_{k=1}^{N}}
-&\quad \Psi(Y_N)+\sum_{k=0}^{N-1}\psi(Y_k,U_{k+1},\lambda_{k+1})\\
+\min_{\{\bm{Y}_k\}_{k=0}^{N},\{\bm{U}_k,\bm{\lambda}_k\}_{k=1}^{N}}
+&\quad \Psi(\bm{Y}_N)+\sum_{k=0}^{N-1}\psi(\bm{Y}_k,\bm{U}_{k+1},\bm{\lambda}_{k+1})\\
 \text{s.t.}\quad
-&\mathcal D_i(Y_{k+1},Y_k,U_{k+1},\lambda_{k+1})=0, \qquad i\in\mathcal I,\\
-&Y_k\in\mathcal Y_i, \\
-&\mathcal{H}(Y_{k+1},U_{k+1},\lambda_{k+1})\geq0,\\
-&U_{\min}\leq U_k\leq U_{\max},\\
-&Y_0=Y_{\mathrm{init}},\\
+&\mathcal D_i(\bm{Y}_{k+1},\bm{Y}_k,\bm{U}_{k+1},\bm{\lambda}_{k+1})=0, \qquad i\in\mathcal B,\\
+&\bm{Y}_k\in\mathcal Y_i, \\
+&\mathcal{H}(\bm{Y}_{k+1},\bm{U}_{k+1},\bm{\lambda}_{k+1})\geq0,\\
+&\bm{U}_{\min}\leq \bm{U}_{k+1}\leq \bm{U}_{\max},\\
+&\bm{Y}_0=\bm{Y}_{\mathrm{init}},\\
 &k=0,\ldots,N-1. \nonumber
 \end{align}
 \end{subequations}
-Here, \(\Psi(\cdot)\) dentotes the terminal costs and \(\psi(\cdot)\) the running costs. 
-The equality constraint set \(\mathcal D_i=0\) represent the forced 
+Here, \(\Psi(\cdot)\) denotes the terminal costs and \(\psi(\cdot)\) the running costs. 
+The equality constraint set \(\mathcal D_i=0\) represents the forced 
 discrete Euler--Lagrange equations of link \(i\) derived in Chapter \ref{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups}, 
-including the set of control inputs $U_{k+1}$ and Lagrange multipliers $\lambda_{k+1}$. Additionally,
+including the set of control inputs $\bm{U}_{k+1}$ and Lagrange multipliers $\bm{\lambda}_{k+1}$. Additionally,
 for multi-body systems, the set
 \(\mathcal D_i\) contains the holonomic joint constraints \eqref{eq:holonomic_constraints_general}.
 The inequalities \(\mathcal{H}\geq0\) describe rotation-step limits, 
 geometric constraints such as collision avoidance, and bounds introduced to obtain a compact feasible set \cite{Kang_2026Fast}. 
-Control limits are set by \(U_{\min}\leq U_k\leq U_{\max}\) in \eqref{eq:general_motion_optimization}.
+Control limits are set by \(\bm{U}_{\min}\leq \bm{U}_k\leq \bm{U}_{\max}\) in \eqref{eq:general_motion_optimization}.
 
-The set \(\mathcal Y_i\) enforces the matrix Lie-group structure of the set of states $Y_k$. 
+The set \(\mathcal Y_i\) enforces the matrix Lie-group structure of the set of states $\bm{Y}_k$. 
 Thereby, the multiplicative kinematic update 
 \begin{equation}
-R_{i,k+1}=R_{i,k}F_{i,k}
+\bm{R}_{i,k+1}=\bm{R}_{i,k}\bm{F}_{i,k}
 \label{eq:general_lie_group_kinematics}
 \end{equation}
 preserves the corresponding Lie group structure for each link \(i\). 
@@ -64,65 +68,67 @@ preserves the corresponding Lie group structure for each link \(i\).
 For rigid-body motion on $SO(3)$, 
 the rotation of link \(i\) is given by
 \[
-R_{i,k}=
+\bm{R}_{i,k}=
 \begin{bmatrix}
-r^{1}_{i,k},&r^{2}_{i,k},&r^{3}_{i,k}
+\bm{r}^{1}_{i,k},&\bm{r}^{2}_{i,k},&\bm{r}^{3}_{i,k}
 \end{bmatrix}
 \in\mathbb R^{3\times3}.
 \]
 Following \cite{Sangli2025}, 
-$R_{i,k} \in \mathrm{SO}(3)$ is represented by the 
+$\bm{R}_{i,k} \in \mathrm{SO}(3)$ is represented by the 
 15 quadratic polynomial equalities
 \begin{align}
-&\|r^{1}_{i,k}\|_2^2-1
+&\|\bm{r}^{1}_{i,k}\|_2^2-1
 =
-\|r^{2}_{i,k}\|_2^2-1
+\|\bm{r}^{2}_{i,k}\|_2^2-1
 =
-\|r^{3}_{i,k}\|_2^2-1
+\|\bm{r}^{3}_{i,k}\|_2^2-1
 =0,\nonumber\\
-&(r^{1}_{i,k})^\top r^{2}_{i,k}
+&(\bm{r}^{1}_{i,k})^\top \bm{r}^{2}_{i,k}
 =
-(r^{2}_{i,k})^\top r^{3}_{i,k}
+(\bm{r}^{2}_{i,k})^\top \bm{r}^{3}_{i,k}
 =
-(r^{1}_{i,k})^\top r^{3}_{i,k}
+(\bm{r}^{1}_{i,k})^\top \bm{r}^{3}_{i,k}
 =0,
 \label{eq:so3_polynomial_constraints}\\
-&r^{1}_{i,k}\times r^{2}_{i,k}-r^{3}_{i,k}
+&\bm{r}^{1}_{i,k}\times \bm{r}^{2}_{i,k}-\bm{r}^{3}_{i,k}
 =
-r^{2}_{i,k}\times r^{3}_{i,k}-r^{1}_{i,k}
+\bm{r}^{2}_{i,k}\times \bm{r}^{3}_{i,k}-\bm{r}^{1}_{i,k}
 =
-r^{3}_{i,k}\times r^{1}_{i,k}-r^{2}_{i,k}
-=0_{3\times1}.
+\bm{r}^{3}_{i,k}\times \bm{r}^{1}_{i,k}-\bm{r}^{2}_{i,k}
+=\bm{0}_{3\times1}.
 \nonumber
 \end{align}
-The same constraints are imposed on \(F_{i,k}\) by replacing \(r^{1}_{i,k},r^{2}_{i,k},r^{3}_{i,k}\) with its columns \(f^{1}_{i,k},f^{2}_{i,k},f^{3}_{i,k}\). 
+The same constraints are imposed on \(\bm{F}_{i,k}\) by replacing
+\(\bm{r}^{1}_{i,k},\bm{r}^{2}_{i,k},\bm{r}^{3}_{i,k}\) with its columns
+\(\bm{f}^{1}_{i,k},\bm{f}^{2}_{i,k},\bm{f}^{3}_{i,k}\).
 
 For rigid-body motion on $SO(2)$, the standard polynomial parametrization is
 \begin{equation}
-R_{i,k}=
+\bm{R}_{i,k}=
 \begin{bmatrix}
 c_{i,k}&-s_{i,k}\\
 s_{i,k}&c_{i,k}
 \end{bmatrix},
 \qquad
-F_{i,k}=
+\bm{F}_{i,k}=
 \begin{bmatrix}
 a_{i,k}&-b_{i,k}\\
 b_{i,k}&a_{i,k}
 \end{bmatrix},
-\label{eq:so2_polynomial_constraints}
 \end{equation}
 where \(c_{i,k}=\cos\theta_{i,k}\), \(s_{i,k}=\sin\theta_{i,k}\), \(a_{i,k}=\cos\Delta\theta_{i,k}\), and \(b_{i,k}=\sin\Delta\theta_{i,k}\) \cite{Hall2000LieGroups}. 
 Applying \eqref{eq:so2_polynomial_constraints} 
-to the the kinematic update for each link \(i\) in \eqref{eq:general_lie_group_kinematics}
+to the kinematic update for each link \(i\) in \eqref{eq:general_lie_group_kinematics},
 its planar version is given by
 \begin{align}
 c_{i,k+1}-c_{i,k}a_{i,k}+s_{i,k}b_{i,k}=0,
 \qquad
 s_{i,k+1}-s_{i,k}a_{i,k}-c_{i,k}b_{i,k}=0,
 \end{align}
-for planar motion. In contrast to \eqref{eq:so3_polynomial_constraints}, the planar rotation matrices \(R_{i,k},F_{i,k} \in \mathrm{SO}(2)\) are imposed by the two quadratic polynomial equalities
-\begin{align}    
+for planar motion. In contrast to \eqref{eq:so3_polynomial_constraints}, the planar rotation matrices
+\(\bm{R}_{i,k},\bm{F}_{i,k} \in \mathrm{SO}(2)\) are imposed by the two quadratic polynomial equalities
+\begin{align}\label{eq:so2_polynomial_constraints}
 c_{i,k}^2+s_{i,k}^2=1,
 \qquad
 a_{i,k}^2+b_{i,k}^2=1, 
@@ -131,21 +137,21 @@ a_{i,k}^2+b_{i,k}^2=1,
 
 The matrix in \eqref{eq:so2_polynomial_constraints} describes a rotation in the \(xy\)-plane and therefore about the \(z\)-axis. In general, rotations about a fixed axis are
 \begin{equation}
-R_x=
+\bm{R}_x=
 \begin{bmatrix}
 1&0&0\\
 0&c&-s\\
 0&s&c
 \end{bmatrix},
 \qquad
-R_y=
+\bm{R}_y=
 \begin{bmatrix}
 c&0&s\\
 0&1&0\\
 -s&0&c
 \end{bmatrix},
 \qquad
-R_z=
+\bm{R}_z=
 \begin{bmatrix}
 c&-s&0\\
 s&c&0\\
@@ -156,7 +162,7 @@ s&c&0\\
 with \(c=\cos\theta\) and \(s=\sin\theta\) \cite{Sangli2025}.
 Consequently, planar motion in the \(yz\)-, \(xz\)-, or \(xy\)-plane corresponds to a rotation about the \(x\)-, \(y\)-, or \(z\)-axis.
 
-Finally, from an given initial configuration $Y_k$, the target configuration $Y_N$ is reached by minimizing the terminal cost \(\Psi(\cdot)\).
+Finally, from a given initial configuration $\bm{Y}_k$, the target configuration $\bm{Y}_N$ is reached by minimizing the terminal cost \(\Psi(\cdot)\).
 
 \section{Semidefinite Optimization and Relaxation}
 \label{sec:semidefinite_optimization_relaxation}
@@ -164,38 +170,38 @@ Finally, from an given initial configuration $Y_k$, the target configuration $Y_
 The discrete motion planning problem \eqref{eq:general_motion_optimization} is considered as a 
 polynomial optimization problem (POP) 
 with polynomial objective, equality, and inequality constraints \cite{Sangli2025}. Thereby,
-\(\mathbf{z}\in\mathbb{R}^{n_z}\) is the complete set of states $Y_k$, control
-inputs $U_k$, and Lagrange multipliers $\lambda_{k+1}$ over the planning horizon. 
+\(\bm{z}\in\mathbb{R}^{n_z}\) is the complete set of states $\bm{Y}_k$, control
+inputs $\bm{U}_k$, and Lagrange multipliers $\bm{\lambda}_{k+1}$ over the planning horizon. 
 Equivalently, the POP can be written in the general form
 \begin{subequations}\label{eq:pop_general}
 \begin{align}
- p^\star = \min_{\mathbf{z}\in\mathbb{R}^{n_z}}
- &\quad p(\mathbf{z})
+ p^\star = \min_{\bm{z}\in\mathbb{R}^{n_z}}
+ &\quad p(\bm{z})
  \label{eq:pop_general_objective}\\
  \text{s.t.}\quad
- &h_l(\mathbf{z})=0, &&l=1,\ldots,m_h,
+ &h_l(\bm{z})=0, &&l=1,\ldots,m_h,
  \label{eq:pop_general_equalities}\\
- &g_j(\mathbf{z})\geq 0, &&j=1,\ldots,m_g,
+ &g_j(\bm{z})\geq 0, &&j=1,\ldots,m_g,
  \label{eq:pop_general_inequalities}
 \end{align}
 \end{subequations}
 with the basic closed semialgebraic feasible set
 \begin{equation}
  \mathcal{K}:=
- \left\{\mathbf{z}\in\mathbb{R}^{n_z}\ \middle|\
- h_l(\mathbf{z})=0,\ l=1,\ldots,m_h,\;
- g_j(\mathbf{z})\geq0,\ j=1,\ldots,m_g\right\}.
+ \left\{\bm{z}\in\mathbb{R}^{n_z}\ \middle|\
+ h_l(\bm{z})=0,\ l=1,\ldots,m_h,\;
+ g_j(\bm{z})\geq0,\ j=1,\ldots,m_g\right\}.
  \label{eq:pop_feasible_set}
 \end{equation}
 Here, \(p\), \(h_l\), and \(g_j\) are real multivariate polynomials. In general,
 a multivariate polynomial is defined as
 \begin{equation}
- p(\mathbf{z})=\sum_{\alpha\in\mathbb{N}^{n_z}}p_{\alpha}\mathbf{z}^{\alpha},
+ p(\bm{z})=\sum_{\bm{\alpha}}p_{\bm{\alpha}}\bm{z}^{\bm{\alpha}},
  \qquad
- \mathbf{z}^{\alpha}:=\prod_{i=1}^{n_z}z_i^{\alpha_i},
+ \bm{z}^{\bm{\alpha}}:=\prod_{i=1}^{n_z}z_i^{\alpha_i},
  \label{eq:multivariate_polynomial}
 \end{equation} 
-where $\alpha_i$ are nonnegative integers and \(p_{\alpha}\) are nonzero \cite{Yang2024Semidefinite}.
+where $\alpha_i$ are nonnegative integers and \(p_{\bm{\alpha}}\) are nonzero \cite{Yang2024Semidefinite}.
 Although \eqref{eq:pop_general} is generally nonconvex, the Moment--SOS hierarchy constructs a
 sequence of convex semidefinite relaxations whose optimal values are certified
 lower bounds on the optimal solution \(p^\star\) \cite{Yang2024Semidefinite}.
@@ -204,89 +210,89 @@ lower bounds on the optimal solution \(p^\star\) \cite{Yang2024Semidefinite}.
 \label{subsec:moment_sos_hierarchy}
 
 \paragraph{Semidefinite programming (SDP)}
-Let \(\mathbb{S}^{q}\) denote the vector space of symmetric \(n\times n\)
-matrices. A matrix \(\mathbf{X}\in\mathbb{S}^{n}\) is positive semidefinite,
-written as \(\mathbf{X}\succeq0\), if
-\(\mathbf{v}^{\top}\mathbf{X}\mathbf{v}\geq0\) for all
-\(\mathbf{v}\in\mathbb{R}^{n}\). A semidefinite program (SDP) has the standard
+Let \(\mathbb{S}^{n}\) denote the vector space of symmetric \(n\times n\)
+matrices. A matrix \(\bm{X}\in\mathbb{S}^{n}\) is positive semidefinite,
+written as \(\bm{X}\succeq0\), if
+\(\bm{v}^{\top}\bm{X}\bm{v}\geq0\) for all
+\(\bm{v}\in\mathbb{R}^{n}\). A semidefinite program (SDP) has the standard
 primal form
 \begin{equation}
 \begin{aligned}
  p_{\mathrm{SDP}}^\star
- =\min_{\mathbf{X}\in\mathbb{S}^{q}}
- &\quad \left\langle\mathbf{C},\mathbf{X}\right\rangle\\
+ =\min_{\bm{X}\in\mathbb{S}^{n}}
+ &\quad \left\langle\bm{C},\bm{X}\right\rangle\\
  \text{s.t.}\quad
- &\mathcal{A}(\mathbf{X})=\mathbf{b},\\
- &\mathbf{X}\succeq0.
+ &\mathcal{A}(\bm{X})=\bm{b},\\
+ &\bm{X}\succeq0.
 \end{aligned}
 \label{eq:standard_sdp}
 \end{equation}
-with $\bm{C} \in \mathbb{S}^{n}$, $\bm{b} \in \mathbb{R}^{m}$ and \(\mathcal{A}: \mathbb{S}^{n} \to \mathbb{R}^{m}\) is a linear map, which is defined as
+where $\bm{C} \in \mathbb{S}^{n}$ and $\bm{b} \in \mathbb{R}^{m}$. The linear map \(\mathcal{A}: \mathbb{S}^{n} \to \mathbb{R}^{m}\) is defined as
 \begin{equation}
- \mathcal{A}(\mathbf{X})
+ \mathcal{A}(\bm{X})
  :=
  \begin{bmatrix}
- \langle\mathbf{A}_1,\mathbf{X}\rangle\\
+ \langle\bm{A}_1,\bm{X}\rangle\\
  \vdots\\
- \langle\mathbf{A}_i,\mathbf{X}\rangle\\
- \langle\mathbf{A}_m,\mathbf{X}\rangle
+ \langle\bm{A}_i,\bm{X}\rangle\\
+ \langle\bm{A}_m,\bm{X}\rangle
  \end{bmatrix}.
  \label{eq:linear_map}
 \end{equation}
-Here, \(\langle\mathbf{C},\mathbf{X}\rangle=
-\operatorname{tr}(\mathbf{C}\mathbf{X})\). 
+Here, \(\langle\bm{C},\bm{X}\rangle=
+\operatorname{tr}(\bm{C}\bm{X})\). 
 In contrast to \eqref{eq:pop_general}, the objective and the
 constraints in \eqref{eq:standard_sdp} are convex. In the following, the Moment-SOS 
 relaxation approximates the nonconvex polynomial problem by a convex SDP \cite{Yang2024Semidefinite}.
 
 \paragraph{Sum-of-squares (SOS) relaxation}
-\cite{Yang2024Semidefinite} defines the a monomial
-of the optimization variables \(\mathbf{z}=(z_1,\ldots,z_{n_z})\) as
+\cite{Yang2024Semidefinite} defines a monomial
+of the optimization variables \(\bm{z}=(z_1,\ldots,z_{n_z})\) as
 \begin{equation}
-\mathbf{z}^{\alpha}:=\prod_{i=1}^{n_z}z_i^{\alpha_i},
+\bm{z}^{\bm{\alpha}}:=\prod_{i=1}^{n_z}z_i^{\alpha_i},
 \label{eq:monomial_basis_comparison}
 \end{equation}
-with \(\alpha=(\alpha_1,\ldots,\alpha_{n_z})\in\mathbb{N}_0^{n_z}\). Thereby, 
-$|\alpha|:=\sum_{i=1}^{n_z}\alpha_i$ is the total degree of the monomial $\bm{z}^\alpha$. 
+with \(\bm{\alpha}=(\alpha_1,\ldots,\alpha_{n_z})\in\mathbb{N}_0^{n_z}\). Thereby, 
+$|\bm{\alpha}|:=\sum_{i=1}^{n_z}\alpha_i$ is the total degree of the monomial $\bm{z}^{\bm{\alpha}}$. 
 Moreover, the standard basis of monomials with
-degree up to \( |\alpha|\leq d\) is given as
+degree up to \( |\bm{\alpha}|\leq d\) is given by
 \[
-[\mathbf{z}]_d:=
+[\bm{z}]_d:=
 \begin{bmatrix}
 1 & z_1 & \cdots & z_{n_z} & z_1^2 & z_1z_2 & \cdots & z_{n_z}^d
 \end{bmatrix}^{\top}
 =
-\left[\mathbf{z}^{\alpha}\right]_{\alpha\in\mathbb{N}_0^{n_z}},
+\left[\bm{z}^{\bm{\alpha}}\right]_{\bm{\alpha}\in\mathbb{N}_0^{n_z}},
 \]
-with the vector having the dimension
+The vector has dimension
 \begin{equation}
 s(n_z,d)=\binom{n_z+d}{d}.
 \label{eq:monomial_basis_dimension_comparison}
 \end{equation}
-\cite{Yang2024Semidefinite} defines a sum of squares (SOS) as a polynomial \(p\) of degree at most \(2d\), 
+\cite{Yang2024Semidefinite} defines a polynomial \(p\) of degree at most \(2d\) as a sum of squares (SOS)
 if it can be written as
-\(p(\mathbf{z})=\sum_i q_i(\mathbf{z})^2\). Here, each \(q_i\) has degree at
+\(p(\bm{z})=\sum_i q_i(\bm{z})^2\). Here, each \(q_i\) has degree at
 most \(d\) and the polynomial \(p\) is globally nonnegative. 
-Equivalently, \(p\) is SOS if the Gram-matrix $Q \in \mathbb{S}^{d+1}$ satisfies
+Equivalently, \(p\) is SOS if the Gram-matrix $\bm{Q} \in \mathbb{S}^{s(n_z,d)}$ satisfies
 \begin{equation}
-p(\mathbf{z})=[\mathbf{z}]_d^{\top}
-\mathbf{Q}[\mathbf{z}]_d,
-\qquad \mathbf{Q}\succeq0.
+p(\bm{z})=[\bm{z}]_d^{\top}
+\bm{Q}[\bm{z}]_d,
+\qquad \bm{Q}\succeq0.
 \label{eq:sos_gram_matrix_comparison}
 \end{equation}
 Finding an SOS representation can be formulated
 as an SDP feasibility problem.
 For the POP \eqref{eq:pop_general}, any value \(\gamma\)
-satisfying \(p(\mathbf{z})-\gamma\geq0\) on the feasible set \(\mathcal{K}\) is
+satisfying \(p(\bm{z})-\gamma\geq0\) on the feasible set \(\mathcal{K}\) is
 a lower bound on \(p^\star\) \cite{Yang2024Semidefinite}. 
 Since verifying this nonnegativity directly is
 difficult, the SOS relaxation searches for the certificate
 \begin{equation}
-p(\mathbf{z})-\gamma
+p(\bm{z})-\gamma
 =
-\sigma_0(\mathbf{z})
-+\sum_{j=1}^{m_g}\sigma_j(\mathbf{z})g_j(\mathbf{z})
-+\sum_{l=1}^{m_h}\chi_l(\mathbf{z})h_l(\mathbf{z}),
+\sigma_0(\bm{z})
++\sum_{j=1}^{m_g}\sigma_j(\bm{z})g_j(\bm{z})
++\sum_{l=1}^{m_h}\chi_l(\bm{z})h_l(\bm{z}),
 \label{eq:putinar_certificate_comparison}
 \end{equation}
 where \(\sigma_0\) and \(\sigma_j\) are SOS polynomials and \(\chi_l\) are
@@ -294,7 +300,7 @@ arbitrary polynomials \cite{Putinar1993Positive}. On
 \(\mathcal{K}\), the inequalities satisfy \(g_j\geq0\) and the equalities
 satisfy \(h_l=0\). Therefore, the right-hand side of
 \eqref{eq:putinar_certificate_comparison} is nonnegative and proves
-\(p(\mathbf{z})\geq\gamma\).
+\(p(\bm{z})\geq\gamma\).
 
 By restricting the degree of $\sigma_0, \sigma_j g_j, \chi_l h_l$ in
 \eqref{eq:putinar_certificate_comparison} to at most \(2\kappa\) gives the
@@ -313,95 +319,95 @@ finite-dimensional order-\(\kappa\) SOS relaxation
  &\deg(\sigma_0),\ \deg(\sigma_jg_j),\ \deg(\chi_lh_l)
  \leq2\kappa,
  \label{eq:sos_relaxation_degree}\\
- &\sigma_j\in\Sigma[\mathbf{z}],
+ &\sigma_j\in\Sigma[\bm{z}],
  \qquad
- \chi_l\in\mathbb{R}[\mathbf{z}].
+ \chi_l\in\mathbb{R}[\bm{z}].
  \label{eq:sos_relaxation_cones}
 \end{align}
 \end{subequations}
-Here, \(\Sigma[\mathbf{z}]\) denotes the set of SOS polynomials in
-\(\mathbf{z}\), and \(\mathbb{R}[\mathbf{z}]\) denotes the set of real
-polynomials in \(\mathbf{z}\). $\kappa$ is called the relaxation order. 
+Here, \(\Sigma[\bm{z}]\) denotes the set of SOS polynomials in
+\(\bm{z}\), and \(\mathbb{R}[\bm{z}]\) denotes the set of real
+polynomials in \(\bm{z}\). $\kappa$ is called the relaxation order. 
 Consequently, every feasible certificate provides the lower bound
 \(\gamma_{\kappa}^{*}\leq p^\star\).
 
 \paragraph{Moment relaxation}
 The moment relaxation is the SDP dual of the SOS relaxation. \cite{Yang2024Semidefinite} 
-introduces a scalar variable \(y_{\alpha}\), called a moment, for each monomial
-\(\mathbf{z}^{\alpha}\). Additionally, the linear functional \(\mathcal{L}_{\mathbf{y}}:\mathbb{R}[x] \to 
+introduces a scalar variable \(y_{\bm{\alpha}}\), called a moment, for each monomial
+\(\bm{z}^{\bm{\alpha}}\). Additionally, the linear functional \(\mathcal{L}_{\bm{y}}:\mathbb{R}[\bm{z}] \to 
 \mathbb{R}\) is defined as
 \begin{equation}
-q(\mathbf{z})=\sum_{\alpha}q_{\alpha}\mathbf{z}^{\alpha}
+q(\bm{z})=\sum_{\bm{\alpha}}q_{\bm{\alpha}}\bm{z}^{\bm{\alpha}}
 \to 
-\mathcal{L}_{\mathbf{y}}(q) =
-\sum_{\alpha}q_{\alpha}y_{\alpha},
+\mathcal{L}_{\bm{y}}(q) =
+\sum_{\bm{\alpha}}q_{\bm{\alpha}}y_{\bm{\alpha}},
 \label{eq:riesz_functional_comparison}
 \end{equation}
-which is the substitution of the monomials $\mathbf{z}^{\alpha}$ in $q(\mathbf{z})$ obtaining a numercial value \cite{Sangli2025}.
-The moment matrix $\mathbf{M}_{\kappa}(\mathbf{y})$ is defined as
+which replaces the monomials $\bm{z}^{\bm{\alpha}}$ in $q(\bm{z})$ to obtain a numerical value \cite{Sangli2025}.
+The moment matrix $\bm{M}_{\kappa}(\bm{y})$ is defined as
 \begin{equation}
-\mathbf{M}_{\kappa}(\mathbf{y})
+\bm{M}_{\kappa}(\bm{y})
 :=
-\mathcal{L}_{\mathbf{y}}
+\mathcal{L}_{\bm{y}}
 \left(
-[\mathbf{z}]_{\kappa}[\mathbf{z}]_{\kappa}^{\top}
+[\bm{z}]_{\kappa}[\bm{z}]_{\kappa}^{\top}
 \right).
 \label{eq:moment_matrix_comparison}
 \end{equation}
-The polynomial constraints are included similarily. For an inequality
-\(g_j(\mathbf{z})\geq0\), let
-\(d_j:=\lceil\deg(g_j)/2\rceil\).\cite{Sangli2025} defines the corresponding localizing matrix as
+The polynomial constraints are included similarly. For an inequality
+\(g_j(\bm{z})\geq0\), let
+\(d_j:=\lceil\deg(g_j)/2\rceil\). \cite{Sangli2025} defines the corresponding localizing matrix as
 \begin{equation}
-\mathbf{M}_{\kappa-d_j}(g_j\mathbf{y})
+\bm{M}_{\kappa-d_j}(g_j\bm{y})
 :=
-\mathcal{L}_{\mathbf{y}}
+\mathcal{L}_{\bm{y}}
 \left(
-g_j(\mathbf{z})
-[\mathbf{z}]_{\kappa-d_j}
-[\mathbf{z}]_{\kappa-d_j}^{\top}
+g_j(\bm{z})
+[\bm{z}]_{\kappa-d_j}
+[\bm{z}]_{\kappa-d_j}^{\top}
 \right).
 \label{eq:localizing_matrix_g}
 \end{equation}
 Requiring this matrix to be positive semidefinite represents the inequality
-\(g_j\geq0\). Similarly, for an equality $h_l(\mathbf{z})=0$, 
+\(g_j\geq0\). Similarly, for an equality $h_l(\bm{z})=0$, 
 with $e_l:=\lceil\deg(h_l)/2\rceil$, the corresponding localization matrix is 
 \begin{equation}
-\mathbf{M}_{\kappa-e_l}(h_l\mathbf{y})
+\bm{M}_{\kappa-e_l}(h_l\bm{y})
 :=
-\mathcal{L}_{\mathbf{y}}
+\mathcal{L}_{\bm{y}}
 \left(
-h_l(\mathbf{z})
-[\mathbf{z}]_{\kappa-e_l}
-[\mathbf{z}]_{\kappa-e_l}^{\top}
+h_l(\bm{z})
+[\bm{z}]_{\kappa-e_l}
+[\bm{z}]_{\kappa-e_l}^{\top}
 \right).
 \label{eq:localizing_matrix_h}
 \end{equation}
 For relaxation order \(\kappa\), a solution is approximated by 
-sequences $y_\alpha$ with finite order $|\alpha|=2 \kappa$.
+sequences $y_{\bm{\alpha}}$ with finite order $|\bm{\alpha}| \leq 2 \kappa$.
 This gives the order-\(\kappa\) moment
 relaxation
 \begin{subequations}\label{eq:moment_relaxation_comparison}
 \begin{align}
 \beta_{\kappa}^{*}
 =
-\min_{\mathbf{y}}
-&\quad \mathcal{L}_{\mathbf{y}}(p)
+\min_{\bm{y}}
+&\quad \mathcal{L}_{\bm{y}}(p)
 \label{eq:moment_relaxation_objective_comparison}\\
 \text{s.t.}\quad
-&y_{\mathbf{0}}=1,
+&y_{\bm{0}}=1,
 \label{eq:moment_relaxation_normalization_comparison}\\
-&\mathbf{M}_{\kappa}(\mathbf{y})\succeq0,
+&\bm{M}_{\kappa}(\bm{y})\succeq0,
 \label{eq:moment_relaxation_psd_comparison}\\
-&\mathbf{M}_{\kappa-d_j}(g_j\mathbf{y})\succeq0,
+&\bm{M}_{\kappa-d_j}(g_j\bm{y})\succeq0,
 &&j=1,\ldots,m_g,
 \label{eq:moment_relaxation_inequalities_comparison}\\
-&\mathbf{M}_{\kappa-e_l}(h_l\mathbf{y})=\bm{0}
+&\bm{M}_{\kappa-e_l}(h_l\bm{y})=\bm{0}
 &&l=1,\ldots,m_h.
 \label{eq:moment_relaxation_equalities_comparison}
 \end{align}
 \end{subequations}
-with \(y_{\mathbf{0}}=1\) being the monomial
-\(\mathbf{z}^{\mathbf{0}}=1\) \cite{Yang2024Semidefinite}. 
+with \(y_{\bm{0}}=1\) being the monomial
+\(\bm{z}^{\bm{0}}=1\) \cite{Yang2024Semidefinite}. 
 
 The moment and SOS relaxations
 form a primal-dual SDP pair. Therefore, the Moment-SOS hierarchy provides the sequence of lower bounds
@@ -413,7 +419,7 @@ form a primal-dual SDP pair. Therefore, the Moment-SOS hierarchy provides the se
 p^\star.
 \label{eq:moment_sos_bounds_comparison}
 \end{equation}
-If the SDP pair has no duality, then $\gamma_{\kappa}^{*} = \beta_{\kappa}^{*}$ 
+If the SDP pair has no duality gap, then $\gamma_{\kappa}^{*} = \beta_{\kappa}^{*}$ 
 \cite{Lasserre2001Global}.
 
 \paragraph{Convergence}
@@ -428,56 +434,56 @@ converge to the global optimum
 \qquad
 \lim_{\kappa\rightarrow\infty}\gamma_\kappa^\star
 =
-\lim_{\kappa\rightarrow\infty}\beta_\kappa^{\mathrm{mom}}
+\lim_{\kappa\rightarrow\infty}\beta_\kappa^\star
 =
 p^\star.
 \label{eq:convergence_of_moment_sos_hierarchy}
 \end{equation}
 This convergence is asymptotic \cite{Lasserre2001Global}.
 
-Additionally, if the Archimedean condition is enforced by
-\(R^2-\|\mathbf{z}\|_2^2\geq0\) and the POP satisfies suitable
-optimality conditions, then
+If the quadratic module is Archimedean, for example through
+\(R^2-\|\bm{z}\|_2^2\geq0\), the hierarchy converges asymptotically to \(p^\star\).
+Under additional suitable optimality conditions, convergence is finite given by
 \begin{equation}
 \gamma_{\kappa^\star}^\star
 =
-\beta_{\kappa^\star}^{\star}
+\beta_{\kappa^\star}^\star
 =
-p^\star,
-\label{eq:finite_convergence}
-\end{equation} 
-at a finite but generally unknown relaxation order \(\kappa^\star<\infty\).
+p^\star
+\end{equation}
+for some finite relaxation order \(\kappa^\star\)
+\cite{Nie2014FiniteConvergence}.
 This property is referred to as finite convergence \cite{Lasserre2001Global}.
 
 \paragraph{Solution extraction}
-Let \(\mathbf{y}^\star\) denote an optimal moment sequence of the order-\(\kappa\)
+Let \(\bm{y}^\star\) denote an optimal moment sequence of the order-\(\kappa\)
 moment relaxation. A simple finite-order certificate is obtained from the
-optimal moment matrix \(\mathbf{M}_{\kappa}(\mathbf{y}^\star)\)
+optimal moment matrix \(\bm{M}_{\kappa}(\bm{y}^\star)\)
 \cite{Yang2024Semidefinite}.
 If it has rank one $\operatorname{rank}\!\left(
-\mathbf{M}_{\kappa}(\mathbf{y}^\star)\right)=1$, then
+\bm{M}_{\kappa}(\bm{y}^\star)\right)=1$, then
 \begin{equation}
-\mathbf{M}_{\kappa}(\mathbf{y}^\star)
+\bm{M}_{\kappa}(\bm{y}^\star)
 =
-[\mathbf{z}^\star]_{\kappa}
-[\mathbf{z}^\star]_{\kappa}^{\top}.
+[\bm{z}^\star]_{\kappa}
+[\bm{z}^\star]_{\kappa}^{\top}.
 \label{eq:2}
 \end{equation}
 Therefore, the relaxation is tight, and a globally optimal decision vector is
 recovered from the first-order moments as
 \begin{equation}
-z_r^\star=y_{\mathbf{e}_r}^\star,
+z_r^\star=y_{\bm{e}_r}^\star,
 \qquad r=1,\ldots,n_z,
 \label{eq:1}
 \end{equation}
-where \(\mathbf{e}_r\) is the \(r\)-th unit multi-index \cite{Yang2024Semidefinite}. 
+where \(\bm{e}_r\) is the \(r\)-th unit multi-index \cite{Yang2024Semidefinite}. 
 If the moment matrix has higher rank, the rank-one condition does not certify
 that the relaxation is tight \cite{Sangli2025}. Moreover, any
-feasible trajectory \(\widehat{\mathbf{z}}\) provides an upper bound, such that
+feasible trajectory \(\widehat{\bm{z}}\) provides an upper bound, such that
 \begin{equation}
 \gamma_{\kappa}^{\star}
 \leq p^\star
-\leq p(\widehat{\mathbf{z}}).
+\leq p(\widehat{\bm{z}}).
 \label{eq:certified_objective_bracket}
 \end{equation}
 
@@ -501,10 +507,10 @@ their variables occur together in one monomial of the objective or in one
 constraint polynomial. A clique $\mathcal{C}$ is a subset of vertices 
 $\mathcal{C} \subset \mathcal{V} $ in which every pair of vertices is
 connected by an edge. Thus, the variables of each constraint are 
-contained in one clique. Thereby, a clique is considered as maximal, if it is not 
+contained in one clique. Thereby, a clique is considered maximal if it is not 
 properly contained within any other clique inside the graph $\mathcal{G}$ \cite{Kang_2025Global}.
 
-In addation, a graph is chordal if every cycle with at least four vertices 
+In addition, a graph is chordal if every cycle with at least four vertices 
 has an edge between
 two non-adjacent vertices in the cycle. However, if the graph is not chordal, 
 edges are added to obtain a chordal extension. Its maximal cliques then define
@@ -515,7 +521,7 @@ are commonly used \cite{Kang_2025Global}. Larger cliques generally produce a
 tighter but more expensive relaxation, such that the extension 
 determines a trade-off between relaxation strength and SDP block size.
 
-Figure~\ref{fig:chordal_extension_cliques} illustrates an chordal extension. 
+Figure~\ref{fig:chordal_extension_cliques} illustrates a chordal extension. 
 The original graph in Figure~\ref{fig:chordal_extension_cliques}(a) is non-chordal.
 The MD extension adds the fill edges \((B,D)\) and \((B,F)\) in (b), and the
 resulting maximal cliques are illustrated in (c) \cite{Kang_2025Global}.
@@ -550,16 +556,16 @@ For the motion planning formulation of Section
 \ref{sec:discrete_motion_planning_of_rigid_body_systems}, the vectorized 
 decision variables can be ordered as
 \begin{equation}
-    \mathbf{z}=
+    \bm{z}=
     \begin{bmatrix}
-    Y_0&
-    U_1&
-    \lambda_1&
-    Y_1&
+    \bm{Y}_0&
+    \bm{U}_1&
+    \bm{\lambda}_1&
+    \bm{Y}_1&
     \cdots&
-    U_N&
-    \lambda_N&
-    Y_N
+    \bm{U}_N&
+    \bm{\lambda}_N&
+    \bm{Y}_N
     \end{bmatrix}^{\top}.
  \label{eq:trajectory_decision_vector}
 \end{equation}
@@ -567,14 +573,14 @@ decision variables can be ordered as
 selects the scalar variables of the \(k\)-th
 trajectory clique,
 \begin{equation}
- \mathbf{z}(\mathcal I_k)=
+ \bm{z}(\mathcal I_k)=
  \begin{bmatrix}
- Y_{k-1}&U_k&\lambda_k&Y_k
+ \bm{Y}_{k-1}&\bm{U}_k&\bm{\lambda}_k&\bm{Y}_k
  \end{bmatrix}^{\top},
  \qquad k=1,\ldots,N.
  \label{eq:trajectory_clique}
 \end{equation}
-For multi Rigid-body systems, each link constraint 
+For multibody rigid-body systems, each link constraint 
 and stage cost for transition \(k\) is contained inside \(\mathcal I_k\).
 Additionally, the temporal cliques satisfy
 \begin{equation}
@@ -585,7 +591,7 @@ Additionally, the temporal cliques satisfy
  \quad k=2,\ldots,N.
  \label{eq:chain_sparsity_condition}
 \end{equation}
-Their adjacent overlap contains the shared boundary state \(Y_{k-1}\). Therefore,
+Their adjacent overlap contains the shared boundary state \(\bm{Y}_{k-1}\). Therefore,
 the property \eqref{eq:chain_sparsity_condition} results from the Markov structure 
 of the discretized dynamics
 \cite{Sangli2025}.
@@ -593,8 +599,9 @@ of the discretized dynamics
 Figure~\ref{fig:temporal_clique_sparsity} illustrates the chain-like sparsity
 pattern for the clique \eqref{eq:trajectory_clique} and the
 resulting multi-block SDP, forming a chain-like graph. Thereby,
-\(\psi(Y_{k-1},U_k,\lambda_k)\) denotes the stage cost, \(\mathcal{D}(Y_k,Y_{k-1},U_k,\lambda_k)=0\) the polynomial
-equality constraints, and \(H(Y_k,U_k,\lambda_k)\geq0\) the polynomial inequality constraints.
+\(\psi(\bm{Y}_{k-1},\bm{U}_k,\bm{\lambda}_k)\) denotes the stage cost,
+\(\mathcal{D}(\bm{Y}_k,\bm{Y}_{k-1},\bm{U}_k,\bm{\lambda}_k)=0\) the polynomial
+equality constraints, and \(H(\bm{Y}_k,\bm{U}_k,\bm{\lambda}_k)\geq0\) the polynomial inequality constraints.
 
 \begin{figure}[!ht]
  \centering
@@ -605,11 +612,11 @@ equality constraints, and \(H(Y_k,U_k,\lambda_k)\geq0\) the polynomial inequalit
  \label{fig:temporal_clique_sparsity}
 \end{figure}
 
-\paragraph{Multi Rigid-Body specific sparsity}
-Many robotic systems consist local dependencies. 
-\cite{Kang_2025Global} gives the example, of an 
-one-dimensional two-link chain in discrete-time 
-with the three states $x_{1.k}, x_{2,k}, x_{3,k}$ and the corsponding
+\paragraph{Multibody rigid-body-specific sparsity}
+Many robotic systems have local dependencies. 
+\cite{Kang_2025Global} gives the example of a 
+one-dimensional two-link chain in discrete time 
+with the three states $x_{1,k}, x_{2,k}, x_{3,k}$ and the corresponding
 control inputs $u_{1,k},u_{2,k},u_{3,k}$,
 \begin{align}
 &x_{1,k+1} = x_{1,k}+u_{1,k},\\
@@ -618,27 +625,33 @@ control inputs $u_{1,k},u_{2,k},u_{3,k}$,
 &(x_{1,k}-x_{2,k})^2 = r^2, \\
 &(x_{2,k}-x_{3,k})^2 = r^2.
 \end{align}
-Thereby, using the chain-like sparity condition 
-\eqref{eq:chain_sparsity_condition} gives the nine-variable clique
+Using the chain-like sparsity condition
+\eqref{eq:chain_sparsity_condition} therefore gives the nine-variable clique vector
 \begin{equation}
-\left\{x_{1,k},x_{2,k},x_{3,k},x_{1,k+1},x_{2,k+1},x_{3,k+1},u_{1,k},u_{2,k},u_{3,k}\right\}.
+\bm{z}(\mathcal I_k^{\mathrm{full}})
+=
+\begin{bmatrix}
+x_{1,k}&x_{2,k}&x_{3,k}&x_{1,k+1}&x_{2,k+1}&x_{3,k+1}&u_{1,k}&u_{2,k}&u_{3,k}
+\end{bmatrix}^{\top}.
 \end{equation}
 \cite{Kang_2025Global} elaborates that each input affects only its corresponding 
 state and the geometric constraints couple only neighboring states.
-Therefore, this clique can be decomposed further into
-\begin{equation}
-\left\{x_{i,k},x_{i,k+1},u_{i,k}\right\},
-\quad i=1,2,3,
-\qquad
-\left\{x_{i,m},x_{i+1,m}\right\},
-\quad i=1,2,\quad m\in\{k,k+1\}.
-\end{equation}
+Therefore, this clique vector can be decomposed further into
+\begin{align}
+\bm{z}(\mathcal I_{\mathrm{dyn},i,k})
+&=\begin{bmatrix}x_{i,k}&x_{i,k+1}&u_{i,k}\end{bmatrix}^{\top},
+&&i=1,2,3,\\
+\bm{z}(\mathcal I_{\mathrm{geom},i,m})
+&=\begin{bmatrix}x_{i,m}&x_{i+1,m}\end{bmatrix}^{\top},
+&&i=1,2,\quad m\in\{k,k+1\}.
+\end{align}
 In consequence, the original clique of size nine is replaced by three 
 cliques of size three and four cliques of size two.
 
 \paragraph{Sparse Moment--SOS relaxation}
-After defining the variable cliques \(\mathcal I_1,\ldots,\mathcal I_q\), 
-\(p(\mathbf{z})=\sum_{i=1}^{q}p_i(\mathbf{z}(\mathcal I_i))\) and every
+After defining the \(N_{\mathrm{cl}}\) variable cliques
+\(\mathcal I_1,\ldots,\mathcal I_{N_{\mathrm{cl}}}\),
+\(p(\bm{z})=\sum_{i=1}^{N_{\mathrm{cl}}}p_i(\bm{z}(\mathcal I_i))\) and every
 constraint polynomial is assigned to a clique containing all of its variables,
 the $\kappa$-order moment relaxation problem \eqref{eq:moment_relaxation_comparison}
 can be solved. For the sparse Moment-SOS relaxation, the moment and
@@ -650,13 +663,13 @@ dimension \(\binom{|\mathcal I_i|+\kappa}{\kappa}\). Using the chain-like clique
 per-stage model size is fixed. Only the number of blocks grows linearly with
 \(N\) \cite{Kang_2026Fast}.
 
-Figure~\ref{fig:dense_sparse_moment_comparison} illustrates 
-\cite{Kang_2025Global} example of an reduction for
-a POP with two variables \(\mathbf{x}=(x_1,x_2)\) and relaxation order
+Figure~\ref{fig:dense_sparse_moment_comparison} illustrates an example from
+\cite{Kang_2025Global}: a reduction for
+a POP with two variables \(\bm{x}=(x_1,x_2)\) and relaxation order
 \(\kappa=2\). The dense moment matrix has dimension
 \(\binom{2+2}{2}=6\). If the variables are separated into the cliques
 \(\{x_1\}\) and \(\{x_2\}\), the sparse relaxation instead contains two moment
-matrices of dimension \(\binom{1+2}{2}=3\). TIn consequence, one \(6\times6\)
+matrices of dimension \(\binom{1+2}{2}=3\). Consequently, one \(6\times6\)
 positive-semidefinite constraint is replaced by two \(3\times3\)
 positive-semidefinite constraints \cite{Kang_2025Global}.
 
@@ -681,18 +694,18 @@ positive-semidefinite constraints \cite{Kang_2025Global}.
 At a fixed order $\kappa$, the sparse lower-bound may
 be further away from the optimal solution $p^*$ than the dense bound. 
 Still, if all optimal clique moment matrices have rank one, a globally optimal 
-trajectory $z^*$ can be extracted. However, rank one of only the first
+trajectory $\bm{z}^*$ can be extracted. However, rank one of only the first
 clique does not certify the complete horizon. Following \cite{Sangli2025}, proximity to rank one is
 evaluated by
 \begin{equation}
- \delta_k:=\frac{\lambda_{2,k}}{\lambda_{1,k}},
+ \delta_k:=\frac{\nu_{2,k}}{\nu_{1,k}},
  \qquad
- \delta_{\max}:=\max_{k=1,\ldots,q}\delta_k.
+ \delta_{\max}:=\max_{k=1,\ldots,N_{\mathrm{cl}}}\delta_k.
  \label{eq:numerical_rank_metric}
 \end{equation}
 Here, 
-\(\lambda_{1,k}\geq\lambda_{2,k}\geq\cdots\geq0\) are the eigenvalues of
-\(\mathbf{M}_{\kappa,k}\). \(\delta_{\max}\) close to 0 indicates an approximately rank-one solution.
+\(\nu_{1,k}\geq\nu_{2,k}\geq\cdots\geq0\) are the eigenvalues of
+\(\bm{M}_{\kappa,k}\). \(\delta_{\max}\) close to zero indicates an approximately rank-one solution.
  Nevertheless, it remains a numerical tightness diagnostic and is not an exact certificate.
 
 \paragraph{Sparse Polynomial Optimization Toolbox (SPOT)}
@@ -720,22 +733,26 @@ In order to optimize the trajectory of the 3D pendulum, the discrete motion plan
 problem \eqref{eq:general_motion_optimization} has to be formulated as a 
 polynomial optimization problem (POP), using the derived discrete Lie group dynamics of the
 3D pendulum in Section~\ref{sec:discrete_3D_pendulum}. The optimization variables are the entries of
-\(R_0,\ldots,R_N\), \(F_0,\ldots,F_{N-1}\), and the control parameters
-\(u_{p,1},\ldots,u_{p,N-1}\), given \cite{Lee2008} definition of the control moment
+\(\bm{R}_0,\ldots,\bm{R}_N\), \(\bm{F}_0,\ldots,\bm{F}_{N-1}\), and the control parameters
+\(\bm{u}_{p,1},\ldots,\bm{u}_{p,N-1}\), given \cite{Lee2008} definition of the control moment
 \begin{equation}
-    u_k=R_k^{\top}e_3\times u_{p,k}.
+    \bm{u}_k=\bm{R}_k^{\top}\bm{e}_3\times \bm{u}_{p,k}.
 \end{equation}
-For numerical conditioning, the variables have to be scaled to the range \([-1,1]\). 
-Therefore, the control input is scaled as
+For improved numerical conditioning, the variables have to be scaled to the range \([-1,1]\). 
+Therefore, the control input is scaled by the scalar control limit as
 
 \begin{equation}
-    u_{p,k}=u_{\max}\bar u_{p,k},
+    \bm{u}_{p,k}
+    =u_{\max}\bar{\bm{u}}_{p,k},
+    \qquad
+    u_{\max}>0,
+    \label{eq:u_scaling_3d_pendulum}
 \end{equation}
-so that the control bound becomes 
+so that the normalized Euclidean control bound becomes
 \begin{align}\label{eq:u_bound_3d_pendulum}
-    1-\bar u_{p,k}^{\top}\bar u_{p,k}\geq0
-\end{align}.
-In constrast, the entries of \(R_k\) and \(F_k\) are already bounded by the Lie-group constraints 
+    1-\bar{\bm{u}}_{p,k}^{\top}\bar{\bm{u}}_{p,k}\geq0.
+\end{align}
+In contrast, the entries of \(\bm{R}_k\) and \(\bm{F}_k\) are already bounded by the Lie-group constraints 
 \eqref{eq:so3_polynomial_constraints}.
 
 \cite{Kang_2026Fast} defines the cost function as a weighted sum of the terminal and stage costs 
@@ -745,37 +762,37 @@ In constrast, the entries of \(R_k\) and \(F_k\) are already bounded by the Lie-
     &=
     P_f
     \left(\bm{x}_N-\bm{x}_f\right)^\top
-    Q_x
+    \bm{Q}_x
     \left(\bm{x}_N-\bm{x}_f\right)
     \\
     &\quad+
     \sum_{k=0}^{N-1}
     \left\{
     \left(\bm{x}_k-\bm{x}_f\right)^\top
-    Q_x
+    \bm{Q}_x
     \left(\bm{x}_k-\bm{x}_f\right)
     +
-    \bm{u}_k^\top Q_u \bm{u}_k
+    \bm{u}_k^\top \bm{Q}_u \bm{u}_k
     \right\},
     \end{aligned}
     \label{eq:lqr_style_loss}
 \end{equation}
-where $Q_x$ and $Q_u$ are the identity matrices after rescaling of the variables. 
-In addition to \eqref{eq:lqr_style_loss}, this thesis uses individual weights $\rho_R$, $\rho_F$ for
-the terminal costs and $\alpha_R$, $\alpha_F$, $\gamma$ for
+where $\bm{Q}_x$ and $\bm{Q}_u$ are the identity matrices after rescaling of the variables. 
+In addition to \eqref{eq:lqr_style_loss}, this thesis uses individual weights $w_R$, $w_F$ for
+the terminal costs and $\alpha_R$, $\alpha_F$, $w_u$ for
 the stage costs.  
 
-In the next step the constraints given by \eqref{eq:general_motion_optimization} have to be 
+In the next step, the constraints given by \eqref{eq:general_motion_optimization} have to be 
 identified for the 3D-pendulum. The equality constraints $\mathcal{D}$ are given by the discrete 
 forced dynamics \eqref{eq:forced_3D_pendulum_EL_dynamics} and the 
-kinematics update \eqref{eq:forced_3D_pendulum_EL_kinematics}. Moreover, the in Section 
-\ref{sec:discrete_motion_planning_of_rigid_body_systems} defined 
-Lie-group constraints $\mathcal{Y}$ \eqref{eq:so3_polynomial_constraints} have to be included for $R_k$ and $F_k$.
-Finally, by using the inequality $\mathcal{H}$ relation given in \cite{GallierQuaintance2020LinearAlgebra}, 
+kinematics update \eqref{eq:forced_3D_pendulum_EL_kinematics}. Moreover, the
+Lie-group constraints $\mathcal{Y}$ defined in Section~\ref{sec:discrete_motion_planning_of_rigid_body_systems}
+by \eqref{eq:so3_polynomial_constraints} have to be included for $\bm{R}_k$ and $\bm{F}_k$.
+Finally, by using the inequality relation $\mathcal{H}$ given in \cite{GallierQuaintance2020LinearAlgebra}, 
 \begin{align}
-    \operatorname{tr}(F_k)=1+2\cos(\Delta\theta_k)
+    \operatorname{tr}(\bm{F}_k)=1+2\cos(\Delta\theta_k)
 \end{align}
-the relative rotation during one step $F_k$ is bounded by the angle $\Delta\theta_{\max}$, and
+the relative rotation during one step $\bm{F}_k$ is bounded by the angle $0 \leq \Delta\theta_{\max} \leq \pi$, and
 the control input by \eqref{eq:u_bound_3d_pendulum}. In summary, the full controlled 
 3D-pendulum POP is defined as
 \begingroup
@@ -786,74 +803,74 @@ the control input by \eqref{eq:u_bound_3d_pendulum}. In summary, the full contro
 p_{\mathrm{P}}^{\star}
 =
 \min_{\substack{
-\{R_k\}_{k=0}^{N},\,\{F_k\}_{k=0}^{N-1}\\[-0.2em]
-\{u_{p,k}\}_{k=1}^{N-1}}}
+\{\bm{R}_k\}_{k=0}^{N},\,\{\bm{F}_k\}_{k=0}^{N-1}\\[-0.2em]
+\{\bar{\bm{u}}_{p,k}\}_{k=1}^{N-1}}}
 \quad
-&\rho_R\left\|R_N-R_N^{\mathrm{des}}\right\|_F^2
-+\rho_F\left\|F_{N-1}-F^{\mathrm{des}}\right\|_F^2
+&w_R\left\|\bm{R}_N-\bm{R}_N^{\mathrm{des}}\right\|_F^2
++w_F\left\|\bm{F}_{N-1}-\bm{F}^{\mathrm{des}}\right\|_F^2
 \notag\\[-0.9em]
 &+\alpha_R \sum_{k=0}^{N-1}
-\left\|R_k-R_N^{\mathrm{des}}\right\|_F^2
+\left\|\bm{R}_k-\bm{R}_N^{\mathrm{des}}\right\|_F^2
 +\alpha_F \sum_{k=0}^{N-2}
-\left\|F_k-F^{\mathrm{des}}\right\|_F^2
+\left\|\bm{F}_k-\bm{F}^{\mathrm{des}}\right\|_F^2
 \notag\\[0.4em]
-&+\gamma^{-1} \sum_{k=1}^{N-1}\left\|\bar u_{p,k}\right\|_2^2
+&+\frac{1}{w_u} \sum_{k=1}^{N-1}\left\|\bar{\bm{u}}_{p,k}\right\|_2^2
 \label{eq:controlled_3d_pendulum_pop_objective}
 \\[0.2em]
 \hspace{-0.9em}\text{s.t.}\quad
 &\hspace{-0.9em}\begin{aligned}
 \frac{1}{h}\left(
-F_{k+1}J_d-J_dF_{k+1}^{\top}-J_dF_k+F_k^{\top}J_d
+\bm{F}_{k+1}\bm{J}_d-\bm{J}_d\bm{F}_{k+1}^{\top}-\bm{J}_d\bm{F}_k+\bm{F}_k^{\top}\bm{J}_d
 \right)
-&=h\left(\tau_{g,k+1}+u_{k+1}\right)^{\wedge}
+&=h\left(\bm{\tau}_{g,k+1}+\bm{u}_{k+1}\right)^{\wedge}
 \end{aligned},
 \label{eq:controlled_3d_pendulum_pop_dynamics}
 \\[0.8em]
 &\hspace{-0.9em}\begin{aligned}
-R_{k+1}&=R_kF_k
+\bm{R}_{k+1}&=\bm{R}_k\bm{F}_k
 \end{aligned},
 \label{eq:controlled_3d_pendulum_pop_kinematics}
 \\[0.8em]
 &\hspace{-0.9em}\begin{aligned}
-&\|r_{1,k}\|_2^2-1=\|r_{2,k}\|_2^2-1=\|r_{3,k}\|_2^2-1=0,\\[-0.2em]
-&r_{1,k}^{\top}r_{2,k}=r_{2,k}^{\top}r_{3,k}
-=r_{1,k}^{\top}r_{3,k}=0,\\[-0.2em]
-&r_{1,k}\!\times r_{2,k}-r_{3,k}
-=r_{2,k}\!\times r_{3,k}-r_{1,k}
-=r_{3,k}\!\times r_{1,k}-r_{2,k}=0_{3\times1},
+&\|\bm{r}_{1,k}\|_2^2-1=\|\bm{r}_{2,k}\|_2^2-1=\|\bm{r}_{3,k}\|_2^2-1=0,\\[-0.2em]
+&\bm{r}_{1,k}^{\top}\bm{r}_{2,k}=\bm{r}_{2,k}^{\top}\bm{r}_{3,k}
+=\bm{r}_{1,k}^{\top}\bm{r}_{3,k}=0,\\[-0.2em]
+&\bm{r}_{1,k}\!\times \bm{r}_{2,k}-\bm{r}_{3,k}
+=\bm{r}_{2,k}\!\times \bm{r}_{3,k}-\bm{r}_{1,k}
+=\bm{r}_{3,k}\!\times \bm{r}_{1,k}-\bm{r}_{2,k}=\bm{0}_{3\times1},
 \end{aligned}
 \label{eq:controlled_3d_pendulum_pop_so3_R}
 \\[0.8em]
 &\hspace{-0.9em}\begin{aligned}
-&\|f_{1,k}\|_2^2-1=\|f_{2,k}\|_2^2-1=\|f_{3,k}\|_2^2-1=0,\\[-0.2em]
-&f_{1,k}^{\top}f_{2,k}=f_{2,k}^{\top}f_{3,k}
-=f_{1,k}^{\top}f_{3,k}=0,\\[-0.2em]
-&f_{1,k}\!\times f_{2,k}-f_{3,k}
-=f_{2,k}\!\times f_{3,k}-f_{1,k}
-=f_{3,k}\!\times f_{1,k}-f_{2,k}=0_{3\times1},
+&\|\bm{f}_{1,k}\|_2^2-1=\|\bm{f}_{2,k}\|_2^2-1=\|\bm{f}_{3,k}\|_2^2-1=0,\\[-0.2em]
+&\bm{f}_{1,k}^{\top}\bm{f}_{2,k}=\bm{f}_{2,k}^{\top}\bm{f}_{3,k}
+=\bm{f}_{1,k}^{\top}\bm{f}_{3,k}=0,\\[-0.2em]
+&\bm{f}_{1,k}\!\times \bm{f}_{2,k}-\bm{f}_{3,k}
+=\bm{f}_{2,k}\!\times \bm{f}_{3,k}-\bm{f}_{1,k}
+=\bm{f}_{3,k}\!\times \bm{f}_{1,k}-\bm{f}_{2,k}=\bm{0}_{3\times1},
 \end{aligned}
 \label{eq:controlled_3d_pendulum_pop_so3_F}
 \\[0.8em]
 &\hspace{-0.9em}\begin{aligned}
-\frac{\operatorname{tr}(F_k)-1}{2}
+\frac{\operatorname{tr}(\bm{F}_k)-1}{2}
 &\geq \cos(\Delta\theta_{\max})
 \end{aligned},
 \label{eq:controlled_3d_pendulum_pop_step_bound}
 \\[0.8em]
 &\hspace{-0.9em}\begin{aligned}
-1-\bar u_{p,k}^{\top}\bar u_{p,k}&\geq0
+1-\bar{\bm{u}}_{p,k}^{\top}\bar{\bm{u}}_{p,k}&\geq0
 \end{aligned},
 \label{eq:controlled_3d_pendulum_pop_control_bound}
 \\[0.8em]
 &\hspace{-0.9em}\begin{aligned}
-R_0&=R^{\mathrm{init}},
-\qquad F_0=F^{\mathrm{init}}
+\bm{R}_0&=\bm{R}^{\mathrm{init}},
+\qquad \bm{F}_0=\bm{F}^{\mathrm{init}}
 \end{aligned}.
 \label{eq:controlled_3d_pendulum_pop_initial}
 \end{align}
 \end{subequations}
 \endgroup
-with the initial conditions \(R^{\mathrm{init}}\) and \(F^{\mathrm{init}}\).
+with the initial conditions \(\bm{R}^{\mathrm{init}}\) and \(\bm{F}^{\mathrm{init}}\).
 Here, \eqref{eq:controlled_3d_pendulum_pop_dynamics} holds for
 \(k=0,\ldots,N-2\), \eqref{eq:controlled_3d_pendulum_pop_kinematics}
 and \eqref{eq:controlled_3d_pendulum_pop_step_bound} hold for
@@ -862,36 +879,34 @@ holds for \(k=0,\ldots,N\), \eqref{eq:controlled_3d_pendulum_pop_so3_F}
 holds for \(k=0,\ldots,N-1\), and
 \eqref{eq:controlled_3d_pendulum_pop_control_bound} holds for
 \(k=1,\ldots,N-1\).
-Moreover, \(h\) is the time step, \(J_d\) is the nonstandard inertia matrix \eqref{eq:non-standard_inertia},
-and $\tau_{g,k}$ denotes the gravity moment in the body-fixed frame \eqref{eq:3d_pendulum_gravity_moment}.
-The definition of \(r_{i,k}\) and \(f_{i,k}\) is given in \eqref{eq:so3_polynomial_constraints}.
+Moreover, \(h\) is the time step, \(\bm{J}_d\) is the nonstandard inertia matrix \eqref{eq:non-standard_inertia},
+and $\bm{\tau}_{g,k}$ denotes the gravity moment in the body-fixed frame \eqref{eq:3d_pendulum_gravity_moment}.
+The definition of \(\bm{r}_{i,k}\) and \(\bm{f}_{i,k}\) is given in \eqref{eq:so3_polynomial_constraints}.
 Finally, \eqref{eq:controlled_3d_pendulum_pop} gives the full POP of the 3d-pendulum with 
 polynomials until degree 2.
 
 In order to construct the sparse moment relaxation, the chain-like sparsity 
 structure of the 3D-pendulum POP has to be identified. The local decision vector
-associated with the Pendulum clique index set \(\mathcal I_k^{\mathrm{P}}\) is ordered as
-\begin{align}
+associated with the pendulum clique index set \(\mathcal I_k^{\mathrm{P}}\) is ordered as
+\begin{align}\label{eq:3d_pendulum_sparse_clique}
     \bm{z}_{\mathrm{P}}(\mathcal I_k^{\mathrm{P}})
     =
-    [\bm{R}_{k+1} \quad \bm{F}_{k+1} \quad \bm{R}_{k} \quad \bm{F}_{k} \quad \bm{u}_{p,k+1} ]^{\top},
+    [\bm{R}_{k+1} \quad \bm{F}_{k+1} \quad \bm{R}_{k} \quad \bm{F}_{k} \quad \bar{\bm{u}}_{p,k+1} ]^{\top},
     \qquad k=0,\ldots,N-2,
 \end{align}
 which is consistent with the chain-like sparsity condition \eqref{eq:chain_sparsity_condition}.
 Thereby, the dynamics and kinematics only couple neighboring time steps. 
-Therefore, one clique at time step \(k\) contains 39 scalar variables.
-It has to be noted that the boundary cliques can be reduced, since they only
-contain the initial or final states. In particular, terminal constraints
-involving \(R_N\) are assigned to a reduced terminal clique instead of using
-undefined variables beyond the horizon.
-\cite{Sangli2025} identifies for a clique size of \(n_c\), the order-\(\kappa\) moment matrix
+Therefore, the clique vector \(\bm{z}_{\mathrm{P}}(\mathcal I_k^{\mathrm{P}})\)
+contains \(n_{\mathrm{cl}}=39\) scalar variables.
+\cite{Sangli2025} identifies for a clique size of \(n_{\mathrm{cl}}\), the order-\(\kappa\) moment matrix
 dimension as
 \begin{equation}
-s(n_c,\kappa)
-=\binom{n_c+\kappa}{\kappa}.
+s(n_{\mathrm{cl}},\kappa)
+=\binom{n_{\mathrm{cl}}+\kappa}{\kappa}.
 \label{eq:moment_size}
 \end{equation}
-Consequently, at $\kappa=2$, a 39-variable interior clique yields s(39,2)=820.
+Consequently, at $\kappa=2$, a 39-variable interior clique
+\(\bm{z}_{\mathrm{P}}(\mathcal I_k^{\mathrm{P}})\) yields $s(39,2)=820$.
 The corresponding moment matrix therefore has size $820\times820$. In
 contrast, the full decision vector contains
 \[
@@ -904,9 +919,11 @@ s(n_{z,\mathrm{P}},2)=\binom{21N+8}{2}.
 \]
 For the implemented horizon $N=20$, this corresponds to a
 $91\,378\times91\,378$ moment matrix, which is computationally not feasible. 
-
-In the following Section \ref{sec:optimization_results},
-SPOT is used to construct the second-order sparse moment relaxation from the 3D-pendulums POP 
+Nevertheless, the spare relaxation \eqref{eq:3d_pendulum_sparse_clique} 
+consists of bigger miment matrices, compared to the moment matrices constructed using 
+MD, which will be used for the Evaluation.
+In the following Section \ref{sec:3d_pendulum_optimization_results},
+SPOT is used to construct the second-order sparse moment relaxation from the 3D-pendulum's POP 
 \eqref{eq:controlled_3d_pendulum_pop} \cite{Kang_2025Global}. The resulting SDP is solved with the interior-point solver
 MOSEK \cite{MOSEK}. The scalar equations used in the implementation are listed in
 Appendix~\ref{app:controlled_3d_pendulum_scalar_pop}. Finally, the implementation is documented 
@@ -931,8 +948,8 @@ problem \eqref{eq:general_motion_optimization} has to be formulated as a POP usi
 the controlled discrete Euler-Lagrange equations of Section \ref{subsection:discrete_Acrobot}. 
 For the two links $i=1,2$, the planar rotations are represented around the z-axis by 
 \eqref{eq:so2_polynomial_constraints}.
-The acrobot model in maximal coordinates contains additional 
-velocity variables $v_{i,k}\in\mathbb R^2$, which results in a higher number of optimization variables.
+The Acrobot model in maximal coordinates contains additional 
+velocity variables $\bm{v}_{i,k}\in\mathbb R^2$, which results in a higher number of optimization variables.
 Instead, the maximal coordinate model can be reduced by eliminating the
 translational positions and velocities while the constraints still remain
 polynomial. Therefore, the 
@@ -940,23 +957,33 @@ holonomic constraints \eqref{eq:acrobot_base_constraint} and
 \eqref{eq:acrobot_elbow_constraint} eliminate the center-of-mass
 positions exactly according to
 \begin{equation}
-x_{1,k}=p_0-R_{1,k}\rho_{1,0},
+\bm{x}_{1,k}=\bm{p}_0-\bm{R}_{1,k}\bm{\rho}_{1,0},
 \qquad
-x_{2,k}=p_0+R_{1,k}(\rho_{1,12}-\rho_{1,0})
-               -R_{2,k}\rho_{2,12}.
+\bm{x}_{2,k}=\bm{p}_0+\bm{R}_{1,k}(\bm{\rho}_{1,12}-\bm{\rho}_{1,0})
+               -\bm{R}_{2,k}\bm{\rho}_{2,12}.
 \label{eq:acrobot_eliminated_positions}
 \end{equation}
-Therefore, the velocity $\bm{v}_{i,k}$ can be approximated depending on rotations by  
-\begin{align}\label{eq:velocity_approximation_rotations}
-    v_{1,k}
-    &\approx\frac{(R_{1,k}-R_{1,k+1})\rho_{1,0}}{h},\\
-    v_{2,k}
-    &\approx\frac{(R_{1,k+1}-R_{1,k})(\rho_{1,12}-\rho_{1,0})-(R_{2,k+1}-R_{2,k})\rho_{2,12}}{h}
+Therefore, the velocity $\bm{v}_{i,k}$ can be approximated from the rotations by  
+\begin{subequations}\label{eq:velocity_approximation_rotations}
+\begin{align}
+    \bm{v}_{1,k}
+    &\approx
+    \frac{(\bm{R}_{1,k}-\bm{R}_{1,k+1})\bm{\rho}_{1,0}}{h},
+    \label{eq:velocity_approximation_link1}\\
+    \bm{v}_{2,k}
+    &\approx
+    \frac{
+        (\bm{R}_{1,k+1}-\bm{R}_{1,k})
+        (\bm{\rho}_{1,12}-\bm{\rho}_{1,0})
+        -(\bm{R}_{2,k+1}-\bm{R}_{2,k})\bm{\rho}_{2,12}
+    }{h}.
+    \label{eq:velocity_approximation_link2}
 \end{align}
-substituting \eqref{eq:acrobot_eliminated_positions} into \eqref{eq:discrete_velocity_approximation}.
-In addition, the kinematic update \cite{eq:acrobot_full_del_shifted_kinematics_1}-\cite{eq:acrobot_full_del_shifted_kinematics_2} can be rewritten as
+\end{subequations}
+substituting \eqref{eq:acrobot_eliminated_positions} into \eqref{eq:acrobot_discrete_translational_velocity}.
+In addition, the kinematic update \eqref{eq:acrobot_full_del_shifted_kinematics_1}-\eqref{eq:acrobot_full_del_shifted_kinematics_2} can be rewritten as
 \begin{equation}
-R_{i,k-1}=R_{i,k}F_{i,k-1}^{\top}.
+\bm{R}_{i,k-1}=\bm{R}_{i,k}\bm{F}_{i,k-1}^{\top}.
 \label{eq:acrobot_kinematic_substitution}
 \end{equation}
 Consequently, using \eqref{eq:acrobot_full_del_shifted_kinematics_1}-\eqref{eq:acrobot_full_del_shifted_kinematics_2},
@@ -970,34 +997,34 @@ the translational dynamics
 \begin{align}
     \intertext{\textit{Translation:}}
     \vspace{-0.1cm}
-    -M_1 R_{1,k}
-    A_{1,k}\rho_{1,0}
-    -h^2gM_1e_2
-    -h^2\left(\lambda_{0,k}+\lambda_{12,k}\right)
+    -\bm{M}_1 \bm{R}_{1,k}
+    \bm{A}_{1,k}\bm{\rho}_{1,0}
+    -h^2g\bm{M}_1\bm{e}_2
+    -h^2\left(\bm{\lambda}_{0,k}+\bm{\lambda}_{12,k}\right)
     &=
     \bm{0},
     \label{eq:acrobot_full_del_shifted_translation_1_reduced}
     \\
 \hspace{-2em}
-    M_2\Bigl[
-    R_{1,k}
-    A_{1,k}
-    \left(\rho_{1,12}-\rho_{1,0}\right)
-    -R_{2,k}
-    A_{2,k}\rho_{2,12}
+    \bm{M}_2\Bigl[
+    \bm{R}_{1,k}
+    \bm{A}_{1,k}
+    \left(\bm{\rho}_{1,12}-\bm{\rho}_{1,0}\right)
+    -\bm{R}_{2,k}
+    \bm{A}_{2,k}\bm{\rho}_{2,12}
     \Bigr]
-    -h^2gM_2e_2
-    +h^2\lambda_{12,k}
+    -h^2g\bm{M}_2\bm{e}_2
+    +h^2\bm{\lambda}_{12,k}
     &=
     \bm{0},
     \label{eq:acrobot_full_del_shifted_translation_2_reduced}
 \end{align}
 \endgroup
 \end{subequations}
-with $A_{i,k} =F_{i,k}-2I_2+F_{i,k-1}^{\top}$.
-Therefore, the reduced translational dynamics only depends on the relative rotations
-$F_{i,k}$ and $F_{i,k-1}$, and the attitude $R_{i,k}$.
-The physical properties of the reduced model validated and compared to the full model in the 
+with $\bm{A}_{i,k}=\bm{F}_{i,k}-2\bm{I}_2+\bm{F}_{i,k-1}^{\top}$.
+Therefore, the reduced translational dynamics only depend on the relative rotations
+$\bm{F}_{i,k}$ and $\bm{F}_{i,k-1}$, and the attitude $\bm{R}_{i,k}$.
+The physical properties of the reduced model are validated and compared to the full model in the 
 Appendix \ref{appendix:experimental_details}.
 
 Similar to the 3D pendulum in Section \ref{sec:discrete_motion_planning_3d_pendulum}, 
@@ -1006,46 +1033,46 @@ to the interval $[-1,1]$ componentwise,
 \begin{equation}
 u_k^{\mathrm{phys}}=u_{\max}\bar u_k,
 \qquad
-\lambda_{0,k}=\lambda_{\max}\bar\lambda_{0,k},
+\bm{\lambda}_{0,k}=\lambda_{\max}\bar{\bm{\lambda}}_{0,k},
 \qquad
-\lambda_{12,k}=\lambda_{\max}\bar\lambda_{12,k}.
+\bm{\lambda}_{12,k}=\lambda_{\max}\bar{\bm{\lambda}}_{12,k}.
 \label{eq:acrobot_variable_scaling}
 \end{equation}
 The normalized control and componentwise multiplier bounds are
 \begin{equation}
 1-\bar u_k^2\geq0,
 \qquad
-1-\bigl(\bar\lambda_{0,k}^{(j)}\bigr)^2\geq0,
+1-\bigl(\bar{\lambda}_{0,k}^{(j)}\bigr)^2\geq0,
 \qquad
-1-\bigl(\bar\lambda_{12,k}^{(j)}\bigr)^2\geq0,
+1-\bigl(\bar{\lambda}_{12,k}^{(j)}\bigr)^2\geq0,
 \quad j=1,2.
 \label{eq:acrobot_normalized_bounds}
 \end{equation}
 Moreover, since
-$\tfrac12\operatorname{tr}(F_{i,k})=a_{i,k}=\cos(\Delta\theta_{i,k})$,
+$\tfrac12\operatorname{tr}(\bm{F}_{i,k})=a_{i,k}=\cos(\Delta\theta_{i,k})$,
 the relative-rotation bound is
 \begin{align}\label{eq:acrobot_normalized_f_bound}
 a_{i,k}\geq\cos(\Delta\theta_{i,\max}).
 \end{align} 
-The entries of $R_{i,k}$ and
-$F_{i,k}$ are already bounded by the $SO(2)$ constraints.
+The entries of $\bm{R}_{i,k}$ and
+$\bm{F}_{i,k}$ are already bounded by the $SO(2)$ constraints.
 
 The optimization variables are the entries of
-$R_{i,0},\ldots,R_{i,N}$, $F_{i,0},\ldots,F_{i,N-1}$, and the normalized
-variables $\bar\lambda_{0,k},\bar\lambda_{12,k}\in\mathbb R^2$ and
+$\bm{R}_{i,0},\ldots,\bm{R}_{i,N}$, $\bm{F}_{i,0},\ldots,\bm{F}_{i,N-1}$, and the normalized
+variables $\bar{\bm{\lambda}}_{0,k},\bar{\bm{\lambda}}_{12,k}\in\mathbb R^2$ and
 $\bar u_k\in\mathbb R$, $k=1,\ldots,N-1$.
 Therefore, the reduced full-horizon decision vector contains $n_{z,\mathrm{A}}^{reduced}=13N-1$
-scalar variables, compared to the original $n_{z,\mathrm{A}}^{full}=17N+3$ variables of the full model.
+scalar variables, compared to the original $n_{z,\mathrm{A}}^{full}=17N+3$ variables of the full model using position variables $\bm{x_{i,k}}$.
 
 
-Similar to the 3D-pendulum (see Section \ref{sec:discrete_motion_planning_3d_pendulum})
-the terminal and stage cost introduced in \eqref{eq:lqr_style_loss}, the Acrobot
-objective uses individual terminal weights $\rho_R,\rho_F,$ and stage weights 
-$\alpha_R,\alpha_F$,\(\gamma\). The multipliers $\bar\lambda_{0,k}$ and $\bar\lambda_{12,k}$ 
+Similar to the 3D-pendulum objective introduced in \eqref{eq:lqr_style_loss}
+(see Section \ref{sec:discrete_motion_planning_3d_pendulum}), the Acrobot
+objective uses individual terminal weights $w_R,w_F,$ and stage weights 
+$\alpha_R,\alpha_F$, and \(w_u\). The multipliers $\bar{\bm{\lambda}}_{0,k}$ and $\bar{\bm{\lambda}}_{12,k}$ 
 are not penalized. In the notation of the general problem~\eqref{eq:general_motion_optimization}, 
 the equality constraints $\mathcal{D}_i$ consist of the reduced translational 
 \eqref{eq:acrobot_full_del_shifted_translation_1_reduced}-\eqref{eq:acrobot_full_del_shifted_translation_2_reduced} 
-and rotational dynamics \eqref{eq:acrobot_full_del_shifted_rotation_1}-\eqref{eq:acrobot_full_del_shifted_rotation_2},
+and rotational dynamics \eqref{eq:forced_acrobot_rotation_link1}-\eqref{eq:forced_acrobot_rotation_link2},
 together with the kinematic update 
 \eqref{eq:acrobot_full_del_shifted_kinematics_1}-\eqref{eq:acrobot_full_del_shifted_kinematics_2}. 
 The SO(2) Lie-group constraints \eqref{eq:so2_polynomial_constraints}
@@ -1063,75 +1090,81 @@ p_{\mathrm A}^{\star}
 =
 \min_{\bm{z}_{\mathrm{A}}}
 \quad
-&\rho_R\sum_{i=1}^{2}\|R_{i,N}-R_i^{\mathrm{des}}\|_F^2
-+\rho_F\sum_{i=1}^{2}\|F_{i,N-1}-F_i^{\mathrm{des}}\|_F^2
+&w_R\sum_{i=1}^{2}\|\bm{R}_{i,N}-\bm{R}_i^{\mathrm{des}}\|_F^2
++w_F\sum_{i=1}^{2}\|\bm{F}_{i,N-1}-\bm{F}_i^{\mathrm{des}}\|_F^2
 \notag\\[-0.1em]
 &+\alpha_R\sum_{k=0}^{N-1}\sum_{i=1}^{2}
-  \|R_{i,k}-R_i^{\mathrm{des}}\|_F^2
+  \|\bm{R}_{i,k}-\bm{R}_i^{\mathrm{des}}\|_F^2
 +\alpha_F\sum_{k=0}^{N-2}\sum_{i=1}^{2}
-  \|F_{i,k}-F_i^{\mathrm{des}}\|_F^2
+  \|\bm{F}_{i,k}-\bm{F}_i^{\mathrm{des}}\|_F^2
 \notag\\[-0.1em]
-&+\gamma^{-1}\sum_{k=1}^{N-1}\bar u_k^2
+&+\frac{1}{w_u}\sum_{k=1}^{N-1}\bar u_k^2
 \label{eq:controlled_acrobot_pop_objective}
 \\[0.2em]
 \hspace{-0.9em}\text{s.t.}\quad
 &\hspace{-0.9em}\begin{aligned}
--M_1 R_{1,k}
-A_{1,k}\rho_{1,0}
--h^2gM_1e_2
--h^2\left(\lambda_{0,k}+\lambda_{12,k}\right)
-&=0_2
+-\bm{M}_1 \bm{R}_{1,k}
+\bm{A}_{1,k}\bm{\rho}_{1,0}
+-h^2g\bm{M}_1\bm{e}_2
+-h^2\left(\bar{\bm{\lambda}}_{0,k}+\bar{\bm{\lambda}}_{12,k}\right)
+&=\bm{0}_2
 \end{aligned}
 \label{eq:controlled_acrobot_pop_translation_1}\\
 &\hspace{-0.9em}\begin{aligned}
-M_2\Bigl[
-R_{1,k}
-A_{1,k}
-\left(\rho_{1,12}-\rho_{1,0}\right)
--R_{2,k}
-A_{2,k}\rho_{2,12}
+\bm{M}_2\Bigl[
+\bm{R}_{1,k}
+\bm{A}_{1,k}
+\left(\bm{\rho}_{1,12}-\bm{\rho}_{1,0}\right)
+-\bm{R}_{2,k}
+\bm{A}_{2,k}\bm{\rho}_{2,12}
 \Bigr]
--h^2gM_2e_2
-+h^2\lambda_{12,k}
-&=0_2
+-h^2g\bm{M}_2\bm{e}_2
++h^2\bar{\bm{\lambda}}_{12,k}
+&=\bm{0}_2
 \end{aligned}
 \label{eq:controlled_acrobot_pop_translation_2}\\[0.8em]
 &\hspace{-0.9em}\begin{aligned}
-\bm{\Pi}_{1,k}
--\bm{\Pi}_{1,k+1}
+&
+\hat{\bm{\Pi}}_{1,k}
+-\hat{\bm{\Pi}}_{1,k+1}
+\\
+&\quad
 +h
 \left[
 \left(
 \bm{\rho}_{1,0}
 \times
-\bm{R}_{1,k+1}^{\top}\bm{\lambda}_{0,k+1}
+\bm{R}_{1,k+1}^{\top}\bar{\bm{\lambda}}_{0,k+1}
 \right)
 +
 \left(
 \bm{\rho}_{1,12}
 \times
-\bm{R}_{1,k+1}^{\top}\bm{\lambda}_{12,k+1}
+\bm{R}_{1,k+1}^{\top}\bar{\bm{\lambda}}_{12,k+1}
 \right)
+-u_{\max}\bar u_{k+1}
 \right]^{\wedge}
 &=\bm{0}
 \end{aligned}
 \label{eq:controlled_acrobot_pop_rotation_1}
 \\
 &\hspace{-0.9em}\begin{aligned}
-\bm{\Pi}_{2,k}
--\bm{\Pi}_{2,k+1}
--h
+\hat{\bm{\Pi}}_{2,k}
+-\hat{\bm{\Pi}}_{2,k+1}
++h
 \left[
+u_{\max}\bar u_{k+1}
+-
 \left(
 \bm{\rho}_{2,12}
 \times
-\bm{R}_{2,k+1}^{\top}\bm{\lambda}_{12,k+1}
+\bm{R}_{2,k+1}^{\top}\bar{\bm{\lambda}}_{12,k+1}
 \right)
 \right]^{\wedge}
 &=\bm{0}
 \end{aligned}
 \label{eq:controlled_acrobot_pop_rotation_2}\\[0.8em]
-&\hspace{-0.9em}R_{i,k+1}=R_{i,k}F_{i,k},
+&\hspace{-0.9em}\bm{R}_{i,k+1}=\bm{R}_{i,k}\bm{F}_{i,k},
 \label{eq:controlled_acrobot_pop_kinematics}\\[0.8em]
 &\hspace{-0.9em}c_{i,k}^2+s_{i,k}^2-1=0,
 \label{eq:controlled_acrobot_pop_so2_R}\\
@@ -1141,13 +1174,13 @@ A_{2,k}\rho_{2,12}
 \label{eq:controlled_acrobot_pop_step_bound}\\
 &\hspace{-0.9em}1-\bar u_k^2\geq0,
 \label{eq:controlled_acrobot_pop_control_bound}\\
-&\hspace{-0.9em}1-\bigl(\bar\lambda_{0,k}^{(j)}\bigr)^2\geq0,
+&\hspace{-0.9em}1-\bigl(\bar{\lambda}_{0,k}^{(j)}\bigr)^2\geq0,
 \quad
-1-\bigl(\bar\lambda_{12,k}^{(j)}\bigr)^2\geq0,
+1-\bigl(\bar{\lambda}_{12,k}^{(j)}\bigr)^2\geq0,
 \label{eq:controlled_acrobot_pop_multiplier_bound}\\[0.8em]
 &\hspace{-0.9em}\begin{gathered}
-F_{i,0}=F_i^{\mathrm{init}},\qquad
-R_{i,1}=R_i^{\mathrm{init}}.
+\bm{F}_{i,0}=\bm{F}_i^{\mathrm{init}},\qquad
+\bm{R}_{i,1}=\bm{R}_i^{\mathrm{init}}.
 \end{gathered}
 \label{eq:controlled_acrobot_pop_initial}
 \end{align}
@@ -1174,10 +1207,10 @@ Rotation
 Kinematics
 & \eqref{eq:controlled_acrobot_pop_kinematics}
 & \(i=1,2,\; k=0,\ldots,N-1\) \\
-\(SO(2)\) for \(R\)
+\(SO(2)\) for \(\bm{R}\)
 & \eqref{eq:controlled_acrobot_pop_so2_R}
 & \(i=1,2,\; k=0,\ldots,N\) \\
-\(SO(2)\) for \(F\)
+\(SO(2)\) for \(\bm{F}\)
 & \eqref{eq:controlled_acrobot_pop_so2_F}
 & \(i=1,2,\; k=0,\ldots,N-1\) \\
 Step bound
@@ -1199,10 +1232,11 @@ Table \ref{tab:controlled_acrobot_pop_indexing} describes the index ranges for t
 Since the center-of-mass positions are reconstructed from the rotations \eqref{eq:acrobot_eliminated_positions},
 the holonomic constraints \eqref{eq:acrobot_full_del_shifted_base_constraint}-\eqref{eq:acrobot_full_del_shifted_elbow_constraint}
 are satisfied identically and therefore do not appear in the reduced POP.
-Moreover, $F_{i,0}=F_i^{\mathrm{init}}$ and $R_{i,1}=R_i^{\mathrm{init}}$ specify the initial rotation increment and attitude of each link, respectively.
+Moreover, $\bm{F}_{i,0}=\bm{F}_i^{\mathrm{init}}$ and
+$\bm{R}_{i,1}=\bm{R}_i^{\mathrm{init}}$ specify the initial rotation increment and attitude of each link, respectively.
 Instead of using fixed boundary conditions, the desired terminal values are penalized. 
 Finally, the full POP of the Acrobot on $SO(2)$ in~\eqref{eq:controlled_acrobot_pop} 
-are polynomials of degree smaller or equal two.
+is a polynomial of degree less than or equal to two.
 
 \paragraph{Chain-like sparsity}
 The reduced dynamics and kinematics couple neighboring time steps.
@@ -1245,16 +1279,17 @@ whereas the remaining complete stage cliques are
 \end{aligned}
 \label{eq:acrobot_full_self_interior_cliques}
 \end{equation}
-for $k=2,\ldots,N-1$. For the acrobot, each rotation and relative rotation
+for $k=2,\ldots,N-1$. For the Acrobot, each rotation and relative rotation
 is represented by two scalar variables $c_{i,k}$ and $s_{i,k}$ or $a_{i,k}$ and $b_{i,k}$, 
 following the $SO(2)$ definition of \eqref{eq:so2_polynomial_constraints}.
 The larger first clique also covers the initial values \eqref{eq:controlled_acrobot_pop_initial}
 and the kinematic update \eqref{eq:controlled_acrobot_pop_kinematics} 
 at $k=0$ and $k=1$. 
-Moreover, the terminal variables are contained inside \(\mathcal I_{N-1}^{\mathrm{A}}\),
+Moreover, the terminal variables are contained inside
+\(\bm{z}_{\mathrm{A}}(\mathcal I_{N-1}^{\mathrm{A}})\);
 therefore, no additional terminal clique is required. The size of the first clique is
-\(n_{c,\mathcal I_1^{\mathrm{A}}}=25\), whereas the interior cliques have size
-\(n_{c,\mathcal I_k^{\mathrm{A}}}=21\).
+\(|\mathcal I_1^{\mathrm{A}}|=25\), whereas the interior cliques have size
+\(|\mathcal I_k^{\mathrm{A}}|=21\).
 Therefore, the moment matrix dimensions are 
 \begin{equation}
 s(25,2)=\binom{27}{2}=351,
@@ -1263,12 +1298,12 @@ s(21,2)=\binom{23}{2}=253,
 \label{eq:acrobot_full_self_moment_sizes}
 \end{equation}
 using \eqref{eq:moment_size} for the second-order relaxation $\kappa = 2$.
-In consequence, the Chain-like sparsity formulation contains one $351\times351$ 
-moment matrix and $N-2$ interior matrices of the size $253\times253$.
+Consequently, the chain-like sparsity formulation contains one $351\times351$ 
+moment matrix and $N-2$ interior matrices of size $253\times253$.
 
 \paragraph{Special multi-body sparsity}
 The Acrobot dynamics couple both rigid links through
-$\bar\lambda_{12,k}$, but the kinematic equations \eqref{eq:controlled_acrobot_pop_kinematics}
+$\bar{\bm{\lambda}}_{12,k}$, but the kinematic equations \eqref{eq:controlled_acrobot_pop_kinematics}
 do not contain the
 multipliers or the input $\bar u_k$. The special multi-body sparsity construction exploits this
 additional structure. Therefore, the interior cliques can be decomposed into the smaller cliques
@@ -1304,13 +1339,17 @@ additional structure. Therefore, the interior cliques can be decomposed into the
 \label{eq:acrobot_hybrid_kinematic_clique}
 \end{align}
 \end{subequations}
-for $k=3,\ldots,N-1$. Here, \(\mathcal I_{\mathrm{dyn},k}^{\mathrm{A}}\) covers the coupled translational and
-rotational dynamics, whereas
-\(\mathcal I_{\mathrm{kin},k}^{\mathrm{A}}\) covers the kinematics of both links. Keeping both links together avoids
-discarding their physical coupling. However, for this thesis, \(\mathcal I_1^{\mathrm{A}}\)
-\eqref{eq:acrobot_full_self_initial_clique} and \(\mathcal I_2^{\mathrm{A}}\)
+for $k=3,\ldots,N-1$. Here,
+\(\bm{z}_{\mathrm{A}}(\mathcal I_{\mathrm{dyn},k}^{\mathrm{A}})\) covers the
+coupled translational and rotational dynamics, whereas
+\(\bm{z}_{\mathrm{A}}(\mathcal I_{\mathrm{kin},k}^{\mathrm{A}})\) covers the
+kinematics of both links. Keeping both links together avoids
+discarding their physical coupling. However, for this thesis,
+\(\bm{z}_{\mathrm{A}}(\mathcal I_1^{\mathrm{A}})\)
+\eqref{eq:acrobot_full_self_initial_clique} and
+\(\bm{z}_{\mathrm{A}}(\mathcal I_2^{\mathrm{A}})\)
 \eqref{eq:acrobot_full_self_interior_cliques} are taken as the first two cliques,
-to ensure tightness for the first control decision, which will be used in the MPC implementation 
+to strengthen the relaxation around the first control decision, which will be used in the MPC implementation 
 of Section~\ref{sec:acrobot_trajectory_optimization_SDP_MPC}.
 
 At $\kappa=2$, the
@@ -1323,11 +1362,12 @@ s(17,2)=\binom{19}{2}=171,
 s(12,2)=\binom{14}{2}=91.
 \label{eq:acrobot_hybrid_self_moment_sizes}
 \end{equation}
-The first two complete cliques are retained around the first
-control decision, which results in a moment matrix of the size
-\(351\times351\) for \(\mathcal I_1^{\mathrm{A}}\) and
-\(253 \times 253\) for \(\mathcal I_2^{\mathrm{A}}\).
-Nevertheless, for each timestep inside $k=3,\ldots,N-1$ there
+The first two complete clique vectors
+\(\bm{z}_{\mathrm{A}}(\mathcal I_1^{\mathrm{A}})\) and
+\(\bm{z}_{\mathrm{A}}(\mathcal I_2^{\mathrm{A}})\) are retained around the first
+control decision, resulting in moment matrices of size
+\(351\times351\) and \(253\times253\), respectively.
+Nevertheless, for each time step $k=3,\ldots,N-1$ there
 are two moment matrices with the size $171\times171$ and
 $91\times91$.
 
@@ -1342,15 +1382,15 @@ this gives
 $n_{z,\mathrm{A}}=779$ and a dense moment matrix of size
 $304\,590\times304\,590$. Consequently, the chain-like and special multi-body
 sparsity formulations significantly reduce the size of the moment matrices, 
-by replace one horizon-dependent positive-semidefinite block by blocks
+by replacing one horizon-dependent positive-semidefinite block by blocks
 whose dimensions remain independent of $N$.
 
 In the following Section \ref{subsec:acrobot_optimization_results},
 SPOT is used to construct the second-order sparse moment relaxation 
 from the Acrobot POP \eqref{eq:controlled_acrobot_pop} \cite{Kang_2025Global}. 
-Thereby, the chain-like and special multi-body sparsity structures are exploited,
+Thereby, the chain-like and special multi-body sparsity structures are exploited
 by using the defined cliques \eqref{eq:acrobot_full_self_initial_clique}
--\eqref{eq:acrobot_full_self_interior_cliques} and \eqref{eq:acrobot_hybrid_self_cliques},
+-\eqref{eq:acrobot_full_self_interior_cliques} and \eqref{eq:acrobot_hybrid_self_cliques}.
 The resulting SDPs are solved with the interior-point solver MOSEK \cite{MOSEK}.
 Finally, the complete scalar POP used in the implementation is listed
 in Appendix~\ref{app:controlled_acrobot_scalar_pop}, and the corresponding code
@@ -1382,7 +1422,7 @@ However, the MPC loop does not make the SDP relaxation tight and the
 predicted SDP trajectory remains uncertified. Nevertheless, the applied controls
 generate a dynamically consistent closed-loop trajectory using the LGVI of 
 Section \ref{subsection:discrete_Acrobot}. Figure~\ref{fig:acrobot_sdp_mpc_loop} 
-summarizes the implemented closed semidefinite relaxation loop, which will be 
+summarizes the implemented closed-loop semidefinite-relaxation loop, which will be 
 elaborated in the following paragraphs.
 
 \begin{figure}[!ht]
@@ -1393,7 +1433,7 @@ elaborated in the following paragraphs.
 \end{figure}
 
 \paragraph{Receding-horizon}
-In the following, \(j\in\mathbb{N}_0\) denote the MPC iteration.
+In the following, \(j\in\mathbb{N}_0\) denotes the MPC iteration.
 Therefore, the corresponding simulation time is
 \begin{align}
 t_j=j\Delta t_{\mathrm{ctrl}} 
@@ -1403,19 +1443,19 @@ of the problem solved at MPC iteration \(j\).
 At every iteration, the second-order sparse Moment-SOS relaxation and
 clique construction introduced in
 Section~\ref{sec:trajectory_optimization_via_sdp_relaxation} are used.
-Only the initial rotation data \(R_{i,1\mid j}\), \(F_{i,0\mid j}\), and
-\(R_{i,0\mid j}\) are updated from the simulated state, while the dynamics,
+Only the initial rotation data \(\bm{R}_{i,1\mid j}\), \(\bm{F}_{i,0\mid j}\), and
+\(\bm{R}_{i,0\mid j}\) are updated from the simulated state, while the dynamics,
 cost function, bounds, prediction horizon, and desired state remain unchanged.
 
 For any two consecutive prediction nodes, the relative rotation satisfies
 \begin{equation}
-    F_{i,k\mid j}
+    \bm{F}_{i,k\mid j}
     =
-    R_{i,k\mid j}^{\top}R_{i,k+1\mid j},
+    \bm{R}_{i,k\mid j}^{\top}\bm{R}_{i,k+1\mid j},
     \qquad
-    R_{i,k+1\mid j}
+    \bm{R}_{i,k+1\mid j}
     =
-    R_{i,k\mid j}F_{i,k\mid j}.
+    \bm{R}_{i,k\mid j}\bm{F}_{i,k\mid j}.
     \label{eq:acrobot_relative_rotation_general}
 \end{equation}
 At the boundary of each newly solved SDP problem, node \(k=1\) represents the
@@ -1424,63 +1464,77 @@ required history state one SDP interval earlier. Therefore, with
 \(h=\Delta t_{\mathrm{SDP}}\), the updated boundary data are
 \begin{equation}
 \begin{aligned}
-R_{i,1\mid j}
-&=R_i(t_j),\\
-F_{i,0\mid j}
-&=R_i(t_j-\Delta t_{\mathrm{SDP}})^{\top}R_i(t_j),\\
-R_{i,0\mid j}
-&=R_{i,1\mid j}F_{i,0\mid j}^{\top},
+\bm{R}_{i,1\mid j}
+&=\bm{R}_i(t_j),\\
+\bm{F}_{i,0\mid j}
+&=\bm{R}_i(t_j-\Delta t_{\mathrm{SDP}})^{\top}\bm{R}_i(t_j),\\
+\bm{R}_{i,0\mid j}
+&=\bm{R}_{i,1\mid j}\bm{F}_{i,0\mid j}^{\top},
 \end{aligned}
 \label{eq:acrobot_mpc_boundary_data}
 \end{equation}
 for links $i=1,2$.
-The reconstruction \(F_{i,0\mid j}=R_i(t_j-h)^{\top}R_i(t_j)\) ensures that the 
+The reconstruction \(\bm{F}_{i,0\mid j}=\bm{R}_i(t_j-\Delta t_{\mathrm{SDP}})^{\top}\bm{R}_i(t_j)\) ensures that the 
 incoming relative rotation always spans exactly one SDP interval 
 \(\Delta t_{\mathrm{SDP}}\). This is
 important when the control interval \(\Delta t_{\mathrm{ctrl}}\) or the
 simulation interval \(\Delta t_{\mathrm{sim}}\) differs from \(\Delta t_{\mathrm{SDP}}\).
 However, during the first MPC iterations, the simulated state does not yet contain a full history
-of past rotations for $\Delta t_{\mathrm{SDP}} > \Delta t_{\mathrm{sim}}$. Therefore, 
-missing prehistory is completed using the \(F_i^{\mathrm{init}}=\bm{I}\),
+of past rotations for $\Delta t_{\mathrm{SDP}} > t_j$. Therefore, 
+missing prehistory is completed using \(\bm{F}_i^{\mathrm{init}}=\bm{I}\),
 simulating a stationary start.
+\begin{align*}
+\bm{R}_i(t)=\bm{R}_i(0)
+\quad &\text{for } t<0, \\
+\qquad
+\bm{F}_{i,0\mid j}
+=
+\bm{R}_i(0)^\top \bm{R}_i(t_j)
+\quad &\text{for }
+0<t_j<\Delta t_{\mathrm{SDP}}.
+\label{eq:initial_rotation_history}
+\end{align*}
 
 \paragraph{Control application}
 After updating the boundary data at iteration \(j\), the reduced Acrobot POP
 of Section~\ref{sec:trajectory_optimization_via_sdp_relaxation} is converted
 into a second-order sparse SDP using SPOT and solved with MOSEK. Ordered
 extraction of the degree-one moments provides the normalized first control
-\(\bar u_{1\mid j}^{\star}\) out of the solution vector 
-$\{\bar u_{1\mid j}^{\star}, \bar u_{2\mid j}^{\star},\dots, \bar u_{N_{\mathrm{SDP}}\mid j}^{\star}\}$. The corresponding physical torque is
+\(\bar u_{1\mid j}^{\star}\) from the solution vector 
+\[\{\bar u_{1\mid j}^{\star}, \bar u_{2\mid j}^{\star},\dots, \bar u_{N_{\mathrm{SDP}}-1\mid j}^{\star}\}.\] The corresponding physical torque is
 \begin{equation}
     u_j
     =
     u_{\max}\bar u_{1\mid j}^{\star}.
     \label{eq:acrobot_mpc_applied_control}
 \end{equation}
-Following, this first control $u_j$ is applied to the numerical Acrobot simulation 
+Then, this first control $u_j$ is applied to the numerical Acrobot simulation 
 of Section~\ref{subsec:evaluation_acrobot}, while the
 remaining predicted control sequence is discarded. The control input
 \(u_j\) is kept constant over the control interval 
 $t_{j+1}=t_j+\Delta t_{\mathrm{ctrl}}$.
 During this interval, the Acrobot is simulated using the reduced LGVI of
 Section~\ref{subsection:discrete_Acrobot}. The simulated
-trajectory at $j+1$ is then stored inside $\mathbf{\hat{z}}_{MPC,j+1}$
+trajectory at $j+1$ is then stored inside $\widehat{\bm{z}}_{\mathrm{MPC},j+1}$.
 The resulting rotations and
 rotation-steps are then used to construct the initial data for
 the next SDP problem as described above. 
 
-After the simulation interval, the rotation error \(e_{R,j+1}\) and
-angular-velocity error \(e_{\omega,j+1}\) are evaluated. The Acrobot is
-declared stabilized if
+After the simulation interval, the rotation error \(e_{R,j}\) and the
+relative-step rotation error \(e_{F,j}\) are evaluated. The latter is the
+step-angle error calculated from the last fine simulation step and is measured
+in degrees or radians, rather than degrees per second. The Acrobot is declared
+stabilized if
 \begin{equation}
-    e_{R,j+1}<\varepsilon_R,
+    e_{R,j}\leq\varepsilon_R,
     \qquad
-    e_{\omega,j+1}<\varepsilon_\omega
+    e_{F,j}\leq\varepsilon_F
     \label{eq:acrobot_mpc_stabilization_condition}
 \end{equation}
 holds for \(n_{\mathrm{stable}}\) consecutive MPC updates. In this case, the
 MPC loop terminates and the full simulated trajectory is 
-safed inside $\mathbf{\hat{z}}_{MPC,j+1}$. Otherwise, \(j\) is increased by one inside the 
+saved inside $\widehat{\bm{z}}_{\mathrm{MPC},j+1}$. 
+Otherwise, \(j\) is increased by one by the 
 MPC-SDP controller, the initial data
 is updated from the new simulated state, and the SDP is solved again. If the
 SDP is infeasible or no finite first control can be extracted, the loop
@@ -1494,7 +1548,7 @@ In summary, the MPC implementation uses
     \Delta t_{\mathrm{sim}},
     \qquad
     n_{\mathrm{sim}}
-    =\frac{\Delta t_{\mathrm{ctrl}}}{\Delta t_{\mathrm{sim}}},
+    =\frac{\Delta t_{\mathrm{ctrl}}}{\Delta t_{\mathrm{sim}}} \in \mathbb{N},
     \qquad
     T_{\mathrm{pred}}=(N_{\mathrm{SDP}}-1)\Delta t_{\mathrm{SDP}}.
     \label{eq:acrobot_mpc_time_scales}
@@ -1504,7 +1558,7 @@ model, \(\Delta t_{\mathrm{sim}}\) is the fine LGVI simulation step, and
 \(\Delta t_{\mathrm{ctrl}}\) is the control interval between two MPC updates.
 Consequently, the numerical plant performs \(n_{\mathrm{sim}}\) LGVI steps
 before the SDP is solved again. The intervals \(\Delta t_{\mathrm{SDP}}\) and
-\(\Delta t_{\mathrm{ctrl}}\) can differ from each other. If both intervals 
+\(\Delta t_{\mathrm{ctrl}}\) can differ from each other. If the two intervals are equal,
 $\Delta t_{\mathrm{SDP}} = \Delta t_{\mathrm{ctrl}}$, one MPC
 update corresponds to one predicted SDP interval.
 
@@ -1520,6 +1574,6 @@ and solution time of the SDP. The complete decision logic of the SDP-based MPC l
     \resizebox{0.95\textwidth}{!}{%
         \input{pics/Optimization/Acrobot/mpc_logic.tikz}%
     }
-    \caption{SDP-based model predictive control loop decision-logic for the reduced Acrobot.}
+    \caption{Decision logic of the SDP-based model predictive control loop for the reduced Acrobot.}
     \label{fig:acrobot_sdp_mpc_logic}
 \end{figure}

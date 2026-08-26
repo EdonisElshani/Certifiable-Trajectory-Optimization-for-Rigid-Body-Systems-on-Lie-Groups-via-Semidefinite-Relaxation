@@ -1,13 +1,14 @@
 \chapter{Preliminaries on Special Embedded Matrix Lie Groups}
 \label{chapter:preliminaries_lie_groups}
 
-This chapter summarizes the Lie group notation required for the continuous and discrete rigid-body mechanics developed in chapters \ref{chapter:continous_mechanics_of_rigid_bodies_on_lie_groups} and \ref{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups}, following the definition of Lie group and algebra in \cite{Hall2000LieGroups} and the geometric-mechanics notation in \cite{Lee2008}.
+This chapter summarizes the Lie group notation required for the continuous 
+and discrete rigid-body mechanics developed in Chapters \ref{chapter:continous_mechanics_of_rigid_bodies_on_lie_groups} and \ref{chapter:discrete_mechanics_for_rigid_bodies_on_lie_groups}, following the definitions of Lie groups and Lie algebras in \cite{Hall2000LieGroups} and the geometric-mechanics notation in \cite{Lee2008}.
 
 \section{Special Matrix Lie Groups}
 \label{sec:special_matrix_lie_groups}
 
 A Lie group is a smooth manifold that is also a group, where multiplication and inversion are smooth maps. A real matrix Lie group is a closed subgroup
-$G\subset\mathrm{GL}(N,\mathbb{R})$. Its group operation is matrix
+$G\subset\mathrm{GL}(n,\mathbb{R})$. Its group operation is matrix
 multiplication, and it is an embedded smooth manifold for which
 multiplication and inversion are smooth maps
 \cite{Hall2000LieGroups}.
@@ -52,7 +53,7 @@ $\mathrm{SO}(n)$ and its Lie algebra $\mathrm{so}(n)$.
 \label{sec:special_lie_algebras}
 
 \paragraph{Lie algebras and the exponential map}
-\cite{Hall2000LieGroups} defines the Lie algebra \(\mathfrak{g}\) of a matrix Lie group \(G\) is its tangent space at the identity,
+\cite{Hall2000LieGroups} defines the Lie algebra \(\mathfrak{g}\) of a matrix Lie group \(G\) as its tangent space at the identity,
 \begin{equation}
     \mathfrak{g}=T_{e}G.
     \label{eq:lie_algebra_tangent_space}
@@ -129,57 +130,57 @@ The matrix exponential of an $n\times n$ matrix $\bm{X}$
 defines the exponential map \(\exp:\mathfrak{g}\rightarrow G\) as a local diffeomorphism between a neighborhood of \(\bm{0}\in\mathfrak{g}\) and a neighborhood of \(e\in G\) \cite{Hall2000LieGroups,Lee2008}.
 
 \paragraph{Left and right translations}
-For \(g,h\in G\), the left and right translation maps are
+For \(\bm{g},\bm{h}\in G\), the left and right translation maps are
 \begin{equation}
-    \mathbb{L}_{h}(g)=hg,
+    \mathbb{L}_{\bm{h}}(\bm{g})=\bm{h}\bm{g},
     \qquad
-    R_{h}(g)=gh.
+    R_{\bm{h}}(\bm{g})=\bm{g}\bm{h}.
     \label{eq:left_right_translation}
 \end{equation}
-Thereby, \cite{Lee2008} expresses that for a differentiable curve $g(t) \in G$, the left-trivialized or body-fixed velocity $\bm{\xi} \in \mathfrak{g}$ is given by
+Thereby, \cite{Lee2008} states that for a differentiable matrix-valued curve $\bm{g}(t) \in G$, the left-trivialized or body-fixed velocity $\bm{\xi} \in \mathfrak{g}$ is given by
 \begin{equation}
-    \bm{\xi}=g^{-1}\dot{g},
+    \bm{\xi}=\bm{g}^{-1}\dot{\bm{g}},
     \qquad
-    \dot{g}=g\bm{\xi}.
+    \dot{\bm{g}}=\bm{g}\bm{\xi}.
     \label{eq:left_trivialized_velocity}
 \end{equation}
 
-\begin{proposition}[Differential of left translation on a matrix Lie group: $T_{x}\mathbb{L}_{h}$]
+\begin{proposition}[Differential of left translation on a matrix Lie group: $T_{\bm{x}}\mathbb{L}_{\bm{h}}$]
 Let $G\subset GL(n,\mathbb{R})$ be a matrix Lie group.
-For $h\in G$, define $\mathbb{L}_h:G\to G$ by $\mathbb{L}_h(g)=hg$ \cite{Hall2000LieGroups}.
-Then for each $x\in G$ the differential
+For $\bm{h}\in G$, define $\mathbb{L}_{\bm{h}}:G\to G$ by $\mathbb{L}_{\bm{h}}(\bm{g})=\bm{h}\bm{g}$ \cite{Hall2000LieGroups}.
+Then for each $\bm{x}\in G$ the differential
 \[
-T_x\mathbb{L}_h: T_xG \to T_{hx}G,
+T_{\bm{x}}\mathbb{L}_{\bm{h}}: T_{\bm{x}}G \to T_{\bm{h}\bm{x}}G,
 \]
-of the left translation map $\mathbb{L}_h:G\to G$ is given by
+of the left translation map $\mathbb{L}_{\bm{h}}:G\to G$ is given by
 \begin{align}\label{eq:preliminaries_differential_left_translation}
-T_x\mathbb{L}_h(v)=hv.
+T_{\bm{x}}\mathbb{L}_{\bm{h}}(\bm{v})=\bm{h}\bm{v}.
 \end{align}
 \end{proposition}
 \begin{proof}
-By the definition of the tangent space of an embedded submanifold given in \cite{Hall2000LieGroups}, there exists a smooth curve $\gamma: (-\epsilon,\epsilon) \to G$ with $\gamma(0)=x$ and the tangent vector $\dot{\gamma}(0)=v \in T_{x}G$.
+By the definition of the tangent space of an embedded submanifold given in \cite{Hall2000LieGroups}, there exists a smooth matrix-valued curve $\bm{\gamma}: (-\epsilon,\epsilon) \to G$ with $\bm{\gamma}(0)=\bm{x}$ and the tangent matrix $\dot{\bm{\gamma}}(0)=\bm{v} \in T_{\bm{x}}G$.
 In \cite{Lee2008}, the differential is defined as
 \[
-T_x\mathbb{L}_h(v)=\left.\frac{d}{dt}\mathbb{L}_h(\gamma(t))\right|_{t=0}
-=\left.\frac{d}{dt}(h\gamma(t))\right|_{t=0}=h\dot{\gamma}(0),
+T_{\bm{x}}\mathbb{L}_{\bm{h}}(\bm{v})=\left.\frac{d}{dt}\mathbb{L}_{\bm{h}}(\bm{\gamma}(t))\right|_{t=0}
+=\left.\frac{d}{dt}(\bm{h}\bm{\gamma}(t))\right|_{t=0}=\bm{h}\dot{\bm{\gamma}}(0),
 \]
-with the left translation map $\mathbb{L}_h(g)=hg$. Since $h$ is constant and $\dot{\gamma}(0)=v$, it follows that
+with the left translation map $\mathbb{L}_{\bm{h}}(\bm{g})=\bm{h}\bm{g}$. Since $\bm{h}$ is constant and $\dot{\bm{\gamma}}(0)=\bm{v}$, it follows that
 \[
-T_x\mathbb{L}_h(v)=h\dot{\gamma}(0)=hv.
+T_{\bm{x}}\mathbb{L}_{\bm{h}}(\bm{v})=\bm{h}\dot{\bm{\gamma}}(0)=\bm{h}\bm{v}.
 \]
 \end{proof}
 
-It can be observed that $\mathbb{L}_{h}(g)=hg$ and $T_x\mathbb{L}_{h}(v)=hv$ have the same matrix expression, but acting on different objects. The left translation map $\mathbb{L}_{h}(g)$ is multiplying group elements $g \in G$, while the differential of the left translation map is the pushforward of tangent vectors $v \in T_{x}G \subset \mathbb{R}^{n \times n}$. The differential of a left translation can be applied to the special embedded matrix Lie groups $SO(n)$ and their corresponding lie algebras $\mathfrak{so}(n)$. 
+It can be observed that $\mathbb{L}_{\bm{h}}(\bm{g})=\bm{h}\bm{g}$ and $T_{\bm{x}}\mathbb{L}_{\bm{h}}(\bm{v})=\bm{h}\bm{v}$ have the same matrix expression, but act on different objects. The left translation map $\mathbb{L}_{\bm{h}}(\bm{g})$ multiplies group elements $\bm{g} \in G$, while its differential is the pushforward of tangent matrices $\bm{v} \in T_{\bm{x}}G \subset \mathbb{R}^{n \times n}$. The differential of a left translation can be applied to the special embedded matrix Lie groups $SO(n)$ and their corresponding Lie algebras $\mathfrak{so}(n)$. 
 
-\paragraph{Differential of left translation $T_R\mathbb{L}_H$ on $SO(n)$}
+\paragraph{Differential of left translation $T_{\bm{R}}\mathbb{L}_{\bm{H}}$ on $SO(n)$}
 
-The left translation map in $SO(n)$ is defined as $\mathbb{L}_{H}(R) = HR$ with $H,R \in G$. Applied to eq. \eqref{eq:preliminaries_differential_left_translation} with $v \in T_{R}G$, it follows that
+The left translation map in $SO(n)$ is defined as $\mathbb{L}_{\bm{H}}(\bm{R}) = \bm{H}\bm{R}$ with $\bm{H},\bm{R} \in G$. Applied to eq. \eqref{eq:preliminaries_differential_left_translation} with $\bm{v} \in T_{\bm{R}}G$, it follows that
 \begin{align*}
-    T_{R}\mathbb{L}_{H}(v)= Hv.
+    T_{\bm{R}}\mathbb{L}_{\bm{H}}(\bm{v})= \bm{H}\bm{v}.
 \end{align*}
-The tangent vector $v \in T_RG$ can be represented by $v = T_{e}\mathbb{L}_{R}(\omega) = R\omega$ using the left translation map of $\omega \in \mathfrak g := \mathfrak{so}(n)$ resulting in
+The tangent matrix $\bm{v} \in T_{\bm{R}}G$ can be represented by $\bm{v} = T_{e}\mathbb{L}_{\bm{R}}(\bm{\omega}) = \bm{R}\bm{\omega}$ using the left translation map of $\bm{\omega} \in \mathfrak g := \mathfrak{so}(n)$, resulting in
 \begin{align}\label{eq:preliminaries_differential_left_SO}
-    T_R\mathbb{L}_H(R \omega) = H(R \omega).
+    T_{\bm{R}}\mathbb{L}_{\bm{H}}(\bm{R}\bm{\omega}) = \bm{H}(\bm{R}\bm{\omega}).
 \end{align}
 
 %\paragraph{Differential of left translation $T_g\mathbb{L}_h$ on $SE(n)$}
@@ -196,14 +197,14 @@ The tangent vector $v \in T_RG$ can be represented by $v = T_{e}\mathbb{L}_{R}(\
 
 
 \paragraph{Adjoint and coadjoint operators}
-\cite{Lee2008} introduces the adjoint operator $\operatorname{Ad}_g: \mathfrak{g} \to \mathfrak{g}$ as
+\cite{Lee2008} introduces the adjoint operator $\operatorname{Ad}_{\bm{g}}: \mathfrak{g} \to \mathfrak{g}$ as
 \begin{equation}
-    \operatorname{Ad}_{g}\bm{\eta}
+    \operatorname{Ad}_{\bm{g}}\bm{\eta}
     =
-    g\bm{\eta}g^{-1}.
+    \bm{g}\bm{\eta}\bm{g}^{-1}.
     \label{eq:adjoint_matrix}
 \end{equation}
-and its derivative  $\operatorname{ad}_\xi: \mathfrak{g} \to \mathfrak{g}$ as
+Its derivative  $\operatorname{ad}_{\bm{\xi}}: \mathfrak{g} \to \mathfrak{g}$ is defined as
 \begin{equation}
     \operatorname{ad}_{\bm{\xi}}\bm{\eta}
     =
@@ -217,20 +218,20 @@ and its derivative  $\operatorname{ad}_\xi: \mathfrak{g} \to \mathfrak{g}$ as
 using the Lie bracket $[\cdot,\cdot]$ defined in \eqref{eq:matrix_lie_bracket}.
 
 Let \(\mathfrak{g}^{*}\) be the dual space of \(\mathfrak{g}\). The notation $\langle\bm{\mu},\bm{\xi}\rangle = \bm{\mu}(\bm{\xi})$ denotes the pairing of a covector \(\bm{\mu}\in\mathfrak{g}^{*}\) with a vector \(\bm{\xi}\in\mathfrak{g}\) \cite{Lee2008}. 
-Using the pairing, the coadjoint operator \(\operatorname{Ad}_{g}^{*}:\mathfrak{g}^{*}\rightarrow\mathfrak{g}^{*}\) is defined as 
+Using the pairing, the coadjoint operator \(\operatorname{Ad}_{\bm{g}}^{*}:\mathfrak{g}^{*}\rightarrow\mathfrak{g}^{*}\) is defined as 
 \begin{equation}
     \left\langle
-        \operatorname{Ad}_{g}^{*}\bm{\mu},
+        \operatorname{Ad}_{\bm{g}}^{*}\bm{\mu},
         \bm{\xi}
     \right\rangle
     =
     \left\langle
         \bm{\mu},
-        \operatorname{Ad}_{g}\bm{\xi}
+        \operatorname{Ad}_{\bm{g}}\bm{\xi}
     \right\rangle.
     \label{eq:coadjoint_definition}
 \end{equation}
-and its derivative \(\operatorname{ad}_{\bm{\eta}}^{*}:\mathfrak{g}^{*}\rightarrow\mathfrak{g}^{*}\) is given to
+Its derivative \(\operatorname{ad}_{\bm{\eta}}^{*}:\mathfrak{g}^{*}\rightarrow\mathfrak{g}^{*}\) is given by
 \begin{align}
     \left\langle\operatorname{ad}_{\bm{\eta}}^{*}\bm{\mu},\bm{\xi}\right\rangle
     &=
@@ -243,7 +244,7 @@ and its derivative \(\operatorname{ad}_{\bm{\eta}}^{*}:\mathfrak{g}^{*}\rightarr
     \label{eq:coad_definition}
 \end{align}
 
-Additionally, the pairing can be used for defining the inner product on the dual space of the Lie algebra \cite{Lee2008}. Using the trace inner product, $\mathfrak{so}(n)$ is identified with its
+Additionally, the pairing can be used to define the inner product on the dual space of the Lie algebra \cite{Lee2008}. Using the trace inner product, $\mathfrak{so}(n)$ is identified with its
 dual. For $n\in\{2,3\}$, the hat map gives
 \begin{equation}
     \left\langle\widehat{\bm a},\widehat{\bm b}\right\rangle

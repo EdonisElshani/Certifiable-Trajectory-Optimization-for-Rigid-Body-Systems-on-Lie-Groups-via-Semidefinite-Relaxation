@@ -11,7 +11,6 @@
 \providecommand\@istfilename[1]{}
 \@istfilename{StudentThesis_Template.ist}
 \@glsorder{word}
-\citation{Intro_Legged}
 \citation{LIU}
 \citation{Intro_KUKA}
 \citation{Kang_2025Global}
@@ -22,6 +21,7 @@
 \citation{Sangli2025}
 \citation{Kang_2026Fast}
 \citation{Sangli2025}
+\citation{Marsden2001}
 \citation{Betts1998TrajectoryOptimization}
 \citation{tedrake_underactuated}
 \citation{Schulman2014TrajOpt}
@@ -32,8 +32,10 @@
 \newlabel{sec:introduction}{{1}{5}{Introduction}{chapter.1}{}}
 \citation{VandenbergheBoyd1996SDP}
 \citation{Lasserre2001Global}
+\citation{Sangli2025}
 \citation{Marsden2001}
 \citation{Lee2008}
+\citation{Sangli2025}
 \citation{Sangli2025}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:introduction_applications_legged}{{1.1(a)}{6}{Subfigure 1 1.1(a)}{subfigure.1.1.1}{}}
@@ -48,7 +50,6 @@
 \newlabel{fig:intro_pipeline}{{1.2}{7}{Framework of this thesis. Lie group variational discretization provides structure-preserving rigid-body dynamics, while sparse semidefinite relaxation provides a convex lower bound for the resulting polynomial motion-planning problem}{figure.caption.3}{}}
 \citation{Kang_2026Fast}
 \citation{Sangli2025}
-\citation{Yang2024Semidefinite}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Problem Statement}{8}{section.1.1}\protected@file@percent }
 \newlabel{sec:introduction_problem_statement}{{1.1}{8}{Problem Statement}{section.1.1}{}}
 \newlabel{eq:problem_statement}{{1.1}{8}{Problem Statement}{equation.1.1}{}}
@@ -56,7 +57,7 @@
 \newlabel{eq:problem_statement_initial}{{1.1b}{8}{Problem Statement}{equation.1.1b}{}}
 \newlabel{eq:problem_statement_dynamics}{{1.1c}{8}{Problem Statement}{equation.1.1c}{}}
 \newlabel{eq:problem_statement_admissible}{{1.1d}{8}{Problem Statement}{equation.1.1d}{}}
-\newlabel{eq:problem_statement_polynomial_form}{{1.2}{8}{Problem Statement}{equation.1.2}{}}
+\citation{Yang2024Semidefinite}
 \citation{Lasserre2001Global}
 \citation{Betts1998TrajectoryOptimization}
 \citation{tedrake_underactuated}
@@ -80,11 +81,11 @@
 \citation{Arieh_Cayley_Motivation}
 \citation{ColomboJimenez2012SO3_Cayley}
 \citation{Barbero-Linan2023_Cayley_Formula}
+\newlabel{eq:problem_statement_polynomial_form}{{1.2}{9}{Problem Statement}{equation.1.2}{}}
 \newlabel{eq:problem_statement_bounds}{{1.3}{9}{Problem Statement}{equation.1.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {1.2}Related Work}{9}{section.1.2}\protected@file@percent }
 \newlabel{sec:introduction_related_work}{{1.2}{9}{Related Work}{section.1.2}{}}
 \@writefile{toc}{\contentsline {paragraph}{Trajectory optimization and global planning}{9}{section*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Geometric mechanics and variational integration}{9}{section*.5}\protected@file@percent }
 \citation{Marsden2001}
 \citation{Lee2008}
 \citation{Lee2007}
@@ -108,6 +109,7 @@
 \citation{Sangli2025}
 \citation{Kang_2026Fast}
 \citation{Kang_2025Global}
+\@writefile{toc}{\contentsline {paragraph}{Geometric mechanics and variational integration}{10}{section*.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Polynomial optimization and sparse semidefinite relaxation}{10}{section*.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1.3}Research Gap}{11}{section.1.3}\protected@file@percent }
 \newlabel{sec:introduction_research_gap}{{1.3}{11}{Research Gap}{section.1.3}{}}
@@ -150,14 +152,14 @@
 \citation{Lee2008}
 \citation{Lee2008}
 \citation{Lee2008}
-\newlabel{eq:preliminaries_differential_left_translation}{{2.12}{15}{Differential of left translation on a matrix Lie group: $T_{x}\mathbb {L}_{h}$}{equation.2.12}{}}
-\@writefile{toc}{\contentsline {paragraph}{Differential of left translation $T_R\mathbb  {L}_H$ on $SO(n)$}{15}{section*.9}\protected@file@percent }
-\newlabel{eq:preliminaries_differential_left_SO}{{2.13}{15}{Differential of left translation $T_R\mathbb {L}_H$ on $SO(n)$}{equation.2.13}{}}
+\newlabel{eq:preliminaries_differential_left_translation}{{2.12}{15}{Differential of left translation on a matrix Lie group: $T_{\bm {x}}\mathbb {L}_{\bm {h}}$}{equation.2.12}{}}
+\@writefile{toc}{\contentsline {paragraph}{Differential of left translation $T_{\bm  {R}}\mathbb  {L}_{\bm  {H}}$ on $SO(n)$}{15}{section*.9}\protected@file@percent }
+\newlabel{eq:preliminaries_differential_left_SO}{{2.13}{15}{Differential of left translation $T_{\bm {R}}\mathbb {L}_{\bm {H}}$ on $SO(n)$}{equation.2.13}{}}
 \@writefile{toc}{\contentsline {paragraph}{Adjoint and coadjoint operators}{15}{section*.10}\protected@file@percent }
 \newlabel{eq:adjoint_matrix}{{2.14}{15}{Adjoint and coadjoint operators}{equation.2.14}{}}
+\newlabel{eq:ad_lie_bracket}{{2.15}{15}{Adjoint and coadjoint operators}{equation.2.15}{}}
 \citation{Lee2008}
 \citation{Lee2008}
-\newlabel{eq:ad_lie_bracket}{{2.15}{16}{Adjoint and coadjoint operators}{equation.2.15}{}}
 \newlabel{eq:coadjoint_definition}{{2.16}{16}{Adjoint and coadjoint operators}{equation.2.16}{}}
 \newlabel{eq:coad_definition}{{2.17}{16}{Adjoint and coadjoint operators}{equation.2.17}{}}
 \newlabel{eq:trace_inner_product}{{2.18}{16}{Adjoint and coadjoint operators}{equation.2.18}{}}
@@ -182,8 +184,8 @@
 \citation{Marsden2001}
 \citation{Marsden2001}
 \citation{Lee2008}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces General method to derive the Euler-Lagrange equations of a mechanical system on a Lie group (Adapted from \cite  {Lee2008}).}}{18}{figure.caption.12}\protected@file@percent }
-\newlabel{fig:continuous_mechanics}{{3.1}{18}{General method to derive the Euler-Lagrange equations of a mechanical system on a Lie group (Adapted from \cite {Lee2008})}{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces General method to derive the Euler-Lagrange equations of a mechanical system on a Lie group (adapted from \cite  {Lee2008}).}}{18}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:continuous_mechanics}{{3.1}{18}{General method to derive the Euler-Lagrange equations of a mechanical system on a Lie group (adapted from \cite {Lee2008})}{figure.caption.12}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Euler--Lagrange Equations}{18}{subsection.3.1.1}\protected@file@percent }
 \newlabel{sec:continuous_euler_lagrange_equations}{{3.1.1}{18}{Euler--Lagrange Equations}{subsection.3.1.1}{}}
 \newlabel{eq:continuous_lagrangian_lie_group}{{3.1}{18}{Euler--Lagrange Equations}{equation.3.1}{}}
@@ -201,21 +203,19 @@
 \newlabel{eq:continuous_euler_lagrange_lie_group}{{3.8}{19}{Euler--Lagrange Equations}{equation.3.8}{}}
 \newlabel{eq:continuous_euler_lagrange_momentum_balance}{{3.8a}{19}{Euler--Lagrange Equations}{equation.3.8a}{}}
 \newlabel{eq:continuous_euler_lagrange_reconstruction}{{3.8b}{19}{Euler--Lagrange Equations}{equation.3.8b}{}}
-\newlabel{eq:derivative_omega}{{3.9}{19}{Directional derivative representation of $D_\xi L(g,\xi )$}{equation.3.9}{}}
+\newlabel{eq:derivative_omega}{{3.9}{19}{Directional derivative representation of $D_{\bm {\xi }} L(\bm {g},\bm {\xi })$}{equation.3.9}{}}
 \citation{Lee2008}
 \citation{Marsden2001}
 \citation{Marsden2001}
 \citation{Lee2008}
 \citation{Marsden2001}
-\newlabel{eq:derivative_rotation}{{3.10}{20}{Directional derivative representation of $D_g L(g,\xi )$}{equation.3.10}{}}
+\newlabel{eq:derivative_rotation}{{3.10}{20}{Directional derivative representation of $D_{\bm {g}} L(\bm {g},\bm {\xi })$}{equation.3.10}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Legendre Transformation and Hamiltonian Mechanics}{20}{subsection.3.1.2}\protected@file@percent }
 \newlabel{sec:continuous_legendre_hamiltonian_mechanics}{{3.1.2}{20}{Legendre Transformation and Hamiltonian Mechanics}{subsection.3.1.2}{}}
 \newlabel{eq:continuous_generalized_momentum}{{3.11}{20}{Legendre Transformation and Hamiltonian Mechanics}{equation.3.11}{}}
 \newlabel{eq:continuous_hamilton_equations_lie_group}{{3.12}{20}{Legendre Transformation and Hamiltonian Mechanics}{equation.3.12}{}}
 \newlabel{eq:continuous_hamilton_momentum_equation}{{3.12a}{20}{Legendre Transformation and Hamiltonian Mechanics}{equation.3.12a}{}}
 \newlabel{eq:continuous_hamilton_reconstruction}{{3.12b}{20}{Legendre Transformation and Hamiltonian Mechanics}{equation.3.12b}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Properties of the Lagrangian Flow}{20}{subsection.3.1.3}\protected@file@percent }
-\newlabel{sec:properties_continuous_lagrangian_flow}{{3.1.3}{20}{Properties of the Lagrangian Flow}{subsection.3.1.3}{}}
 \citation{Lee2008}
 \citation{Lee2008}
 \citation{Lee2008}
@@ -224,6 +224,8 @@
 \citation{Marsden2001}
 \citation{Marsden2001}
 \citation{Lee2008}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Properties of the Lagrangian Flow}{21}{subsection.3.1.3}\protected@file@percent }
+\newlabel{sec:properties_continuous_lagrangian_flow}{{3.1.3}{21}{Properties of the Lagrangian Flow}{subsection.3.1.3}{}}
 \@writefile{toc}{\contentsline {paragraph}{Symplecticity}{21}{section*.13}\protected@file@percent }
 \newlabel{eq:continuous_lagrangian_one_form}{{3.13}{21}{Symplecticity}{equation.3.13}{}}
 \newlabel{eq:continuous_lagrangian_flow_symplecticity}{{3.14}{21}{Symplecticity}{equation.3.14}{}}
@@ -234,37 +236,37 @@
 \newlabel{thm:continuous_noether}{{1}{21}{Noether's theorem}{theorem.1}{}}
 \newlabel{eq:infinitesimal_lagrangian_invariance}{{3.18}{21}{Noether's theorem}{equation.3.18}{}}
 \newlabel{eq:continuous_noether_momentum_preservation}{{3.19}{21}{Noether's theorem}{equation.3.19}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Unforced 3D-Pendulum}{21}{section.3.2}\protected@file@percent }
-\newlabel{section:continuous_3D_pendulum}{{3.2}{21}{Unforced 3D-Pendulum}{section.3.2}{}}
 \citation{Shen20043DPendulum}
 \citation{Lee2008}
 \citation{Lee2008}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces 3D-pendulum system attached to a fixed pivot.}}{22}{figure.caption.16}\protected@file@percent }
 \newlabel{fig:3d_pendulum}{{3.2}{22}{3D-pendulum system attached to a fixed pivot}{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Unforced 3D-Pendulum}{22}{section.3.2}\protected@file@percent }
+\newlabel{section:continuous_3D_pendulum}{{3.2}{22}{Unforced 3D-Pendulum}{section.3.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Derivation of Lie Group Mechanics}{22}{subsection.3.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Configuration Manifold}{22}{figure.caption.16}\protected@file@percent }
 \newlabel{eq:SO3_attitude_kinematics}{{3.20}{22}{Configuration Manifold}{equation.3.20}{}}
-\@writefile{toc}{\contentsline {paragraph}{Lagrangian}{22}{section*.17}\protected@file@percent }
-\newlabel{eq:3D_pendulum_kinetic_energy}{{3.21}{22}{Lagrangian}{equation.3.21}{}}
 \citation{Lee2008}
+\@writefile{toc}{\contentsline {paragraph}{Lagrangian}{23}{section*.17}\protected@file@percent }
+\newlabel{eq:3D_pendulum_kinetic_energy}{{3.21}{23}{Lagrangian}{equation.3.21}{}}
 \newlabel{eq:non-standard_inertia}{{3.22}{23}{Lagrangian}{equation.3.22}{}}
 \newlabel{eq:nonstandard_Inertia_Relation}{{3.23}{23}{Lagrangian}{equation.3.23}{}}
 \newlabel{eq:3D_pendulum_potential_energy}{{3.24}{23}{Lagrangian}{equation.3.24}{}}
 \newlabel{eq:continuous_3D_pendulum_lagrangian}{{3.25}{23}{Lagrangian}{equation.3.25}{}}
-\@writefile{toc}{\contentsline {paragraph}{Euler-Lagrange Equations}{23}{section*.18}\protected@file@percent }
-\newlabel{eq:continuous_3D_pendulum_derivative_omega}{{3.26}{23}{Euler-Lagrange Equations}{equation.3.26}{}}
-\newlabel{eq:continuous_3D_pendulum_derivative_rotation}{{3.27}{24}{Euler-Lagrange Equations}{equation.3.27}{}}
-\newlabel{eq:continuous_3D_pendulum_adjoint_derivative_omega}{{3.28}{24}{Euler-Lagrange Equations}{equation.3.28}{}}
-\newlabel{eq:continuous_3D_pendulum_euler_lagrange}{{3.29}{24}{Euler-Lagrange Equations}{equation.3.29}{}}
-\newlabel{eq:continuous_3D_pendulum_euler_lagrange_dynamics}{{3.29a}{24}{Euler-Lagrange Equations}{equation.3.29a}{}}
-\newlabel{eq:continuous_3D_pendulum_euler_lagrange_kinematics}{{3.29b}{24}{Euler-Lagrange Equations}{equation.3.29b}{}}
-\@writefile{toc}{\contentsline {paragraph}{Legendre Transformation}{24}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Euler--Lagrange Equations}{23}{section*.18}\protected@file@percent }
+\newlabel{eq:continuous_3D_pendulum_derivative_omega}{{3.26}{23}{Euler--Lagrange Equations}{equation.3.26}{}}
+\newlabel{eq:continuous_3D_pendulum_derivative_rotation}{{3.27}{24}{Euler--Lagrange Equations}{equation.3.27}{}}
+\newlabel{eq:continuous_3D_pendulum_adjoint_derivative_omega}{{3.28}{24}{Euler--Lagrange Equations}{equation.3.28}{}}
+\newlabel{eq:continuous_3D_pendulum_euler_lagrange}{{3.29}{24}{Euler--Lagrange Equations}{equation.3.29}{}}
+\newlabel{eq:continuous_3D_pendulum_euler_lagrange_dynamics}{{3.29a}{24}{Euler--Lagrange Equations}{equation.3.29a}{}}
+\newlabel{eq:continuous_3D_pendulum_euler_lagrange_kinematics}{{3.29b}{24}{Euler--Lagrange Equations}{equation.3.29b}{}}
 \citation{Lee2008}
 \citation{Sangli2025}
 \citation{Lee2008}
 \citation{Lee2008}
 \citation{Lee2008}
 \citation{Lee2008}
+\@writefile{toc}{\contentsline {paragraph}{Legendre Transformation}{25}{section*.19}\protected@file@percent }
 \newlabel{eq:continuous_3D_pendulum_momentum}{{3.30}{25}{Legendre Transformation}{equation.3.30}{}}
 \newlabel{eq:continuous_3D_pendulum_hamilton}{{3.31}{25}{Legendre Transformation}{equation.3.31}{}}
 \newlabel{eq:continuous_3D_pendulum_hamilton_momentum}{{3.31a}{25}{Legendre Transformation}{equation.3.31a}{}}
@@ -305,6 +307,7 @@
 \citation{Lee2008}
 \citation{Lee2008}
 \citation{Lee2008}
+\citation{Lee2008}
 \newlabel{eq:exact_discrete_lagrangian}{{4.2}{31}{Discrete Euler--Lagrange Equations}{equation.4.2}{}}
 \newlabel{eq:discrete_action_sum}{{4.3}{31}{Discrete Euler--Lagrange Equations}{equation.4.3}{}}
 \newlabel{eq:discrete_hamilton_principle}{{4.4}{31}{Discrete Euler--Lagrange Equations}{equation.4.4}{}}
@@ -317,14 +320,13 @@
 \newlabel{eq:discrete_euler_lagrange_lie_group}{{4.9}{32}{Discrete Euler--Lagrange Equations}{equation.4.9}{}}
 \newlabel{eq:discrete_euler_lagrange_balance}{{4.9a}{32}{Discrete Euler--Lagrange Equations}{equation.4.9a}{}}
 \newlabel{eq:discrete_euler_lagrange_reconstruction}{{4.9b}{32}{Discrete Euler--Lagrange Equations}{equation.4.9b}{}}
-\newlabel{prop:directional_derivative_discrete_g}{{4}{32}{Directional derivative representation of $D_{g_k}L_d(g_k,f_k)$}{proposition.4}{}}
-\newlabel{eq:directional_derivative_discrete_g}{{4.10}{32}{Directional derivative representation of $D_{g_k}L_d(g_k,f_k)$}{equation.4.10}{}}
-\newlabel{prop:directional_derivative_discrete_f}{{5}{32}{Directional derivative representation of $D_{f_k}L_d(g_k,f_k)$}{proposition.5}{}}
-\newlabel{eq:directional_derivative_discrete_f}{{4.11}{32}{Directional derivative representation of $D_{f_k}L_d(g_k,f_k)$}{equation.4.11}{}}
+\newlabel{prop:directional_derivative_discrete_g}{{4}{32}{Directional derivative representation of $D_{\bm {g}_k}L_d(\bm {g}_k,\bm {f}_k)$}{proposition.4}{}}
+\newlabel{eq:directional_derivative_discrete_g}{{4.10}{32}{Directional derivative representation of $D_{\bm {g}_k}L_d(\bm {g}_k,\bm {f}_k)$}{equation.4.10}{}}
+\newlabel{prop:directional_derivative_discrete_f}{{5}{32}{Directional derivative representation of $D_{\bm {f}_k}L_d(\bm {g}_k,\bm {f}_k)$}{proposition.5}{}}
+\newlabel{eq:directional_derivative_discrete_f}{{4.11}{32}{Directional derivative representation of $D_{\bm {f}_k}L_d(\bm {g}_k,\bm {f}_k)$}{equation.4.11}{}}
 \citation{Lee2008}
 \citation{Marsden2001}
 \citation{Marsden2001}
-\citation{Lee2008}
 \citation{Lee2008}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Discrete Legendre Transformation and Hamiltonian Mechanics}{33}{subsection.4.1.2}\protected@file@percent }
 \newlabel{sec:discrete_legendre_hamiltonian_mechanics}{{4.1.2}{33}{Discrete Legendre Transformation and Hamiltonian Mechanics}{subsection.4.1.2}{}}
@@ -339,31 +341,30 @@
 \newlabel{eq:discrete_hamilton_implicit_equation}{{4.15a}{33}{Discrete Legendre Transformation and Hamiltonian Mechanics}{equation.4.15a}{}}
 \newlabel{eq:discrete_hamilton_reconstruction}{{4.15b}{33}{Discrete Legendre Transformation and Hamiltonian Mechanics}{equation.4.15b}{}}
 \newlabel{eq:discrete_hamilton_momentum_update}{{4.15c}{33}{Discrete Legendre Transformation and Hamiltonian Mechanics}{equation.4.15c}{}}
-\citation{Marsden2001}
-\citation{Marsden2001}
-\citation{Marsden2001}
-\citation{Marsden2001}
 \citation{Lee2008}
+\citation{Marsden2001}
+\citation{Marsden2001}
+\citation{Marsden2001}
+\citation{Marsden2001}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Properties of the Discrete Lagrangian Flow}{34}{subsection.4.1.3}\protected@file@percent }
 \newlabel{sec:properties_discrete_lagrangian_flow}{{4.1.3}{34}{Properties of the Discrete Lagrangian Flow}{subsection.4.1.3}{}}
 \@writefile{toc}{\contentsline {paragraph}{Symplecticity}{34}{section*.21}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Discrete Noether's theorem}{34}{section*.22}\protected@file@percent }
 \newlabel{thm:discrete_noether}{{2}{34}{Discrete Noether's theorem}{theorem.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Forced Discrete Euler-Lagrange Equations}{34}{subsection.4.1.4}\protected@file@percent }
-\newlabel{sec:discrete_forced_lagrangian}{{4.1.4}{34}{Forced Discrete Euler-Lagrange Equations}{subsection.4.1.4}{}}
+\citation{Lee2008}
 \citation{Lee2008}
 \citation{Lee2008}
 \citation{Lee2008}
 \citation{Lee2008}
 \citation{Marsden2001}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Forced Discrete Euler-Lagrange Equations}{35}{subsection.4.1.4}\protected@file@percent }
+\newlabel{sec:discrete_forced_lagrangian}{{4.1.4}{35}{Forced Discrete Euler-Lagrange Equations}{subsection.4.1.4}{}}
 \newlabel{eq:discrete_Lagrange-d_Alembert}{{4.20}{35}{Forced Discrete Euler-Lagrange Equations}{equation.4.20}{}}
 \newlabel{eq:discrete_forced_Euler_Lagrange}{{4.21}{35}{Forced Discrete Euler-Lagrange Equations}{equation.4.21}{}}
 \newlabel{eq:discrete_forced_Euler_Lagrange_Dynamics}{{4.21a}{35}{Forced Discrete Euler-Lagrange Equations}{equation.4.21a}{}}
 \newlabel{eq:discrete_forced_Euler_Lagrange_Kinetics}{{4.21b}{35}{Forced Discrete Euler-Lagrange Equations}{equation.4.21b}{}}
 \newlabel{eq:discrete_lagrangian_forced_special}{{4.22}{35}{Forced Discrete Euler-Lagrange Equations}{equation.4.22}{}}
 \newlabel{eq:discrete_forces_special}{{4.23}{35}{Forced Discrete Euler-Lagrange Equations}{equation.4.23}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.5}Computational Implementation}{35}{subsection.4.1.5}\protected@file@percent }
-\newlabel{sec:discrete_computational_approach}{{4.1.5}{35}{Computational Implementation}{subsection.4.1.5}{}}
 \citation{MarsdenRatiu1999}
 \citation{Arieh_Cayley_Motivation}
 \citation{Barbero-Linan2023_Cayley_Formula}
@@ -371,6 +372,8 @@
 \citation{Marsden2001}
 \citation{Lee2008}
 \citation{Lee2008}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.5}Computational Implementation}{36}{subsection.4.1.5}\protected@file@percent }
+\newlabel{sec:discrete_computational_approach}{{4.1.5}{36}{Computational Implementation}{subsection.4.1.5}{}}
 \newlabel{eq:Rodrigues}{{4.24}{36}{Computational Implementation}{equation.4.24}{}}
 \@writefile{toc}{\contentsline {paragraph}{Cayley Transformation}{36}{section*.23}\protected@file@percent }
 \newlabel{eq:Cayley}{{4.25}{36}{Cayley Transformation}{equation.4.25}{}}
@@ -398,6 +401,7 @@
 \newlabel{eq:discrete_velocity_approximation}{{4.33}{38}{Discrete Lagrangian}{equation.4.33}{}}
 \newlabel{eq:trapezodial_rule}{{4.34}{38}{Discrete Lagrangian}{equation.4.34}{}}
 \newlabel{eq:discrete_potential_3D_pendulum}{{4.35}{38}{Discrete Lagrangian}{equation.4.35}{}}
+\newlabel{eq:discrete_3d_pendulum_discrete_lagrangian_full}{{4.36}{38}{Discrete Lagrangian}{equation.4.36}{}}
 \@writefile{toc}{\contentsline {paragraph}{Discrete Euler-Lagrange Equations}{38}{section*.27}\protected@file@percent }
 \citation{Lee2008}
 \newlabel{eq:discrete_3D_pendulum_derivative_fk}{{4.37}{39}{Discrete Euler-Lagrange Equations}{equation.4.37}{}}
@@ -417,90 +421,95 @@
 \newlabel{eq:discrete_3D_pendulum_hamilton_2}{{4.43b}{40}{Discrete Legendre Transformation}{equation.4.43b}{}}
 \newlabel{eq:discrete_3D_pendulum_hamilton_3}{{4.43c}{40}{Discrete Legendre Transformation}{equation.4.43c}{}}
 \citation{Lee2008}
+\citation{Lee2008}
 \citation{BrudigamManchester2021LQR}
 \citation{Sangli2025}
-\citation{BrudigamManchester2021VariationalIntegrators}
 \@writefile{toc}{\contentsline {paragraph}{Controlled 3D Pendulum}{41}{section*.29}\protected@file@percent }
 \newlabel{eq:external_control_moment_3D_pendulum}{{4.44}{41}{Controlled 3D Pendulum}{equation.4.44}{}}
 \newlabel{eq:generalized_forced_3D_pendulum}{{4.45}{41}{Controlled 3D Pendulum}{equation.4.45}{}}
 \newlabel{eq:forced_3D_pendulum_EL}{{4.46}{41}{Controlled 3D Pendulum}{equation.4.46}{}}
 \newlabel{eq:forced_3D_pendulum_EL_dynamics}{{4.46a}{41}{Controlled 3D Pendulum}{equation.4.46a}{}}
 \newlabel{eq:forced_3D_pendulum_EL_kinematics}{{4.46b}{41}{Controlled 3D Pendulum}{equation.4.46b}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Multi-body Systems}{41}{section.4.3}\protected@file@percent }
-\newlabel{sec:multi_body_systems}{{4.3}{41}{Multi-body Systems}{section.4.3}{}}
+\newlabel{eq:forced_3D_pendulum_hamilton}{{4.47}{41}{Controlled 3D Pendulum}{equation.4.47}{}}
+\newlabel{eq:forced_3D_pendulum_hamilton_1}{{4.47a}{41}{Controlled 3D Pendulum}{equation.4.47a}{}}
+\newlabel{eq:forced_3D_pendulum_hamilton_2}{{4.47b}{41}{Controlled 3D Pendulum}{equation.4.47b}{}}
+\newlabel{eq:forced_3D_pendulum_hamilton_3}{{4.47c}{41}{Controlled 3D Pendulum}{equation.4.47c}{}}
+\citation{BrudigamManchester2021VariationalIntegrators}
 \citation{BrudigamManchester2021LQR}
 \citation{BrudigamManchester2021LQR}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Two rigid links connected by a joint in maximal coordinates. Adapted from \cite  {BrudigamManchester2021LQR}.}}{42}{figure.caption.30}\protected@file@percent }
-\newlabel{fig:maximal_coordinates_joint}{{4.2}{42}{Two rigid links connected by a joint in maximal coordinates. Adapted from \cite {BrudigamManchester2021LQR}}{figure.caption.30}{}}
-\newlabel{eq:q_max_general}{{4.47}{42}{Multi-body Systems}{equation.4.47}{}}
-\newlabel{eq:q_max_state_general}{{4.48}{42}{Multi-body Systems}{equation.4.48}{}}
-\newlabel{eq:holonomic_constraints_general}{{4.49}{42}{Multi-body Systems}{equation.4.49}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Acrobot configuration manifold in maximal coordinates.}}{43}{figure.caption.32}\protected@file@percent }
-\newlabel{fig:acrobot_maximal_coordinates}{{4.3}{43}{Acrobot configuration manifold in maximal coordinates}{figure.caption.32}{}}
-\newlabel{eq:general_joint_constraint_maximal}{{4.50}{43}{Multi-body Systems}{equation.4.50}{}}
-\newlabel{eq:constrained_discrete_action}{{4.51}{43}{Multi-body Systems}{equation.4.51}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Multi-body Systems}{42}{section.4.3}\protected@file@percent }
+\newlabel{sec:multi_body_systems}{{4.3}{42}{Multi-body Systems}{section.4.3}{}}
+\newlabel{eq:q_max_general}{{4.48}{42}{Multi-body Systems}{equation.4.48}{}}
+\newlabel{eq:q_max_state_general}{{4.49}{42}{Multi-body Systems}{equation.4.49}{}}
+\newlabel{eq:holonomic_constraints_general}{{4.50}{42}{Multi-body Systems}{equation.4.50}{}}
+\newlabel{eq:general_joint_constraint_maximal}{{4.51}{42}{Multi-body Systems}{equation.4.51}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Two rigid links connected by a joint in maximal coordinates. Adapted from \cite  {BrudigamManchester2021LQR}.}}{43}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:maximal_coordinates_joint}{{4.2}{43}{Two rigid links connected by a joint in maximal coordinates. Adapted from \cite {BrudigamManchester2021LQR}}{figure.caption.30}{}}
+\newlabel{eq:constrained_discrete_action}{{4.52}{43}{Multi-body Systems}{equation.4.52}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Acrobot}{43}{subsection.4.3.1}\protected@file@percent }
 \newlabel{subsection:discrete_Acrobot}{{4.3.1}{43}{Acrobot}{subsection.4.3.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Configuration Manifold}{43}{figure.caption.32}\protected@file@percent }
-\newlabel{eq:so2_definition}{{4.52}{43}{Configuration Manifold}{equation.4.52}{}}
+\@writefile{toc}{\contentsline {paragraph}{Configuration Manifold}{43}{section*.31}\protected@file@percent }
+\newlabel{eq:so2_definition}{{4.53}{43}{Configuration Manifold}{equation.4.53}{}}
+\newlabel{eq:so2_rotation_matrix}{{4.54}{43}{Configuration Manifold}{equation.4.54}{}}
+\newlabel{eq:acrobot_q_max}{{4.55}{43}{Configuration Manifold}{equation.4.55}{}}
+\newlabel{eq:acrobot_configuration}{{4.56}{43}{Configuration Manifold}{equation.4.56}{}}
 \citation{LeeLeokMcClamroch2007DiscreteControlSystems}
-\newlabel{eq:so2_rotation_matrix}{{4.53}{44}{Configuration Manifold}{equation.4.53}{}}
-\newlabel{eq:acrobot_q_max}{{4.54}{44}{Configuration Manifold}{equation.4.54}{}}
-\newlabel{eq:acrobot_configuration}{{4.55}{44}{Configuration Manifold}{equation.4.55}{}}
-\newlabel{eq:acrobot_base_constraint}{{4.56}{44}{Configuration Manifold}{equation.4.56}{}}
-\newlabel{eq:acrobot_elbow_constraint}{{4.57}{44}{Configuration Manifold}{equation.4.57}{}}
-\newlabel{eq:acrobot_constraints}{{4.58}{44}{Configuration Manifold}{equation.4.58}{}}
-\newlabel{eq:acrobot_rotation_update}{{4.59}{44}{Configuration Manifold}{equation.4.59}{}}
-\newlabel{eq:acrobot_discrete_configuration}{{4.60}{44}{Configuration Manifold}{equation.4.60}{}}
-\@writefile{toc}{\contentsline {paragraph}{Continuous Lagrangian}{44}{section*.33}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Acrobot configuration manifold in maximal coordinates.}}{44}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:acrobot_maximal_coordinates}{{4.3}{44}{Acrobot configuration manifold in maximal coordinates}{figure.caption.32}{}}
+\newlabel{eq:acrobot_base_constraint}{{4.57}{44}{Configuration Manifold}{equation.4.57}{}}
+\newlabel{eq:acrobot_elbow_constraint}{{4.58}{44}{Configuration Manifold}{equation.4.58}{}}
+\newlabel{eq:acrobot_constraints}{{4.59}{44}{Configuration Manifold}{equation.4.59}{}}
+\newlabel{eq:acrobot_rotation_update}{{4.60}{44}{Configuration Manifold}{equation.4.60}{}}
+\newlabel{eq:acrobot_discrete_configuration}{{4.61}{44}{Configuration Manifold}{equation.4.61}{}}
 \citation{BrudigamManchester2021VariationalIntegrators}
 \citation{BrudigamManchester2021VariationalIntegrators}
 \citation{BrudigamManchester2021VariationalIntegrators}
-\newlabel{eq:2D_nonstandard_inertia}{{4.61}{45}{Continuous Lagrangian}{equation.4.61}{}}
-\newlabel{eq:acrobot_kinetic_energy_split}{{4.62}{45}{Continuous Lagrangian}{equation.4.62}{}}
-\newlabel{eq:acrobot_rotation_potential_zero}{{4.63}{45}{Continuous Lagrangian}{equation.4.63}{}}
-\newlabel{eq:acrobot_potential_energy}{{4.64}{45}{Continuous Lagrangian}{equation.4.64}{}}
-\newlabel{eq:acrobot_continuous_lagrangian}{{4.65}{45}{Continuous Lagrangian}{equation.4.65}{}}
+\@writefile{toc}{\contentsline {paragraph}{Continuous Lagrangian}{45}{section*.33}\protected@file@percent }
+\newlabel{eq:2D_nonstandard_inertia}{{4.62}{45}{Continuous Lagrangian}{equation.4.62}{}}
+\newlabel{eq:acrobot_kinetic_energy_split}{{4.63}{45}{Continuous Lagrangian}{equation.4.63}{}}
+\newlabel{eq:acrobot_rotation_potential_zero}{{4.64}{45}{Continuous Lagrangian}{equation.4.64}{}}
+\newlabel{eq:acrobot_potential_energy}{{4.65}{45}{Continuous Lagrangian}{equation.4.65}{}}
+\newlabel{eq:acrobot_continuous_lagrangian}{{4.66}{45}{Continuous Lagrangian}{equation.4.66}{}}
 \@writefile{toc}{\contentsline {paragraph}{Discrete Lagrangian}{45}{section*.34}\protected@file@percent }
-\newlabel{eq:acrobot_discrete_translational_velocity}{{4.66}{45}{Discrete Lagrangian}{equation.4.66}{}}
-\newlabel{eq:acrobot_discrete_translational_lagrangian}{{4.67}{45}{Discrete Lagrangian}{equation.4.67}{}}
-\citation{BrudigamManchester2021VariationalIntegrators}
-\newlabel{eq:acrobot_discrete_rotational_lagrangian}{{4.68}{46}{Discrete Lagrangian}{equation.4.68}{}}
-\newlabel{eq:acrobot_discrete_potential_lagrangian}{{4.69}{46}{Discrete Lagrangian}{equation.4.69}{}}
-\newlabel{eq:acrobot_discrete_lagrangian}{{4.70}{46}{Discrete Lagrangian}{equation.4.70}{}}
+\newlabel{eq:acrobot_discrete_translational_velocity}{{4.67}{45}{Discrete Lagrangian}{equation.4.67}{}}
+\newlabel{eq:acrobot_discrete_translational_lagrangian}{{4.68}{46}{Discrete Lagrangian}{equation.4.68}{}}
+\newlabel{eq:acrobot_discrete_rotational_lagrangian}{{4.69}{46}{Discrete Lagrangian}{equation.4.69}{}}
+\newlabel{eq:acrobot_discrete_potential_lagrangian}{{4.70}{46}{Discrete Lagrangian}{equation.4.70}{}}
+\newlabel{eq:acrobot_discrete_lagrangian}{{4.71}{46}{Discrete Lagrangian}{equation.4.71}{}}
 \@writefile{toc}{\contentsline {paragraph}{Discrete Euler-Lagrange Equations}{46}{section*.35}\protected@file@percent }
-\newlabel{eq:acrobot_lagrange_multipliers}{{4.71}{46}{Discrete Euler-Lagrange Equations}{equation.4.71}{}}
-\newlabel{eq:acrobot_variation_constrained_discrete_action}{{4.72}{46}{Discrete Euler-Lagrange Equations}{equation.4.72}{}}
+\newlabel{eq:acrobot_lagrange_multipliers}{{4.72}{46}{Discrete Euler-Lagrange Equations}{equation.4.72}{}}
+\citation{BrudigamManchester2021VariationalIntegrators}
 \citation{Lee2008}
+\newlabel{eq:acrobot_variation_constrained_discrete_action}{{4.73}{47}{Discrete Euler-Lagrange Equations}{equation.4.73}{}}
+\newlabel{eq:acrobot_translational_variation}{{4.74}{47}{Discrete Euler-Lagrange Equations}{equation.4.74}{}}
+\newlabel{eq:acrobot_translational_constraint_force}{{4.75}{47}{Discrete Euler-Lagrange Equations}{equation.4.75}{}}
+\newlabel{eq:acrobot_discrete_constraints_vector}{{4.76}{47}{Discrete Euler-Lagrange Equations}{equation.4.76}{}}
+\newlabel{eq:acrobot_translational_del_links}{{4.77}{47}{Discrete Euler-Lagrange Equations}{equation.4.77}{}}
+\newlabel{eq:acrobot_translational_del_link_1}{{4.77a}{47}{Discrete Euler-Lagrange Equations}{equation.4.77a}{}}
+\newlabel{eq:acrobot_translational_del_link_2}{{4.77b}{47}{Discrete Euler-Lagrange Equations}{equation.4.77b}{}}
+\newlabel{eq:acrobot_rotational_derivative_pairing}{{4.78}{47}{Discrete Euler-Lagrange Equations}{equation.4.78}{}}
 \citation{Lee2008}
-\newlabel{eq:acrobot_translational_variation}{{4.73}{47}{Discrete Euler-Lagrange Equations}{equation.4.73}{}}
-\newlabel{eq:acrobot_translational_constraint_force}{{4.74}{47}{Discrete Euler-Lagrange Equations}{equation.4.74}{}}
-\newlabel{eq:acrobot_discrete_constraints_vector}{{4.75}{47}{Discrete Euler-Lagrange Equations}{equation.4.75}{}}
-\newlabel{eq:acrobot_translational_del_links}{{4.76}{47}{Discrete Euler-Lagrange Equations}{equation.4.76}{}}
-\newlabel{eq:acrobot_translational_del_link_1}{{4.76a}{47}{Discrete Euler-Lagrange Equations}{equation.4.76a}{}}
-\newlabel{eq:acrobot_translational_del_link_2}{{4.76b}{47}{Discrete Euler-Lagrange Equations}{equation.4.76b}{}}
-\newlabel{eq:acrobot_rotational_derivative_pairing}{{4.77}{47}{Discrete Euler-Lagrange Equations}{equation.4.77}{}}
-\newlabel{eq:acrobot_discrete_angular_momentum}{{4.78}{47}{Discrete Euler-Lagrange Equations}{equation.4.78}{}}
-\newlabel{eq:acrobot_Ad_variation}{{4.79}{48}{Discrete Euler-Lagrange Equations}{equation.4.79}{}}
-\newlabel{eq:acrobot_R1_constraint_derivative_kp1}{{4.80}{48}{Discrete Euler-Lagrange Equations}{equation.4.80}{}}
-\newlabel{eq:acrobot_R2_constraint_derivative_kp1}{{4.81}{48}{Discrete Euler-Lagrange Equations}{equation.4.81}{}}
-\newlabel{eq:acrobot_full_del_shifted}{{4.82}{48}{Discrete Euler-Lagrange Equations}{equation.4.82}{}}
-\newlabel{eq:acrobot_full_del_shifted_translation_1}{{4.82a}{48}{Discrete Euler-Lagrange Equations}{equation.4.82a}{}}
-\newlabel{eq:acrobot_full_del_shifted_translation_2}{{4.82b}{48}{Discrete Euler-Lagrange Equations}{equation.4.82b}{}}
+\newlabel{eq:acrobot_discrete_angular_momentum}{{4.79}{48}{Discrete Euler-Lagrange Equations}{equation.4.79}{}}
+\newlabel{eq:acrobot_Ad_variation}{{4.80}{48}{Discrete Euler-Lagrange Equations}{equation.4.80}{}}
+\newlabel{eq:acrobot_R1_constraint_derivative_kp1}{{4.81}{48}{Discrete Euler-Lagrange Equations}{equation.4.81}{}}
+\newlabel{eq:acrobot_R2_constraint_derivative_kp1}{{4.82}{48}{Discrete Euler-Lagrange Equations}{equation.4.82}{}}
 \citation{BrudigamManchester2021LQR}
-\newlabel{eq:acrobot_full_del_shifted_rotation_1}{{4.82c}{49}{Discrete Euler-Lagrange Equations}{equation.4.82c}{}}
-\newlabel{eq:acrobot_full_del_shifted_rotation_2}{{4.82d}{49}{Discrete Euler-Lagrange Equations}{equation.4.82d}{}}
-\newlabel{eq:acrobot_full_del_shifted_base_constraint}{{4.82e}{49}{Discrete Euler-Lagrange Equations}{equation.4.82e}{}}
-\newlabel{eq:acrobot_full_del_shifted_elbow_constraint}{{4.82f}{49}{Discrete Euler-Lagrange Equations}{equation.4.82f}{}}
-\newlabel{eq:acrobot_full_del_shifted_kinematics_1}{{4.82g}{49}{Discrete Euler-Lagrange Equations}{equation.4.82g}{}}
-\newlabel{eq:acrobot_full_del_shifted_kinematics_2}{{4.82h}{49}{Discrete Euler-Lagrange Equations}{equation.4.82h}{}}
+\newlabel{eq:acrobot_full_del_shifted}{{4.83}{49}{Discrete Euler-Lagrange Equations}{equation.4.83}{}}
+\newlabel{eq:acrobot_full_del_shifted_translation_1}{{4.83a}{49}{Discrete Euler-Lagrange Equations}{equation.4.83a}{}}
+\newlabel{eq:acrobot_full_del_shifted_translation_2}{{4.83b}{49}{Discrete Euler-Lagrange Equations}{equation.4.83b}{}}
+\newlabel{eq:acrobot_full_del_shifted_rotation_1}{{4.83c}{49}{Discrete Euler-Lagrange Equations}{equation.4.83c}{}}
+\newlabel{eq:acrobot_full_del_shifted_rotation_2}{{4.83d}{49}{Discrete Euler-Lagrange Equations}{equation.4.83d}{}}
+\newlabel{eq:acrobot_full_del_shifted_base_constraint}{{4.83e}{49}{Discrete Euler-Lagrange Equations}{equation.4.83e}{}}
+\newlabel{eq:acrobot_full_del_shifted_elbow_constraint}{{4.83f}{49}{Discrete Euler-Lagrange Equations}{equation.4.83f}{}}
+\newlabel{eq:acrobot_full_del_shifted_kinematics_1}{{4.83g}{49}{Discrete Euler-Lagrange Equations}{equation.4.83g}{}}
+\newlabel{eq:acrobot_full_del_shifted_kinematics_2}{{4.83h}{49}{Discrete Euler-Lagrange Equations}{equation.4.83h}{}}
 \@writefile{toc}{\contentsline {paragraph}{Controlled Acrobot}{49}{section*.36}\protected@file@percent }
-\newlabel{eq:acrobot_force_contribution}{{4.83}{49}{Controlled Acrobot}{equation.4.83}{}}
-\newlabel{eq:acrobot_generalized_torque}{{4.84}{49}{Controlled Acrobot}{equation.4.84}{}}
-\newlabel{eq:acrobot_zero_translational_force}{{4.85}{49}{Controlled Acrobot}{equation.4.85}{}}
-\newlabel{eq:forced_acrobot_rotational_equations}{{4.86}{49}{Controlled Acrobot}{equation.4.86}{}}
-\newlabel{eq:forced_acrobot_rotation_link1}{{4.86a}{49}{Controlled Acrobot}{equation.4.86a}{}}
-\newlabel{eq:forced_acrobot_rotation_link2}{{4.86b}{49}{Controlled Acrobot}{equation.4.86b}{}}
+\newlabel{eq:acrobot_force_contribution}{{4.84}{49}{Controlled Acrobot}{equation.4.84}{}}
+\newlabel{eq:acrobot_generalized_torque}{{4.85}{49}{Controlled Acrobot}{equation.4.85}{}}
+\newlabel{eq:acrobot_zero_translational_force}{{4.86}{50}{Controlled Acrobot}{equation.4.86}{}}
+\newlabel{eq:forced_acrobot_rotational_equations}{{4.87}{50}{Controlled Acrobot}{equation.4.87}{}}
+\newlabel{eq:forced_acrobot_rotation_link1}{{4.87a}{50}{Controlled Acrobot}{equation.4.87a}{}}
+\newlabel{eq:forced_acrobot_rotation_link2}{{4.87b}{50}{Controlled Acrobot}{equation.4.87b}{}}
 \citation{Sangli2025}
 \citation{Kang_2026Fast}
 \citation{Kang_2025Global}
@@ -517,12 +526,12 @@
 \newlabel{eq:general_motion_optimization}{{5.1}{52}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.1}{}}
 \newlabel{eq:general_lie_group_kinematics}{{5.2}{52}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.2}{}}
 \newlabel{eq:so3_polynomial_constraints}{{5.3}{52}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.3}{}}
-\newlabel{eq:so2_polynomial_constraints}{{5.4}{52}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.4}{}}
 \citation{Sangli2025}
 \citation{Sangli2025}
 \citation{Sangli2025}
 \citation{Yang2024Semidefinite}
 \citation{Yang2024Semidefinite}
+\newlabel{eq:so2_polynomial_constraints}{{5.6}{53}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.6}{}}
 \newlabel{eq:axis_rotations}{{5.7}{53}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.7}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.2}Semidefinite Optimization and Relaxation}{53}{section.5.2}\protected@file@percent }
 \newlabel{sec:semidefinite_optimization_relaxation}{{5.2}{53}{Semidefinite Optimization and Relaxation}{section.5.2}{}}
@@ -562,6 +571,7 @@
 \citation{Yang2024Semidefinite}
 \citation{Lasserre2001Global}
 \citation{Lasserre2001Global}
+\citation{Nie2014FiniteConvergence}
 \citation{Lasserre2001Global}
 \citation{Yang2024Semidefinite}
 \citation{Yang2024Semidefinite}
@@ -576,7 +586,6 @@
 \newlabel{eq:moment_sos_bounds_comparison}{{5.23}{56}{Moment relaxation}{equation.5.23}{}}
 \@writefile{toc}{\contentsline {paragraph}{Convergence}{56}{section*.40}\protected@file@percent }
 \newlabel{eq:convergence_of_moment_sos_hierarchy}{{5.24}{56}{Convergence}{equation.5.24}{}}
-\newlabel{eq:finite_convergence}{{5.25}{56}{Convergence}{equation.5.25}{}}
 \@writefile{toc}{\contentsline {paragraph}{Solution extraction}{56}{section*.41}\protected@file@percent }
 \newlabel{eq:2}{{5.26}{56}{Solution extraction}{equation.5.26}{}}
 \citation{Kang_2025Global}
@@ -603,7 +612,7 @@
 \newlabel{eq:trajectory_decision_vector}{{5.29}{58}{Chain-like sparsity of trajectory optimization}{equation.5.29}{}}
 \newlabel{eq:trajectory_clique}{{5.30}{58}{Chain-like sparsity of trajectory optimization}{equation.5.30}{}}
 \newlabel{eq:chain_sparsity_condition}{{5.31}{58}{Chain-like sparsity of trajectory optimization}{equation.5.31}{}}
-\@writefile{toc}{\contentsline {paragraph}{Multi Rigid-Body specific sparsity}{58}{section*.46}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Multibody rigid-body-specific sparsity}{58}{section*.46}\protected@file@percent }
 \citation{Kang_2025Global}
 \citation{Kang_2025Global}
 \citation{Kang_2026Fast}
@@ -618,37 +627,39 @@
 \citation{Kang_2025Global}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparison of dense and sparse moment matrices for a two-variable POP at relaxation order \(\kappa =2\). Reproduced from \cite  {Kang_2025Global}.}}{60}{figure.caption.48}\protected@file@percent }
 \newlabel{fig:dense_sparse_moment_comparison}{{5.3}{60}{Comparison of dense and sparse moment matrices for a two-variable POP at relaxation order \(\kappa =2\). Reproduced from \cite {Kang_2025Global}}{figure.caption.48}{}}
-\newlabel{eq:numerical_rank_metric}{{5.39}{60}{Sparse Moment--SOS relaxation}{equation.5.39}{}}
+\newlabel{eq:numerical_rank_metric}{{5.40}{60}{Sparse Moment--SOS relaxation}{equation.5.40}{}}
 \@writefile{toc}{\contentsline {paragraph}{Sparse Polynomial Optimization Toolbox (SPOT)}{60}{section*.49}\protected@file@percent }
 \citation{Lee2008}
 \citation{Kang_2026Fast}
 \citation{GallierQuaintance2020LinearAlgebra}
 \@writefile{toc}{\contentsline {section}{\numberline {5.3}Discrete Motion Planning for the 3D-Pendulum}{61}{section.5.3}\protected@file@percent }
 \newlabel{sec:discrete_motion_planning_3d_pendulum}{{5.3}{61}{Discrete Motion Planning for the 3D-Pendulum}{section.5.3}{}}
-\newlabel{eq:u_bound_3d_pendulum}{{5.42}{61}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.42}{}}
-\newlabel{eq:lqr_style_loss}{{5.43}{61}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.43}{}}
+\newlabel{eq:u_scaling_3d_pendulum}{{5.42}{61}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.42}{}}
+\newlabel{eq:u_bound_3d_pendulum}{{5.43}{61}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.43}{}}
+\newlabel{eq:lqr_style_loss}{{5.44}{61}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.44}{}}
 \citation{Sangli2025}
-\newlabel{eq:controlled_3d_pendulum_pop}{{5.45}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.45}{}}
-\newlabel{eq:controlled_3d_pendulum_pop_objective}{{5.45a}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.45a}{}}
-\newlabel{eq:controlled_3d_pendulum_pop_dynamics}{{5.45b}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.45b}{}}
-\newlabel{eq:controlled_3d_pendulum_pop_kinematics}{{5.45c}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.45c}{}}
-\newlabel{eq:controlled_3d_pendulum_pop_so3_R}{{5.45d}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.45d}{}}
-\newlabel{eq:controlled_3d_pendulum_pop_so3_F}{{5.45e}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.45e}{}}
-\newlabel{eq:controlled_3d_pendulum_pop_step_bound}{{5.45f}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.45f}{}}
-\newlabel{eq:controlled_3d_pendulum_pop_control_bound}{{5.45g}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.45g}{}}
-\newlabel{eq:controlled_3d_pendulum_pop_initial}{{5.45h}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.45h}{}}
+\newlabel{eq:controlled_3d_pendulum_pop}{{5.46}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.46}{}}
+\newlabel{eq:controlled_3d_pendulum_pop_objective}{{5.46a}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.46a}{}}
+\newlabel{eq:controlled_3d_pendulum_pop_dynamics}{{5.46b}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.46b}{}}
+\newlabel{eq:controlled_3d_pendulum_pop_kinematics}{{5.46c}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.46c}{}}
+\newlabel{eq:controlled_3d_pendulum_pop_so3_R}{{5.46d}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.46d}{}}
+\newlabel{eq:controlled_3d_pendulum_pop_so3_F}{{5.46e}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.46e}{}}
+\newlabel{eq:controlled_3d_pendulum_pop_step_bound}{{5.46f}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.46f}{}}
+\newlabel{eq:controlled_3d_pendulum_pop_control_bound}{{5.46g}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.46g}{}}
+\newlabel{eq:controlled_3d_pendulum_pop_initial}{{5.46h}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.46h}{}}
+\newlabel{eq:3d_pendulum_sparse_clique}{{5.47}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.47}{}}
+\newlabel{eq:moment_size}{{5.48}{62}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.48}{}}
 \citation{Kang_2025Global}
 \citation{MOSEK}
 \citation{Elshani2026CTO_GitHub}
-\newlabel{eq:moment_size}{{5.47}{63}{Discrete Motion Planning for the 3D-Pendulum}{equation.5.47}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.4}Discrete Motion Planning for an Acrobot}{63}{section.5.4}\protected@file@percent }
 \newlabel{sec:discrete_motion_planning_acrobot}{{5.4}{63}{Discrete Motion Planning for an Acrobot}{section.5.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}Trajectory Optimization via SDP Relaxation}{63}{subsection.5.4.1}\protected@file@percent }
 \newlabel{sec:trajectory_optimization_via_sdp_relaxation}{{5.4.1}{63}{Trajectory Optimization via SDP Relaxation}{subsection.5.4.1}{}}
-\newlabel{eq:acrobot_eliminated_positions}{{5.48}{63}{Trajectory Optimization via SDP Relaxation}{equation.5.48}{}}
-\citation{eq:acrobot_full_del_shifted_kinematics_1}
-\citation{eq:acrobot_full_del_shifted_kinematics_2}
-\newlabel{eq:velocity_approximation_rotations}{{5.49}{64}{Trajectory Optimization via SDP Relaxation}{equation.5.49}{}}
+\newlabel{eq:acrobot_eliminated_positions}{{5.49}{63}{Trajectory Optimization via SDP Relaxation}{equation.5.49}{}}
+\newlabel{eq:velocity_approximation_rotations}{{5.50}{64}{Trajectory Optimization via SDP Relaxation}{equation.5.50}{}}
+\newlabel{eq:velocity_approximation_link1}{{5.50a}{64}{Trajectory Optimization via SDP Relaxation}{equation.5.50a}{}}
+\newlabel{eq:velocity_approximation_link2}{{5.50b}{64}{Trajectory Optimization via SDP Relaxation}{equation.5.50b}{}}
 \newlabel{eq:acrobot_kinematic_substitution}{{5.51}{64}{Trajectory Optimization via SDP Relaxation}{equation.5.51}{}}
 \newlabel{eq:acrobot_full_del_shifted_translation_1_reduced}{{5.52a}{64}{Trajectory Optimization via SDP Relaxation}{equation.5.52a}{}}
 \newlabel{eq:acrobot_full_del_shifted_translation_2_reduced}{{5.52b}{64}{Trajectory Optimization via SDP Relaxation}{equation.5.52b}{}}
@@ -699,28 +710,28 @@
 \newlabel{eq:acrobot_mpc_stabilization_condition}{{5.67}{69}{Control application}{equation.5.67}{}}
 \@writefile{toc}{\contentsline {paragraph}{Prediction horizon}{69}{section*.56}\protected@file@percent }
 \newlabel{eq:acrobot_mpc_time_scales}{{5.68}{69}{Prediction horizon}{equation.5.68}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces SDP-based model predictive control loop decision-logic for the reduced Acrobot.}}{70}{figure.caption.57}\protected@file@percent }
-\newlabel{fig:acrobot_sdp_mpc_logic}{{5.5}{70}{SDP-based model predictive control loop decision-logic for the reduced Acrobot}{figure.caption.57}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Decision logic of the SDP-based model predictive control loop for the reduced Acrobot.}}{71}{figure.caption.57}\protected@file@percent }
+\newlabel{fig:acrobot_sdp_mpc_logic}{{5.5}{71}{Decision logic of the SDP-based model predictive control loop for the reduced Acrobot}{figure.caption.57}{}}
 \citation{Lee2008}
 \citation{Marsden2001}
 \citation{CELLEDONI2003421}
 \citation{Hairer2000}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Evaluation}{71}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Evaluation}{73}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chapter:evaluation}{{6}{71}{Evaluation}{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Numerical Simulation Results}{71}{section.6.1}\protected@file@percent }
-\newlabel{sec:numerical_simulation_results}{{6.1}{71}{Numerical Simulation Results}{section.6.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Comparison of the considered integration methods properties.}}{71}{table.caption.58}\protected@file@percent }
-\newlabel{tab:integrator_comparison}{{6.1}{71}{Comparison of the considered integration methods properties}{table.caption.58}{}}
-\@writefile{toc}{\contentsline {paragraph}{Runge--Kutta 4th order}{71}{section*.59}\protected@file@percent }
+\newlabel{chapter:evaluation}{{6}{73}{Evaluation}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Numerical Simulation Results}{73}{section.6.1}\protected@file@percent }
+\newlabel{sec:numerical_simulation_results}{{6.1}{73}{Numerical Simulation Results}{section.6.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Comparison of the considered integration methods properties.}}{73}{table.caption.58}\protected@file@percent }
+\newlabel{tab:integrator_comparison}{{6.1}{73}{Comparison of the considered integration methods properties}{table.caption.58}{}}
+\@writefile{toc}{\contentsline {paragraph}{Runge--Kutta 4th order}{73}{section*.59}\protected@file@percent }
 \citation{butcher2016numerical}
 \citation{CELLEDONI2003421}
 \citation{YanaiTakeuchiTakane2011SVD}
 \citation{CELLEDONI2003421}
-\newlabel{eq:rk4_stages}{{6.2}{72}{Runge--Kutta 4th order}{equation.6.2}{}}
-\newlabel{eq:rk4_update}{{6.3}{72}{Runge--Kutta 4th order}{equation.6.3}{}}
-\@writefile{toc}{\contentsline {paragraph}{RK4 projected to $SO(3)$}{72}{section*.60}\protected@file@percent }
+\newlabel{eq:rk4_stages}{{6.2}{74}{Runge--Kutta 4th order}{equation.6.2}{}}
+\newlabel{eq:rk4_update}{{6.3}{74}{Runge--Kutta 4th order}{equation.6.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{RK4 projected to $SO(3)$}{74}{section*.60}\protected@file@percent }
 \citation{RITInertiaTable216}
 \citation{Lee2008}
 \citation{Benacquista2018ClassicalMechanics}
@@ -728,112 +739,112 @@
 \citation{ColomboJimenez2012SO3_Cayley}
 \citation{Lee2008}
 \citation{Elshani2026CTO_GitHub}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}3D Pendulum}{73}{subsection.6.1.1}\protected@file@percent }
-\newlabel{subsec:3d_pendulum_numercial_simulation}{{6.1.1}{73}{3D Pendulum}{subsection.6.1.1}{}}
-\newlabel{eq:simulation_3D_pendulum_vector_equation}{{6.11}{73}{3D Pendulum}{equation.6.11}{}}
-\newlabel{eq:Caley_Jacobian}{{6.12}{73}{3D Pendulum}{equation.6.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Comparison of the numerical preservation properties for the unforced $3$D pendulum.}}{74}{figure.caption.62}\protected@file@percent }
-\newlabel{fig:simulation_results_3d_pendulum}{{6.1}{74}{Comparison of the numerical preservation properties for the unforced $3$D pendulum}{figure.caption.62}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Unforced 3D-Pendulum}{74}{section*.61}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}3D Pendulum}{75}{subsection.6.1.1}\protected@file@percent }
+\newlabel{subsec:3d_pendulum_numercial_simulation}{{6.1.1}{75}{3D Pendulum}{subsection.6.1.1}{}}
+\newlabel{eq:simulation_3D_pendulum_vector_equation}{{6.11}{75}{3D Pendulum}{equation.6.11}{}}
+\newlabel{eq:Caley_Jacobian}{{6.12}{75}{3D Pendulum}{equation.6.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Comparison of the numerical preservation properties for the unforced $3$D pendulum.}}{76}{figure.caption.62}\protected@file@percent }
+\newlabel{fig:simulation_results_3d_pendulum}{{6.1}{76}{Comparison of the numerical preservation properties for the unforced $3$D pendulum}{figure.caption.62}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Unforced 3D-Pendulum}{76}{section*.61}\protected@file@percent }
 \citation{Lee2008}
 \citation{Hairer1994}
 \citation{Lee2008}
-\@writefile{toc}{\contentsline {subsubsection}{Controlled 3D-Pendulum}{75}{section*.63}\protected@file@percent }
-\newlabel{eq:controlled_3d_pendulum_input_parameter}{{6.14}{75}{Controlled 3D-Pendulum}{equation.6.14}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Controlled 3D-Pendulum}{77}{section*.63}\protected@file@percent }
+\newlabel{eq:controlled_3d_pendulum_input_parameter}{{6.14}{77}{Controlled 3D-Pendulum}{equation.6.14}{}}
 \citation{Elshani2026CTO_GitHub}
-\newlabel{eq:controlled_3d_pendulum_continuous_RK4}{{6.15}{76}{Controlled 3D-Pendulum}{equation.6.15}{}}
-\newlabel{eq:controlled_3d_pendulum_continuous_momentum}{{6.15a}{76}{Controlled 3D-Pendulum}{equation.6.15a}{}}
-\newlabel{eq:controlled_3d_pendulum_continuous_kinematics}{{6.15b}{76}{Controlled 3D-Pendulum}{equation.6.15b}{}}
-\newlabel{eq:controlled_3d_pendulum_cayley_a}{{6.16}{76}{Controlled 3D-Pendulum}{equation.6.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Comparison of the forced LGVI and RK4 simulation for the controlled $3$D pendulum.}}{77}{figure.caption.64}\protected@file@percent }
-\newlabel{fig:forced_3d_pendulum_results}{{6.2}{77}{Comparison of the forced LGVI and RK4 simulation for the controlled $3$D pendulum}{figure.caption.64}{}}
+\newlabel{eq:controlled_3d_pendulum_continuous_RK4}{{6.15}{78}{Controlled 3D-Pendulum}{equation.6.15}{}}
+\newlabel{eq:controlled_3d_pendulum_continuous_momentum}{{6.15a}{78}{Controlled 3D-Pendulum}{equation.6.15a}{}}
+\newlabel{eq:controlled_3d_pendulum_continuous_kinematics}{{6.15b}{78}{Controlled 3D-Pendulum}{equation.6.15b}{}}
+\newlabel{eq:controlled_3d_pendulum_cayley_a}{{6.16}{78}{Controlled 3D-Pendulum}{equation.6.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Comparison of the forced LGVI and RK4 simulation for the controlled $3$D pendulum.}}{79}{figure.caption.64}\protected@file@percent }
+\newlabel{fig:forced_3d_pendulum_results}{{6.2}{79}{Comparison of the forced LGVI and RK4 simulation for the controlled $3$D pendulum}{figure.caption.64}{}}
 \citation{Benacquista2018ClassicalMechanics}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Acrobot}{78}{subsection.6.1.2}\protected@file@percent }
-\newlabel{subsec:evaluation_acrobot}{{6.1.2}{78}{Acrobot}{subsection.6.1.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Acrobot}{80}{subsection.6.1.2}\protected@file@percent }
+\newlabel{subsec:evaluation_acrobot}{{6.1.2}{80}{Acrobot}{subsection.6.1.2}{}}
 \citation{tedrake_underactuated}
 \citation{Elshani2026CTO_GitHub}
-\@writefile{toc}{\contentsline {subsubsection}{Unforced Acrobot}{80}{section*.65}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of the numerical preservation properties for the unforced Acrobot.}}{81}{figure.caption.66}\protected@file@percent }
-\newlabel{fig:simulation_results_acrobot_unforced}{{6.3}{81}{Comparison of the numerical preservation properties for the unforced Acrobot}{figure.caption.66}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Controlled Acrobot}{81}{section*.67}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Numerical simulation results for the controlled Acrobot.}}{82}{figure.caption.68}\protected@file@percent }
-\newlabel{fig:simulation_results_acrobot_forced}{{6.4}{82}{Numerical simulation results for the controlled Acrobot}{figure.caption.68}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of the numerical preservation properties for the unforced Acrobot.}}{82}{figure.caption.66}\protected@file@percent }
+\newlabel{fig:simulation_results_acrobot_unforced}{{6.3}{82}{Comparison of the numerical preservation properties for the unforced Acrobot}{figure.caption.66}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Unforced Acrobot}{82}{section*.65}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Controlled Acrobot}{83}{section*.67}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Numerical simulation results for the controlled Acrobot.}}{84}{figure.caption.68}\protected@file@percent }
+\newlabel{fig:simulation_results_acrobot_forced}{{6.4}{84}{Numerical simulation results for the controlled Acrobot}{figure.caption.68}{}}
 \citation{Kang_2025Global}
 \citation{Elshani2026CTO_GitHub}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}3D-Pendulum Optimization Results}{83}{section.6.2}\protected@file@percent }
-\newlabel{sec:3d_pendulum_optimization_results}{{6.2}{83}{3D-Pendulum Optimization Results}{section.6.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{Optimization Configuration}{83}{section*.69}\protected@file@percent }
-\newlabel{eq:3d_pendulum_optimization_configuration}{{6.19}{83}{Optimization Configuration}{equation.6.19}{}}
 \citation{Kang_2025Global}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}3D-Pendulum Optimization Results}{85}{section.6.2}\protected@file@percent }
+\newlabel{sec:3d_pendulum_optimization_results}{{6.2}{85}{3D-Pendulum Optimization Results}{section.6.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Optimization Configuration}{85}{section*.69}\protected@file@percent }
+\newlabel{eq:3d_pendulum_optimization_configuration}{{6.19}{85}{Optimization Configuration}{equation.6.19}{}}
 \citation{GallierQuaintance2020LinearAlgebra}
 \citation{Sangli2025}
 \citation{Sangli2025}
-\@writefile{toc}{\contentsline {paragraph}{Evaluation metrics}{84}{section*.70}\protected@file@percent }
-\newlabel{eq:3d_pendulum_evaluation_rotation_error}{{6.20}{84}{Evaluation metrics}{equation.6.20}{}}
-\newlabel{eq:3d_pendulum_evaluation_terminal_error}{{6.21}{84}{Evaluation metrics}{equation.6.21}{}}
-\newlabel{eq:3d_pendulum_warm_start_gap}{{6.22}{84}{Evaluation metrics}{equation.6.22}{}}
-\@writefile{toc}{\contentsline {paragraph}{Results}{84}{section*.72}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Evaluation metrics}{86}{section*.70}\protected@file@percent }
+\newlabel{eq:3d_pendulum_evaluation_rotation_error}{{6.20}{86}{Evaluation metrics}{equation.6.20}{}}
+\newlabel{eq:3d_pendulum_evaluation_terminal_error}{{6.21}{86}{Evaluation metrics}{equation.6.21}{}}
+\newlabel{eq:3d_pendulum_warm_start_gap}{{6.22}{86}{Evaluation metrics}{equation.6.22}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Results of the controlled $3$D pendulum for desired $x$-axis rotations.}}{86}{table.caption.71}\protected@file@percent }
+\newlabel{tab:pendulum_3d_sdp_statistics}{{6.2}{86}{Results of the controlled $3$D pendulum for desired $x$-axis rotations}{table.caption.71}{}}
 \citation{Kang_2025Global}
 \citation{Elshani2026CTO_GitHub}
-\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Results of the controlled $3$D pendulum for desired $x$-axis rotations.}}{85}{table.caption.71}\protected@file@percent }
-\newlabel{tab:pendulum_3d_sdp_statistics}{{6.2}{85}{Results of the controlled $3$D pendulum for desired $x$-axis rotations}{table.caption.71}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Acrobot Optimization Results}{85}{section.6.3}\protected@file@percent }
-\newlabel{sec:acrobot_optimization_results}{{6.3}{85}{Acrobot Optimization Results}{section.6.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ $ rotation about the $x$-axis using the MD sparsity setting: (a) center-of-mass trajectory, (b) control inputs $\bm  {u}_{p,k}$, (c) angular rotation tracking error $e_{R,k}^{P}$, and (d) orthogonality errors $e_{\mathrm  {orth},k}^{P}$}}{86}{figure.caption.73}\protected@file@percent }
-\newlabel{fig:optimization_results_x180_md}{{6.5}{86}{SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ $ rotation about the $x$-axis using the MD sparsity setting: (a) center-of-mass trajectory, (b) control inputs $\bm u_{p,k}$, (c) angular rotation tracking error $e_{R,k}^{P}$, and (d) orthogonality errors $e_{\mathrm {orth},k}^{P}$}{figure.caption.73}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Semidefinite Optimization Results}{87}{subsection.6.3.1}\protected@file@percent }
-\newlabel{subsec:acrobot_optimization_results}{{6.3.1}{87}{Semidefinite Optimization Results}{subsection.6.3.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Optimization configuration}{87}{section*.74}\protected@file@percent }
-\newlabel{eq:acrobot_sdp_optimization_configuration}{{6.23}{87}{Optimization configuration}{equation.6.23}{}}
-\newlabel{eq:acrobot_sdp_initial_configuration}{{6.24}{87}{Optimization configuration}{equation.6.24}{}}
-\newlabel{eq:acrobot_sdp_target_configurations}{{6.25}{87}{Optimization configuration}{equation.6.25}{}}
-\newlabel{eq:acrobot_sdp_optimization_bounds}{{6.26}{87}{Optimization configuration}{equation.6.26}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Objective parameters used for the $3$D-pendulum and Acrobot optimization experiments.}}{87}{table.caption.75}\protected@file@percent }
-\newlabel{tab:optimization_cost_parameters}{{6.3}{87}{Objective parameters used for the $3$D-pendulum and Acrobot optimization experiments}{table.caption.75}{}}
+\@writefile{toc}{\contentsline {paragraph}{Results}{87}{section*.72}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Acrobot Optimization Results}{87}{section.6.3}\protected@file@percent }
+\newlabel{sec:acrobot_optimization_results}{{6.3}{87}{Acrobot Optimization Results}{section.6.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ $ rotation about the $x$-axis using the MD sparsity setting: (a) center-of-mass trajectory, (b) control inputs $\bm  {u}_{p,k}$, (c) angular rotation tracking error $e_{R,k}^{P}$, and (d) orthogonality errors $e_{\mathrm  {orth},k}^{P}$}}{88}{figure.caption.73}\protected@file@percent }
+\newlabel{fig:optimization_results_x180_md}{{6.5}{88}{SPOT optimization results for the controlled $3$D pendulum performing a $180^\circ $ rotation about the $x$-axis using the MD sparsity setting: (a) center-of-mass trajectory, (b) control inputs $\bm u_{p,k}$, (c) angular rotation tracking error $e_{R,k}^{P}$, and (d) orthogonality errors $e_{\mathrm {orth},k}^{P}$}{figure.caption.73}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Semidefinite Optimization Results}{89}{subsection.6.3.1}\protected@file@percent }
+\newlabel{subsec:acrobot_optimization_results}{{6.3.1}{89}{Semidefinite Optimization Results}{subsection.6.3.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Optimization configuration}{89}{section*.74}\protected@file@percent }
+\newlabel{eq:acrobot_sdp_optimization_configuration}{{6.23}{89}{Optimization configuration}{equation.6.23}{}}
+\newlabel{eq:acrobot_sdp_initial_configuration}{{6.24}{89}{Optimization configuration}{equation.6.24}{}}
+\newlabel{eq:acrobot_sdp_target_configurations}{{6.25}{89}{Optimization configuration}{equation.6.25}{}}
+\newlabel{eq:acrobot_sdp_optimization_bounds}{{6.26}{89}{Optimization configuration}{equation.6.26}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Objective parameters used for the $3$D-pendulum and Acrobot optimization experiments.}}{89}{table.caption.75}\protected@file@percent }
+\newlabel{tab:optimization_cost_parameters}{{6.3}{89}{Objective parameters used for the $3$D-pendulum and Acrobot optimization experiments}{table.caption.75}{}}
 \citation{Sangli2025}
-\@writefile{toc}{\contentsline {paragraph}{Evaluation metrics}{88}{section*.76}\protected@file@percent }
-\newlabel{eq:acrobot_terminal_rotation_error}{{6.27}{88}{Evaluation metrics}{equation.6.27}{}}
-\newlabel{eq:acrobot_max_orthogonality_error}{{6.28}{88}{Evaluation metrics}{equation.6.28}{}}
-\newlabel{eq:acrobot_first_clique_rank_metric}{{6.29}{88}{Evaluation metrics}{equation.6.29}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Results of the Acrobot trajectory optimization using the complete chain-like SELF cliques \(\bm  {z}_{\mathrm  A}(\mathcal  I_k^{\mathrm  A})\). All trajectory metrics are evaluated from the ordered extraction.}}{89}{table.caption.77}\protected@file@percent }
-\newlabel{tab:acrobot_sdp_statistics_full}{{6.4}{89}{Results of the Acrobot trajectory optimization using the complete chain-like SELF cliques \(\bm z_{\mathrm A}(\mathcal I_k^{\mathrm A})\). All trajectory metrics are evaluated from the ordered extraction}{table.caption.77}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces Results of the Acrobot trajectory optimization using the special multi-body SELF clique construction \(\bm  {z}_{\mathrm  A}(\mathcal  I_1^{\mathrm  A})\), \(\bm  {z}_{\mathrm  A}(\mathcal  I_2^{\mathrm  A})\), \(\bm  {z}_{\mathrm  A}(\mathcal  I_{\mathrm  {dyn},k}^{\mathrm  A})\), and \(\bm  {z}_{\mathrm  A}(\mathcal  I_{\mathrm  {kin},k}^{\mathrm  A})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}.}}{89}{table.caption.78}\protected@file@percent }
-\newlabel{tab:acrobot_sdp_statistics_hybrid}{{6.5}{89}{Results of the Acrobot trajectory optimization using the special multi-body SELF clique construction \(\bm z_{\mathrm A}(\mathcal I_1^{\mathrm A})\), \(\bm z_{\mathrm A}(\mathcal I_2^{\mathrm A})\), \(\bm z_{\mathrm A}(\mathcal I_{\mathrm {dyn},k}^{\mathrm A})\), and \(\bm z_{\mathrm A}(\mathcal I_{\mathrm {kin},k}^{\mathrm A})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}}{table.caption.78}{}}
-\@writefile{toc}{\contentsline {paragraph}{Results.}{89}{section*.79}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Model Predictive SDP Control Results}{90}{subsection.6.3.2}\protected@file@percent }
-\newlabel{subsec:acrobot_sdp_mpc_results}{{6.3.2}{90}{Model Predictive SDP Control Results}{subsection.6.3.2}{}}
-\newlabel{eq:acrobot_stabilization_target}{{6.30}{91}{Model Predictive SDP Control Results}{equation.6.30}{}}
-\@writefile{toc}{\contentsline {paragraph}{MPC configuration for $u_{\max }=5\,\mathrm  {N\,m}$.}{91}{section*.80}\protected@file@percent }
-\newlabel{eq:acrobot_mpc_u5_boundary_configurations}{{6.31}{91}{MPC configuration for $u_{\max }=5\,\mathrm {N\,m}$}{equation.6.31}{}}
-\newlabel{eq:acrobot_mpc_u5_time_configuration}{{6.32}{91}{MPC configuration for $u_{\max }=5\,\mathrm {N\,m}$}{equation.6.32}{}}
-\newlabel{eq:acrobot_mpc_u5_bounds}{{6.33}{91}{MPC configuration for $u_{\max }=5\,\mathrm {N\,m}$}{equation.6.33}{}}
-\@writefile{toc}{\contentsline {paragraph}{Results for $u_{\max }=5\,\mathrm  {N\,m}$.}{91}{section*.82}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Closed-loop SDP--MPC results for the Acrobot with $u_{\max }=5\,\mathrm  {N\,m}$.}}{92}{figure.caption.81}\protected@file@percent }
-\newlabel{fig:acrobot_mpc_u5_closed_loop}{{6.6}{92}{Closed-loop SDP--MPC results for the Acrobot with $u_{\max }=5\,\mathrm {N\,m}$}{figure.caption.81}{}}
-\@writefile{toc}{\contentsline {paragraph}{Empirical basin of attraction and time-discretization mismatch.}{93}{section*.83}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.6}{\ignorespaces Time-scale configurations used for the sampled SDP--MPC stabilization regions with $u_{\max }=15\,\mathrm  {N\,m}$.}}{93}{table.caption.84}\protected@file@percent }
-\newlabel{tab:acrobot_mpc_time_scale_cases}{{6.6}{93}{Time-scale configurations used for the sampled SDP--MPC stabilization regions with $u_{\max }=15\,\mathrm {N\,m}$}{table.caption.84}{}}
-\newlabel{eq:acrobot_mpc_basin_initial_grid}{{6.34}{93}{Empirical basin of attraction and time-discretization mismatch}{equation.6.34}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Empirical sampled stabilization regions of the SDP-MPC controller with $u_{\max }=15\,\mathrm  {N\,m}$. The tuples $(\Delta t_{\mathrm  {SDP}},\Delta t_{\mathrm  {sim}}, \Delta t_{\mathrm  {ctrl}})$ are $(0.1,0.1,0.1)\,\mathrm  {s}$ in Case~I, $(0.05,0.05,0.05)\,\mathrm  {s}$ in Case~II, and $(0.1,0.0025,0.025)\,\mathrm  {s}$ in Case~III. Cases~I and II use matched time scales, whereas Case~III uses a prediction model with a finer simulation time steps and control update.}}{94}{figure.caption.85}\protected@file@percent }
-\newlabel{fig:acrobot_basin_comparison}{{6.7}{94}{Empirical sampled stabilization regions of the SDP-MPC controller with $u_{\max }=15\,\mathrm {N\,m}$. The tuples $(\Delta t_{\mathrm {SDP}},\Delta t_{\mathrm {sim}}, \Delta t_{\mathrm {ctrl}})$ are $(0.1,0.1,0.1)\,\mathrm {s}$ in Case~I, $(0.05,0.05,0.05)\,\mathrm {s}$ in Case~II, and $(0.1,0.0025,0.025)\,\mathrm {s}$ in Case~III. Cases~I and II use matched time scales, whereas Case~III uses a prediction model with a finer simulation time steps and control update}{figure.caption.85}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Closed-loop Acrobot tip trajectories and sampled link configurations for $(\theta _1^{\mathrm  {init}},\theta _2^{\mathrm  {init}}) =(20^\circ ,140^\circ )$ in Cases~I and III. Each tuple gives $(\Delta t_{\mathrm  {SDP}},\Delta t_{\mathrm  {sim}}, \Delta t_{\mathrm  {ctrl}})$.}}{95}{figure.caption.86}\protected@file@percent }
-\newlabel{fig:acrobot_sampled_trajectory_comparison}{{6.8}{95}{Closed-loop Acrobot tip trajectories and sampled link configurations for $(\theta _1^{\mathrm {init}},\theta _2^{\mathrm {init}}) =(20^\circ ,140^\circ )$ in Cases~I and III. Each tuple gives $(\Delta t_{\mathrm {SDP}},\Delta t_{\mathrm {sim}}, \Delta t_{\mathrm {ctrl}})$}{figure.caption.86}{}}
-\@writefile{toc}{\contentsline {paragraph}{Summary}{96}{section*.87}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Discussion}{97}{chapter.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Evaluation metrics}{90}{section*.76}\protected@file@percent }
+\newlabel{eq:acrobot_terminal_rotation_error}{{6.27}{90}{Evaluation metrics}{equation.6.27}{}}
+\newlabel{eq:acrobot_max_orthogonality_error}{{6.28}{90}{Evaluation metrics}{equation.6.28}{}}
+\newlabel{eq:acrobot_first_clique_rank_metric}{{6.29}{90}{Evaluation metrics}{equation.6.29}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Results of the Acrobot trajectory optimization using the complete chain-like SELF cliques \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_k^{\mathrm  {A}})\). All trajectory metrics are evaluated from the ordered extraction.}}{91}{table.caption.77}\protected@file@percent }
+\newlabel{tab:acrobot_sdp_statistics_full}{{6.4}{91}{Results of the Acrobot trajectory optimization using the complete chain-like SELF cliques \(\bm {z}_{\mathrm {A}}(\mathcal I_k^{\mathrm {A}})\). All trajectory metrics are evaluated from the ordered extraction}{table.caption.77}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces Results of the Acrobot trajectory optimization using the special multi-body SELF clique construction \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_1^{\mathrm  {A}})\), \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_2^{\mathrm  {A}})\), \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_{\mathrm  {dyn},k}^{\mathrm  {A}})\), and \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_{\mathrm  {kin},k}^{\mathrm  {A}})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}.}}{91}{table.caption.78}\protected@file@percent }
+\newlabel{tab:acrobot_sdp_statistics_hybrid}{{6.5}{91}{Results of the Acrobot trajectory optimization using the special multi-body SELF clique construction \(\bm {z}_{\mathrm {A}}(\mathcal I_1^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_2^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {dyn},k}^{\mathrm {A}})\), and \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {kin},k}^{\mathrm {A}})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}}{table.caption.78}{}}
+\@writefile{toc}{\contentsline {paragraph}{Results.}{91}{section*.79}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Model Predictive SDP Control Results}{92}{subsection.6.3.2}\protected@file@percent }
+\newlabel{subsec:acrobot_sdp_mpc_results}{{6.3.2}{92}{Model Predictive SDP Control Results}{subsection.6.3.2}{}}
+\newlabel{eq:acrobot_stabilization_target}{{6.30}{93}{Model Predictive SDP Control Results}{equation.6.30}{}}
+\@writefile{toc}{\contentsline {paragraph}{MPC configuration for $u_{\max }=5\,\mathrm  {N\,m}$.}{93}{section*.80}\protected@file@percent }
+\newlabel{eq:acrobot_mpc_u5_boundary_configurations}{{6.31}{93}{MPC configuration for $u_{\max }=5\,\mathrm {N\,m}$}{equation.6.31}{}}
+\newlabel{eq:acrobot_mpc_u5_time_configuration}{{6.32}{93}{MPC configuration for $u_{\max }=5\,\mathrm {N\,m}$}{equation.6.32}{}}
+\newlabel{eq:acrobot_mpc_u5_bounds}{{6.33}{93}{MPC configuration for $u_{\max }=5\,\mathrm {N\,m}$}{equation.6.33}{}}
+\@writefile{toc}{\contentsline {paragraph}{Results for $u_{\max }=5\,\mathrm  {N\,m}$.}{93}{section*.82}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Closed-loop SDP--MPC results for the Acrobot with $u_{\max }=5\,\mathrm  {N\,m}$.}}{94}{figure.caption.81}\protected@file@percent }
+\newlabel{fig:acrobot_mpc_u5_closed_loop}{{6.6}{94}{Closed-loop SDP--MPC results for the Acrobot with $u_{\max }=5\,\mathrm {N\,m}$}{figure.caption.81}{}}
+\@writefile{toc}{\contentsline {paragraph}{Empirical basin of attraction and time-discretization mismatch.}{95}{section*.83}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.6}{\ignorespaces Time-scale configurations used for the sampled SDP--MPC stabilization regions with $u_{\max }=15\,\mathrm  {N\,m}$.}}{95}{table.caption.84}\protected@file@percent }
+\newlabel{tab:acrobot_mpc_time_scale_cases}{{6.6}{95}{Time-scale configurations used for the sampled SDP--MPC stabilization regions with $u_{\max }=15\,\mathrm {N\,m}$}{table.caption.84}{}}
+\newlabel{eq:acrobot_mpc_basin_initial_grid}{{6.34}{95}{Empirical basin of attraction and time-discretization mismatch}{equation.6.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Empirical sampled stabilization regions of the SDP-MPC controller with $u_{\max }=15\,\mathrm  {N\,m}$. The tuples $(\Delta t_{\mathrm  {SDP}},\Delta t_{\mathrm  {sim}}, \Delta t_{\mathrm  {ctrl}})$ are $(0.1,0.1,0.1)\,\mathrm  {s}$ in Case~I, $(0.05,0.05,0.05)\,\mathrm  {s}$ in Case~II, and $(0.1,0.0025,0.025)\,\mathrm  {s}$ in Case~III. Cases~I and II use matched time scales, whereas Case~III uses a prediction model with finer simulation time steps and control updates.}}{96}{figure.caption.85}\protected@file@percent }
+\newlabel{fig:acrobot_basin_comparison}{{6.7}{96}{Empirical sampled stabilization regions of the SDP-MPC controller with $u_{\max }=15\,\mathrm {N\,m}$. The tuples $(\Delta t_{\mathrm {SDP}},\Delta t_{\mathrm {sim}}, \Delta t_{\mathrm {ctrl}})$ are $(0.1,0.1,0.1)\,\mathrm {s}$ in Case~I, $(0.05,0.05,0.05)\,\mathrm {s}$ in Case~II, and $(0.1,0.0025,0.025)\,\mathrm {s}$ in Case~III. Cases~I and II use matched time scales, whereas Case~III uses a prediction model with finer simulation time steps and control updates}{figure.caption.85}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Closed-loop Acrobot tip trajectories and sampled link configurations for $(\theta _1^{\mathrm  {init}},\theta _2^{\mathrm  {init}}) =(20^\circ ,140^\circ )$ in Cases~I and III. Each tuple gives $(\Delta t_{\mathrm  {SDP}},\Delta t_{\mathrm  {sim}}, \Delta t_{\mathrm  {ctrl}})$.}}{97}{figure.caption.86}\protected@file@percent }
+\newlabel{fig:acrobot_sampled_trajectory_comparison}{{6.8}{97}{Closed-loop Acrobot tip trajectories and sampled link configurations for $(\theta _1^{\mathrm {init}},\theta _2^{\mathrm {init}}) =(20^\circ ,140^\circ )$ in Cases~I and III. Each tuple gives $(\Delta t_{\mathrm {SDP}},\Delta t_{\mathrm {sim}}, \Delta t_{\mathrm {ctrl}})$}{figure.caption.86}{}}
+\@writefile{toc}{\contentsline {paragraph}{Summary}{97}{section*.87}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Discussion}{99}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:discussion}{{7}{97}{Discussion}{chapter.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.1}Discussion of main Findings}{97}{section.7.1}\protected@file@percent }
-\newlabel{sec:discussion_of_main_findings}{{7.1}{97}{Discussion of main Findings}{section.7.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Single-body optimization}{97}{section*.88}\protected@file@percent }
+\newlabel{chap:discussion}{{7}{99}{Discussion}{chapter.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Discussion of Main Findings}{99}{section.7.1}\protected@file@percent }
+\newlabel{sec:discussion_of_main_findings}{{7.1}{99}{Discussion of Main Findings}{section.7.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Single-body optimization}{99}{section*.88}\protected@file@percent }
 \citation{BrudigamManchester2021LQR}
 \citation{Kang_2025Global}
-\@writefile{toc}{\contentsline {paragraph}{Multibody formulation and sparsity}{98}{section*.89}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Multibody formulation and sparsity}{100}{section*.89}\protected@file@percent }
 \citation{MOSEK}
 \citation{Kang_2026Fast}
 \citation{Sangli2025}
-\@writefile{toc}{\contentsline {paragraph}{Open-loop Acrobot optimization}{99}{section*.90}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Closed-loop Acrobot stabilization}{99}{section*.91}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Open-loop Acrobot optimization}{101}{section*.90}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Closed-loop Acrobot stabilization}{101}{section*.91}\protected@file@percent }
 \citation{Marsden2001}
 \citation{Lee2008}
 \citation{BrudigamManchester2021VariationalIntegrators}
@@ -841,91 +852,104 @@
 \citation{Sangli2025}
 \citation{Sangli2025}
 \citation{Sangli2025}
-\@writefile{toc}{\contentsline {section}{\numberline {7.2}Comparison with the State of the Art}{100}{section.7.2}\protected@file@percent }
-\newlabel{sec:comparison_state_of_the_art}{{7.2}{100}{Comparison with the State of the Art}{section.7.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Comparison with the State of the Art}{102}{section.7.2}\protected@file@percent }
+\newlabel{sec:comparison_state_of_the_art}{{7.2}{102}{Comparison with the State of the Art}{section.7.2}{}}
 \citation{Kang_2026Fast}
 \citation{acrobot_RL}
-\@writefile{toc}{\contentsline {section}{\numberline {7.3}Potential Applications}{101}{section.7.3}\protected@file@percent }
-\newlabel{sec:potential_applications}{{7.3}{101}{Potential Applications}{section.7.3}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {8}Conclusion}{103}{chapter.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Potential Applications}{103}{section.7.3}\protected@file@percent }
+\newlabel{sec:potential_applications}{{7.3}{103}{Potential Applications}{section.7.3}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Conclusion}{105}{chapter.8}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:conclusion}{{8}{103}{Conclusion}{chapter.8}{}}
-\@writefile{toc}{\contentsline {paragraph}{Limitations}{105}{section*.92}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Future Work}{105}{section*.93}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Scalar Implementation of POPs}{107}{appendix.A}\protected@file@percent }
+\newlabel{chap:conclusion}{{8}{105}{Conclusion}{chapter.8}{}}
+\citation{BrudigamManchester2021VariationalIntegrators}
+\@writefile{toc}{\contentsline {paragraph}{Limitations}{107}{section*.92}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Future Work}{107}{section*.93}\protected@file@percent }
+\citation{Kang_2026Fast}
+\citation{Kang_2026Fast}
+\citation{Elshani2026CTO_GitHub}
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Scalar Implementation of POPs}{109}{appendix.A}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {A.1}Scalar Implementation of the 3D-Pendulum Optimization Problem}{107}{section.A.1}\protected@file@percent }
-\newlabel{app:controlled_3d_pendulum_scalar_pop}{{A.1}{107}{Scalar Implementation of the 3D-Pendulum Optimization Problem}{section.A.1}{}}
-\newlabel{eq:app_3d_scalar_matrices}{{A.1}{107}{Scalar Implementation of the 3D-Pendulum Optimization Problem}{equation.A.1}{}}
-\newlabel{eq:app_3d_scalar_vectors}{{A.2}{107}{Scalar Implementation of the 3D-Pendulum Optimization Problem}{equation.A.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{Objective and Discrete Dynamics}{107}{section*.94}\protected@file@percent }
-\newlabel{eq:app_3d_scalar_objective}{{A.3}{107}{Objective and Discrete Dynamics}{equation.A.3}{}}
-\newlabel{eq:app_3d_scalar_gravity}{{A.4}{108}{Objective and Discrete Dynamics}{equation.A.4}{}}
-\newlabel{eq:app_3d_scalar_control_moment}{{A.5}{108}{Objective and Discrete Dynamics}{equation.A.5}{}}
-\newlabel{eq:app_3d_scalar_dynamics}{{A.6}{108}{Objective and Discrete Dynamics}{equation.A.6}{}}
-\newlabel{eq:app_3d_scalar_dynamics_1}{{A.6a}{108}{Objective and Discrete Dynamics}{equation.A.6a}{}}
-\newlabel{eq:app_3d_scalar_dynamics_2}{{A.6b}{108}{Objective and Discrete Dynamics}{equation.A.6b}{}}
-\newlabel{eq:app_3d_scalar_dynamics_3}{{A.6c}{108}{Objective and Discrete Dynamics}{equation.A.6c}{}}
-\@writefile{toc}{\contentsline {paragraph}{Kinematics and Rotation Constraints}{108}{section*.95}\protected@file@percent }
-\newlabel{eq:app_3d_scalar_kinematics}{{A.7}{108}{Kinematics and Rotation Constraints}{equation.A.7}{}}
-\newlabel{eq:app_3d_scalar_R_orthogonality}{{A.8}{108}{Kinematics and Rotation Constraints}{equation.A.8}{}}
-\newlabel{eq:app_3d_scalar_R_right_handedness}{{A.9}{109}{Kinematics and Rotation Constraints}{equation.A.9}{}}
-\newlabel{eq:app_3d_scalar_F_orthogonality}{{A.10}{109}{Kinematics and Rotation Constraints}{equation.A.10}{}}
-\newlabel{eq:app_3d_scalar_F_right_handedness}{{A.11}{109}{Kinematics and Rotation Constraints}{equation.A.11}{}}
-\@writefile{toc}{\contentsline {paragraph}{Bounds, Initial Values, and Normalization}{109}{section*.96}\protected@file@percent }
-\newlabel{eq:app_3d_scalar_bounds}{{A.12}{109}{Bounds, Initial Values, and Normalization}{equation.A.12}{}}
-\newlabel{eq:app_3d_scalar_initial_values}{{A.13}{109}{Bounds, Initial Values, and Normalization}{equation.A.13}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.2}Scalar Implementation of the Acrobot Optimization Problem}{110}{section.A.2}\protected@file@percent }
-\newlabel{app:controlled_acrobot_scalar_pop}{{A.2}{110}{Scalar Implementation of the Acrobot Optimization Problem}{section.A.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{Reduced Variables and Objective}{110}{section*.97}\protected@file@percent }
-\newlabel{eq:app_acrobot_scalar_rotations}{{A.14}{110}{Reduced Variables and Objective}{equation.A.14}{}}
-\newlabel{eq:app_acrobot_geometry_vectors}{{A.15}{110}{Reduced Variables and Objective}{equation.A.15}{}}
-\newlabel{eq:app_acrobot_reconstructed_positions}{{A.16}{110}{Reduced Variables and Objective}{equation.A.16}{}}
-\newlabel{eq:app_acrobot_reconstructed_x1}{{A.16a}{110}{Reduced Variables and Objective}{equation.A.16a}{}}
-\newlabel{eq:app_acrobot_reconstructed_x2}{{A.16b}{110}{Reduced Variables and Objective}{equation.A.16b}{}}
-\newlabel{eq:app_acrobot_desired_rotations}{{A.17}{110}{Reduced Variables and Objective}{equation.A.17}{}}
-\newlabel{eq:app_acrobot_scalar_objective}{{A.18}{111}{Reduced Variables and Objective}{equation.A.18}{}}
-\@writefile{toc}{\contentsline {paragraph}{Reduced Discrete Dynamics}{111}{section*.98}\protected@file@percent }
-\newlabel{eq:app_acrobot_scaling}{{A.19}{111}{Reduced Discrete Dynamics}{equation.A.19}{}}
-\newlabel{eq:app_acrobot_scalar_translational_dynamics}{{A.20}{111}{Reduced Discrete Dynamics}{equation.A.20}{}}
-\newlabel{eq:app_acrobot_translation_1x}{{A.20a}{111}{Reduced Discrete Dynamics}{equation.A.20a}{}}
-\newlabel{eq:app_acrobot_translation_1y}{{A.20b}{111}{Reduced Discrete Dynamics}{equation.A.20b}{}}
-\newlabel{eq:app_acrobot_translation_2x}{{A.20c}{111}{Reduced Discrete Dynamics}{equation.A.20c}{}}
-\newlabel{eq:app_acrobot_translation_2y}{{A.20d}{111}{Reduced Discrete Dynamics}{equation.A.20d}{}}
-\newlabel{eq:app_acrobot_scalar_constraint_moments}{{A.21}{112}{Reduced Discrete Dynamics}{equation.A.21}{}}
-\newlabel{eq:app_acrobot_mu_10}{{A.21a}{112}{Reduced Discrete Dynamics}{equation.A.21a}{}}
-\newlabel{eq:app_acrobot_mu_112}{{A.21b}{112}{Reduced Discrete Dynamics}{equation.A.21b}{}}
-\newlabel{eq:app_acrobot_mu_212}{{A.21c}{112}{Reduced Discrete Dynamics}{equation.A.21c}{}}
-\newlabel{eq:app_acrobot_scalar_rotational_dynamics}{{A.22}{112}{Reduced Discrete Dynamics}{equation.A.22}{}}
-\newlabel{eq:app_acrobot_rotation_1}{{A.22a}{112}{Reduced Discrete Dynamics}{equation.A.22a}{}}
-\newlabel{eq:app_acrobot_rotation_2}{{A.22b}{112}{Reduced Discrete Dynamics}{equation.A.22b}{}}
-\@writefile{toc}{\contentsline {paragraph}{Kinematics, Rotation Constraints, and Bounds}{112}{section*.99}\protected@file@percent }
-\newlabel{eq:app_acrobot_scalar_kinematics}{{A.23}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.23}{}}
-\newlabel{eq:app_acrobot_kinematics_c}{{A.23a}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.23a}{}}
-\newlabel{eq:app_acrobot_kinematics_s}{{A.23b}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.23b}{}}
-\newlabel{eq:app_acrobot_scalar_so2_constraints}{{A.24}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.24}{}}
-\newlabel{eq:app_acrobot_so2_R}{{A.24a}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.24a}{}}
-\newlabel{eq:app_acrobot_so2_F}{{A.24b}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.24b}{}}
-\newlabel{eq:app_acrobot_scalar_bounds}{{A.25}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.25}{}}
-\newlabel{eq:app_acrobot_step_bounds}{{A.25a}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.25a}{}}
-\newlabel{eq:app_acrobot_control_bounds}{{A.25b}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.25b}{}}
-\newlabel{eq:app_acrobot_lambda0_bounds}{{A.25c}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.25c}{}}
-\newlabel{eq:app_acrobot_lambda12_bounds}{{A.25d}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.25d}{}}
-\newlabel{eq:app_acrobot_initial_matrices}{{A.26}{112}{Kinematics, Rotation Constraints, and Bounds}{equation.A.26}{}}
-\newlabel{eq:app_acrobot_scalar_initial_values}{{A.27}{113}{Kinematics, Rotation Constraints, and Bounds}{equation.A.27}{}}
-\newlabel{eq:app_acrobot_fixed_R1_F0}{{A.27a}{113}{Kinematics, Rotation Constraints, and Bounds}{equation.A.27a}{}}
-\newlabel{eq:app_acrobot_reconstructed_R0}{{A.27b}{113}{Kinematics, Rotation Constraints, and Bounds}{equation.A.27b}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {B}Validation of the Reduced Acrobot Dynamics}{115}{appendix.B}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A.1}Scalar Implementation of the 3D-Pendulum Optimization Problem}{109}{section.A.1}\protected@file@percent }
+\newlabel{app:controlled_3d_pendulum_scalar_pop}{{A.1}{109}{Scalar Implementation of the 3D-Pendulum Optimization Problem}{section.A.1}{}}
+\newlabel{eq:app_3d_scalar_matrices}{{A.1}{109}{Scalar Implementation of the 3D-Pendulum Optimization Problem}{equation.A.1}{}}
+\newlabel{eq:app_3d_scalar_vectors}{{A.2}{109}{Scalar Implementation of the 3D-Pendulum Optimization Problem}{equation.A.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Objective}{109}{section*.94}\protected@file@percent }
+\newlabel{eq:app_3d_scalar_objective}{{A.3}{109}{Objective}{equation.A.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Discrete Rotational Dynamics}{110}{section*.95}\protected@file@percent }
+\newlabel{eq:app_3d_scalar_gravity}{{A.4}{110}{Discrete Rotational Dynamics}{equation.A.4}{}}
+\newlabel{eq:app_3d_scalar_control_moment}{{A.5}{110}{Discrete Rotational Dynamics}{equation.A.5}{}}
+\newlabel{eq:app_3d_scalar_dynamics}{{A.6}{110}{Discrete Rotational Dynamics}{equation.A.6}{}}
+\newlabel{eq:app_3d_scalar_dynamics_1}{{A.6a}{110}{Discrete Rotational Dynamics}{equation.A.6a}{}}
+\newlabel{eq:app_3d_scalar_dynamics_2}{{A.6b}{110}{Discrete Rotational Dynamics}{equation.A.6b}{}}
+\newlabel{eq:app_3d_scalar_dynamics_3}{{A.6c}{110}{Discrete Rotational Dynamics}{equation.A.6c}{}}
+\@writefile{toc}{\contentsline {paragraph}{Discrete Kinematics}{110}{section*.96}\protected@file@percent }
+\newlabel{eq:app_3d_scalar_kinematics}{{A.7}{110}{Discrete Kinematics}{equation.A.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{Discrete Rotation Constraints}{111}{section*.97}\protected@file@percent }
+\newlabel{eq:app_3d_scalar_R_orthogonality}{{A.8}{111}{Discrete Rotation Constraints}{equation.A.8}{}}
+\newlabel{eq:app_3d_scalar_R_right_handedness}{{A.9}{111}{Discrete Rotation Constraints}{equation.A.9}{}}
+\newlabel{eq:app_3d_scalar_F_orthogonality}{{A.10}{111}{Discrete Rotation Constraints}{equation.A.10}{}}
+\newlabel{eq:app_3d_scalar_F_right_handedness}{{A.11}{112}{Discrete Rotation Constraints}{equation.A.11}{}}
+\@writefile{toc}{\contentsline {paragraph}{Discrete Bounds}{112}{section*.98}\protected@file@percent }
+\newlabel{eq:app_3d_scalar_bounds}{{A.12}{112}{Discrete Bounds}{equation.A.12}{}}
+\@writefile{toc}{\contentsline {paragraph}{Initial Values}{112}{section*.99}\protected@file@percent }
+\newlabel{eq:app_3d_scalar_initial_values}{{A.13}{112}{Initial Values}{equation.A.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.2}Scalar Implementation of the Acrobot Optimization Problem}{112}{section.A.2}\protected@file@percent }
+\newlabel{app:controlled_acrobot_scalar_pop}{{A.2}{112}{Scalar Implementation of the Acrobot Optimization Problem}{section.A.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Reduced Variables}{112}{section*.100}\protected@file@percent }
+\newlabel{eq:app_acrobot_scalar_rotations}{{A.14}{112}{Reduced Variables}{equation.A.14}{}}
+\newlabel{eq:app_acrobot_geometry_vectors}{{A.15}{112}{Reduced Variables}{equation.A.15}{}}
+\newlabel{eq:app_acrobot_reconstructed_positions}{{A.16}{113}{Reduced Variables}{equation.A.16}{}}
+\newlabel{eq:app_acrobot_reconstructed_x1}{{A.16a}{113}{Reduced Variables}{equation.A.16a}{}}
+\newlabel{eq:app_acrobot_reconstructed_x2}{{A.16b}{113}{Reduced Variables}{equation.A.16b}{}}
+\@writefile{toc}{\contentsline {paragraph}{Objective}{113}{section*.101}\protected@file@percent }
+\newlabel{eq:app_acrobot_desired_rotations}{{A.17}{113}{Objective}{equation.A.17}{}}
+\newlabel{eq:app_acrobot_scalar_objective}{{A.18}{113}{Objective}{equation.A.18}{}}
+\@writefile{toc}{\contentsline {paragraph}{Reduced Discrete Translational Dynamics}{113}{section*.102}\protected@file@percent }
+\newlabel{eq:app_acrobot_scaling}{{A.19}{113}{Reduced Discrete Translational Dynamics}{equation.A.19}{}}
+\newlabel{eq:app_acrobot_scalar_translational_dynamics}{{A.20}{114}{Reduced Discrete Translational Dynamics}{equation.A.20}{}}
+\newlabel{eq:app_acrobot_translation_1x}{{A.20a}{114}{Reduced Discrete Translational Dynamics}{equation.A.20a}{}}
+\newlabel{eq:app_acrobot_translation_1y}{{A.20b}{114}{Reduced Discrete Translational Dynamics}{equation.A.20b}{}}
+\newlabel{eq:app_acrobot_translation_2x}{{A.20c}{114}{Reduced Discrete Translational Dynamics}{equation.A.20c}{}}
+\newlabel{eq:app_acrobot_translation_2y}{{A.20d}{114}{Reduced Discrete Translational Dynamics}{equation.A.20d}{}}
+\@writefile{toc}{\contentsline {paragraph}{Discrete Rotational Dynamics}{114}{section*.103}\protected@file@percent }
+\newlabel{eq:app_acrobot_scalar_constraint_moments}{{A.21}{114}{Discrete Rotational Dynamics}{equation.A.21}{}}
+\newlabel{eq:app_acrobot_tau_lambda_10}{{A.21a}{114}{Discrete Rotational Dynamics}{equation.A.21a}{}}
+\newlabel{eq:app_acrobot_tau_lambda_112}{{A.21b}{114}{Discrete Rotational Dynamics}{equation.A.21b}{}}
+\newlabel{eq:app_acrobot_tau_lambda_212}{{A.21c}{114}{Discrete Rotational Dynamics}{equation.A.21c}{}}
+\newlabel{eq:app_acrobot_scalar_rotational_dynamics}{{A.22}{114}{Discrete Rotational Dynamics}{equation.A.22}{}}
+\newlabel{eq:app_acrobot_rotation_1}{{A.22a}{114}{Discrete Rotational Dynamics}{equation.A.22a}{}}
+\newlabel{eq:app_acrobot_rotation_2}{{A.22b}{114}{Discrete Rotational Dynamics}{equation.A.22b}{}}
+\@writefile{toc}{\contentsline {paragraph}{Discrete Kinematics}{114}{section*.104}\protected@file@percent }
+\newlabel{eq:app_acrobot_scalar_kinematics}{{A.23}{114}{Discrete Kinematics}{equation.A.23}{}}
+\newlabel{eq:app_acrobot_kinematics_c}{{A.23a}{114}{Discrete Kinematics}{equation.A.23a}{}}
+\newlabel{eq:app_acrobot_kinematics_s}{{A.23b}{114}{Discrete Kinematics}{equation.A.23b}{}}
+\@writefile{toc}{\contentsline {paragraph}{Discrete Rotation Constraints}{115}{section*.105}\protected@file@percent }
+\newlabel{eq:app_acrobot_scalar_so2_constraints}{{A.24}{115}{Discrete Rotation Constraints}{equation.A.24}{}}
+\newlabel{eq:app_acrobot_so2_R}{{A.24a}{115}{Discrete Rotation Constraints}{equation.A.24a}{}}
+\newlabel{eq:app_acrobot_so2_F}{{A.24b}{115}{Discrete Rotation Constraints}{equation.A.24b}{}}
+\@writefile{toc}{\contentsline {paragraph}{Discrete Bounds}{115}{section*.106}\protected@file@percent }
+\newlabel{eq:app_acrobot_scalar_bounds}{{A.25}{115}{Discrete Bounds}{equation.A.25}{}}
+\newlabel{eq:app_acrobot_step_bounds}{{A.25a}{115}{Discrete Bounds}{equation.A.25a}{}}
+\newlabel{eq:app_acrobot_control_bounds}{{A.25b}{115}{Discrete Bounds}{equation.A.25b}{}}
+\newlabel{eq:app_acrobot_lambda0_bounds}{{A.25c}{115}{Discrete Bounds}{equation.A.25c}{}}
+\newlabel{eq:app_acrobot_lambda12_bounds}{{A.25d}{115}{Discrete Bounds}{equation.A.25d}{}}
+\@writefile{toc}{\contentsline {paragraph}{Initial Values}{115}{section*.107}\protected@file@percent }
+\newlabel{eq:app_acrobot_initial_matrices}{{A.26}{115}{Initial Values}{equation.A.26}{}}
+\newlabel{eq:app_acrobot_scalar_initial_values}{{A.27}{115}{Initial Values}{equation.A.27}{}}
+\newlabel{eq:app_acrobot_fixed_R1_F0}{{A.27a}{115}{Initial Values}{equation.A.27a}{}}
+\newlabel{eq:app_acrobot_reconstructed_R0}{{A.27b}{115}{Initial Values}{equation.A.27b}{}}
+\citation{HairerNorsettWanner1993}
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Validation of the Reduced Acrobot Dynamics}{117}{appendix.B}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{appendix:experimental_details}{{B}{115}{Validation of the Reduced Acrobot Dynamics}{appendix.B}{}}
-\newlabel{eq:app_acrobot_validation_errors}{{B.1}{115}{Validation of the Reduced Acrobot Dynamics}{equation.B.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.1}{\ignorespaces Mean angular errors of the full and reduced maximal-coordinate LGVIs relative to the continuous physical reference.}}{116}{table.caption.100}\protected@file@percent }
-\newlabel{tab:app_acrobot_validation_steps}{{B.1}{116}{Mean angular errors of the full and reduced maximal-coordinate LGVIs relative to the continuous physical reference}{table.caption.100}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.2}{\ignorespaces Mean angular errors of the full and reduced LGVIs grouped by control magnitude relative to the continuous reference.}}{116}{table.caption.101}\protected@file@percent }
-\newlabel{tab:app_acrobot_validation_torque}{{B.2}{116}{Mean angular errors of the full and reduced LGVIs grouped by control magnitude relative to the continuous reference}{table.caption.101}{}}
+\newlabel{appendix:experimental_details}{{B}{117}{Validation of the Reduced Acrobot Dynamics}{appendix.B}{}}
+\newlabel{eq:app_acrobot_validation_errors}{{B.1}{117}{Validation of the Reduced Acrobot Dynamics}{equation.B.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.1}{\ignorespaces Mean angular errors of the full and reduced maximal-coordinate LGVIs relative to the continuous physical reference DOP853.}}{118}{table.caption.108}\protected@file@percent }
+\newlabel{tab:app_acrobot_validation_steps}{{B.1}{118}{Mean angular errors of the full and reduced maximal-coordinate LGVIs relative to the continuous physical reference DOP853}{table.caption.108}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.2}{\ignorespaces Mean angular errors of the full and reduced LGVIs grouped by control size relative to the continuous reference, with configuration sets $(h, T_c)$.}}{118}{table.caption.109}\protected@file@percent }
+\newlabel{tab:app_acrobot_validation_torque}{{B.2}{118}{Mean angular errors of the full and reduced LGVIs grouped by control size relative to the continuous reference, with configuration sets $(h, T_c)$}{table.caption.109}{}}
 \citation{Intro_Legged}
 \citation{Intro_KUKA}
 \citation{Lee2008}
@@ -934,11 +958,11 @@
 \citation{Kang_2025Global}
 \citation{Kang_2026Fast}
 \citation{Kang_2025Global}
-\@writefile{toc}{\contentsline {chapter}{List of Figures}{117}{section*.102}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{List of Tables}{119}{section*.104}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{Acronyms}{121}{section*.106}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{Notation}{123}{section*.108}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{List of Symbols}{125}{section*.110}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Figures}{119}{section*.110}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Tables}{121}{section*.112}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Acronyms}{123}{section*.114}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Notation}{125}{section*.116}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Symbols}{127}{section*.118}\protected@file@percent }
 \bibdata{refs/mybib}
 \bibcite{Betts1998TrajectoryOptimization}{Bet98}
 \bibcite{Barbero-Linan2023_Cayley_Formula}{BLdD23}
@@ -948,7 +972,7 @@
 \bibcite{butcher2016numerical}{But16}
 \bibcite{ColomboJimenez2012SO3_Cayley}{CJ12}
 \bibcite{CELLEDONI2003421}{CO03}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{129}{section*.112}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{131}{section*.120}\protected@file@percent }
 \bibcite{acrobot_RL}{DBD23}
 \bibcite{DaiIzattTedrake2019IK}{DIT19}
 \bibcite{DeitsTedrake2014Footstep}{DT14}
@@ -958,12 +982,13 @@
 \bibcite{Hairer2000}{Hai00}
 \bibcite{Hall2000LieGroups}{Hal00}
 \bibcite{Hartmann_2026SDP}{HKD{$^{+}$}26}
+\bibcite{HairerNorsettWanner1993}{HNW93}
 \bibcite{Arieh_Cayley_Motivation}{Ise01}
 \bibcite{KaramanFrazzoli2011Sampling}{KF11}
 \bibcite{Kang_2025Global}{KLY25}
 \bibcite{Kang_2026Fast}{KXS{$^{+}$}26}
-\bibcite{Lasserre2006Sparse}{Las06a}
-\bibcite{Lasserre2001Global}{Las06b}
+\bibcite{Lasserre2001Global}{Las01}
+\bibcite{Lasserre2006Sparse}{Las06}
 \bibcite{Lee2008}{Lee08}
 \bibcite{LeeLeokMcClamroch2007DiscreteControlSystems}{LLM07a}
 \bibcite{Lee2007}{LLM07b}
@@ -981,11 +1006,11 @@
 \bibcite{LIU}{Shu06}
 \bibcite{Shen20043DPendulum}{SSC{$^{+}$}04}
 \bibcite{tedrake_underactuated}{Ted23}
-\bibcite{Intro_KUKA}{{The}24}
+\bibcite{Intro_KUKA}{{The}22}
 \bibcite{Sangli2025}{TJVG25}
 \bibcite{VandenbergheBoyd1996SDP}{VB96}
 \bibcite{Waki2006Sparse}{WKKM06}
 \bibcite{Yang2024Semidefinite}{Yan24}
 \bibcite{YanaiTakeuchiTakane2011SVD}{YTT11}
 \bibstyle{alphaurl}
-\gdef \@abspage@last{139}
+\gdef \@abspage@last{141}
