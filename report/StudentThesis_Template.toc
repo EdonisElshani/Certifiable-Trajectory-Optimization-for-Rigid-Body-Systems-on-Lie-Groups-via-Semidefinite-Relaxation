@@ -79,7 +79,7 @@
 \contentsline {paragraph}{Prediction horizon}{69}{section*.56}%
 \contentsline {chapter}{\numberline {6}Evaluation}{73}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Numerical Simulation Results}{73}{section.6.1}%
-\contentsline {paragraph}{Runge--Kutta 4th order}{73}{section*.59}%
+\contentsline {paragraph}{Runge--Kutta 4th order}{74}{section*.59}%
 \contentsline {paragraph}{RK4 projected to $SO(3)$}{74}{section*.60}%
 \contentsline {subsection}{\numberline {6.1.1}3D Pendulum}{75}{subsection.6.1.1}%
 \contentsline {subsubsection}{Unforced 3D-Pendulum}{76}{section*.61}%
@@ -90,16 +90,16 @@
 \contentsline {section}{\numberline {6.2}3D-Pendulum Optimization Results}{85}{section.6.2}%
 \contentsline {paragraph}{Optimization Configuration}{85}{section*.69}%
 \contentsline {paragraph}{Evaluation metrics}{86}{section*.70}%
-\contentsline {paragraph}{Results}{87}{section*.72}%
-\contentsline {section}{\numberline {6.3}Acrobot Optimization Results}{87}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Semidefinite Optimization Results}{89}{subsection.6.3.1}%
-\contentsline {paragraph}{Optimization configuration}{89}{section*.74}%
-\contentsline {paragraph}{Evaluation metrics}{90}{section*.76}%
-\contentsline {paragraph}{Results.}{91}{section*.79}%
+\contentsline {paragraph}{Results}{86}{section*.73}%
+\contentsline {section}{\numberline {6.3}Acrobot Optimization Results}{88}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Semidefinite Optimization Results}{88}{subsection.6.3.1}%
+\contentsline {paragraph}{Optimization configuration}{88}{section*.74}%
+\contentsline {paragraph}{Evaluation metrics}{89}{section*.76}%
+\contentsline {paragraph}{Results}{91}{section*.79}%
 \contentsline {subsection}{\numberline {6.3.2}Model Predictive SDP Control Results}{92}{subsection.6.3.2}%
-\contentsline {paragraph}{MPC configuration for $u_{\max }=5\,\mathrm {N\,m}$.}{93}{section*.80}%
-\contentsline {paragraph}{Results for $u_{\max }=5\,\mathrm {N\,m}$.}{93}{section*.82}%
-\contentsline {paragraph}{Empirical basin of attraction and time-discretization mismatch.}{95}{section*.83}%
+\contentsline {paragraph}{MPC configuration for $u_{\max }=5\,\mathrm {N\,m}$}{92}{section*.80}%
+\contentsline {paragraph}{Results for $u_{\max }=5\,\mathrm {N\,m}$}{93}{section*.82}%
+\contentsline {paragraph}{Empirical basin of attraction and time-discretization mismatch}{94}{section*.83}%
 \contentsline {paragraph}{Summary}{97}{section*.87}%
 \contentsline {chapter}{\numberline {7}Discussion}{99}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Discussion of Main Findings}{99}{section.7.1}%

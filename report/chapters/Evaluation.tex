@@ -1,13 +1,21 @@
 \chapter{Evaluation}
 \label{chapter:evaluation}
 
+This chapter evaluates the proposed modeling and optimization framework of Chapter \ref{chapter:certifiable_trajectory_optimization}.
+Section~\ref{sec:numerical_simulation_results} first validates the derived LGVIs for the
+3D pendulum and the Acrobot through numerical simulations. Sections~\ref{sec:3d_pendulum_optimization_results}
+and~\ref{sec:acrobot_optimization_results} then assess the corresponding sparse Moment-SOS
+trajectory optimization problems. Finally, Section~\ref{subsec:acrobot_sdp_mpc_results}
+examines the closed-loop performance of the SDP-MPC formulation for the Acrobot.
+
 \section{Numerical Simulation Results} 
 \label{sec:numerical_simulation_results}
 
 In this section, numerical simulations are conducted to evaluate 
 the correctness of the derived discrete integrators for mechanical models on 
 Lie groups. In particular, the structure-preserving properties of the variational 
-discretizations derived in Section~\ref{sec:properties_discrete_lagrangian_flow} are examined. The analysis focuses 
+discretizations derived in Section~\ref{sec:properties_discrete_lagrangian_flow} are examined. 
+The analysis focuses 
 especially on the preservation of the momentum map associated with the symmetry 
 of the system, the evolution on the Lie-group configuration manifold, and the 
 long-time behaviour of the total energy. This validation is important since 
@@ -15,13 +23,10 @@ discrete mechanical models obtained by variational integration provide a reliabl
 basis for certifiable trajectory optimization. If the discrete flow violates 
 the manifold structure or introduces artificial drift in conserved quantities such 
 as momentum, the resulting optimization model becomes less faithful to the 
-underlying mechanics \cite{Lee2008}. In contrast, variational integrators are 
-constructed from a discrete variational principle and are symplectic, momentum 
-preserving, and consist robust long-time energy behaviour \cite{Marsden2001}. 
-For the evaluation, the evolution of the total energy, the momentum-map behaviour, 
-and the preservation of the Lie-group structure of the 3D-pendulum are compared with 
-the classical fourth-order Runge-Kutta method and a projected Runge-Kutta method on \(SO(3)\) 
-as reference integrators \cite{CELLEDONI2003421, Hairer2000} (see Table~\ref{tab:integrator_comparison}).
+underlying mechanics \cite{Lee2008}. Additionally, for the 3D-pendulum, the
+numerical simulations are compared with classical fourth-order Runge-Kutta methods and projected Runge-Kutta methods 
+on \(SO(3)\) as reference integrators \cite{CELLEDONI2003421, Hairer2000}.
+(see Table~\ref{tab:integrator_comparison}).
 
 \begin{table}[h]
 \centering
@@ -554,12 +559,12 @@ with $\bm{X}_k =
 \begin{bmatrix}
 \bm{x}_{1,k}^{\top} & \bm{x}_{2,k}^{\top}
 \end{bmatrix}^{\top}$. The holonomic constraint residuals are evaluated separately as
-\[
-\|\bm{\phi}_{0,k}\|_2,
-\qquad
-\|\bm{\phi}_{12,k}\|_2,
-\]
-where $\bm{\phi}_{0,k}$ and $\bm{\phi}_{12,k}$ are defined in \eqref{eq:acrobot_base_constraint} and \eqref{eq:acrobot_elbow_constraint}, respectively. Finally, the Lie-group preservation of both link attitudes is measured by
+$
+\|\bm{\phi}_{0,k}\|_2,$
+and
+$\|\bm{\phi}_{12,k}\|_2,
+$
+where $\bm{\phi}_{0,k}$ and $\bm{\phi}_{12,k}$ are defined in \eqref{eq:acrobot_base_constraint} and \eqref{eq:acrobot_elbow_constraint}. Finally, the Lie-group preservation of both link attitudes is measured by
 \[
 e_{\mathrm{orth},i,k}
 =
@@ -570,23 +575,30 @@ e_{\mathrm{orth},i,k}
 i\in{1,2}.
 \]
 In contrast to the 3D-pendulum, no momentum-map error is evaluated for the Acrobot, as the system does not possess the same rotational symmetry about the gravity direction as the 3D-pendulum.
-For the unforced and controlled Acrobot simulations, the initial conditions are chosen as $\bm{F}_i^{\mathrm{init}} = \bm{R}_i^{\mathrm{init}} = \bm{I}$ for both links.
+For the unforced and controlled Acrobot simulations, both links start from the
+identity attitude with the same absolute angular velocity,
+\[
+\bm{R}_{i,0}=\bm{I},
+\qquad
+\omega_{i,0}=4.14\,\si{\radian\per\second},
+\qquad i\in\{1,2\}.
+\]
 
 \subsubsection{Unforced Acrobot}
 
-The first Acrobot simulation considers the unforced case with $u_k=0$. The simulation is performed with the step size $ h=\SI{0.1}{\second}$ 
-over the final time $ t_f=\SI{10000}{\second}$, which corresponds to $N=100000$ discrete-time steps.
+The first Acrobot simulation considers the unforced case with $u_k=0$. The simulation is performed with the step size $ h=\SI{0.01}{\second}$ 
+over the final time $ t_f=\SI{1000}{\second}$, which corresponds to $N=100000$ discrete-time steps.
 \begin{figure}[t]
     \centering
     \begin{minipage}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_unforced_total_energy.pdf}
+        \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_total_energy.pdf}
         \caption*{(a) Total energy $E_k$.}
     \end{minipage}
     \hfill
     \begin{minipage}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_unforced_position_error_norm.pdf}
+        \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_position_error_norm.pdf}
         \caption*{(b) Position error norm $\|\Delta \bm{x}_k \||$.}
     \end{minipage}
 
@@ -594,13 +606,13 @@ over the final time $ t_f=\SI{10000}{\second}$, which corresponds to $N=100000$ 
 
     \begin{minipage}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_unforced_holonomic_constraint_residuals.pdf}
+        \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_holonomic_constraint_residuals.pdf}
         \caption*{(c) Holonomic constraint residual $\bm{\phi}$.}
     \end{minipage}
     \hfill
     \begin{minipage}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_unforced_orthogonality_error.pdf}
+        \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/acrobot_orthogonality_error.pdf}
         \caption*{(d) Orthogonality error $e_{orth}$.}
     \end{minipage}
 
@@ -608,11 +620,16 @@ over the final time $ t_f=\SI{10000}{\second}$, which corresponds to $N=100000$ 
     \label{fig:simulation_results_acrobot_unforced}
 \end{figure}
 
-The total energy $E_k$ is shown in Fig.\ref{fig:simulation_results_acrobot_unforced}. Since the system is unforced, the exact mechanical energy is expected to remain constant. The LGVI energy remains close to its initial value and shows bounded oscillations over the long-time horizon. This behaviour is consistent with the symplectic structure of variational integrators introduced in Section \ref{sec:properties_discrete_lagrangian_flow}. In contrast, the RK4 reference shows a visible drift of the energy over time. This agrees with the observation from the unforced 3D-pendulum simulation in Fig.\ref{fig:simulation_results_3d_pendulum}.
+The total energy $E_k$ is shown in Fig.\ref{fig:simulation_results_acrobot_unforced}(a). Since the system is unforced, the exact mechanical energy is expected to remain constant. The LGVI energy remains close to its initial value and shows bounded oscillations over the long-time horizon. This behaviour is consistent with the symplectic structure of variational integrators introduced in Section \ref{sec:properties_discrete_lagrangian_flow}. In contrast, the RK4 reference shows a visible drift of the energy over time. This agrees with the observation from the unforced 3D-pendulum simulation in Fig.\ref{fig:simulation_results_3d_pendulum}.
 
-Fig.\ref{fig:simulation_results_acrobot_unforced}(b) shows the position error norm $\|\Delta \bm{x}_k\|$ between the LGVI trajectory and the reconstructed RK4 reference. It can be observed that the position error remains small (0.85 m) and oscillatory over the long-time horizon.
+Fig.~\ref{fig:simulation_results_acrobot_unforced}(b) shows the position error norm
+$\|\Delta \bm{x}_k\|$ between the LGVI trajectory and the reconstructed RK4
+reference. It subsequently grows and oscillates over the long-time
+horizon, reaching a maximum of approximately $\SI{3.16}{\meter}$. The deviation is reasoned, by
+the numerical differences between the two
+integrators LGVI and RK4.
 
-The holonomic constraint residuals $\|\bm{\phi}_{0,k}\|_2$ and $\|\bm{\phi}_{12,k}\|_2$ are shown in Fig.\ref{fig:simulation_results_acrobot_unforced}(c). Both the base constraint residual $\|\bm{\phi}_{0,k}\|_2$ and the elbow constraint residual $\|\bm{\phi}_{12,k}\|_2$ remain close to machine precision over the complete simulation ($< 10^{-11}$). This confirms that the constrained LGVI in maximal-coordinates \eqref{eq:acrobot_full_del_shifted} enforces the fixed-base joint and the elbow joint at the position level.
+The holonomic constraint residuals $\|\bm{\phi}_{0,k}\|_2$ and $\|\bm{\phi}_{12,k}\|_2$ are shown in Fig.\ref{fig:simulation_results_acrobot_unforced}(c). Both the base constraint residual $\|\bm{\phi}_{0,k}\|_2$ and the elbow constraint residual $\|\bm{\phi}_{12,k}\|_2$ remain close to machine precision over the complete simulation ($< 10^{-12}$). This confirms that the constrained LGVI in maximal-coordinates \eqref{eq:acrobot_full_del_shifted} enforces the fixed-base joint and the elbow joint at the position level.
 
 Finally, Fig.\ref{fig:simulation_results_acrobot_unforced}(d) shows the orthogonality error $e_{orth,i,k}$ of both link rotations. The LGVI preserves the $SO(2)$ structure of both attitudes by the multiplicative update $\bm{R}_{i,k+1}=\bm{R}_{i,k}\bm{F}_{i,k}$ with $\bm{F}_{i,k}\in SO(2)$. The RK4 reference also remains very small, because it is integrated in relative coordinates and then reconstructed into rotation matrices. However, the LGVI shows a slightly larger error, which is caused by the finite tolerance of the Newton iteration used to compute the Cayley parameters. Nevertheless, the orthogonality error remains below $10^{-13}$ over the complete simulation.
 
@@ -644,7 +661,7 @@ corresponding to $N=100000$ discrete-time steps. The same metrics as in the unfo
     \begin{minipage}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pics/Numerical_Simulation/Acrobot/forced_sine_position_error.pdf}
-        \caption*{(b) Position error norm $\|\Delta \bm{x}_k \||$.}
+        \caption*{(b) Position error norm $\|\Delta \bm{x}_k \|$.}
     \end{minipage}
 
     \vspace{0.5em}
@@ -665,13 +682,26 @@ corresponding to $N=100000$ discrete-time steps. The same metrics as in the unfo
     \label{fig:simulation_results_acrobot_forced}
 \end{figure}
 
-The total energy \(E_k\) of the controlled Acrobot is shown in Fig.~\ref{fig:simulation_results_acrobot_forced}(a). In contrast to the unforced case, the applied torque influences mechanical energy, which results in no energy conservation. Under the same sinusoidal input and for the small timestep \(h=0.001\), the LGVI and RK4 energies show nearly identical oscillatory behaviour, which indicates that the two simulations represent the same forced dynamics consistently.
+The total energy \(E_k\) of the controlled Acrobot is shown in
+Fig.~\ref{fig:simulation_results_acrobot_forced}(a). As for the controlled
+3D pendulum, the LGVI and RK4 energies agree closely during approximately the
+first $\SI{5}{\second}$ and subsequently deviate as the numerical trajectories
+separate. In contrast to the unforced case, the applied torque performs work on
+the system, and the mechanical energy is therefore neither conserved nor
+expected to remain bounded around its initial value.
 
-Fig.\ref{fig:simulation_results_acrobot_forced}(b) shows the position error norm $\|\Delta \bm{x}_k\|$ between the LGVI trajectory and the RK4 reference. Compared to the unforced long-time simulation, the error remains significantly smaller over the considered horizon. This confirms that the forced maximal-coordinate LGVI and the RK4 reference produce nearly identical short-time dynamics under the sinusoidal elbow input. The remaining difference is expected, since the two methods use different discretization schemes for the dynamics.
+Fig.~\ref{fig:simulation_results_acrobot_forced}(b) shows the position error
+norm $\|\Delta \bm{x}_k\|$ between the LGVI trajectory and the RK4 reference.
+The error is initially zero and remains close to zero over the
+first $\SI{5}{\second}$, confirming that both methods reproduce the same
+short-time response to the sinusoidal elbow input. It then increases and
+oscillates as the trajectories diverge, following the same
+behaviour observed for the controlled 3D pendulum, because of the
+numerical differences between the two methods.
 
-The holonomic constraint residuals $|\bm{\phi}_{0,k}|_2$ and $|\bm{\phi}_{12,k}|_2$ are plotted in Fig.\ref{fig:simulation_results_acrobot_forced}(c). The base and elbow constraint residuals are negligible ($< 10^{-12}$) over the complete simulation. In the forced case, the maximal-coordinate LGVI therefore also prevents constraint drift and keeps the Acrobot links physically connected, which is essential for the later SDP optimization conducted in Section \ref{sec:acrobot_optimization_results}.
+The holonomic constraint residuals $\|\bm{\phi}_{0,k}\|_2$ and $\|\bm{\phi}_{12,k}\|_2$ are plotted in Fig.\ref{fig:simulation_results_acrobot_forced}(c). The base and elbow constraint residuals are negligible ($< 10^{-11}$) over the complete simulation. In the forced case, the maximal-coordinate LGVI therefore also prevents constraint drift and keeps the Acrobot links physically connected, which is essential for the later SDP optimization conducted in Section \ref{sec:acrobot_optimization_results}.
 
-Finally, Fig.\ref{fig:simulation_results_acrobot_forced}(d) shows the orthogonality error $e_{orth,i,k}$ of both link rotations. As in the unforced simulation, the LGVI preserves the $SO(2)$ structure through the attitude update \eqref{eq:acrobot_full_del_shifted_kinematics_1} and \eqref{eq:acrobot_full_del_shifted_kinematics_2}. As in the unforced case, the RK4 reference remains close to zero, since its rotations are computed from relative angles. Therefore, the controlled Acrobot simulation confirms that both the forcing term and the constrained Lie-group update are numerically consistent.
+Finally, Fig.\ref{fig:simulation_results_acrobot_forced}(d) shows the orthogonality error $e_{orth,i,k}$ of both link rotations. As in the unforced simulation, the LGVI preserves the $SO(2)$ structure through the attitude update \eqref{eq:acrobot_full_del_shifted_kinematics_1} and \eqref{eq:acrobot_full_del_shifted_kinematics_2}. As in the unforced case, the RK4 reference remains close to zero, since its rotations are represented as rotation matrices. Therefore, the controlled Acrobot simulation confirms that both the forcing term and the constrained Lie-group update are numerically consistent.
 
 Overall, Fig.~\ref{fig:simulation_results_acrobot_unforced} and
 Fig.~\ref{fig:simulation_results_acrobot_forced} show that the Acrobot LGVI also behaves
@@ -852,6 +882,44 @@ is the MOSEK optimizer time.
     }
 \end{table}
 
+\begin{figure}[t!]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.70\linewidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory_matlab.pdf}
+        \caption*{(a) 3D-Pendulum trajectory.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf}
+        \caption*{(b) Control inputs $\bm u_{p,k}$.}
+    \end{minipage}
+
+    \vspace{0.5em}
+
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf}
+        \caption*{(c) Angular rotation tracking error $e_{R,k}^{P}$.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf}
+        \caption*{(d) Orthogonality errors $e_{\mathrm{orth},k}^{P}$ of
+        $\bm R_k$, $\bm F_k$.}
+    \end{minipage}
+
+    \caption{SPOT optimization results for the controlled $3$D pendulum
+    performing a $180^\circ$ rotation about the $x$-axis using the MD
+    sparsity setting: (a) optimization trajectory,
+    (b) control inputs
+    $\bm u_{p,k}$, (c) angular rotation tracking error $e_{R,k}^{P}$, and
+    (d) orthogonality errors $e_{\mathrm{orth},k}^{P}$}
+    \label{fig:optimization_results_x180_md}
+\end{figure}
+
 \paragraph{Results}
 
 Table~\ref{tab:pendulum_3d_sdp_statistics} shows that 
@@ -880,46 +948,9 @@ as a hard terminal constraint but weighted in the objective. Furthermore, the \(
 the gravitational moment vanishes. In contrast, the intermediate attitudes require a 
 control moment to stay at $\bm{R}_{\mathrm{des}}$, which contributes to their larger terminal errors. 
 
-\begin{figure}[!htbp]
-    \centering
-    \begin{minipage}{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_trajectory.pdf}
-        \caption*{(a) Center-of-mass trajectory $\bm{x}_k=\bm{R}_k\bm{\rho}_c$.}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_control_input.pdf}
-        \caption*{(b) Control inputs $\bm u_{p,k}$.}
-    \end{minipage}
-
-    \vspace{0.5em}
-
-    \begin{minipage}{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_frobenius.pdf}
-        \caption*{(c) Angular rotation tracking error $e_{R,k}^{P}$.}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/3D_Pendulum/MD_180_deg_Pendulum_orthogonality.pdf}
-        \caption*{(d) Orthogonality errors $e_{\mathrm{orth},k}^{P}$ of
-        $\bm R_k$, $\bm F_k$.}
-    \end{minipage}
-
-    \caption{SPOT optimization results for the controlled $3$D pendulum
-    performing a $180^\circ$ rotation about the $x$-axis using the MD
-    sparsity setting: (a) center-of-mass trajectory,
-    (b) control inputs
-    $\bm u_{p,k}$, (c) angular rotation tracking error $e_{R,k}^{P}$, and
-    (d) orthogonality errors $e_{\mathrm{orth},k}^{P}$}
-    \label{fig:optimization_results_x180_md}
-\end{figure}
-
 Fig.\ref{fig:optimization_results_x180_md} illustrates the ordered extraction 
-for a desired rotation of \(\theta_{x,\mathrm{des}}=180^\circ\). The center of mass follows a smooth path
+for a desired rotation of \(\theta_{x,\mathrm{des}}=180^\circ\). The 
+optimized trajectory follows a smooth path
 from the initial to the inverted configuration.
 As the rotation is around the x-axis, \(u_{p,1,k}\) 
 remains zero. When reaching the final horizon time at $T=\SI{2}{\second}$, all three control
@@ -1210,7 +1241,7 @@ by the implementation.
     }
 \end{table}
 
-\paragraph{Results.}
+\paragraph{Results}
 
 Tables~\ref{tab:acrobot_sdp_statistics_full} and
 \ref{tab:acrobot_sdp_statistics_hybrid} show the same qualitative behavior for
@@ -1309,7 +1340,7 @@ extraction can stabilize the Acrobot at the inverted equilibrium of
 even when the
 complete predicted SDP trajectory is not certifiable.
 
-\paragraph{MPC configuration for $u_{\max}=5\,\mathrm{N\,m}$.}
+\paragraph{MPC configuration for $u_{\max}=5\,\mathrm{N\,m}$}
 The physical Acrobot parameters are identical to those used for the numerical
 simulation in Section~\ref{subsec:evaluation_acrobot}, and the objective
 parameters are those in Table~\ref{tab:optimization_cost_parameters}. The
@@ -1404,7 +1435,7 @@ to a maximum simulated duration of $60\,\mathrm{s}$.
     \label{fig:acrobot_mpc_u5_closed_loop}
 \end{figure}
 
-\paragraph{Results for $u_{\max}=5\,\mathrm{N\,m}$.}
+\paragraph{Results for $u_{\max}=5\,\mathrm{N\,m}$}
 Figure \ref{fig:acrobot_mpc_u5_closed_loop} shows one successful closed-loop
 swing-up and achieved stabilization. The combined starting attitude error
 $e_{R,1}^A$ at $j=1$ is approximately
@@ -1447,7 +1478,7 @@ therefore increases the bound to
 $u_{\max}=15\,\mathrm{N\,m}$ and investigates a grid of initial link
 orientations.
 
-\paragraph{Empirical basin of attraction and time-discretization mismatch.}
+\paragraph{Empirical basin of attraction and time-discretization mismatch}
 For this evaluation, the physical parameters, the relaxation order $\kappa=2$,
 the target in \eqref{eq:acrobot_stabilization_target}, the objective
 parameters, the multiplier and step-angle bounds, and the special multi-body
@@ -1574,13 +1605,13 @@ which can increase the number of MPC iterations required before stabilization.
     \centering
     \begin{minipage}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_01_20_140.pdf}
+        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/acrobot_trajectory_01_01_01.pdf}
         \caption*{(a) Case~I: $(0.1,0.1,0.1)\,\mathrm{s}$.}
     \end{minipage}
     \hfill
     \begin{minipage}[t]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/acrobot_mpc_sampled_trajectory_00025_20_140.pdf}
+        \includegraphics[width=\textwidth]{pics/Optimization/Acrobot/acrobot_trajectory_01_00025_0025.pdf}
         \caption*{(b) Case~III: $(0.1,0.0025,0.025)\,\mathrm{s}$.}
     \end{minipage}
 
@@ -1599,7 +1630,7 @@ behaviour for the common initial configuration
 $(\theta_1^{\mathrm{init}},\theta_2^{\mathrm{init}})
 =(20^\circ,140^\circ)$. With matched $0.1\,\mathrm{s}$ time scales, the
 Acrobot follows a comparatively direct swing-up and satisfies the stabilization
-criterion after approximately $3.1\,\mathrm{s}$. The mismatched Case~III also
+criterion after approximately $2.2\,\mathrm{s}$. The mismatched Case~III also
 reaches the inverted equilibrium, but requires approximately $4.1\,\mathrm{s}$.
 Its link-tip paths contain considerably larger loops, and the repeated passages
 around the upright configuration indicate a more oscillatory transient. Thus,

@@ -57,7 +57,8 @@ constraints \cite{Betts1998TrajectoryOptimization,tedrake_underactuated}. Sequen
 methods, such as TrajOpt, follow a similar idea but replace the original difficult problem 
 with a sequence of simpler convex problems \cite{Schulman2014TrajOpt}. Both approaches can 
 find useful motions efficiently, even for relatively large robot models. However, the final 
-result may depend strongly on the initial guess and is generally only locally optimal.
+result may depend strongly on the initial guess and provides a feasible solution without a 
+guarantee of optimality.
 Sampling-based methods instead explore many possible configurations and connect them to 
 construct a path. Although some of these methods are asymptotically optimal, a path obtained 
 after a finite computation does not provide a certificate of global optimality 
@@ -322,8 +323,8 @@ because they can solve large problems efficiently, described in
 \cite{Betts1998TrajectoryOptimization,tedrake_underactuated}. Sequential convex
 methods such as TrajOpt, from \cite{Schulman2014TrajOpt}, similarly replace the original problem by a sequence of
 simpler subproblems. These approaches can produce useful
-motions fast, but generally converge only to a local solution and therefore
-depend on the initial guess. Sampling-based planners such as PRM$^*$ and RRT$^*$
+motions fast, but generally give a feasible solution without a guarantee of optimality 
+and therefore depend on the initial guess. Sampling-based planners such as PRM$^*$ and RRT$^*$
 offer asymptotic optimality, but not a global certificate after a finite computation
 \cite{KaramanFrazzoli2011Sampling}. Mixed-integer formulations of 
 \cite{DeitsTedrake2014Footstep,DaiIzattTedrake2019IK} provide global

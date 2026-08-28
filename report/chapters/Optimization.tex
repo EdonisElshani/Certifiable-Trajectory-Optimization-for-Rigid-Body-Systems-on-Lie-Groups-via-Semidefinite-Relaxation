@@ -426,7 +426,9 @@ If the SDP pair has no duality gap, then $\gamma_{\kappa}^{*} = \beta_{\kappa}^{
 Solving the SOS and moment relaxations for increasing orders \(\kappa\) defines
 Lasserre's hierarchy. Higher orders give tighter lower bounds but larger SDPs.
 For a nonempty feasible set, both bound sequences increase monotonically and
-converge to the global optimum
+converge to the global optimum \(p^\star\), 
+if the quadratic module is Archimedean, for example through
+\(R^2-\|\bm{z}\|_2^2\geq0\). This convergence is asymptotic 
 \begin{equation}
 \gamma_{\kappa}^{\star}\leq\gamma_{\kappa+1}^{\star}\leq p^\star,
 \qquad
@@ -436,14 +438,12 @@ converge to the global optimum
 =
 \lim_{\kappa\rightarrow\infty}\beta_\kappa^\star
 =
-p^\star.
+p^\star,
 \label{eq:convergence_of_moment_sos_hierarchy}
 \end{equation}
-This convergence is asymptotic \cite{Lasserre2001Global}.
+described in \cite{Lasserre2001Global}.
 
-If the quadratic module is Archimedean, for example through
-\(R^2-\|\bm{z}\|_2^2\geq0\), the hierarchy converges asymptotically to \(p^\star\).
-Under additional suitable optimality conditions, convergence is finite given by
+In addition, under additional suitable optimality conditions, convergence is finite given by
 \begin{equation}
 \gamma_{\kappa^\star}^\star
 =
