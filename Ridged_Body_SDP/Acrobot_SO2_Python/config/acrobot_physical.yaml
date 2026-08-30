@@ -1,4 +1,3 @@
-# SPOT_MPC_Acrobot/config/acrobot_physical.yaml
 
 system:
   name: acrobot_so2_absolute

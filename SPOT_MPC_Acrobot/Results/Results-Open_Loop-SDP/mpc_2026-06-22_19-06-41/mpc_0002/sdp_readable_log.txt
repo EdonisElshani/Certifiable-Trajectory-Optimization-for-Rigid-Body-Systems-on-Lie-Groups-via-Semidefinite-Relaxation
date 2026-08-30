@@ -1,7 +1,0 @@
-SDP solve rejected
-================================================================================
-MPC iteration: 2
-problem_status: DUAL_INFEASIBLE
-solution_status: DUAL_INFEASIBLE_CER
-control applied: False
-No SDP solution variables or u_1 were extracted.

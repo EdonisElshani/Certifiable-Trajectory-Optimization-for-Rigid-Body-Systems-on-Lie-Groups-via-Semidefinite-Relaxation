@@ -78,10 +78,10 @@ def write_csv(path: Path, rows: list[Mapping[str, Any]]) -> None:
 
 
 def acrobot_points_from_angles(theta1: float, theta2: float, params: Mapping[str, Any]) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """
-    Full-link points using your absolute-angle convention:
-        x = l sin(theta), y = -l cos(theta)
-    """
+    
+    # Full-link points using your absolute-angle convention:
+    # x = l sin(theta), y = -l cos(theta)
+    
     p0 = np.asarray(params.get("p_0", params.get("p0", [0.0, 0.0])), dtype=float).reshape(2)
     l1 = float(params["l1"])
     l2 = float(params["l2"])
@@ -206,7 +206,7 @@ def _copy_rotation_history_state(
     R1: np.ndarray,
     R2: np.ndarray,
 ) -> AcrobotReducedState:
-    """Create a history-only state; previous F is irrelevant for this use."""
+    # Create a history-only state; previous F is irrelevant for this use
     return AcrobotReducedState(
         R1=np.asarray(R1, dtype=float).reshape(2, 2).copy(),
         R2=np.asarray(R2, dtype=float).reshape(2, 2).copy(),
@@ -220,7 +220,7 @@ def _append_fine_rotation_history(
     sim: Mapping[str, Any],
     interval_start_time: float,
 ) -> None:
-    """Append every new fine-simulation node to the global rotation history."""
+    # Append every new fine-simulation node to the global rotation history.
     local_t = np.asarray(sim["t"], dtype=float).reshape(-1)
     R1 = np.asarray(sim["R1"], dtype=float)
     R2 = np.asarray(sim["R2"], dtype=float)
@@ -242,7 +242,7 @@ def _rotation_history_state_at(
     rotation_history: list[tuple[float, np.ndarray, np.ndarray]],
     target_time: float,
 ) -> AcrobotReducedState:
-    """Read or geodesically interpolate an SO(2) state at ``target_time``."""
+    # Read or geodesically interpolate an SO(2) state
     if not rotation_history:
         raise ValueError("Rotation history is empty")
 
@@ -291,15 +291,9 @@ def _select_sdp_history_reference(
     thetaF1_initial_sdp: float = 0.0,
     thetaF2_initial_sdp: float = 0.0,
 ) -> tuple[AcrobotReducedState, float, str, float]:
-    """
-    Select R(t-dt_sdp), with a virtual startup history when t < dt_sdp.
+    
+    # Select R(t-dt_sdp), with a virtual startup history when t < dt_sdp.
 
-    Before a complete measured interval exists, the missing prehistory is
-    filled using the configured initial discrete velocity.  For the usual rest
-    start this means a constant initial rotation before t=0.  The virtual part
-    shrinks to zero as measured history accumulates and disappears exactly at
-    t=dt_sdp.  No negative-time measurement is claimed or required.
-    """
     if dt_sdp <= 0.0:
         raise ValueError("dt_sdp must be positive")
     if not rotation_history:
@@ -620,7 +614,7 @@ def write_simulation_hard_failure_log(
     mpc_iteration: Optional[int],
     exc: LGVISolveError,
 ) -> None:
-    """Persist LGVI hard-failure diagnostics before propagating the exception."""
+    # Persist LGVI hard-failure diagnostics before propagating the exception
     run_dir.mkdir(parents=True, exist_ok=True)
     accepted = exc.accepted_failures_before_hard_failure
     if accepted:
@@ -681,9 +675,9 @@ def simulate_and_log_control(
     rotation_history: Optional[list[tuple[float, np.ndarray, np.ndarray]]] = None,
     interval_start_time: Optional[float] = None,
 ) -> Tuple[AcrobotReducedState, Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
-    """
-    Apply one MPC control input, log the simulation, and return the next SDP initial data.
-    """
+    
+    # Apply one MPC control input, log the simulation, and return the next SDP initial data.
+    
     try:
         interval_start_state = AcrobotReducedState(
             R1=state.R1.copy(), R2=state.R2.copy(),

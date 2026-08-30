@@ -12,7 +12,7 @@ pages={357-514}}
   title        = {Computational Geometric Mechanics and Control of Rigid Bodies},
   school       = {The University of Michigan},
   year         = {2008},
-  type         = {PhD dissertation},
+  type         = {Ph.D. dissertation},
   address      = {Ann Arbor, Michigan}
 }
 
@@ -150,11 +150,11 @@ abstract = {Recently there has been an increasing interest in time integrators f
 
 @misc{Elshani2026CTO_GitHub,
   author       = {Elshani, Edonis},
-  title        = {Certifiable Trajectory Optimization},
+  title        = {Certifiable Trajectory Optimization for Rigid Body Systems on Lie Groups via Semidefinite Relaxation},
   year         = {2026},
   howpublished = {GitHub repository},
-  note         = {Numerical\_Simulation directory, accessed March 25, 2026},
-  url          = {https://github.com/EdonisElshani/Certifiable_Trajectory_Optimization}
+  note         = {Numerical\_Simulation directory, accessed August 30, 2026},
+  url          = {https://github.com/EdonisElshani/Certifiable-Trajectory-Optimization-for-Rigid-Body-Systems-on-Lie-Groups-via-Semidefinite-Relaxation}
 }
 
 @book{Benacquista2018ClassicalMechanics,
@@ -265,18 +265,18 @@ publisher="Springer Nature Switzerland",
 address="Cham",
 pages="43--65",
 abstract="We propose semidefinite trajectory optimization (STROM), a framework that computes fast and certifiably optimal solutions for nonconvex trajectory optimization problems defined by polynomial objectives and constraints. STROM employs sparse second-order Lasserre's hierarchy to generate semidefinite program (SDP) relaxations of trajectory optimization. Different from existing tools (e.g., yalmip and sostools in Matlab), STROM generates chain-like multiple-block SDPs with only positive semidefinite (PSD) variables. Moreover, STROM does so two orders of magnitude faster. Underpinning STROM is cuADMM, the first ADMM-based SDP solver implemented in CUDA (with C/C++ extension) and runs in GPUs. cuADMM builds upon the symmetric Gauss-Seidel ADMM algorithm and leverages GPU parallelization to speedup solving sparse linear systems and projecting onto PSD cones. In five trajectory optimization problems (inverted pendulum, cart-pole, vehicle landing, flying robot, and car back-in), cuADMM computes optimal trajectories (with certified suboptimality below 1{\%}{\$}{\$}1{\backslash}{\%}{\$}{\$}) in minutes (when other solvers take hours or run out of memory) and seconds (when others take minutes). Further, when warmstarted by data-driven initialization in the inverted pendulum problem, cuADMM delivers real-time performance: providing certifiably optimal trajectories in 0.66{\$}{\$}0.66{\$}{\$}seconds despite the SDP has 49,500{\$}{\$}49{\{},{\}}500{\$}{\$}variables and 47,351{\$}{\$}47{\{},{\}}351{\$}{\$}constraints.",
-isbn="978-3-032-09967-9"
+isbn="978-3-032-09967-9,"
 }
 
-@misc{Kang_2025Global,
-      title={Global Contact-Rich Planning with Sparsity-Rich Semidefinite Relaxations}, 
-      author={Shucheng Kang and Guorui Liu and Heng Yang},
-      year={2025},
-      eprint={2502.02829},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2502.02829}, 
-}
+@INPROCEEDINGS{Kang_2025Global, 
+    AUTHOR    = {Shucheng Kang AND Guorui Liu AND Heng Yang}, 
+    TITLE     = {{Global Contact-Rich Planning with Sparsity-Rich Semidefinite Relaxations}}, 
+    BOOKTITLE = {Proceedings of Robotics: Science and Systems}, 
+    YEAR      = {2025}, 
+    ADDRESS   = {LosAngeles, CA, USA}, 
+    MONTH     = {June}, 
+    DOI       = {10.15607/RSS.2025.XXI.046} 
+} 
 
 @misc{Yang2024Semidefinite,
   author = {Heng Yang},
@@ -297,7 +297,6 @@ pages = {796-817},
 year = {2001},
 doi = {10.1137/S1052623400366802},
 URL = {https://doi.org/10.1137/S1052623400366802},
-eprint = {https://doi.org/10.1137/S1052623400366802},
 abstract = { We consider the problem of finding the unconstrained global minimum of a real-valued polynomial p(x): {\mathbb{R}}^n\to {\mathbb{R}}\$, as well as the global minimum of p(x), in a compact set K defined by polynomial inequalities. It is shown that this problem reduces to solving an (often finite) sequence of convex linear matrix inequality (LMI) problems. A notion of Karush--Kuhn--Tucker polynomials is introduced in a global optimality condition. Some illustrative examples are provided. }
 }
 
@@ -326,8 +325,7 @@ number = {3},
 pages = {822-843},
 year = {2006},
 doi = {10.1137/05064504X},
-URL = {https://doi.org/10.1137/05064504X},
-eprint = {https://doi.org/10.1137/05064504X}
+URL = {https://doi.org/10.1137/05064504X}
 }
 
 @article{Waki2006Sparse,
@@ -339,8 +337,7 @@ number = {1},
 pages = {218-242},
 year = {2006},
 doi = {10.1137/050623802},
-URL = {https://doi.org/10.1137/050623802},
-eprint = {https://doi.org/10.1137/050623802}
+URL = {https://doi.org/10.1137/050623802}
 }
 
 @book{GallierQuaintance2020LinearAlgebra,
@@ -494,20 +491,18 @@ eprint = {https://doi.org/10.1137/050623802}
 }
 
 @article{LIU,
-author = {LIU Jinguo;WANG Yuechao;LI Bin;MA Shugen},
-title = {CURRENT RESEARCH, KEY PERFORMANCES AND FUTURE DEVELOPMENT OF SEARCH AND RESCUE ROBOT},
-publisher = {Journal of Mechanical Engineering},
-year = {2006},
-journal = {Journal of Mechanical Engineering},
-volume = {42},
-number = {12},
-eid = {1},
-numpages = {11},
-pages = {1},
-keywords = {Disaster;Safety;Search and rescue robot;Research status;Key performance;Development tendency},
-url = {http://www.cjmenet.com.cn/EN/abstract/article_1802.shtml},
-doi = {}
-}   
+  author  = {Liu, Jinguo and Wang, Yuechao and Li, Bin and Ma, Shugen},
+  title   = {Current Research, Key Performances and Future Development of Search and Rescue Robots},
+  journal = {Frontiers of Mechanical Engineering in China},
+  year    = {2007},
+  volume  = {2},
+  number  = {4},
+  pages   = {404--416},
+  doi     = {10.1007/s11465-007-0070-2},
+  url     = {https://doi.org/10.1007/s11465-007-0070-2},
+  issn    = {1673-3592}
+}
+
 
 @misc{acrobot_RL,
       title={Experimental Study on Reinforcement Learning-based Control of an Acrobot}, 

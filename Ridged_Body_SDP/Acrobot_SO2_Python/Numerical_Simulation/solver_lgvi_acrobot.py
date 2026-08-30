@@ -38,17 +38,6 @@ except ImportError:
 
 @dataclass
 class AcrobotReducedState:
-    """
-    Reduced Option-B state for the SDP-matching SO(2) acrobot simulator.
-
-    R1, R2:
-        Absolute rotations at node k.
-
-    F1_prev, F2_prev:
-        Previous step rotations F_{i,k-1}.
-
-    No independent x, v, or angular-rate state is stored.
-    """
 
     R1: np.ndarray
     R2: np.ndarray
@@ -68,9 +57,6 @@ AcrobotLGVIState = AcrobotReducedState
 
 @dataclass
 class LGVIStepInfo:
-    """
-    Diagnostic information for one reduced implicit step.
-    """
 
     success: bool
     residual_inf: float
@@ -80,7 +66,6 @@ class LGVIStepInfo:
 
 
 class LGVISolveError(RuntimeError):
-    """Hard LGVI solve failure with diagnostics for pipeline logging."""
 
     def __init__(self, residual_inf: float, message: str, nfev: int) -> None:
         self.residual_inf = float(residual_inf)
@@ -96,9 +81,7 @@ class LGVISolveError(RuntimeError):
 
 
 def _require_option_b_model(model: AcrobotSO2Model) -> None:
-    """
-    Check that the model file contains the Option-B reduced dynamics methods.
-    """
+
     required = [
         "reduced_step_residual",
         "initial_step_guess",
@@ -120,16 +103,12 @@ def _require_option_b_model(model: AcrobotSO2Model) -> None:
 
 
 def make_model_from_params(params: Mapping[str, Any]) -> AcrobotSO2Model:
-    """
-    Build numerical simulation model from the shared YAML-derived params dict.
-    """
+
     return AcrobotSO2Model.from_params_dict(params)
 
 
 def _get_time_step(params: Mapping[str, Any], h_key: str) -> float:
-    """
-    Support flattened params and, as fallback, raw YAML-style params.
-    """
+
     if h_key in params:
         return float(params[h_key])
 
@@ -151,18 +130,7 @@ def make_reduced_state_from_absolute(
     thetaR: np.ndarray,
     thetaF: np.ndarray,
 ) -> AcrobotReducedState:
-    """
-    Create reduced state from absolute R angles and previous F step angles.
 
-    thetaR:
-        [thetaR1, thetaR2]
-
-    thetaF:
-        [thetaF1, thetaF2]
-
-    The argument h is kept for call compatibility; thetaF already represents the
-    step angle of F for the chosen time step.
-    """
     _require_option_b_model(model)
 
     thetaR = np.asarray(thetaR, dtype=float).reshape(2)
@@ -186,15 +154,7 @@ def make_initial_state_from_params(
     model: Optional[AcrobotSO2Model] = None,
     h_key: str = "dt_sim",
 ) -> Tuple[AcrobotSO2Model, AcrobotReducedState]:
-    """
-    Build initial model and reduced state from params.
 
-    Uses the old thesis convention:
-        thetaR1_0, thetaR2_0
-        thetaF1_0, thetaF2_0
-
-    thetaF_i,0 is the step angle of F_i,0 from the YAML-derived params.
-    """
     if model is None:
         model = make_model_from_params(params)
 
@@ -218,8 +178,6 @@ def make_initial_state_from_params(
         dtype=float,
     )
 
-    # thetaF_i,0 is defined for dt_sdp. If we initialize a fine simulator with
-    # dt_sim, rescale the step angle so the physical motion is consistent.
     h_ref = float(params.get("dt_sdp", h))
     thetaF_for_h = thetaF_sdp * (h / h_ref)
 
@@ -238,12 +196,7 @@ def reconstruct_X_from_R(
     R1: np.ndarray,
     R2: np.ndarray,
 ) -> np.ndarray:
-    """
-    Reconstruct maximal COM coordinates X = [x1; x2] from R1, R2.
 
-    This is diagnostic / plotting only for Option B.
-    X is not an independent simulation state.
-    """
     return model.reconstruct_positions_from_rotations(R1, R2)
 
 
@@ -251,11 +204,7 @@ def _normalize_reduced_residual(
     residual: np.ndarray,
     model: AcrobotSO2Model,
 ) -> np.ndarray:
-    """
-    Optional scaling for the reduced residual.
 
-    The zero set is unchanged. This only helps scipy.root conditioning.
-    """
     residual = np.asarray(residual, dtype=float).reshape(8)
 
     trans_scale = max(
@@ -299,26 +248,7 @@ def acrobot_reduced_step_residual(
     u_k: float,
     normalized: bool = False,
 ) -> np.ndarray:
-    """
-    Reduced one-step residual matching the SDP dynamics.
 
-    Unknown vector:
-        z = [
-            a1_k,
-            b1_k,
-            a2_k,
-            b2_k,
-            lam0_x,
-            lam0_y,
-            lam12_x,
-            lam12_y,
-        ]
-
-    Equations:
-        4 reduced translational dynamics
-        2 reduced rotational dynamics
-        2 SO(2) step constraints
-    """
     _require_option_b_model(model)
 
     residual = model.reduced_step_residual(
@@ -342,12 +272,7 @@ def initial_guess_from_previous(
     state: AcrobotReducedState,
     previous_z: Optional[np.ndarray] = None,
 ) -> np.ndarray:
-    """
-    Initial guess for the 8-dimensional reduced root solve.
 
-    If previous_z is available, use it as warm start.
-    Otherwise use previous step rotations and zero multipliers.
-    """
     if previous_z is not None:
         previous_z = np.asarray(previous_z, dtype=float).reshape(8)
         return previous_z.copy()
@@ -359,7 +284,7 @@ def initial_guess_from_previous(
 
 
 def _z_from_cayley_y(model: AcrobotSO2Model, y: np.ndarray) -> np.ndarray:
-    """Convert 6D Cayley unknowns to old 8D z = [a,b,a,b,lambda]."""
+    #Convert 6D Cayley unknowns to old 8D z = [a,b,a,b,lambda]
     y = np.asarray(y, dtype=float).reshape(6)
     a1, b1 = F_from_cayley(float(y[0]))[0, 0], F_from_cayley(float(y[0]))[1, 0]
     a2, b2 = F_from_cayley(float(y[1]))[0, 0], F_from_cayley(float(y[1]))[1, 0]
@@ -367,7 +292,7 @@ def _z_from_cayley_y(model: AcrobotSO2Model, y: np.ndarray) -> np.ndarray:
 
 
 def _cayley_y_from_z_or_state(state: AcrobotReducedState, z_guess: Optional[np.ndarray] = None) -> np.ndarray:
-    """Build a 6D Cayley initial guess from previous step or previous 8D solution."""
+    #Build a 6D Cayley initial guess from previous step or previous 8D solution
     if z_guess is not None:
         z_guess = np.asarray(z_guess, dtype=float).reshape(8)
         F1_guess = np.array([[z_guess[0], -z_guess[1]], [z_guess[1], z_guess[0]]], dtype=float)
@@ -408,14 +333,7 @@ def lgvi_one_step(
     accept_residual: bool = True,
     accept_residual_tol: float = 1e-3,
 ) -> Tuple[AcrobotReducedState, LGVIStepInfo, np.ndarray]:
-    """
-    Propagate the reduced Model 2 acrobot by one implicit step.
 
-    The old solver used the variables [a,b] and two SO(2) equations.  For
-    Model 2 MPC we solve the same equations with a Cayley parameterization of
-    F_k, so the SO(2) constraints are satisfied by construction.  The returned
-    z is kept in the old 8D format so all logging and MPC code remains unchanged.
-    """
     _require_option_b_model(model)
 
     h = float(h)
@@ -447,12 +365,8 @@ def lgvi_one_step(
             return _normalize_reduced_residual(r8, model)[:6]
         return r
 
-    # A few deterministic warm starts are cheap and prevent brittle failures
-    # for coarse/high-torque one-step tests.  No equations are changed here.
+    # deterministic warm starts 
     starts = [y0]
-    # Independent step-angle guesses for the two links.  The large offsets are
-    # needed for the coarse high-torque one-step validation cases, where the
-    # implicit DEL equations may have roots far from the constant-velocity guess.
     offsets = (0.0, 0.05, -0.05, 0.15, -0.15, 0.35, -0.35, 0.75, -0.75, 1.25, -1.25)
     for dq1 in offsets:
         for dq2 in offsets:
@@ -546,12 +460,7 @@ def rollout_lgvi_controls(
     accept_residual: bool = True,
     accept_residual_tol: float = 1e-3,
 ) -> Dict[str, Any]:
-    """
-    Roll out reduced SDP-matching dynamics for a given torque sequence.
 
-    State:
-        (R1, R2, F1_prev, F2_prev)
-    """
     _require_option_b_model(model)
 
     u_sequence = np.asarray(u_sequence, dtype=float).reshape(-1)
@@ -673,14 +582,7 @@ def simulate_one_control_interval(
     accept_residual: bool = True,
     accept_residual_tol: float = 1e-3,
 ) -> Tuple[AcrobotReducedState, Dict[str, Any]]:
-    """
-    Simulate one MPC control interval.
 
-    The SDP provides one control input u_j for:
-        [t_j, t_j + dt_control]
-
-    The simulator applies this constant torque over many small dt_sim steps.
-    """
     _require_option_b_model(model)
 
     dt_control = float(dt_control)
@@ -723,9 +625,9 @@ def simulate_one_control_interval_from_params(
     accept_residual: Optional[bool] = None,
     accept_residual_tol: Optional[float] = None,
 ) -> Tuple[AcrobotReducedState, Dict[str, Any]]:
-    """
-    Convenience wrapper using YAML-derived params.
-    """
+
+    # Convenience wrapper using YAML-derived params.
+
     if "dt_sim" in params:
         dt_sim = float(params["dt_sim"])
     else:
@@ -769,19 +671,7 @@ def simulate_lgvi_acrobot(
     maxfev: int = 100,
     verbose: bool = False,
 ) -> Dict[str, Any]:
-    """
-    Backward-compatible rollout interface.
 
-    Initializes the reduced state from:
-        alpha0  = absolute R angles [thetaR1, thetaR2]
-        thetaF0 = initial F step angles [thetaF1, thetaF2]
-
-    If thetaF0 is omitted, rest start is used:
-        F1_prev = I
-        F2_prev = I
-
-    first_step is kept only for compatibility and is ignored.
-    """
     if steps < 1:
         raise ValueError("steps must be at least 1")
 
@@ -830,9 +720,9 @@ def simulate_lgvi_acrobot(
 def get_absolute_angles_and_step_angles(
     state: AcrobotReducedState,
 ) -> Dict[str, float]:
-    """
-    Extract absolute R angles and previous F step angles from reduced state.
-    """
+
+    # Extract absolute R angles and previous F step angles from reduced state.
+    
     thetaR1 = float(angle_from_R(state.R1))
     thetaR2 = float(angle_from_R(state.R2))
 
@@ -856,24 +746,9 @@ def convert_state_to_sdp_initial(
     history_method: str = "full_dt_sdp_history",
     history_target_time: Optional[float] = None,
 ) -> Dict[str, Any]:
-    """
-    Convert a fine simulation state into an SDP-compatible initial state.
 
-    The current rotations ``R1`` and ``R2`` are passed to the SDP unchanged.
-    The incoming SDP step is reconstructed from measured rotation history:
+    # Convert a fine simulation state into an SDP-compatible initial state.
 
-        F_i,0 = R_i(t - dt_sdp).T @ R_i(t).
-
-    ``interval_start_state`` is the selected historical reference state.  Once
-    a full ``dt_sdp`` history is available, ``history_duration`` equals
-    ``dt_sdp`` and the relative rotation is used without modification.  During
-    startup, the MPC caller supplies a virtual reference constructed from the
-    configured initial velocity for the still-missing prehistory.  The generic
-    ``history_duration`` scaling remains available for compatibility with other
-    callers, but the main MPC path supplies a full-duration reference.
-
-    The final fine-step F is retained only as a velocity diagnostic.
-    """
     dt_physical = float(dt_physical)
     dt_sdp = float(dt_sdp)
 
@@ -952,18 +827,9 @@ def convert_state_to_sdp_initial_scalars(
     history_method: str = "full_dt_sdp_history",
     history_target_time: Optional[float] = None,
 ) -> Dict[str, Any]:
-    """
-    Convert reduced state to scalar values useful for fixing SDP initial data.
 
-    Returns:
-        c1_0, s1_0, c2_0, s2_0
-        a1_prev, b1_prev, a2_prev, b2_prev
+    # Convert reduced state to scalar values useful for fixing SDP initial data.
 
-    The previous F values are reconstructed from rotation history whose
-    duration is supplied explicitly.  A full measured history uses
-    ``R(t-dt_sdp).T @ R(t)``; the main MPC startup uses a virtual reference
-    based on the configured initial velocity until that history exists.
-    """
     converted = convert_state_to_sdp_initial(
         state=state,
         dt_physical=dt_physical,
@@ -987,8 +853,7 @@ def convert_state_to_sdp_initial_scalars(
     a2_prev, b2_prev = model.scalars_from_step_rotation(F2_prev)
 
     return {
-        # These names are kept for compatibility with solve.py.
-        # They mean current physical state, later placed at SDP node 1.
+
         "c1_0": float(c1_0),
         "s1_0": float(s1_0),
         "c2_0": float(c2_0),
@@ -1023,16 +888,7 @@ def diagnostics_lgvi(
     model: AcrobotSO2Model,
     sim: Dict[str, Any],
 ) -> Dict[str, np.ndarray]:
-    """
-    Diagnostics for a reduced Option-B rollout.
 
-    This computes:
-        holonomic constraint norms from reconstructed X,
-        SO(2) orthogonality/determinant errors,
-        absolute angles,
-        previous-step angles,
-        approximate energy if model provides energy_from_reduced_state.
-    """
     R1 = np.asarray(sim["R1"], dtype=float)
     R2 = np.asarray(sim["R2"], dtype=float)
     F1 = np.asarray(sim["F1"], dtype=float)
@@ -1111,9 +967,9 @@ def print_step_summary(
     h: float,
     label: str = "state",
 ) -> None:
-    """
-    Small debugging helper.
-    """
+    
+    # Small debugging helper.
+
     X = reconstruct_X_from_R(model, state.R1, state.R2)
     theta = model.angles_from_rotations(state.R1, state.R2)
     step = get_absolute_angles_and_step_angles(state)

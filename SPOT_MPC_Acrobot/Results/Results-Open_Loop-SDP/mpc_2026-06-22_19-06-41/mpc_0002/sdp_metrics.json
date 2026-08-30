@@ -1,7 +1,0 @@
-{
-  "mpc_iteration": 2,
-  "problem_status": "DUAL_INFEASIBLE",
-  "solution_status": "DUAL_INFEASIBLE_CER",
-  "control_applied": false,
-  "failure_reason": "MOSEK status rejected: problem_status=DUAL_INFEASIBLE, solution_status=DUAL_INFEASIBLE_CER"
-}

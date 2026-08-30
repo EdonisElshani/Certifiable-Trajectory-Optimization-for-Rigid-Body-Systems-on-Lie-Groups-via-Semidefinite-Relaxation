@@ -1,19 +1,3 @@
-"""continuous_acrobot_ode.py
-
-Continuous minimal-coordinate Acrobot reference model.
-
-The implemented state is in ABSOLUTE link angles to match the LGVI codes:
-
-    y = [theta1_abs, theta2_abs, omega1_abs, omega2_abs].
-
-The standard Underactuated Robotics Acrobot page writes the dynamics with
-q=[theta1, theta2_rel], where theta2_rel is the elbow/relative angle and the
-actuator acts at the elbow.  Here theta2_abs = theta1 + theta2_rel, so the same
-elbow torque maps to absolute generalized forces [-u, +u].
-
-This is a continuous ODE benchmark.  It is not a variational integrator.
-"""
-
 from __future__ import annotations
 
 from typing import Any, Callable, Dict, Mapping, Optional, Tuple
@@ -56,7 +40,7 @@ def mass_matrix_absolute(model: AcrobotSO2Model, theta: np.ndarray) -> np.ndarra
 
 
 def bias_absolute(model: AcrobotSO2Model, theta: np.ndarray, omega: np.ndarray) -> np.ndarray:
-    """Return h(q,qdot)+G(q) for M qddot + h + G = Q."""
+    #Return h(q,qdot)+G(q) for M qddot + h + G = Q
     c = _constants(model)
     th = np.asarray(theta, dtype=float).reshape(2)
     w = np.asarray(omega, dtype=float).reshape(2)
@@ -119,7 +103,6 @@ def rollout_continuous_acrobot(
     atol: float = 1e-12,
     max_step: Optional[float] = None,
 ) -> Dict[str, Any]:
-    """Integrate the continuous ODE with piecewise-constant controls."""
     u_sequence = np.asarray(u_sequence, dtype=float).reshape(-1)
     n = int(len(u_sequence))
     h = float(h)
@@ -189,12 +172,7 @@ def rollout_continuous_constant_control(
     atol: float = 1e-12,
     max_step: Optional[float] = None,
 ) -> Dict[str, Any]:
-    """Fast continuous rollout for one constant control over n_steps*h.
 
-    This is used by comparison scripts where each case has a constant input.
-    It avoids calling solve_ivp separately for every small LGVI step, because
-    apparently even computers object to needless bureaucracy.
-    """
     h = float(h)
     tf = float(n_steps) * h
     if max_step is None:

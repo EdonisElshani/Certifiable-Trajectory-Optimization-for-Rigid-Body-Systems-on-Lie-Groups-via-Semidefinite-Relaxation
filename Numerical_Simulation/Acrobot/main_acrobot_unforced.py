@@ -50,8 +50,8 @@ from Acrobot.solver_lgvi_acrobot import (  # noqa: E402
 # ---------------------------------------------------------------------------
 # h=0.15 may be too large for the implicit LGVI solve. For reliable validation,
 # start with H=0.05, then try H=0.1. Yes, numerical solvers have trust issues.
-H = 0.1
-TF = 10000.0
+H = 0.01
+TF = 1000.0
 
 RUN_LGVI = True
 LGVI_TF: Optional[float] = TF     # set e.g. 200.0 for a shorter LGVI run
@@ -69,18 +69,18 @@ def make_output_dir() -> Path:
 def set_plot_style() -> None:
     """Match the visual style used in the 3D pendulum plotting code."""
     plt.rcParams.update({
-        "font.size": 18,
-        "axes.labelsize": 20,
-        "xtick.labelsize": 17,
-        "ytick.labelsize": 17,
-        "legend.fontsize": 16,
-        "axes.linewidth": 2.0,
-        "xtick.major.width": 1.8,
-        "ytick.major.width": 1.8,
-        "xtick.major.size": 7,
-        "ytick.major.size": 7,
-        "lines.linewidth": 2.0,
-        "lines.markersize": 7,
+        "font.size": 24,
+        "axes.labelsize": 26,
+        "xtick.labelsize": 22,
+        "ytick.labelsize": 22,
+        "legend.fontsize": 20,
+        "axes.linewidth": 2.5,
+        "xtick.major.width": 2.8,
+        "ytick.major.width": 2.8,
+        "xtick.major.size": 10,
+        "ytick.major.size": 10,
+        "lines.linewidth": 3.2,
+        "lines.markersize": 11,
         "legend.frameon": True,
     })
 
@@ -137,7 +137,7 @@ def plot_position_error_norm(
 ) -> None:
     """Plot the norm of the LGVI-vs-RK4 maximal-coordinate position error."""
     n_common = min(len(lgvi["X"]), len(rk4_relative["X"]))
-    k_nodes = np.arange(n_common)
+    t_nodes = lgvi["t"][:n_common]
 
     x_diff = lgvi["X"][:n_common] - rk4_relative["X"][:n_common]
     pos_err = np.sqrt(
@@ -147,33 +147,36 @@ def plot_position_error_norm(
 
     plt.figure(figsize=(8.0, 5.5))
     plt.plot(
-        k_nodes,
+        t_nodes,
         pos_err,
         "--",
-        linewidth=2.0,
         label=r"$\|x_{\mathrm{RK4}} - x_{\mathrm{LGVI}}\|$",
     )
-    plt.xlabel(r"discrete-time steps $k$")
+    plt.xlabel(r"time $t_k$ [s]")
     plt.ylabel(r"$\|\Delta x_k\|\;[\mathrm{m}]$")
+    plt.ylim(-1.0, 4.0)
     plt.grid(True, alpha=0.3)
-    plt.legend(fontsize=16)
     save_current_figure(out / "acrobot_position_error_norm.pdf")
 
 
 def plot_total_energy(
     out: Path,
     rk4_relative: Dict[str, np.ndarray],
+    lgvi: Dict[str, np.ndarray],
     lgvi_diag: Dict[str, np.ndarray],
 ) -> None:
-    """Plot total mechanical energy for LGVI and RK4 over discrete steps."""
-    k_lgvi = np.arange(len(lgvi_diag["energy"]))
-    k_rk4 = np.arange(min(len(rk4_relative["energy"]) - 1, len(lgvi_diag["energy"])))
+    """Plot total mechanical energy for LGVI and RK4 over time."""
+    n_lgvi = len(lgvi_diag["energy"])
+    n_rk4 = min(len(rk4_relative["energy"]) - 1, n_lgvi)
+    t_lgvi = lgvi["t"][:n_lgvi]
+    t_rk4 = rk4_relative["t"][:n_rk4]
 
     plt.figure(figsize=(8.0, 5.5))
-    plt.plot(k_lgvi, lgvi_diag["energy"], linewidth=2.0, label="LGVI")
-    plt.plot(k_rk4, rk4_relative["energy"][:len(k_rk4)], "--", linewidth=2.0, label="RK4")
-    plt.xlabel(r"discrete-time steps $k$")
+    plt.plot(t_lgvi, lgvi_diag["energy"], label="LGVI")
+    plt.plot(t_rk4, rk4_relative["energy"][:n_rk4], "--", label="RK4")
+    plt.xlabel(r"time $t_k$ [s]")
     plt.ylabel(r"$E_k\;[\mathrm{J}]$")
+    plt.ylim(19.0, 26.0)
     plt.grid(True, alpha=0.3)
     plt.legend(loc="best")
     save_current_figure(out / "acrobot_total_energy.pdf")
@@ -182,6 +185,7 @@ def plot_total_energy(
 def plot_orthogonality_error(
     out: Path,
     rk4_relative: Dict[str, np.ndarray],
+    lgvi: Dict[str, np.ndarray],
     lgvi_diag: Dict[str, np.ndarray],
 ) -> None:
     """Plot SO(2) orthogonality errors for both LGVI link rotations."""
@@ -190,18 +194,18 @@ def plot_orthogonality_error(
         len(rk4_relative["orth_R1"]),
         len(rk4_relative["orth_R2"]),
     )
-    k_nodes = np.arange(n_common)
+    t_nodes = lgvi["t"][:n_common]
     rk4_orth = np.maximum(
         rk4_relative["orth_R1"][:n_common],
         rk4_relative["orth_R2"][:n_common],
     )
 
     plt.figure(figsize=(8.0, 5.5))
-    plt.semilogy(k_nodes, np.maximum(lgvi_diag["orth_R1"][:n_common], EPS), linewidth=2.0, label="LGVI link 1")
-    plt.semilogy(k_nodes, np.maximum(lgvi_diag["orth_R2"][:n_common], EPS), "--", linewidth=2.0, label="LGVI link 2")
-    plt.semilogy(k_nodes, np.maximum(rk4_orth, EPS), ":", linewidth=2.0, label="RK4")
-    plt.xlabel(r"discrete-time steps $k$")
-    plt.ylabel(r"$e_{\mathrm{orth}}$")
+    plt.semilogy(t_nodes, np.maximum(lgvi_diag["orth_R1"][:n_common], EPS), label="LGVI link 1")
+    plt.semilogy(t_nodes, np.maximum(lgvi_diag["orth_R2"][:n_common], EPS), "--", label="LGVI link 2")
+    plt.semilogy(t_nodes, np.maximum(rk4_orth, EPS), ":", label="RK4")
+    plt.xlabel(r"time $t_k$ [s]")
+    plt.ylabel(r"$e_{\mathrm{orth},i,k}$")
     plt.grid(True, which="both", alpha=0.3)
     plt.legend(loc="best")
     save_current_figure(out / "acrobot_orthogonality_error.pdf")
@@ -209,6 +213,7 @@ def plot_orthogonality_error(
 
 def plot_holonomic_constraint_residuals(
     out: Path,
+    lgvi: Dict[str, np.ndarray],
     lgvi_diag: Dict[str, np.ndarray],
 ) -> None:
     """Plot the LGVI holonomic constraint residuals only.
@@ -217,13 +222,14 @@ def plot_holonomic_constraint_residuals(
     construction through the angle parametrization, so including it here would
     not be a meaningful apples-to-apples comparison.
     """
-    k_nodes = np.arange(len(lgvi_diag["phi0_norm"]))
+    t_nodes = lgvi["t"][:len(lgvi_diag["phi0_norm"])]
 
     plt.figure(figsize=(8.0, 5.5))
-    plt.semilogy(k_nodes, np.maximum(lgvi_diag["phi0_norm"], EPS), linewidth=2.0, label=r"$\|\phi_0\|$ base constraint")
-    plt.semilogy(k_nodes, np.maximum(lgvi_diag["phi12_norm"], EPS), "--", linewidth=2.0, label=r"$\|\phi_{12}\|$ elbow constraint")
-    plt.xlabel(r"discrete-time steps $k$")
-    plt.ylabel(r"$\|\phi\|\;[\mathrm{m}]$")
+    plt.semilogy(t_nodes, np.maximum(lgvi_diag["phi0_norm"], EPS), label=r"$\|\phi_{0,k}\|$ base constraint")
+    plt.semilogy(t_nodes, np.maximum(lgvi_diag["phi12_norm"], EPS), "--", label=r"$\|\phi_{12,k}\|$ elbow constraint")
+    plt.xlabel(r"time $t_k$ [s]")
+    plt.ylabel(r"$\|\phi_k\|\;[\mathrm{m}]$")
+    plt.ylim(top=1e-12)
     plt.grid(True, which="both", alpha=0.3)
     plt.legend(loc="lower right")
     save_current_figure(out / "acrobot_holonomic_constraint_residuals.pdf")
@@ -253,8 +259,10 @@ def main() -> None:
 
     # Standard Acrobot relative coordinates:
     # q = [theta1, theta2], zero = both links straight down.
-    q0 = np.array([0.20, 0.25], dtype=float)
-    qdot0 = np.array([0.0, 0.0], dtype=float)
+    # This choice gives alpha1 = alpha2 = 0 and hence R1_0 = R2_0 = I.
+    q0 = np.array([0.5 * np.pi, 0.0], dtype=float)
+    # qdot = [theta1dot, theta2dot]; this gives omega1_0 = omega2_0 = 4.14 rad/s.
+    qdot0 = np.array([4.14, 0.0], dtype=float)
     u_fun = None  # unforced
 
     print(f"h={h}, tf={tf}, steps={steps}")
@@ -322,9 +330,9 @@ def main() -> None:
     # ------------------------------------------------------------------
     if lgvi is not None and diag is not None:
         plot_position_error_norm(out, rk4_relative, lgvi)
-        plot_total_energy(out, rk4_relative, diag)
-        plot_orthogonality_error(out, rk4_relative, diag)
-        plot_holonomic_constraint_residuals(out, diag)
+        plot_total_energy(out, rk4_relative, lgvi, diag)
+        plot_orthogonality_error(out, rk4_relative, lgvi, diag)
+        plot_holonomic_constraint_residuals(out, lgvi, diag)
 
         print(f"Saved: {out / 'acrobot_position_error_norm.pdf'}")
         print(f"Saved: {out / 'acrobot_total_energy.pdf'}")

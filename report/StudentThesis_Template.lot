@@ -3,13 +3,13 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Index ranges for the constraints in the controlled Acrobot POP.}}{65}{table.caption.50}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Index ranges for the constraints in the controlled Acrobot POP.}}{66}{table.caption.50}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {6.1}{\ignorespaces Comparison of the considered integration methods properties.}}{73}{table.caption.58}%
 \contentsline {table}{\numberline {6.2}{\ignorespaces Results of the controlled $3$D pendulum for desired $x$-axis rotations.}}{86}{table.caption.71}%
 \contentsline {table}{\numberline {6.3}{\ignorespaces Objective parameters used for the $3$D-pendulum and Acrobot optimization experiments.}}{89}{table.caption.75}%
-\contentsline {table}{\numberline {6.4}{\ignorespaces Results of the Acrobot trajectory optimization using the complete chain-like SELF cliques \(\bm {z}_{\mathrm {A}}(\mathcal I_k^{\mathrm {A}})\). All trajectory metrics are evaluated from the ordered extraction.}}{90}{table.caption.77}%
-\contentsline {table}{\numberline {6.5}{\ignorespaces Results of the Acrobot trajectory optimization using the special multi-body SELF clique construction \(\bm {z}_{\mathrm {A}}(\mathcal I_1^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_2^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {dyn},k}^{\mathrm {A}})\), and \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {kin},k}^{\mathrm {A}})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}.}}{90}{table.caption.78}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Results of the Acrobot trajectory optimization using the complete chain-like cliques \(\bm {z}_{\mathrm {A}}(\mathcal I_k^{\mathrm {A}})\). All trajectory metrics are evaluated from the ordered extraction.}}{90}{table.caption.77}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Results of the Acrobot trajectory optimization using the special multi-body clique construction \(\bm {z}_{\mathrm {A}}(\mathcal I_1^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_2^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {dyn},k}^{\mathrm {A}})\), and \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {kin},k}^{\mathrm {A}})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}.}}{90}{table.caption.78}%
 \contentsline {table}{\numberline {6.6}{\ignorespaces Time-scale configurations used for the sampled SDP--MPC stabilization regions with $u_{\max }=15\,\mathrm {N\,m}$.}}{94}{table.caption.84}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

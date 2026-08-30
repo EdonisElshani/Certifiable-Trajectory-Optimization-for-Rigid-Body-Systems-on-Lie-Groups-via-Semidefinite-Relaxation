@@ -16,39 +16,17 @@ def _get_param(params: Dict[str, Any], key: str, default=None):
 
 
 def _u_phys(u_var, params: Dict[str, Any]):
-    """Physical control from normalized SDP variable.
-
-    The SDP decision variable u is normalized to [-1, 1].  The dynamics
-    and physical logs use u_phys = u_max * u.  This preserves the old
-    feasible set |u_phys| <= u_max while improving variable scaling.
-    """
+    # Physical control from normalized SDP variable
     return float(params["u_max"]) * u_var
 
 
 def _lambda_bar(lam_var, params: Dict[str, Any]):
-    """Scaled physical multiplier used inside the dynamics.
-
-    The SDP lambda variable is normalized to [-1, 1], and lambda_max is the
-    single physical multiplier scale. With lambda_max=40, lambda_bar lies in
-    [-40, 40], matching the old two-factor scale 4 * 10.
-    """
+    # Scaled physical multiplier used inside the dynamics.
     return float(params["lambda_max"]) * lam_var
 
 
 def compute_node0_from_node1_and_F0(params: Dict[str, Any]) -> Dict[str, float]:
-    """
-    MPC interpretation:
 
-        current numerical simulation state = SDP node 1
-        previous simulation step           = SDP F_0
-
-    Therefore:
-
-        R_0 = R_1 F_0^T.
-
-    If no MPC state is passed, this reduces to the first solve using the
-    YAML-provided initial step rotation and initial attitude.
-    """
     c1_1 = float(params.get("c1_1", params.get("c1_current", np.cos(params["thetaR1_0"]))))
     s1_1 = float(params.get("s1_1", params.get("s1_current", np.sin(params["thetaR1_0"]))))
 
@@ -119,25 +97,7 @@ def get_init_constraints(
     s2_1,
     params,
 ):
-    """
-    Initial / MPC boundary constraints.
 
-    We fix:
-        R_0
-        F_0
-        R_1
-
-    For the first solve:
-        F_0 is built from the YAML initial step angles
-        R_0 and R_1 use the YAML initial attitude.
-
-    For MPC:
-        R_1 is current simulated state,
-        F_0 is previous simulated step,
-        R_0 = R_1 F_0^T.
-
-    Then the first meaningful control remains u_1, exactly as in the thesis.
-    """
     init = compute_node0_from_node1_and_F0(params)
 
     eqs = [
@@ -164,8 +124,7 @@ def get_init_constraints(
         c2_1**2 + s2_1**2 - 1,
     ]
 
-    # First 12 are fixed scalar constraints.
-    # SO(2) constraints are redundant but useful for relaxation.
+    # First 12 are fixed scalar constraints
     eq_mask = [1] * 12 + [0, 0, 1, 1, 0, 0]
 
     return eqs, [], eq_mask
@@ -180,9 +139,9 @@ def get_rotational_kinematics_link1(
     b1_km1,
     params,
 ):
-    """
-    R_{1,k} = R_{1,k-1} F_{1,k-1}.
-    """
+
+    # R_{1,k} = R_{1,k-1} F_{1,k-1}.
+    
     eqs = [
         c1_k - c1_km1 * a1_km1 + s1_km1 * b1_km1,
         s1_k - s1_km1 * a1_km1 - c1_km1 * b1_km1,
@@ -199,9 +158,9 @@ def get_rotational_kinematics_link2(
     b2_km1,
     params,
 ):
-    """
-    R_{2,k} = R_{2,k-1} F_{2,k-1}.
-    """
+    
+    # R_{2,k} = R_{2,k-1} F_{2,k-1}.
+
     eqs = [
         c2_k - c2_km1 * a2_km1 + s2_km1 * b2_km1,
         s2_k - s2_km1 * a2_km1 - c2_km1 * b2_km1,
@@ -234,16 +193,7 @@ def get_step_angle_bound_constraint_link_2(a2_k, params):
 
 
 def _model2_delta_hat(c_k, s_k, a_prev, b_prev, a_k, b_k):
-    """
-    Model 2 substituted second difference from reduced_maximal_acrobot.pdf:
 
-        R_{k+1} = R_k F_k,
-        R_{k-1} = R_k F_{k-1}^T.
-
-    Hence
-        Delta_hat s = s_k(a_k + a_{k-1} - 2) + c_k(b_k - b_{k-1}),
-        Delta_hat c = c_k(a_k + a_{k-1} - 2) - s_k(b_k - b_{k-1}).
-    """
     delta_s = s_k * (a_k + a_prev - 2.0) + c_k * (b_k - b_prev)
     delta_c = c_k * (a_k + a_prev - 2.0) - s_k * (b_k - b_prev)
     return delta_s, delta_c
@@ -262,13 +212,9 @@ def get_translational_dynamics_link1(
     lam12y_k,
     params,
 ):
-    """
-    Reduced Model 2 translational DEL for link 1.
+    
+    # Reduced Model 2 translational DEL for link 1.
 
-    This is the exact finite-difference dynamics with the kinematic
-    substitution R_{k-1}=R_k F_{k-1}^T and R_{k+1}=R_k F_k.
-    No reconstructed position variable and no velocity approximation is used.
-    """
     h = params["dt"]
     m1 = params["m1"]
     l1 = params["l1"]
@@ -311,12 +257,9 @@ def get_translational_dynamics_link2(
     lam12y_k,
     params,
 ):
-    """
-    Reduced Model 2 translational DEL for link 2.
+    
+    # Reduced Model 2 translational DEL for link 2.
 
-    Uses the same substituted second differences for link 1 and link 2:
-        Delta_hat s_i, Delta_hat c_i.
-    """
     h = params["dt"]
     m2 = params["m2"]
     l1 = params["l1"]
@@ -362,15 +305,9 @@ def get_rotational_dynamics_link1(
     u_k,
     params,
 ):
-    """
-    Reduced rotational dynamics for link 1.
 
-    The c1_k,s1_k arguments are the current interior-node rotation R_{1,k}.
-    This matches the stencil F_{1,k-1}, F_{1,k}, lambda_k, u_k.
+    # Reduced rotational dynamics for link 1.
 
-    trace(Jd_1)(b_{1,k-1} - b_{1,k})
-    + h^2(mu_10 + mu_112 - u_k) = 0.
-    """
     h = params["dt"]
 
     Jd1 = np.asarray(params["Jd1"], dtype=float).reshape(2, 2)
@@ -409,15 +346,9 @@ def get_rotational_dynamics_link2(
     u_k,
     params,
 ):
-    """
-    Reduced rotational dynamics for link 2.
+    
+    # Reduced rotational dynamics for link 2.
 
-    The c2_k,s2_k arguments are the current interior-node rotation R_{2,k}.
-    This matches the stencil F_{2,k-1}, F_{2,k}, lambda_k, u_k.
-
-    trace(Jd_2)(b_{2,k-1} - b_{2,k})
-    + h^2(u_k - mu_212) = 0.
-    """
     h = params["dt"]
 
     Jd2 = np.asarray(params["Jd2"], dtype=float).reshape(2, 2)
@@ -440,12 +371,12 @@ def get_rotational_dynamics_link2(
 
 
 def get_control_bounds(u_k, params):
-    # u_k is normalized.  Physical control is u_max * u_k.
+    # u_k is normalized;  Physical control is u_max * u_k
     return [], [1.0 - u_k**2], []
 
 
 def get_lambda_bounds(lam0x_k, lam0y_k, lam12x_k, lam12y_k, params):
-    # Lambda variables are normalized; physical dynamics use lambda_max * lambda_var.
+    # Lambda variables are normalized; physical dynamics use lambda_max * lambda_var
     ineqs = [
         1.0 - lam0x_k**2,
         1.0 - lam0y_k**2,
@@ -457,11 +388,9 @@ def get_lambda_bounds(lam0x_k, lam0y_k, lam12x_k, lam12y_k, params):
 
 
 def reconstruct_positions_from_cs(c1_k, s1_k, c2_k, s2_k, params):
-    """
-    Reconstruct COM positions from rotations.
+    
+    # Reconstruct COM positions from rotations.
 
-    Diagnostic / extraction only. Not decision variables.
-    """
     p0 = params["p_0"]
     l1 = params["l1"]
     l2 = params["l2"]

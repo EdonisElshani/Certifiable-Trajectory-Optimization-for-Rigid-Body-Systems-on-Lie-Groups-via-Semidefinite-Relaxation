@@ -15,30 +15,6 @@ except ImportError:
 
 @dataclass(frozen=True)
 class AcrobotSO2Params:
-    """
-    Physical parameters for the reduced absolute-angle SO(2) acrobot.
-
-    No default physical values are stored here.
-    The YAML file is the single source of truth.
-
-    Thesis convention:
-        R maps body frame to inertial frame.
-
-        thetaR = 0 means the link hangs downward.
-
-        The local negative y-axis points along the physical link from
-        proximal joint to distal joint.
-
-    Body-frame vectors:
-        rho10:
-            link-1 COM -> base joint
-
-        rho112:
-            link-1 COM -> elbow joint
-
-        rho212:
-            link-2 COM -> elbow joint
-    """
 
     m1: float
     m2: float
@@ -58,24 +34,7 @@ class AcrobotSO2Params:
 
     @classmethod
     def from_params_dict(cls, params: Mapping[str, Any]) -> "AcrobotSO2Params":
-        """
-        Build parameters from the YAML-derived dictionary.
 
-        Supports both:
-
-            flattened params from config_loader.py:
-                params["m1"], params["rho_10"], ...
-
-            raw YAML:
-                cfg["physical"]["m1"], cfg["physical"]["rho_10"], ...
-
-        If rho vectors are not explicitly given, they are generated from
-        the thesis convention:
-
-            rho_10  = [0,  l1/2]
-            rho_112 = [0, -l1/2]
-            rho_212 = [0,  l2/2]
-        """
         physical = params.get("physical", params)
 
         required_keys = [
@@ -151,28 +110,6 @@ class AcrobotSO2Params:
 
 
 class AcrobotSO2Model:
-    """
-    Reduced absolute-angle SO(2) acrobot model.
-
-    This model is designed for Option B:
-
-        use the same reduced R/F dynamics as the SDP.
-
-    State convention:
-        R1_k, R2_k:
-            absolute rotations at node k
-
-        F1_{k-1}, F2_{k-1}:
-            previous relative rotations
-
-        F1_k, F2_k:
-            current step rotations solved from reduced dynamics
-
-    No independent x or v dynamics are used here.
-
-    Positions X are only reconstructed for plotting and diagnostics.
-    They are not independent state variables.
-    """
 
     def __init__(self, params: AcrobotSO2Params) -> None:
         self.params = params
@@ -206,13 +143,6 @@ class AcrobotSO2Model:
             ]
         )
 
-        # With the thesis convention:
-        #   rho10  = [0,  l1/2]
-        #   rho112 = [0, -l1/2]
-        #   rho212 = [0,  l2/2]
-        #
-        # These three effective distances produce the reduced translational
-        # dynamics used in the SDP screenshots.
         self.d1_com = float(self.rho10[1])
         self.d1_elbow = float(self.rho10[1] - self.rho112[1])
         self.d2_com = float(self.rho212[1])
@@ -224,9 +154,7 @@ class AcrobotSO2Model:
 
     @classmethod
     def from_params_dict(cls, params: Mapping[str, Any]) -> "AcrobotSO2Model":
-        """
-        Build the model from the shared YAML-derived params dictionary.
-        """
+
         return cls(AcrobotSO2Params.from_params_dict(params))
 
     # ------------------------------------------------------------------
@@ -238,12 +166,7 @@ class AcrobotSO2Model:
 
     @staticmethod
     def rotation_from_scalars(c: float, s: float) -> np.ndarray:
-        """
-        Return SO(2)-style matrix from scalar variables.
 
-        R = [[c, -s],
-             [s,  c]]
-        """
         return np.array(
             [
                 [float(c), -float(s)],
@@ -254,12 +177,7 @@ class AcrobotSO2Model:
 
     @staticmethod
     def scalars_from_rotation(R: np.ndarray) -> Tuple[float, float]:
-        """
-        Extract c, s from:
 
-            R = [[c, -s],
-                 [s,  c]]
-        """
         R = np.asarray(R, dtype=float).reshape(2, 2)
         c = float(R[0, 0])
         s = float(R[1, 0])
@@ -267,12 +185,7 @@ class AcrobotSO2Model:
 
     @staticmethod
     def step_rotation_from_scalars(a: float, b: float) -> np.ndarray:
-        """
-        Return F from step variables:
 
-            F = [[a, -b],
-                 [b,  a]]
-        """
         return np.array(
             [
                 [float(a), -float(b)],
@@ -283,12 +196,7 @@ class AcrobotSO2Model:
 
     @staticmethod
     def scalars_from_step_rotation(F: np.ndarray) -> Tuple[float, float]:
-        """
-        Extract a, b from:
 
-            F = [[a, -b],
-                 [b,  a]]
-        """
         F = np.asarray(F, dtype=float).reshape(2, 2)
         a = float(F[0, 0])
         b = float(F[1, 0])
@@ -299,9 +207,7 @@ class AcrobotSO2Model:
         thetaR1: float,
         thetaR2: float,
     ) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        Return absolute rotations from absolute body-frame angles.
-        """
+
         R1 = R_so2(float(thetaR1))
         R2 = R_so2(float(thetaR2))
         return R1, R2
@@ -312,9 +218,7 @@ class AcrobotSO2Model:
         R2: np.ndarray,
         wrap: bool = False,
     ) -> np.ndarray:
-        """
-        Return absolute body-frame angles [thetaR1, thetaR2].
-        """
+
         thetaR1 = float(angle_from_R(R1))
         thetaR2 = float(angle_from_R(R2))
 
@@ -334,24 +238,7 @@ class AcrobotSO2Model:
         a: float,
         b: float,
     ) -> Tuple[float, float]:
-        """
-        Scalar SO(2) kinematics:
 
-            R_{k+1} = R_k F_k
-
-        If:
-
-            R_k = [[c, -s],
-                   [s,  c]]
-
-            F_k = [[a, -b],
-                   [b,  a]]
-
-        then:
-
-            c_next = c a - s b
-            s_next = s a + c b
-        """
         c_next = float(c) * float(a) - float(s) * float(b)
         s_next = float(s) * float(a) + float(c) * float(b)
 
@@ -364,12 +251,7 @@ class AcrobotSO2Model:
         F1_k: np.ndarray,
         F2_k: np.ndarray,
     ) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        Advance rotations by:
 
-            R1_{k+1} = R1_k F1_k
-            R2_{k+1} = R2_k F2_k
-        """
         R1_k = np.asarray(R1_k, dtype=float).reshape(2, 2)
         R2_k = np.asarray(R2_k, dtype=float).reshape(2, 2)
 
@@ -386,25 +268,7 @@ class AcrobotSO2Model:
         R1: np.ndarray,
         R2: np.ndarray,
     ) -> np.ndarray:
-        """
-        Reconstruct COM positions X = [x1; x2] from R1, R2.
 
-        Constraints:
-
-            phi0  = x1 + R1 rho10 - p0 = 0
-            phi12 = x1 + R1 rho112 - x2 - R2 rho212 = 0
-
-        Therefore:
-
-            x1 = p0 - R1 rho10
-            x2 = x1 + R1 rho112 - R2 rho212
-
-        With the thesis rho vectors:
-
-            x1 = [l1/2 sin(theta1), -l1/2 cos(theta1)]
-            x2 = [l1 sin(theta1) + l2/2 sin(theta2),
-                  -l1 cos(theta1) - l2/2 cos(theta2)]
-        """
         R1 = np.asarray(R1, dtype=float).reshape(2, 2)
         R2 = np.asarray(R2, dtype=float).reshape(2, 2)
 
@@ -418,11 +282,7 @@ class AcrobotSO2Model:
         thetaR1: float,
         thetaR2: float,
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        """
-        Return X, R1, R2, constraints from absolute angles.
 
-        This is only an initializer / diagnostic helper.
-        """
         R1, R2 = self.rotations_from_angles(thetaR1, thetaR2)
         X = self.reconstruct_positions_from_rotations(R1, R2)
         phi = self.constraints(X, R1, R2)
@@ -435,12 +295,7 @@ class AcrobotSO2Model:
         R1: np.ndarray,
         R2: np.ndarray,
     ) -> np.ndarray:
-        """
-        Return holonomic constraints [phi0; phi12].
 
-        This is diagnostic only for Option B.
-        The reduced dynamics do not solve for X independently.
-        """
         X = np.asarray(X, dtype=float).reshape(4)
         R1 = np.asarray(R1, dtype=float).reshape(2, 2)
         R2 = np.asarray(R2, dtype=float).reshape(2, 2)
@@ -471,22 +326,7 @@ class AcrobotSO2Model:
         lam0: np.ndarray,
         lam12: np.ndarray,
     ) -> np.ndarray:
-        """
-        Constraint moments in SO(2).
 
-        Link 1:
-
-            mu1 = rho10 x (R1^T lam0)
-                + rho112 x (R1^T lam12)
-
-        Link 2:
-
-            mu2 = - rho212 x (R2^T lam12)
-
-        This sign convention matches:
-
-            phi12 = x1 + R1 rho112 - x2 - R2 rho212
-        """
         R1 = np.asarray(R1, dtype=float).reshape(2, 2)
         R2 = np.asarray(R2, dtype=float).reshape(2, 2)
 
@@ -516,14 +356,7 @@ class AcrobotSO2Model:
         a_k: float,
         b_k: float,
     ) -> Tuple[float, float]:
-        """
-        Model 2 kinematic-substituted second difference.
 
-        From R_{k+1}=R_k F_k and R_{k-1}=R_k F_{k-1}^T,
-
-            Delta_hat s = s_k(a_k + a_{k-1} - 2) + c_k(b_k - b_{k-1}),
-            Delta_hat c = c_k(a_k + a_{k-1} - 2) - s_k(b_k - b_{k-1}).
-        """
         delta_s = float(s_k) * (float(a_k) + float(a_prev) - 2.0) + float(c_k) * (
             float(b_k) - float(b_prev)
         )
@@ -553,17 +386,7 @@ class AcrobotSO2Model:
         lam12: np.ndarray,
         h: float,
     ) -> np.ndarray:
-        """
-        Reduced Model 2 translational dynamics.
 
-        This is the exact finite LGVI second difference after substituting
-
-            R_{k+1} = R_k F_k,
-            R_{k-1} = R_k F_{k-1}^T.
-
-        It is algebraically equivalent to the direct reconstructed-position
-        reduction, but it only uses R_k, F_{k-1}, and F_k in the dynamics.
-        """
         h = float(h)
         lam0 = np.asarray(lam0, dtype=float).reshape(2)
         lam12 = np.asarray(lam12, dtype=float).reshape(2)
@@ -594,13 +417,7 @@ class AcrobotSO2Model:
         lam12: np.ndarray,
         h: float,
     ) -> np.ndarray:
-        """
-        Matrix wrapper for Reduced Model 2 translational dynamics.
 
-        R1_prev and R2_prev are kept in the signature for compatibility with
-        the old simulator structure, but Model 2 does not use them explicitly.
-        The previous node is represented through F_{k-1}.
-        """
         c1_k, s1_k = self.scalars_from_rotation(R1_k)
         c2_k, s2_k = self.scalars_from_rotation(R2_k)
 
@@ -643,27 +460,7 @@ class AcrobotSO2Model:
         u_k: float,
         h: float,
     ) -> np.ndarray:
-        """
-        Reduced rotational dynamics in the same b-variable style as the SDP.
 
-        Approximate discrete momentum:
-
-            Pi_i * h = trace(Jd_i) * b_i
-
-        Dynamics:
-
-            link 1:
-                trace(Jd1)*(b1_prev - b1_k)
-                + h^2*(mu1 - u_k) = 0
-
-            link 2:
-                trace(Jd2)*(b2_prev - b2_k)
-                + h^2*(mu2 + u_k) = 0
-
-        where:
-
-            [mu1, mu2] = constraint_moments(...)
-        """
         h = float(h)
         u_k = float(u_k)
 
@@ -702,36 +499,7 @@ class AcrobotSO2Model:
         u_k: float,
         h: float,
     ) -> np.ndarray:
-        """
-        Complete reduced one-step residual for the Option B simulator.
 
-        Unknown vector:
-
-            z = [
-                a1_k,
-                b1_k,
-                a2_k,
-                b2_k,
-                lam0_x,
-                lam0_y,
-                lam12_x,
-                lam12_y,
-            ]
-
-        Residuals:
-
-            4 translational reduced dynamics
-            2 rotational reduced dynamics
-            2 SO(2) constraints for F1_k, F2_k
-
-        Total: 8 equations.
-
-        No X_next is solved here.
-        After solving, update:
-
-            R1_{k+1} = R1_k F1_k
-            R2_{k+1} = R2_k F2_k
-        """
         z = np.asarray(z, dtype=float).reshape(8)
 
         a1_k = float(z[0])
@@ -798,12 +566,7 @@ class AcrobotSO2Model:
         F1_prev: np.ndarray,
         F2_prev: np.ndarray,
     ) -> np.ndarray:
-        """
-        Initial guess for the reduced Option B root solve.
 
-        Uses the previous step rotation as a constant-velocity guess and zero
-        constraint multipliers.
-        """
         a1_prev, b1_prev = self.scalars_from_step_rotation(F1_prev)
         a2_prev, b2_prev = self.scalars_from_step_rotation(F2_prev)
 
@@ -825,9 +588,7 @@ class AcrobotSO2Model:
         self,
         z: np.ndarray,
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        """
-        Convert reduced solution z into F1_k, F2_k, lam0, lam12.
-        """
+
         z = np.asarray(z, dtype=float).reshape(8)
 
         a1_k = float(z[0])
@@ -850,13 +611,7 @@ class AcrobotSO2Model:
         R2_k: np.ndarray,
         z: np.ndarray,
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        """
-        Advance reduced state after solving z.
 
-        Returns:
-
-            R1_next, R2_next, F1_k, F2_k, lam0, lam12
-        """
         F1_k, F2_k, lam0, lam12 = self.unpack_reduced_solution(z)
 
         R1_next, R2_next = self.advance_rotations(
@@ -875,11 +630,7 @@ class AcrobotSO2Model:
         self,
         X: np.ndarray,
     ) -> float:
-        """
-        Gravitational potential from reconstructed COM coordinates.
 
-        Diagnostic only.
-        """
         X = np.asarray(X, dtype=float).reshape(4)
 
         x1 = X[0:2]
@@ -892,11 +643,7 @@ class AcrobotSO2Model:
         R1: np.ndarray,
         R2: np.ndarray,
     ) -> float:
-        """
-        Gravitational potential after reconstructing X from rotations.
 
-        Diagnostic only.
-        """
         X = self.reconstruct_positions_from_rotations(R1, R2)
         return self.potential_from_X(X)
 
@@ -908,11 +655,7 @@ class AcrobotSO2Model:
         F2_prev: np.ndarray,
         h: float,
     ) -> float:
-        """
-        Approximate rotational kinetic energy from reduced F variables.
 
-        Diagnostic only.
-        """
         h = float(h)
 
         _, b1 = self.scalars_from_step_rotation(F1_prev)
@@ -934,11 +677,7 @@ class AcrobotSO2Model:
         F2_prev: np.ndarray,
         h: float,
     ) -> float:
-        """
-        Approximate total energy from reduced state.
 
-        Diagnostic only.
-        """
         T = self.kinetic_from_reduced_step(
             F1_prev=F1_prev,
             F2_prev=F2_prev,

@@ -31,22 +31,9 @@ PREFIX_K0 = {
 
 
 def get_var_mapping_and_dict(N: int):
-    """
-    Create scalar variables for the reduced x-free/v-free SO(2) Acrobot POP.
 
-    Decision variables:
+    # Create scalar variables for the reduced x-free/v-free SO(2) Acrobot POP
 
-        R_i,k:
-            c_i,k, s_i,k, k = 0,...,N
-
-        F_i,k:
-            a_i,k, b_i,k, k = 0,...,N-1
-
-        lambda_k, u_k:
-            k = 1,...,N-1
-
-    This matches the thesis formulation and the old monolithic reduced SDP code.
-    """
     if N < 2:
         raise ValueError("N must be at least 2, because u_k and lambda_k use k=1,...,N-1.")
 
@@ -103,9 +90,9 @@ def get_var_mapping_and_dict(N: int):
 
 
 def get_id(prefix: str, k: int, var_start_dict: dict, prefix_k0: dict = PREFIX_K0) -> int:
-    """
-    Return 1-based SPOT variable index.
-    """
+    
+    # Return 1-based SPOT variable index.
+    
     if prefix not in prefix_k0:
         raise KeyError(f"Unknown prefix: {prefix}")
 
@@ -113,9 +100,9 @@ def get_id(prefix: str, k: int, var_start_dict: dict, prefix_k0: dict = PREFIX_K
 
 
 def attach_mapping_to_params(params: dict) -> dict:
-    """
-    Add variable mapping data to params.
-    """
+    
+    # Add variable mapping data to params.
+    
     N = int(params["N"])
 
     var_mapping, var_start_dict, total_var_num = get_var_mapping_and_dict(N)
@@ -136,9 +123,9 @@ def attach_mapping_to_params(params: dict) -> dict:
 
 
 def get_remapped_ids(params: dict) -> np.ndarray:
-    """
-    Remap variables into timestep-grouped order for sparse/chordal handling.
-    """
+    
+    # Remap variables into timestep-grouped order for sparse/chordal handling.
+    
     N = int(params["N"])
     total_var_num = int(params["total_var_num"])
     idf = params["id"]

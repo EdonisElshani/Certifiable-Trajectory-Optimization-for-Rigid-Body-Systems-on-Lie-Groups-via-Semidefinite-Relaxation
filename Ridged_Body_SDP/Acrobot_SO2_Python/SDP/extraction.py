@@ -15,11 +15,9 @@ def lambda_bar_from_normalized_value(lam_var: float, params: Dict[str, Any]) -> 
 
 
 def extract_solution_variables(v_opt, params: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Extract reduced SDP variables into structured dictionaries.
+    
+    # Extract reduced SDP variables into structured dictionaries.
 
-    lambda and u exist only for k = 1,...,N-1.
-    """
     N = int(params["N"])
     idf = params["id"]
 
@@ -30,13 +28,9 @@ def extract_solution_variables(v_opt, params: Dict[str, Any]) -> Dict[str, Any]:
         "R2": {},
         "F1": {},
         "F2": {},
-        # Rescaled values matching the old unnormalized result convention.
-        #   u[k]       = physical control = u_max * u_normalized[k]
-        #   lambda*[k] = physical multiplier = lambda_max * lambda_normalized[k]
         "lambda0": {},
         "lambda12": {},
         "u": {},
-        # Extra diagnostic dictionaries keep the normalized solver coordinates.
         "lambda0_normalized": {},
         "lambda12_normalized": {},
         "lambda0_bar": {},
@@ -94,9 +88,6 @@ def extract_solution_variables(v_opt, params: Dict[str, Any]) -> Dict[str, Any]:
             )
             u_norm = float(v_opt[idf("u", k) - 1])
 
-            # Main public solution values are rescaled back, so downstream MPC,
-            # CSV files, and plots keep the same physical interpretation as the
-            # old unscaled code.
             sol["lambda0_normalized"][k] = lam0_norm
             sol["lambda12_normalized"][k] = lam12_norm
             sol["u_normalized"][k] = u_norm
@@ -127,12 +118,7 @@ def extract_solution_variables(v_opt, params: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def get_first_mpc_control(solution: Dict[str, Any]) -> float:
-    """
-    In thesis indexing, the first meaningful MPC control is u_1.
 
-    This is the value applied in the numerical simulator over the next
-    control interval.
-    """
     if 1 not in solution["u"]:
         raise KeyError("Solution has no u[1]. Check that N >= 2 and extraction succeeded.")
 
@@ -140,13 +126,7 @@ def get_first_mpc_control(solution: Dict[str, Any]) -> float:
 
 
 def extract_sdp_initial_for_next_mpc(solution: Dict[str, Any]) -> Dict[str, float]:
-    """
-    If you want to use the SDP-predicted next state directly, this prepares
-    the next MPC boundary data.
 
-    Usually, for closed-loop MPC, prefer the numerical simulation output instead.
-    Humanity already suffers enough without feeding relaxed predictions as reality.
-    """
     R1_cur = solution["R1"][2]
     R2_cur = solution["R2"][2]
 

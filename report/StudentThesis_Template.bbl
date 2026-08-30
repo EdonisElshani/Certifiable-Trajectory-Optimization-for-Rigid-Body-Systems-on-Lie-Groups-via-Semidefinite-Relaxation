@@ -92,11 +92,12 @@ Robin Deits and Russ Tedrake.
 
 \bibitem[Els26]{Elshani2026CTO_GitHub}
 Edonis Elshani.
-\newblock Certifiable trajectory optimization.
+\newblock Certifiable trajectory optimization for rigid body systems on lie
+  groups via semidefinite relaxation.
 \newblock GitHub repository, 2026.
-\newblock Numerical\_Simulation directory, accessed March 25, 2026.
+\newblock Numerical\_Simulation directory, accessed August 30, 2026.
 \newblock URL:
-  \url{https://github.com/EdonisElshani/Certifiable_Trajectory_Optimization}.
+  \url{https://github.com/EdonisElshani/Certifiable-Trajectory-Optimization-for-Rigid-Body-Systems-on-Lie-Groups-via-Semidefinite-Relaxation}.
 
 \bibitem[GQ20]{GallierQuaintance2020LinearAlgebra}
 Jean~H. Gallier and Jocelyn Quaintance.
@@ -159,10 +160,12 @@ Sertac Karaman and Emilio Frazzoli.
 
 \bibitem[KLY25]{Kang_2025Global}
 Shucheng Kang, Guorui Liu, and Heng Yang.
-\newblock Global contact-rich planning with sparsity-rich semidefinite
-  relaxations, 2025.
-\newblock URL: \url{https://arxiv.org/abs/2502.02829}, \href
-  {https://arxiv.org/abs/2502.02829} {\path{arXiv:2502.02829}}.
+\newblock {Global Contact-Rich Planning with Sparsity-Rich Semidefinite
+  Relaxations}.
+\newblock In {\em Proceedings of Robotics: Science and Systems}, LosAngeles,
+  CA, USA, June 2025.
+\newblock \href {https://doi.org/10.15607/RSS.2025.XXI.046}
+  {\path{doi:10.15607/RSS.2025.XXI.046}}.
 
 \bibitem[KXS{\etalchar{+}}26]{Kang_2026Fast}
 Shucheng Kang, Xiaoyang Xu, Jay Sarva, Ling Liang, and Heng Yang.
@@ -176,24 +179,20 @@ Shucheng Kang, Xiaoyang Xu, Jay Sarva, Ling Liang, and Heng Yang.
 Jean~B. Lasserre.
 \newblock Global optimization with polynomials and the problem of moments.
 \newblock {\em SIAM Journal on Optimization}, 11(3):796--817, 2001.
-\newblock \href
-  {https://arxiv.org/abs/https://doi.org/10.1137/S1052623400366802}
-  {\path{arXiv:https://doi.org/10.1137/S1052623400366802}}, \href
-  {https://doi.org/10.1137/S1052623400366802}
+\newblock \href {https://doi.org/10.1137/S1052623400366802}
   {\path{doi:10.1137/S1052623400366802}}.
 
 \bibitem[Las06]{Lasserre2006Sparse}
 Jean~B. Lasserre.
 \newblock Convergent sdp-relaxations in polynomial optimization with sparsity.
 \newblock {\em SIAM Journal on Optimization}, 17(3):822--843, 2006.
-\newblock \href {https://arxiv.org/abs/https://doi.org/10.1137/05064504X}
-  {\path{arXiv:https://doi.org/10.1137/05064504X}}, \href
-  {https://doi.org/10.1137/05064504X} {\path{doi:10.1137/05064504X}}.
+\newblock \href {https://doi.org/10.1137/05064504X}
+  {\path{doi:10.1137/05064504X}}.
 
 \bibitem[Lee08]{Lee2008}
 Taeyoung Lee.
 \newblock {\em Computational Geometric Mechanics and Control of Rigid Bodies}.
-\newblock Phd dissertation, The University of Michigan, Ann Arbor, Michigan,
+\newblock Ph.d. dissertation, The University of Michigan, Ann Arbor, Michigan,
   2008.
 
 \bibitem[LLM07a]{LeeLeokMcClamroch2007DiscreteControlSystems}
@@ -214,6 +213,15 @@ Benedict Leimkuhler and Sebastian Reich.
 \newblock {\em Simulating Hamiltonian Dynamics}.
 \newblock Cambridge Monographs on Applied and Computational Mathematics.
   Cambridge University Press, 2005.
+
+\bibitem[LWLM07]{LIU}
+Jinguo Liu, Yuechao Wang, Bin Li, and Shugen Ma.
+\newblock Current research, key performances and future development of search
+  and rescue robots.
+\newblock {\em Frontiers of Mechanical Engineering in China}, 2(4):404--416,
+  2007.
+\newblock \href {https://doi.org/10.1007/s11465-007-0070-2}
+  {\path{doi:10.1007/s11465-007-0070-2}}.
 
 \bibitem[MDWK19]{Manchester2019ContactVI}
 Zachary Manchester, Neel Doshi, Robert~J. Wood, and Scott Kuindersma.
@@ -299,13 +307,6 @@ John Schulman, Yan Duan, Jonathan Ho, Alex Lee, Ibrahim Awwal, Henry Bradlow,
 \newblock \href {https://doi.org/10.1177/0278364914528132}
   {\path{doi:10.1177/0278364914528132}}.
 
-\bibitem[Shu06]{LIU}
-LIU Jinguo;WANG Yuechao;LI~Bin;MA Shugen.
-\newblock Current research, key performances and future development of search
-  and rescue robot.
-\newblock {\em Journal of Mechanical Engineering}, 42(12):1, 2006.
-\newblock URL: \url{http://www.cjmenet.com.cn/EN/abstract/article_1802.shtml}.
-
 \bibitem[SSC{\etalchar{+}}04]{Shen20043DPendulum}
 Jinglai Shen, A.K. Sanyal, N.A. Chaturvedi, D.~Bernstein, and H.~McClamroch.
 \newblock Dynamics and control of a 3d pendulum.
@@ -348,9 +349,8 @@ Hayato Waki, Sunyoung Kim, Masakazu Kojima, and Masakazu Muramatsu.
 \newblock Sums of squares and semidefinite program relaxations for polynomial
   optimization problems with structured sparsity.
 \newblock {\em SIAM Journal on Optimization}, 17(1):218--242, 2006.
-\newblock \href {https://arxiv.org/abs/https://doi.org/10.1137/050623802}
-  {\path{arXiv:https://doi.org/10.1137/050623802}}, \href
-  {https://doi.org/10.1137/050623802} {\path{doi:10.1137/050623802}}.
+\newblock \href {https://doi.org/10.1137/050623802}
+  {\path{doi:10.1137/050623802}}.
 
 \bibitem[Yan24]{Yang2024Semidefinite}
 Heng Yang.

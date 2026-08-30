@@ -51,8 +51,10 @@ OMEGA_U = 0.7
 
 # Initial condition in standard Acrobot coordinates.
 # q = [theta1, theta2], where theta2 is the relative elbow angle.
-Q0 = np.array([0.20, 0.25], dtype=float)
-QDOT0 = np.array([0.0, 0.0], dtype=float)
+# This choice gives alpha1 = alpha2 = 0 and hence R1_0 = R2_0 = I.
+Q0 = np.array([0.5 * np.pi, 0.0], dtype=float)
+# qdot = [theta1dot, theta2dot]; this gives omega1_0 = omega2_0 = 4.14 rad/s.
+QDOT0 = np.array([4.14, 0.0], dtype=float)
 
 # LGVI nonlinear solve settings.
 ROOT_TOL = 1e-10
@@ -81,18 +83,18 @@ def make_output_dir() -> Path:
 
 def set_plot_style() -> None:
     plt.rcParams.update({
-        "font.size": 18,
-        "axes.labelsize": 20,
-        "xtick.labelsize": 17,
-        "ytick.labelsize": 17,
-        "legend.fontsize": 16,
-        "axes.linewidth": 2.0,
-        "xtick.major.width": 1.8,
-        "ytick.major.width": 1.8,
-        "xtick.major.size": 7,
-        "ytick.major.size": 7,
-        "lines.linewidth": 2.0,
-        "lines.markersize": 7,
+        "font.size": 24,
+        "axes.labelsize": 26,
+        "xtick.labelsize": 22,
+        "ytick.labelsize": 22,
+        "legend.fontsize": 20,
+        "axes.linewidth": 2.5,
+        "xtick.major.width": 2.8,
+        "ytick.major.width": 2.8,
+        "xtick.major.size": 10,
+        "ytick.major.size": 10,
+        "lines.linewidth": 3.2,
+        "lines.markersize": 11,
         "legend.frameon": True,
     })
 
@@ -185,8 +187,6 @@ def compute_position_error_norm(X_ref: np.ndarray, X_cmp: np.ndarray) -> np.ndar
 def make_plots(model: AcrobotSO2Model, lgvi: dict, diag: dict, rk4: dict, out: Path, h: float) -> None:
     t_nodes = lgvi["t"]
     t_int = t_nodes[:-1]
-    k_nodes = np.arange(len(t_nodes))
-    k_int = np.arange(len(t_int))
     lgvi_rel = compute_lgvi_relative_quantities(model, lgvi, diag, h)
 
     q_lgvi = lgvi_rel["q"]
@@ -208,12 +208,12 @@ def make_plots(model: AcrobotSO2Model, lgvi: dict, diag: dict, rk4: dict, out: P
     plt.plot(X_rk4[:, 0], X_rk4[:, 1], "--", label=r"RK4 $x_1$")
     plt.plot(X_lgvi[:, 2], X_lgvi[:, 3], label=r"LGVI $x_2$")
     plt.plot(X_rk4[:, 2], X_rk4[:, 3], "--", label=r"RK4 $x_2$")
-    plt.scatter(model.p0[0], model.p0[1], c="k", s=35, label="base")
+    plt.scatter(model.p0[0], model.p0[1], c="k", s=60, label="base")
     plt.xlabel(r"$x\;[\mathrm{m}]$")
     plt.ylabel(r"$y\;[\mathrm{m}]$")
     plt.axis("equal")
     plt.grid(True, alpha=0.3)
-    plt.legend(loc="lower right", fontsize=16)
+    plt.legend(loc="lower right")
     savefig(out, "forced_sine_com_trajectory.pdf")
 
     # ============================================================
@@ -222,23 +222,23 @@ def make_plots(model: AcrobotSO2Model, lgvi: dict, diag: dict, rk4: dict, out: P
     fig, axes = plt.subplots(2, 1, figsize=STACK_FIGSIZE, sharex=True)
     names = [r"$\theta_1\;[\mathrm{rad}]$", r"$\theta_2\;[\mathrm{rad}]$"]
     for j, ax in enumerate(axes):
-        ax.plot(k_nodes, q_lgvi[:, j], label="LGVI")
-        ax.plot(k_nodes, q_rk4[:, j], "--", label="RK4")
+        ax.plot(t_nodes, q_lgvi[:, j], label="LGVI")
+        ax.plot(t_nodes, q_rk4[:, j], "--", label="RK4")
         ax.set_ylabel(names[j])
         ax.grid(True, alpha=0.3)
-    axes[-1].set_xlabel(r"discrete-time steps $k$")
-    axes[0].legend(fontsize=16)
+    axes[-1].set_xlabel(r"time $t_k$ [s]")
+    axes[0].legend()
     savefig(out, "forced_sine_angles.pdf")
 
     # ============================================================
     # 3) Input torque
     # ============================================================
     plt.figure(figsize=BENCHMARK_FIGSIZE)
-    plt.plot(k_nodes, u_nodes, label=rf"$u(t)={U0}\sin({OMEGA_U}t)$")
-    plt.xlabel(r"discrete-time steps $k$")
+    plt.plot(t_nodes, u_nodes, label=rf"$u(t)={U0}\sin({OMEGA_U}t)$")
+    plt.xlabel(r"time $t_k$ [s]")
     plt.ylabel(r"$u\;[\mathrm{Nm}]$")
     plt.grid(True, alpha=0.3)
-    plt.legend(loc="lower right", fontsize=16)
+    plt.legend(loc="lower right")
     savefig(out, "forced_sine_input.pdf")
 
     # ============================================================
@@ -247,12 +247,12 @@ def make_plots(model: AcrobotSO2Model, lgvi: dict, diag: dict, rk4: dict, out: P
     fig, axes = plt.subplots(2, 1, figsize=STACK_FIGSIZE, sharex=True)
     names = [r"$\Omega_1\;[\mathrm{rad/s}]$", r"$\Omega_2\;[\mathrm{rad/s}]$"]
     for j, ax in enumerate(axes):
-        ax.plot(k_int, qdot_lgvi[:, j], label="LGVI")
-        ax.plot(k_int, qdot_rk4_int[:, j], "--", label="RK4")
+        ax.plot(t_int, qdot_lgvi[:, j], label="LGVI")
+        ax.plot(t_int, qdot_rk4_int[:, j], "--", label="RK4")
         ax.set_ylabel(names[j])
         ax.grid(True, alpha=0.3)
-    axes[-1].set_xlabel(r"discrete-time steps $k$")
-    axes[0].legend(fontsize=16)
+    axes[-1].set_xlabel(r"time $t_k$ [s]")
+    axes[0].legend()
     savefig(out, "forced_sine_angular_velocities.pdf")
 
     # ============================================================
@@ -269,27 +269,25 @@ def make_plots(model: AcrobotSO2Model, lgvi: dict, diag: dict, rk4: dict, out: P
     X_err = compute_position_error_norm(X_lgvi, X_rk4)
 
     plt.figure(figsize=BENCHMARK_FIGSIZE)
-    plt.plot(k_nodes, q_err_norm_deg, linewidth=2.0, label=r"$\|q_{LGVI}-q_{RK4}\|$ [deg]")
-    plt.plot(k_nodes, theta1_err_deg, "--", linewidth=2.0, label=r"$|\theta_{1,LGVI}-\theta_{1,RK4}|$ [deg]")
-    plt.plot(k_nodes, theta2_err_deg, "--", linewidth=2.0, label=r"$|\theta_{2,LGVI}-\theta_{2,RK4}|$ [deg]")
-    plt.xlabel(r"discrete-time steps $k$")
+    plt.plot(t_nodes, q_err_norm_deg, label=r"$\|q_{LGVI}-q_{RK4}\|$ [deg]")
+    plt.plot(t_nodes, theta1_err_deg, "--", label=r"$|\theta_{1,LGVI}-\theta_{1,RK4}|$ [deg]")
+    plt.plot(t_nodes, theta2_err_deg, "--", label=r"$|\theta_{2,LGVI}-\theta_{2,RK4}|$ [deg]")
+    plt.xlabel(r"time $t_k$ [s]")
     plt.ylabel(r"$\mathrm{angle\ error}\;[\mathrm{deg}]$")
     plt.grid(True, alpha=0.3)
-    plt.legend(loc="lower right", fontsize=16)
+    plt.legend(loc="lower right")
     savefig(out, "forced_sine_angle_error_degrees.pdf")
 
     plt.figure(figsize=BENCHMARK_FIGSIZE)
     plt.plot(
-        k_nodes,
+        t_nodes,
         X_err,
         "--",
-        linewidth=2.0,
         label=r"$\|x_{\mathrm{RK4}} - x_{\mathrm{LGVI}}\|$",
     )
-    plt.xlabel(r"discrete-time steps $k$")
+    plt.xlabel(r"time $t_k$ [s]")
     plt.ylabel(r"$\|\Delta x_k\|\;[\mathrm{m}]$")
     plt.grid(True, alpha=0.3)
-    plt.legend(fontsize=16)
     savefig(out, "forced_sine_position_error.pdf")
 
     # ============================================================
@@ -297,29 +295,29 @@ def make_plots(model: AcrobotSO2Model, lgvi: dict, diag: dict, rk4: dict, out: P
     # ============================================================
     eps = 1e-16
     n_common_orth = min(len(diag["orth_R1"]), len(rk4["orth_R1"]), len(rk4["orth_R2"]))
-    k_orth = np.arange(n_common_orth)
+    t_orth = t_nodes[:n_common_orth]
     rk4_orth = np.maximum(rk4["orth_R1"][:n_common_orth], rk4["orth_R2"][:n_common_orth])
 
     plt.figure(figsize=BENCHMARK_FIGSIZE)
-    plt.semilogy(k_orth, np.maximum(diag["orth_R1"][:n_common_orth], eps), linewidth=2.0, label="LGVI link 1")
-    plt.semilogy(k_orth, np.maximum(diag["orth_R2"][:n_common_orth], eps), "--", linewidth=2.0, label="LGVI link 2")
-    plt.semilogy(k_orth, np.maximum(rk4_orth, eps), ":", linewidth=2.0, label="RK4")
-    plt.xlabel(r"discrete-time steps $k$")
-    plt.ylabel(r"$e_{\mathrm{orth}}$")
+    plt.semilogy(t_orth, np.maximum(diag["orth_R1"][:n_common_orth], eps), label="LGVI link 1")
+    plt.semilogy(t_orth, np.maximum(diag["orth_R2"][:n_common_orth], eps), "--", label="LGVI link 2")
+    plt.semilogy(t_orth, np.maximum(rk4_orth, eps), ":", label="RK4")
+    plt.xlabel(r"time $t_k$ [s]")
+    plt.ylabel(r"$e_{\mathrm{orth},i,k}$")
     plt.grid(True, which="both", alpha=0.3)
-    plt.legend(fontsize=16)
+    plt.legend()
     savefig(out, "forced_sine_orthogonality_error.pdf")
 
     # ============================================================
     # 7) Holonomic constraint residuals
     # ============================================================
     plt.figure(figsize=BENCHMARK_FIGSIZE)
-    plt.semilogy(k_nodes, np.maximum(diag["phi0_norm"], eps), linewidth=2.0, label=r"$\|\phi_0\|$ base constraint")
-    plt.semilogy(k_nodes, np.maximum(diag["phi12_norm"], eps), "--", linewidth=2.0, label=r"$\|\phi_{12}\|$ elbow constraint")
-    plt.xlabel(r"discrete-time steps $k$")
-    plt.ylabel(r"$\|\phi\|\;[\mathrm{m}]$")
+    plt.semilogy(t_nodes, np.maximum(diag["phi0_norm"], eps), label=r"$\|\phi_{0,k}\|$ base constraint")
+    plt.semilogy(t_nodes, np.maximum(diag["phi12_norm"], eps), "--", label=r"$\|\phi_{12,k}\|$ elbow constraint")
+    plt.xlabel(r"time $t_k$ [s]")
+    plt.ylabel(r"$\|\phi_k\|\;[\mathrm{m}]$")
     plt.grid(True, which="both", alpha=0.3)
-    plt.legend(loc="lower right", fontsize=16)
+    plt.legend(loc="lower right")
     savefig(out, "forced_sine_constraint_residuals.pdf")
 
     # ============================================================
@@ -327,12 +325,12 @@ def make_plots(model: AcrobotSO2Model, lgvi: dict, diag: dict, rk4: dict, out: P
     # ============================================================
     n_energy = min(len(diag["energy"]), len(rk4["energy"]) - 1)
     plt.figure(figsize=BENCHMARK_FIGSIZE)
-    plt.plot(k_int[:n_energy], diag["energy"][:n_energy], linewidth=2.0, label="LGVI")
-    plt.plot(k_int[:n_energy], rk4["energy"][:n_energy], "--", linewidth=2.0, label="RK4")
-    plt.xlabel(r"discrete-time steps $k$")
+    plt.plot(t_int[:n_energy], diag["energy"][:n_energy], label="LGVI")
+    plt.plot(t_int[:n_energy], rk4["energy"][:n_energy], "--", label="RK4")
+    plt.xlabel(r"time $t_k$ [s]")
     plt.ylabel(r"$E_k\;[\mathrm{J}]$")
     plt.grid(True, alpha=0.3)
-    plt.legend(fontsize=16)
+    plt.legend()
     savefig(out, "forced_sine_total_energy.pdf")
 
     # ============================================================
@@ -341,7 +339,7 @@ def make_plots(model: AcrobotSO2Model, lgvi: dict, diag: dict, rk4: dict, out: P
     #power = compute_forced_power_reference(rk4, t_nodes)
     #plt.figure(figsize=(8.8, 4.8))
     #plt.plot(t_nodes, power, label=r"$u\dot\theta_2$ RK4")
-    #plt.xlabel("time [s]")
+    #plt.xlabel(r"time $t_k$ [s]")
     #plt.ylabel("power [W]")
     #plt.title("Input power reference")
     #plt.grid(True, alpha=0.3)

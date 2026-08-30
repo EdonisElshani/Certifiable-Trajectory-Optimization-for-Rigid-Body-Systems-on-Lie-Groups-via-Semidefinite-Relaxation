@@ -1,5 +1,3 @@
-# SDP/cliques.py
-
 from __future__ import annotations
 
 import numpy as np
@@ -16,11 +14,8 @@ def _dedupe_keep_order(items):
 
 
 def _variable_blocks(idf):
-    """
-    Scalar variable-block helpers.
 
-    See Protected_Hybrid_Acrobot_Clique_Specification.pdf sec. 2 and 9.
-    """
+    # Scalar variable-block helpers.
 
     def R1(k):
         return [idf("c1", k), idf("s1", k)]
@@ -47,7 +42,7 @@ def _variable_blocks(idf):
 
 
 def _full_I1(R1, R2, F1, F2, L0, L12, U):
-    """First baseline clique, sec. 3.1. |I1| = 25."""
+    # First baseline clique, sec. 3.1. |I1| = 25
     return (
         R1(0) + R2(0)
         + R1(1) + R2(1)
@@ -59,7 +54,7 @@ def _full_I1(R1, R2, F1, F2, L0, L12, U):
 
 
 def _full_Ik(k, R1, R2, F1, F2, L0, L12, U):
-    """Full interior clique I_k, valid for k >= 2, sec. 3.2. |I2| = 21."""
+    # Full interior clique I_k, valid for k >= 2, sec. 3.2. |I2| = 21
     return (
         R1(k) + R2(k)
         + R1(k + 1) + R2(k + 1)
@@ -70,7 +65,7 @@ def _full_Ik(k, R1, R2, F1, F2, L0, L12, U):
 
 
 def _D_all(k, R1, R2, F1, F2, L0, L12, U):
-    """Joint dynamics clique, sec. 4.1. |D_all_k| = 17."""
+    # Joint dynamics clique, sec. 4.1. |D_all_k| = 17
     return (
         R1(k)
         + F1(k - 1) + F1(k)
@@ -81,7 +76,7 @@ def _D_all(k, R1, R2, F1, F2, L0, L12, U):
 
 
 def _K_12(k, R1, R2, F1, F2):
-    """Combined kinematic clique, sec. 4.2. |K12_k| = 12."""
+    # Combined kinematic clique, sec. 4.2. |K12_k| = 12
     return (
         R1(k) + R2(k)
         + R1(k + 1) + R2(k + 1)
@@ -90,10 +85,10 @@ def _K_12(k, R1, R2, F1, F2):
 
 
 def _generate_full_Ik_cliques(N, idf):
-    """
-    Baseline clique scheme (reduced_maximal_acrobot.pdf Model 2): the full
-    interior clique I_k at every stage k = 1, ..., N-1.
-    """
+
+    # Baseline clique scheme (reduced_maximal_acrobot.pdf Model 2): the full
+    # interior clique I_k at every stage k = 1, ..., N-1.
+
     if N < 2:
         raise ValueError("N must be at least 2 for the full_Ik clique scheme.")
 
@@ -109,18 +104,9 @@ def _generate_full_Ik_cliques(N, idf):
 
 
 def _generate_protected_hybrid_cliques(N, idf):
-    """
-    Protected hybrid clique scheme, per
-    Protected_Hybrid_Acrobot_Clique_Specification.pdf:
 
-        I1, I2, {D_all_k, K12_k}_{k=3}^{N-1}.
+    # Protected hybrid clique scheme
 
-    I1 and I2 are copied unchanged from the full_Ik baseline (sec. 3). Every
-    later stage k = 3, ..., N-1 replaces the full interior clique I_k with two
-    smaller cliques: D_all_k (joint dynamics, sec. 4.1) and K12_k (combined
-    kinematic reconstruction, sec. 4.2). No linkwise split of K12_k is used
-    (sec. 4.2, sec. 13).
-    """
     if N < 3:
         raise ValueError(
             "The protected hybrid scheme assumes at least "
@@ -140,7 +126,7 @@ def _generate_protected_hybrid_cliques(N, idf):
 
 
 def _check_no_duplicate_ids(cliques, scheme):
-    """Sec. 11.2: |C| = |unique(C)| for every clique C."""
+    # |C| = |unique(C)| for every clique C
     for i, clique in enumerate(cliques):
         if len(clique) != len(set(clique)):
             raise ValueError(
@@ -149,10 +135,7 @@ def _check_no_duplicate_ids(cliques, scheme):
 
 
 def _check_protected_hybrid_structure(cliques, N, idf):
-    """
-    Mandatory structural checks specific to the protected hybrid scheme
-    (sec. 11.1, 11.4, 11.5). Raises AssertionError on any mismatch.
-    """
+
     expected_sizes = [25, 21] + [17, 12] * (N - 3)
     sizes = [len(c) for c in cliques]
     assert sizes == expected_sizes, (
@@ -164,14 +147,12 @@ def _check_protected_hybrid_structure(cliques, N, idf):
 
     R1, R2, F1, F2, L0, L12, U = _variable_blocks(idf)
 
-    # Sec. 11.5: I1/I2 must equal the full_Ik baseline exactly, including order.
+    # I1/I2 must equal the full_Ik baseline exactly
     baseline_I1 = _dedupe_keep_order(_full_I1(R1, R2, F1, F2, L0, L12, U))
     baseline_I2 = _dedupe_keep_order(_full_Ik(2, R1, R2, F1, F2, L0, L12, U))
     assert cliques[0] == baseline_I1, "protected_hybrid I1 != full_Ik baseline I1"
     assert cliques[1] == baseline_I2, "protected_hybrid I2 != full_Ik baseline I2"
 
-    # Sec. 11.4: eight-scalar separator overlaps along the clique chain.
-    # For N == 3 there is no D_all_3/K12_3 stage, so no chain checks apply.
     def overlap(a, b):
         return set(a) & set(b)
 
@@ -201,7 +182,7 @@ def _check_protected_hybrid_structure(cliques, N, idf):
 
 
 def _T_12(k, R1, R2, F1, F2, L12):
-    """Cross-link translational clique (experimental). |T12_k| = 14."""
+    # Cross-link translational clique (experimental) |T12_k| = 14
     return (
         R1(k) + F1(k - 1) + F1(k)
         + R2(k) + F2(k - 1) + F2(k)
@@ -210,7 +191,7 @@ def _T_12(k, R1, R2, F1, F2, L12):
 
 
 def _T_1x(k, R1, F1, idf):
-    """Link-1 horizontal translational clique (experimental). |T1x_k| = 8."""
+    # Link-1 horizontal translational clique (experimental) |T1x_k| = 8
     return (
         R1(k) + F1(k - 1) + F1(k)
         + [idf("lam0x", k), idf("lam12x", k)]
@@ -218,7 +199,7 @@ def _T_1x(k, R1, F1, idf):
 
 
 def _T_1y(k, R1, F1, idf):
-    """Link-1 vertical translational clique (experimental). |T1y_k| = 8."""
+    # Link-1 vertical translational clique (experimental) |T1y_k| = 8
     return (
         R1(k) + F1(k - 1) + F1(k)
         + [idf("lam0y", k), idf("lam12y", k)]
@@ -226,7 +207,7 @@ def _T_1y(k, R1, F1, idf):
 
 
 def _Q_1(k, R1, L0, L12, U, idf):
-    """Link-1 rotational clique (experimental). |Q1_k| = 9."""
+    # Link-1 rotational clique (experimental) |Q1_k| = 9
     return (
         R1(k) + [idf("b1", k - 1), idf("b1", k)]
         + L0(k) + L12(k) + U(k)
@@ -234,7 +215,7 @@ def _Q_1(k, R1, L0, L12, U, idf):
 
 
 def _Q_2(k, R2, L12, U, idf):
-    """Link-2 rotational clique (experimental). |Q2_k| = 7."""
+    # Link-2 rotational clique (experimental) |Q2_k| = 7
     return (
         R2(k) + [idf("b2", k - 1), idf("b2", k)]
         + L12(k) + U(k)
@@ -242,35 +223,17 @@ def _Q_2(k, R2, L12, U, idf):
 
 
 def _K_1(k, R1, F1):
-    """Link-1 kinematic clique (experimental). |K1_k| = 6. Covers R1_{k+1} = R1_k F1_k."""
+    # Link-1 kinematic clique (experimental) |K1_k| = 6
     return R1(k) + R1(k + 1) + F1(k)
 
 
 def _K_2(k, R2, F2):
-    """Link-2 kinematic clique (experimental). |K2_k| = 6. Covers R2_{k+1} = R2_k F2_k."""
+    # Link-2 kinematic clique (experimental) |K2_k| = 6
     return R2(k) + R2(k + 1) + F2(k)
 
 
 def _generate_equation_family_extreme_cliques(N, idf):
-    """
-    Experimental "equation_family_extreme" clique scheme for the reduced
-    maximal-coordinate Acrobot Model 2:
 
-        I1, I2, {T12_k, T1x_k, T1y_k, Q1_k, Q2_k, K1_k, K2_k}_{k=3}^{N-1}.
-
-    I1 and I2 are copied unchanged from the full_Ik baseline. Every later
-    stage k = 3, ..., N-1 replaces the protected_hybrid pair (D_all_k,
-    K12_k) with seven smaller cliques grouped by equation family (cross-link
-    translational, per-axis link-1 translational, per-link rotational, and
-    per-link kinematic reconstruction) rather than by stage. This does not
-    form a simple chain-like running-intersection structure; the resulting
-    overlap graph is intentionally branching.
-
-    Per requirement, raw cliques here are NOT passed through
-    _dedupe_keep_order: any duplicate scalar ID must surface as a hard
-    ValueError (via _check_equation_family_extreme_structure) instead of
-    being silently repaired.
-    """
     if N < 3:
         raise ValueError(
             "The equation_family_extreme scheme assumes at least "
@@ -295,10 +258,7 @@ def _generate_equation_family_extreme_cliques(N, idf):
 
 
 def _check_equation_family_extreme_structure(cliques, N, idf):
-    """
-    Mandatory structural checks for the experimental equation_family_extreme
-    scheme. Raises ValueError (not AssertionError) on any mismatch.
-    """
+
     expected_count = 2 + 7 * (N - 3)
     if len(cliques) != expected_count:
         raise ValueError(
@@ -362,45 +322,9 @@ def _check_equation_family_extreme_structure(cliques, N, idf):
 
 
 def get_cliques_for_cstss(N: int, params: dict):
-    """
-    Build the SELF clique list for CSTSS.
 
-    Three clique schemes are available, selected by params["clique_scheme"]
-    (default "full_Ik", which preserves the pre-existing behavior of this
-    function unchanged):
+    # Build the SELF clique list for CSTSS.
 
-      - "full_Ik" (baseline): one full interior clique I_k per stage, as in
-        reduced_maximal_acrobot.pdf Model 2.
-
-            C_0 = {R0, R1, R2, F0, F1, lambda_1, u_1},              |C_0| = 25
-            C_k = {R_k, R_{k+1}, F_{k-1}, F_k, lambda_k, u_k},       |C_k| = 21
-                  k = 2, ..., N-1
-
-      - "protected_hybrid": I1, I2, {D_all_k, K12_k}_{k=3}^{N-1}, per
-        Protected_Hybrid_Acrobot_Clique_Specification.pdf. I1 and I2 are
-        copied unchanged from the full_Ik baseline; every later stage's full
-        clique is replaced by a smaller joint-dynamics clique D_all_k
-        (|D_all_k| = 17) and a combined kinematic clique K12_k
-        (|K12_k| = 12).
-
-      - "equation_family_extreme" (experimental): I1, I2,
-        {T12_k, T1x_k, T1y_k, Q1_k, Q2_k, K1_k, K2_k}_{k=3}^{N-1}. I1 and I2
-        are copied unchanged from the full_Ik baseline; every later stage's
-        protected-hybrid pair (D_all_k, K12_k) is replaced by seven smaller,
-        equation-family and link-specific cliques (a cross-link translational
-        clique, per-axis link-1 translational cliques, per-link rotational
-        cliques, and per-link kinematic-reconstruction cliques). This is a
-        deliberately aggressive decomposition: it is more aggressive than
-        protected_hybrid, may weaken the Moment-SOS relaxation (looser bound,
-        possibly worse extraction quality), and its clique-overlap graph is a
-        branching structure rather than the simple linear separator chain
-        used by protected_hybrid. It should only be used with SPOT SELF
-        cliques and its effect on tightness/runtime/closed-loop behavior must
-        be evaluated empirically before adoption.
-
-    The baseline scheme is always available and is not altered by the
-    presence of either non-default scheme.
-    """
     idf = params["id"]
     scheme = params.get("clique_scheme", "protected_hybrid")
 

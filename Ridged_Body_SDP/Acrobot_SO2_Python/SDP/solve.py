@@ -31,9 +31,9 @@ SPOT_OUTER_DIR = THIS_FILE.parents[3]
 SPOT_PYTHON_DIR = SPOT_OUTER_DIR / "SPOT" / "PYTHON"
 
 for path in [
-    str(PROJECT_ROOT),      # for config, SDP, Numerical_Simulation
-    str(SPOT_OUTER_DIR),    # for from SPOT.PYTHON...
-    str(SPOT_PYTHON_DIR),   # for direct imports if needed
+    str(PROJECT_ROOT),      
+    str(SPOT_OUTER_DIR),    
+    str(SPOT_PYTHON_DIR),   
 ]:
     if path not in sys.path:
         sys.path.insert(0, path)
@@ -129,7 +129,7 @@ def is_finite_control(u) -> bool:
 
 
 def _fixed_f0_step_bound_diagnostic(params: Dict[str, Any]) -> Dict[str, Any]:
-    """Diagnostic for the fixed previous-step rotations supplied to the SDP."""
+    # Diagnostic for the fixed previous-step rotations supplied to the SDP
 
     thetaF1_prev = float(np.arctan2(float(params["b1_prev"]), float(params["a1_prev"])))
     thetaF2_prev = float(np.arctan2(float(params["b2_prev"]), float(params["a2_prev"])))
@@ -165,7 +165,7 @@ def _fixed_f0_step_bound_diagnostic(params: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _write_fixed_f0_diagnostic(f, diag: Dict[str, Any]) -> None:
-    """Write the fixed-F0 step-bound diagnostic in a readable format."""
+    # Write the fixed-F0 step-bound diagnostic in a readable format
 
     f.write("Fixed F0 used by current SDP iteration:\n")
     f.write(
@@ -199,17 +199,8 @@ def _write_fixed_f0_diagnostic(f, diag: Dict[str, Any]) -> None:
 
 
 def complete_sdp_params(params: Dict[str, Any], mpc_initial: Optional[Dict[str, float]] = None) -> Dict[str, Any]:
-    """
-    Add SDP-specific derived parameters.
+    # Add SDP-specific derived parameters.
 
-    YAML is still the single source of truth. This only derives:
-        dt = dt_sdp
-        rho vectors
-        nonstandard SO(2) delta parameters
-        desired c/s and F desired scalars from YAML thetaF values
-        CSTSS defaults
-        optional MPC initial boundary data
-    """
     params = dict(params)
 
     # CSTSS defaults.
@@ -253,7 +244,7 @@ def complete_sdp_params(params: Dict[str, Any], mpc_initial: Optional[Dict[str, 
     else:
         params["p_0"] = np.asarray(params["p_0"], dtype=float).reshape(2)
 
-    # Nonstandard SO(2) inertia parameters.
+    # Nonstandard SO(2) inertia parameters
     if "deltaJ1" not in params:
         if "Jd1" in params:
             params["deltaJ1"] = float(np.asarray(params["Jd1"], dtype=float).reshape(2, 2)[0, 0])
@@ -268,13 +259,13 @@ def complete_sdp_params(params: Dict[str, Any], mpc_initial: Optional[Dict[str, 
     params["Jd1"] = np.diag([params["deltaJ1"], params["deltaJ1"]])
     params["Jd2"] = np.diag([params["deltaJ2"], params["deltaJ2"]])
 
-    # Desired rotations.
+    # Desired rotations
     params["c1_des"] = float(np.cos(params["thetaR1_des"]))
     params["s1_des"] = float(np.sin(params["thetaR1_des"]))
     params["c2_des"] = float(np.cos(params["thetaR2_des"]))
     params["s2_des"] = float(np.sin(params["thetaR2_des"]))
 
-    # Desired final step comes from YAML-derived thetaF target values.
+    # Desired final step comes from YAML-derived thetaF target values
     if "thetaF1_des" not in params or "thetaF2_des" not in params:
         raise KeyError(
             "Missing thetaF target values. Expected 'thetaF1_des' and "
@@ -286,20 +277,20 @@ def complete_sdp_params(params: Dict[str, Any], mpc_initial: Optional[Dict[str, 
     params["a2_des"] = float(np.cos(params["thetaF2_des"]))
     params["b2_des"] = float(np.sin(params["thetaF2_des"]))
 
-    # Initial previous step rotation F_0 from YAML.
+    # Initial previous step rotation F_0 from YAML
     if "thetaF1_0" not in params or "thetaF2_0" not in params:
         raise KeyError(
             "Missing thetaF initial values. Expected 'thetaF1_0' and "
             "'thetaF2_0' from the YAML-derived params."
         )
 
-    # Bounds and regularization.
+    # Bounds and regularization
     params.setdefault("alpha_lam", 0.0)
     params.setdefault("u_max", 1.0)
     params.setdefault("lambda_max", 1.0)
 
-    # Solver normalization metadata.  The SDP variables u and lambda are
-    # normalized to [-1, 1]; these scales map them back to physical quantities.
+    # The SDP variables u and lambda are
+    # normalized to [-1, 1]; these scales map them back to physical quantities
     params["u_solver_scale"] = float(params["u_max"])
     params["lambda_solver_scale"] = float(params["lambda_max"])
     params["lambda_bar_scale"] = float(params["lambda_max"])
@@ -332,23 +323,11 @@ def complete_sdp_params(params: Dict[str, Any], mpc_initial: Optional[Dict[str, 
     params["a1_min"] = float(np.cos(params["max_step_angle1"]))
     params["a2_min"] = float(np.cos(params["max_step_angle2"]))
 
-    # Optional MPC boundary data from numerical simulation.
-    #
-    # Expected:
-    #   c1_current, s1_current, c2_current, s2_current
-    #   a1_prev, b1_prev, a2_prev, b2_prev
-    #
-    # Or directly:
-    #   c1_1, s1_1, c2_1, s2_1
-    #   a1_0, b1_0, a2_0, b2_0
     if mpc_initial is not None:
         params.update(mpc_initial)
 
-    # If mpc_initial uses names from convert_state_to_sdp_initial_scalars,
-    # convert them into SDP boundary names.
     if "c1_0" in params and "a1_prev" in params and "c1_1" not in params:
-        # Here c1_0 from the simulation conversion means "current".
-        # Rename internally to avoid confusion.
+        # Compute R1 from R0 and F0.
         params["c1_current"] = float(params["c1_0"])
         params["s1_current"] = float(params["s1_0"])
         params["c2_current"] = float(params["c2_0"])
@@ -379,9 +358,9 @@ def create_output_dirs(prefix: str):
 
 
 def build_polynomial_system(params: Dict[str, Any]):
-    """
-    Build NumPolySystem with constraints and objective.
-    """
+    
+    # Build NumPolySystem with constraints and objective.
+    
     N = int(params["N"])
     total_var_num = int(params["total_var_num"])
 
@@ -394,8 +373,7 @@ def build_polynomial_system(params: Dict[str, Any]):
     eq_mask_sys = []
 
     # ------------------------------------------------------------
-    # Initial/MPC boundary constraints:
-    # fix R0, F0, R1.
+    # Initial/MPC boundary constraints
     # ------------------------------------------------------------
     eqs, ineqs, eq_mask = get_init_constraints(
         v("c1", 0),
@@ -453,12 +431,7 @@ def build_polynomial_system(params: Dict[str, Any]):
             eq_mask_sys.extend(eq_mask)
 
             if 1 <= k < N:
-                # Future optimized step bounds only.
-                #
-                # F_0 is a fixed past value from the previous MPC simulation
-                # interval. It remains fixed, remains SO(2), and remains in
-                # the kinematic/dynamic equations, but it is not constrained by
-                # the future step-angle bound.
+
                 eqs, ineqs, eq_mask = get_step_angle_bound_constraint_link_1(
                     v("a1", k),
                     params,
@@ -555,10 +528,8 @@ def build_polynomial_system(params: Dict[str, Any]):
                 ps.add_ineq(ineq)
             eq_mask_sys.extend(eq_mask)
 
-            # Reduced rotational dynamics.
-            # Consistent interior-node indexing: the DEL stencil uses
-            # F_{k-1}, F_k, lambda_k, u_k, so the constraint moments are
-            # evaluated at R_k, not R_{k+1}.
+            # Reduced rotational dynamics
+
             eqs, ineqs, eq_mask = get_rotational_dynamics_link1(
                 v("b1", k - 1),
                 v("b1", k),
@@ -626,20 +597,8 @@ def solve_sdp(
     params: Dict[str, Any],
     prefix: Optional[str] = None,
 ) -> Dict[str, Any]:
-    """
-    Build and solve the reduced Acrobot SDP.
+    # Build and solve the reduced Acrobot SDP.
 
-    Returns:
-        result dictionary containing:
-            params
-            result
-            res
-            coeff_info
-            aux_info
-            solutions
-            extracted_vectors
-            first_control
-    """
     total_start = time.time()
 
     params = complete_sdp_params(params)
@@ -648,11 +607,6 @@ def solve_sdp(
 
     if prefix is None:
         current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        # Timestamp alone is only 1-second resolution, which is not unique
-        # across concurrently running processes (e.g. parallel SLURM jobs)
-        # sharing this same project directory. Salt it with the SLURM job ID
-        # (or PID if not running under SLURM) so concurrent runs never share
-        # a prefix and can't delete each other's in-progress log directory.
         job_id = os.environ.get("SLURM_JOB_ID") or str(os.getpid())
         prefix = f"Acrobot_SO2_Reduced_MPC/{current_time}_{job_id}/"
 
@@ -1079,8 +1033,6 @@ def solve_sdp(
         "f0_step_bound_diagnostic": f0_step_bound_diagnostic,
         "preferred_extraction": preferred,
         "prefix": prefix,
-        # These are the actual clique moment matrices used by the extraction
-        # routines above.  Logging code saves them in compressed NumPy form.
         "Xs": Xs,
     }
 
@@ -1089,9 +1041,9 @@ def solve_from_yaml(
     yaml_path: str | Path = PROJECT_ROOT / "config" / "acrobot_physical.yaml",
     mpc_initial: Optional[Dict[str, float]] = None,
 ) -> Dict[str, Any]:
-    """
-    Load YAML config, build params, optionally insert MPC initial state, solve SDP.
-    """
+    
+    # Load YAML config, build params, optionally insert MPC initial state, solve SDP
+    
     cfg = load_yaml_config(yaml_path)
     params = build_common_params(cfg)
 

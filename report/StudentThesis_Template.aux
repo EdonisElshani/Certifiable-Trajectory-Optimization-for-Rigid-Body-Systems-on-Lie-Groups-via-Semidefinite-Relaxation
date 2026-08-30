@@ -109,6 +109,7 @@
 \citation{Sangli2025}
 \citation{Kang_2026Fast}
 \citation{Kang_2025Global}
+\citation{Kang_2025Global}
 \@writefile{toc}{\contentsline {paragraph}{Geometric mechanics and variational integration}{10}{section*.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Polynomial optimization and sparse semidefinite relaxation}{10}{section*.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1.3}Research Gap}{11}{section.1.3}\protected@file@percent }
@@ -281,7 +282,6 @@
 \newlabel{eq:continuous_3D_pendulum_variation_eta}{{3.37}{26}{Verification of Momentum Conservation}{equation.3.37}{}}
 \newlabel{eq:continuous_3d_pendulum_validation}{{3.38}{27}{Verification of Momentum Conservation}{equation.3.38}{}}
 \citation{Marsden2001}
-\citation{Hairer2000}
 \citation{Leimkuhler_Reich_2005}
 \citation{Lee2008}
 \citation{Marsden2001}
@@ -422,7 +422,7 @@
 \newlabel{eq:discrete_3D_pendulum_hamilton_3}{{4.43c}{40}{Discrete Legendre Transformation}{equation.4.43c}{}}
 \citation{Lee2008}
 \citation{Lee2008}
-\citation{BrudigamManchester2021LQR}
+\citation{BrudigamManchester2021VariationalIntegrators}
 \citation{Sangli2025}
 \@writefile{toc}{\contentsline {paragraph}{Controlled 3D Pendulum}{41}{section*.29}\protected@file@percent }
 \newlabel{eq:external_control_moment_3D_pendulum}{{4.44}{41}{Controlled 3D Pendulum}{equation.4.44}{}}
@@ -526,6 +526,7 @@
 \newlabel{eq:general_motion_optimization}{{5.1}{52}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.1}{}}
 \newlabel{eq:general_lie_group_kinematics}{{5.2}{52}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.2}{}}
 \newlabel{eq:so3_polynomial_constraints}{{5.3}{52}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.3}{}}
+\newlabel{eq:rotation_matrices_so2_R_and_F}{{5.4}{52}{Discrete Motion Planning of Rigid-Body Systems}{equation.5.4}{}}
 \citation{Sangli2025}
 \citation{Sangli2025}
 \citation{Sangli2025}
@@ -544,6 +545,7 @@
 \citation{Yang2024Semidefinite}
 \citation{Yang2024Semidefinite}
 \citation{Yang2024Semidefinite}
+\citation{Yang2024Semidefinite}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Semidefinite Relaxation and the Moment-SOS Hierarchy}{54}{subsection.5.2.1}\protected@file@percent }
 \newlabel{subsec:moment_sos_hierarchy}{{5.2.1}{54}{Semidefinite Relaxation and the Moment-SOS Hierarchy}{subsection.5.2.1}{}}
 \@writefile{toc}{\contentsline {paragraph}{Semidefinite programming (SDP)}{54}{section*.37}\protected@file@percent }
@@ -554,6 +556,7 @@
 \newlabel{eq:monomial_basis_dimension_comparison}{{5.14}{54}{Sum-of-squares (SOS) relaxation}{equation.5.14}{}}
 \citation{Yang2024Semidefinite}
 \citation{Putinar1993Positive}
+\citation{Yang2024Semidefinite}
 \citation{Yang2024Semidefinite}
 \citation{Sangli2025}
 \citation{Sangli2025}
@@ -679,9 +682,9 @@
 \newlabel{eq:controlled_acrobot_pop_control_bound}{{5.56j}{65}{Trajectory Optimization via SDP Relaxation}{equation.5.56j}{}}
 \newlabel{eq:controlled_acrobot_pop_multiplier_bound}{{5.56k}{65}{Trajectory Optimization via SDP Relaxation}{equation.5.56k}{}}
 \newlabel{eq:controlled_acrobot_pop_initial}{{5.56l}{65}{Trajectory Optimization via SDP Relaxation}{equation.5.56l}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Index ranges for the constraints in the controlled Acrobot POP.}}{65}{table.caption.50}\protected@file@percent }
-\newlabel{tab:controlled_acrobot_pop_indexing}{{5.1}{65}{Index ranges for the constraints in the controlled Acrobot POP}{table.caption.50}{}}
-\@writefile{toc}{\contentsline {paragraph}{Chain-like sparsity}{66}{section*.51}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Chain-like sparsity}{65}{section*.51}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Index ranges for the constraints in the controlled Acrobot POP.}}{66}{table.caption.50}\protected@file@percent }
+\newlabel{tab:controlled_acrobot_pop_indexing}{{5.1}{66}{Index ranges for the constraints in the controlled Acrobot POP}{table.caption.50}{}}
 \newlabel{eq:acrobot_full_self_initial_clique}{{5.57}{66}{Chain-like sparsity}{equation.5.57}{}}
 \newlabel{eq:acrobot_full_self_interior_cliques}{{5.58}{66}{Chain-like sparsity}{equation.5.58}{}}
 \newlabel{eq:acrobot_full_self_moment_sizes}{{5.59}{66}{Chain-like sparsity}{equation.5.59}{}}
@@ -704,12 +707,13 @@
 \newlabel{fig:acrobot_sdp_mpc_loop}{{5.4}{68}{SDP-based model predictive control loop for the reduced Acrobot}{figure.caption.53}{}}
 \@writefile{toc}{\contentsline {paragraph}{Receding-horizon}{68}{section*.54}\protected@file@percent }
 \newlabel{eq:acrobot_relative_rotation_general}{{5.64}{68}{Receding-horizon}{equation.5.64}{}}
-\newlabel{eq:acrobot_mpc_boundary_data}{{5.65}{68}{Receding-horizon}{equation.5.65}{}}
+\newlabel{eq:acrobot_mpc_boundary_data}{{5.65}{69}{Receding-horizon}{equation.5.65}{}}
+\newlabel{eq:initial_rotation_history}{{5.66}{69}{Receding-horizon}{equation.5.66}{}}
 \@writefile{toc}{\contentsline {paragraph}{Control application}{69}{section*.55}\protected@file@percent }
-\newlabel{eq:acrobot_mpc_applied_control}{{5.66}{69}{Control application}{equation.5.66}{}}
-\newlabel{eq:acrobot_mpc_stabilization_condition}{{5.67}{69}{Control application}{equation.5.67}{}}
-\@writefile{toc}{\contentsline {paragraph}{Prediction horizon}{69}{section*.56}\protected@file@percent }
-\newlabel{eq:acrobot_mpc_time_scales}{{5.68}{69}{Prediction horizon}{equation.5.68}{}}
+\newlabel{eq:acrobot_mpc_applied_control}{{5.67}{69}{Control application}{equation.5.67}{}}
+\newlabel{eq:acrobot_mpc_stabilization_condition}{{5.68}{69}{Control application}{equation.5.68}{}}
+\@writefile{toc}{\contentsline {paragraph}{Prediction horizon}{70}{section*.56}\protected@file@percent }
+\newlabel{eq:acrobot_mpc_time_scales}{{5.69}{70}{Prediction horizon}{equation.5.69}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Decision logic of the SDP-based model predictive control loop for the reduced Acrobot.}}{71}{figure.caption.57}\protected@file@percent }
 \newlabel{fig:acrobot_sdp_mpc_logic}{{5.5}{71}{Decision logic of the SDP-based model predictive control loop for the reduced Acrobot}{figure.caption.57}{}}
 \citation{Lee2008}
@@ -805,10 +809,11 @@
 \newlabel{eq:acrobot_terminal_rotation_error}{{6.27}{89}{Evaluation metrics}{equation.6.27}{}}
 \newlabel{eq:acrobot_max_orthogonality_error}{{6.28}{89}{Evaluation metrics}{equation.6.28}{}}
 \newlabel{eq:acrobot_first_clique_rank_metric}{{6.29}{90}{Evaluation metrics}{equation.6.29}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Results of the Acrobot trajectory optimization using the complete chain-like SELF cliques \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_k^{\mathrm  {A}})\). All trajectory metrics are evaluated from the ordered extraction.}}{90}{table.caption.77}\protected@file@percent }
-\newlabel{tab:acrobot_sdp_statistics_full}{{6.4}{90}{Results of the Acrobot trajectory optimization using the complete chain-like SELF cliques \(\bm {z}_{\mathrm {A}}(\mathcal I_k^{\mathrm {A}})\). All trajectory metrics are evaluated from the ordered extraction}{table.caption.77}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces Results of the Acrobot trajectory optimization using the special multi-body SELF clique construction \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_1^{\mathrm  {A}})\), \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_2^{\mathrm  {A}})\), \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_{\mathrm  {dyn},k}^{\mathrm  {A}})\), and \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_{\mathrm  {kin},k}^{\mathrm  {A}})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}.}}{90}{table.caption.78}\protected@file@percent }
-\newlabel{tab:acrobot_sdp_statistics_hybrid}{{6.5}{90}{Results of the Acrobot trajectory optimization using the special multi-body SELF clique construction \(\bm {z}_{\mathrm {A}}(\mathcal I_1^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_2^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {dyn},k}^{\mathrm {A}})\), and \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {kin},k}^{\mathrm {A}})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}}{table.caption.78}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Results of the Acrobot trajectory optimization using the complete chain-like cliques \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_k^{\mathrm  {A}})\). All trajectory metrics are evaluated from the ordered extraction.}}{90}{table.caption.77}\protected@file@percent }
+\newlabel{tab:acrobot_sdp_statistics_full}{{6.4}{90}{Results of the Acrobot trajectory optimization using the complete chain-like cliques \(\bm {z}_{\mathrm {A}}(\mathcal I_k^{\mathrm {A}})\). All trajectory metrics are evaluated from the ordered extraction}{table.caption.77}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces Results of the Acrobot trajectory optimization using the special multi-body clique construction \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_1^{\mathrm  {A}})\), \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_2^{\mathrm  {A}})\), \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_{\mathrm  {dyn},k}^{\mathrm  {A}})\), and \(\bm  {z}_{\mathrm  {A}}(\mathcal  I_{\mathrm  {kin},k}^{\mathrm  {A}})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}.}}{90}{table.caption.78}\protected@file@percent }
+\newlabel{tab:acrobot_sdp_statistics_hybrid}{{6.5}{90}{Results of the Acrobot trajectory optimization using the special multi-body clique construction \(\bm {z}_{\mathrm {A}}(\mathcal I_1^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_2^{\mathrm {A}})\), \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {dyn},k}^{\mathrm {A}})\), and \(\bm {z}_{\mathrm {A}}(\mathcal I_{\mathrm {kin},k}^{\mathrm {A}})\). All metrics are defined as in Table~\ref {tab:acrobot_sdp_statistics_full}}{table.caption.78}{}}
+\citation{Sangli2025}
 \@writefile{toc}{\contentsline {paragraph}{Results}{91}{section*.79}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Model Predictive SDP Control Results}{92}{subsection.6.3.2}\protected@file@percent }
 \newlabel{subsec:acrobot_sdp_mpc_results}{{6.3.2}{92}{Model Predictive SDP Control Results}{subsection.6.3.2}{}}
@@ -823,9 +828,9 @@
 \@writefile{toc}{\contentsline {paragraph}{Empirical basin of attraction and time-discretization mismatch}{94}{section*.83}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {6.6}{\ignorespaces Time-scale configurations used for the sampled SDP--MPC stabilization regions with $u_{\max }=15\,\mathrm  {N\,m}$.}}{94}{table.caption.84}\protected@file@percent }
 \newlabel{tab:acrobot_mpc_time_scale_cases}{{6.6}{94}{Time-scale configurations used for the sampled SDP--MPC stabilization regions with $u_{\max }=15\,\mathrm {N\,m}$}{table.caption.84}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Empirical sampled stabilization regions of the SDP-MPC controller with $u_{\max }=15\,\mathrm  {N\,m}$. The tuples $(\Delta t_{\mathrm  {SDP}},\Delta t_{\mathrm  {sim}}, \Delta t_{\mathrm  {ctrl}})$ are $(0.1,0.1,0.1)\,\mathrm  {s}$ in Case~I, $(0.05,0.05,0.05)\,\mathrm  {s}$ in Case~II, and $(0.1,0.0025,0.025)\,\mathrm  {s}$ in Case~III. Cases~I and II use matched time scales, whereas Case~III uses a prediction model with finer simulation time steps and control updates.}}{95}{figure.caption.85}\protected@file@percent }
-\newlabel{fig:acrobot_basin_comparison}{{6.7}{95}{Empirical sampled stabilization regions of the SDP-MPC controller with $u_{\max }=15\,\mathrm {N\,m}$. The tuples $(\Delta t_{\mathrm {SDP}},\Delta t_{\mathrm {sim}}, \Delta t_{\mathrm {ctrl}})$ are $(0.1,0.1,0.1)\,\mathrm {s}$ in Case~I, $(0.05,0.05,0.05)\,\mathrm {s}$ in Case~II, and $(0.1,0.0025,0.025)\,\mathrm {s}$ in Case~III. Cases~I and II use matched time scales, whereas Case~III uses a prediction model with finer simulation time steps and control updates}{figure.caption.85}{}}
-\newlabel{eq:acrobot_mpc_basin_initial_grid}{{6.34}{95}{Empirical basin of attraction and time-discretization mismatch}{equation.6.34}{}}
+\newlabel{eq:acrobot_mpc_basin_initial_grid}{{6.34}{94}{Empirical basin of attraction and time-discretization mismatch}{equation.6.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Empirical sampled stabilization regions of the SDP-MPC controller with $u_{\max }=15\,\mathrm  {N\,m}$. The tuples $(\Delta t_{\mathrm  {SDP}},\Delta t_{\mathrm  {sim}}, \Delta t_{\mathrm  {ctrl}})$ are $(0.1,0.1,0.1)\,\mathrm  {s}$ in Case~I, $(0.05,0.05,0.05)\,\mathrm  {s}$ in Case~II, and $(0.1,0.0025,0.025)\,\mathrm  {s}$ in Case~III.}}{95}{figure.caption.85}\protected@file@percent }
+\newlabel{fig:acrobot_basin_comparison}{{6.7}{95}{Empirical sampled stabilization regions of the SDP-MPC controller with $u_{\max }=15\,\mathrm {N\,m}$. The tuples $(\Delta t_{\mathrm {SDP}},\Delta t_{\mathrm {sim}}, \Delta t_{\mathrm {ctrl}})$ are $(0.1,0.1,0.1)\,\mathrm {s}$ in Case~I, $(0.05,0.05,0.05)\,\mathrm {s}$ in Case~II, and $(0.1,0.0025,0.025)\,\mathrm {s}$ in Case~III}{figure.caption.85}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Closed-loop Acrobot tip trajectories and sampled link configurations for $(\theta _1^{\mathrm  {init}},\theta _2^{\mathrm  {init}}) =(20^\circ ,140^\circ )$ in Cases~I and III. Each tuple gives $(\Delta t_{\mathrm  {SDP}},\Delta t_{\mathrm  {sim}}, \Delta t_{\mathrm  {ctrl}})$.}}{96}{figure.caption.86}\protected@file@percent }
 \newlabel{fig:acrobot_sampled_trajectory_comparison}{{6.8}{96}{Closed-loop Acrobot tip trajectories and sampled link configurations for $(\theta _1^{\mathrm {init}},\theta _2^{\mathrm {init}}) =(20^\circ ,140^\circ )$ in Cases~I and III. Each tuple gives $(\Delta t_{\mathrm {SDP}},\Delta t_{\mathrm {sim}}, \Delta t_{\mathrm {ctrl}})$}{figure.caption.86}{}}
 \@writefile{toc}{\contentsline {paragraph}{Summary}{97}{section*.87}\protected@file@percent }
@@ -992,6 +997,7 @@
 \bibcite{LeeLeokMcClamroch2007DiscreteControlSystems}{LLM07a}
 \bibcite{Lee2007}{LLM07b}
 \bibcite{Leimkuhler_Reich_2005}{LR05}
+\bibcite{LIU}{LWLM07}
 \bibcite{Manchester2019ContactVI}{MDWK19}
 \bibcite{MOSEK}{{MOS}26}
 \bibcite{MarsdenRatiu1999}{MR99}
@@ -1002,7 +1008,6 @@
 \bibcite{RITInertiaTable216}{Ric}
 \bibcite{Intro_Legged}{San22}
 \bibcite{Schulman2014TrajOpt}{SDH{$^{+}$}14}
-\bibcite{LIU}{Shu06}
 \bibcite{Shen20043DPendulum}{SSC{$^{+}$}04}
 \bibcite{tedrake_underactuated}{Ted23}
 \bibcite{Intro_KUKA}{{The}22}

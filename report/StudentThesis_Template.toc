@@ -71,12 +71,12 @@
 \contentsline {section}{\numberline {5.3}Discrete Motion Planning for the 3D-Pendulum}{61}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Discrete Motion Planning for an Acrobot}{63}{section.5.4}%
 \contentsline {subsection}{\numberline {5.4.1}Trajectory Optimization via SDP Relaxation}{63}{subsection.5.4.1}%
-\contentsline {paragraph}{Chain-like sparsity}{66}{section*.51}%
+\contentsline {paragraph}{Chain-like sparsity}{65}{section*.51}%
 \contentsline {paragraph}{Special multi-body sparsity}{66}{section*.52}%
 \contentsline {subsection}{\numberline {5.4.2}Trajectory Optimization via Semidefinite Relaxation using Model Predictive Control}{67}{subsection.5.4.2}%
 \contentsline {paragraph}{Receding-horizon}{68}{section*.54}%
 \contentsline {paragraph}{Control application}{69}{section*.55}%
-\contentsline {paragraph}{Prediction horizon}{69}{section*.56}%
+\contentsline {paragraph}{Prediction horizon}{70}{section*.56}%
 \contentsline {chapter}{\numberline {6}Evaluation}{73}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Numerical Simulation Results}{73}{section.6.1}%
 \contentsline {paragraph}{Runge--Kutta 4th order}{74}{section*.59}%

@@ -34,6 +34,9 @@
 \usetikzlibrary{arrows.meta,positioning,shapes.multipart}
 \definecolor{tum_blue}{RGB}{0,101,189}
 \definecolor{tum_orange}{RGB}{227,114,34}
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\do\-}
+\makeatother
 
 \newcommand{\figureboxtitle}[1]{%
     {\sffamily\bfseries #1}%

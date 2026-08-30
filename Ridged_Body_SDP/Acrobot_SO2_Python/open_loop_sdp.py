@@ -142,7 +142,7 @@ def rotation_tracking_error(R: np.ndarray, c_des: float, s_des: float) -> Dict[s
 
 
 def kinematics_error(sol: Mapping[str, Any], N: int) -> Dict[str, Any]:
-    """Check R_{i,k+1} = R_{i,k} F_{i,k} for extracted SDP solution."""
+    # Check R_{i,k+1} = R_{i,k} F_{i,k} for extracted SDP solution
     rows = []
     max_link1 = 0.0
     max_link2 = 0.0
@@ -170,7 +170,7 @@ def analyze_moment_matrix_ranks(
     rank_threshold: float = 1e-2,
     dominant_threshold: float = 0.999,
 ) -> Dict[str, Any]:
-    """Analyze numerical rank-one recovery of the actual SDP moment matrices."""
+    # Analyze numerical rank-one recovery of the actual SDP moment matrices
     dominant_weights = []
     second_weights = []
     rank_proxies = []
@@ -216,7 +216,7 @@ def analyze_moment_matrix_ranks(
 
 
 def write_moment_rank_condition(run_dir: Path, analysis: Mapping[str, Any]) -> None:
-    """Write human-readable and CSV versions of the moment-rank certificate."""
+    # Write human-readable and CSV versions of the moment-rank certificate.
     txt_path = run_dir / "moment_rank_condition.txt"
     with open(txt_path, "w", encoding="utf-8") as f:
         f.write("Moment matrix rank condition\n")
@@ -280,7 +280,7 @@ def _get_preferred_solution(out: Mapping[str, Any]) -> Tuple[str, Mapping[str, A
 
 
 def compute_tightness_and_extraction_quality(out: Mapping[str, Any], preferred: str) -> Dict[str, Any]:
-    """Collect SO(2), kinematic, and extraction-quality diagnostics."""
+    # Collect SO(2), kinematic, and extraction-quality diagnostics.
     params = out["params"]
 
     sol = out["solutions"][preferred]
@@ -351,7 +351,7 @@ def matrix_entries(prefix: str, M: Optional[np.ndarray]) -> Dict[str, float]:
 
 
 def solution_to_rows(sol: Mapping[str, Any], params: Mapping[str, Any]) -> list[dict[str, float]]:
-    """One row per SDP node k. F, lambda, u are filled when defined."""
+    # One row per SDP node k. F, lambda, u are filled when defined.
     N = int(params["N"])
     rows: list[dict[str, float]] = []
 
@@ -454,11 +454,9 @@ def write_csv(path: Path, rows: list[Mapping[str, Any]]) -> None:
 
 
 def cleanup_old_solver_artifacts(out: Mapping[str, Any], enabled: bool = True) -> None:
-    """
-    Delete the old parent-folder data/markdown/figs/logs artifacts created by SDP.solve.
-
-    We first write our compact Results logs. Then these bulky artifacts can go.
-    """
+    
+    # Delete the old parent-folder data/markdown/figs/logs artifacts created by SDP.solve.
+    
     if not enabled:
         return
 
@@ -478,7 +476,7 @@ def write_sdp_run_logs(
     mpc_iteration: Optional[int] = None,
     cleanup_solver_artifacts_enabled: bool = True,
 ) -> Dict[str, Any]:
-    """Write compact SDP logs inside Results/Results-Open_Loop-SDP."""
+    # Write compact SDP logs inside Results/Results-Open_Loop-SDP.
     run_dir.mkdir(parents=True, exist_ok=True)
 
     problem_status = str(out.get("problem_status", "UNKNOWN"))
@@ -573,8 +571,6 @@ def write_sdp_run_logs(
     max_kinematic_error = max(kin_metrics.values(), default=float("nan"))
     extraction_info = solve_metrics["extraction_info"]
 
-    # This is deliberately scalar-only. Trajectories and matrices have their own
-    # CSV/NPZ files and must never be serialized into JSON.
     metrics: Dict[str, Any] = {
         "mpc_iteration": mpc_iteration,
         "N": int(params["N"]),
@@ -720,8 +716,6 @@ def run_open_loop_sdp(
         params.update(mpc_initial)
 
     if run_name is None:
-        # Salt the timestamp with the SLURM job ID (or PID) so concurrent
-        # runs sharing this project directory never collide on run_name.
         job_id = os.environ.get("SLURM_JOB_ID") or str(os.getpid())
         run_name = datetime.now().strftime("open_loop_%Y-%m-%d_%H-%M-%S") + f"_{job_id}"
 
@@ -750,8 +744,6 @@ def main() -> None:
     out = run_open_loop_sdp()
     print("\nOpen-loop SDP result saved to:")
     print(out["results_dir"])
-
-    # Do not keep accidental large objects alive when this file is used interactively.
     del out
     gc.collect()
 

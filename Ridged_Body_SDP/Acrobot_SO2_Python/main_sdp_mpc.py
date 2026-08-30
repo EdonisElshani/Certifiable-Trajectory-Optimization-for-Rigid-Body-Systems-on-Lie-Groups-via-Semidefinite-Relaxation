@@ -54,21 +54,9 @@ def _json_safe(obj: Any) -> Any:
 
 
 def get_mpc_settings(params: Mapping[str, Any], cfg: Mapping[str, Any]) -> Dict[str, Any]:
-    """
-    Read optional MPC settings from YAML.
+    
+    # Read MPC settings from YAML.
 
-    Add this block to YAML if you want to override defaults:
-
-    mpc:
-      max_iterations: 35
-      stop_angle_tol_deg: 2.0
-      stop_step_angle_tol_deg: 2.0
-      # Optional direct threshold. If omitted, stop_step_angle_tol_deg/dt_sdp
-      # is used so old YAML files remain compatible.
-      stop_angular_velocity_tol_deg_s: 20.0
-      stable_steps_required: 3
-      cleanup_solver_artifacts: true
-    """
     mpc_cfg = cfg.get("mpc", {}) if isinstance(cfg.get("mpc", {}), Mapping) else {}
 
     stop_step_angle_tol_deg = float(
@@ -515,8 +503,8 @@ def run_mpc_sdp(
         if mpc_initial is not None:
             params_sdp.update(mpc_initial)
 
-        # Solve SDP. solve_sdp writes temporary old artifacts; write_sdp_run_logs
-        # copies compact information into Results and then deletes old artifacts.
+        # Solve SDP
+        # write_sdp_run_logs copies compact information into Results and then deletes old artifacts
         out = solve_sdp(params_sdp)
 
         sdp_run_dir = sdp_parent / f"mpc_{j:04d}"
@@ -567,7 +555,6 @@ def run_mpc_sdp(
 
         u_apply = float(u1_candidate)
 
-        # Delete bulky solver output before simulating the next step. Keep only compact logs.
         del out
         gc.collect()
 
@@ -588,7 +575,7 @@ def run_mpc_sdp(
         sim_summaries.append(sim_summary)
 
         interval_rows = simulation_to_rows(sim, params)
-        # Adjacent intervals share their boundary node. Keep it only once.
+        # Adjacent intervals share their boundary node
         if j > 0:
             interval_rows = interval_rows[1:]
         for sim_row in interval_rows:
@@ -628,8 +615,6 @@ def run_mpc_sdp(
             stable_counter = 0
 
         row["angle_ok"] = angle_ok
-        # Keep step_ok for CSV/backward compatibility, but it now represents
-        # the physically meaningful explicit angular-velocity condition.
         row["step_ok"] = angular_velocity_ok
         row["angular_velocity_ok"] = angular_velocity_ok
         row["stop_angular_velocity_tol_deg_s"] = stop_angular_velocity_tol_deg_s
@@ -645,7 +630,6 @@ def run_mpc_sdp(
                 f"{stop_angular_velocity_tol_deg_s} deg/s)"
             )
 
-        # Save incrementally so a crash still leaves useful data. Computers are dramatic.
         write_mpc_summary(
             out_dir=mpc_dir,
             params=params,
@@ -661,7 +645,6 @@ def run_mpc_sdp(
             print("Stopping condition reached.")
             break
 
-        # Do not keep full simulation arrays from this iteration in memory.
         del sim
         gc.collect()
 

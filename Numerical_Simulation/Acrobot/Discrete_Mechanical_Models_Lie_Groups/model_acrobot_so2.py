@@ -46,8 +46,8 @@ class AcrobotSO2Params:
     m2: float = 1.0
     l1: float = 0.5
     l2: float = 0.5
-    lc1: float = 0.5
-    lc2: float = 0.5
+    lc1: float = 0.25
+    lc2: float = 0.25
     # Moments of inertia about each link center of mass.
     J1: float = 1.0 / 12.0 * m1 * l1**2
     J2: float = 1.0 / 12.0 * m2 * l2**2

@@ -7,14 +7,15 @@ finite-horizon trajectory optimization problems. Section \ref{sec:discrete_motio
 introduces the geometric motion planning 
 formulation of \cite{Sangli2025}, which expresses the Lie group variational 
 integrators and their kinematic constraints by polynomial equalities and inequalities. 
-In general, a nonconvex polynomial optimization problem is relaxed to a convex semidefinite 
-program. Therefore, Section \ref{sec:semidefinite_optimization_relaxation} gives an 
+Section \ref{sec:semidefinite_optimization_relaxation} gives an 
 overall introduction to semidefinite programming and presents the 
 Moment-SOS hierarchy and the exploitation of correlative and term sparsity. 
+Thereby, a nonconvex polynomial optimization problem is relaxed to a convex semidefinite 
+program.
 Finally, Sections \ref{sec:discrete_motion_planning_3d_pendulum} and 
 \ref{sec:discrete_motion_planning_acrobot} define the optimization formulation for 
 the controlled 3D-pendulum and the Acrobot. The resulting construction follows the sparse 
-semidefinite trajectory optimization framework SPOT of \cite{Kang_2026Fast,Kang_2025Global}.
+semidefinite trajectory optimization framework of \cite{Kang_2026Fast,Kang_2025Global}.
 For the Acrobot, the sparse SDP relaxation is embedded in a model predictive control loop. 
 Because the prediction-horizon relaxation is not rank one, the extracted predicted trajectory 
 is not certified as globally optimal or feasible. Nevertheless, applying the first extracted 
@@ -104,7 +105,7 @@ The same constraints are imposed on \(\bm{F}_{i,k}\) by replacing
 \(\bm{f}^{1}_{i,k},\bm{f}^{2}_{i,k},\bm{f}^{3}_{i,k}\).
 
 For rigid-body motion on $SO(2)$, the standard polynomial parametrization is
-\begin{equation}
+\begin{equation}\label{eq:rotation_matrices_so2_R_and_F}
 \bm{R}_{i,k}=
 \begin{bmatrix}
 c_{i,k}&-s_{i,k}\\
@@ -227,7 +228,7 @@ primal form
 \end{aligned}
 \label{eq:standard_sdp}
 \end{equation}
-where $\bm{C} \in \mathbb{S}^{n}$ and $\bm{b} \in \mathbb{R}^{m}$. The linear map \(\mathcal{A}: \mathbb{S}^{n} \to \mathbb{R}^{m}\) is defined as
+where $\bm{C} \in \mathbb{S}^{n}$ and $\bm{b} \in \mathbb{R}^{m}$ \cite{Yang2024Semidefinite}. The linear map \(\mathcal{A}: \mathbb{S}^{n} \to \mathbb{R}^{m}\) is defined as
 \begin{equation}
  \mathcal{A}(\bm{X})
  :=
@@ -329,7 +330,7 @@ Here, \(\Sigma[\bm{z}]\) denotes the set of SOS polynomials in
 \(\bm{z}\), and \(\mathbb{R}[\bm{z}]\) denotes the set of real
 polynomials in \(\bm{z}\). $\kappa$ is called the relaxation order. 
 Consequently, every feasible certificate provides the lower bound
-\(\gamma_{\kappa}^{*}\leq p^\star\).
+\(\gamma_{\kappa}^{*}\leq p^\star\) \cite{Yang2024Semidefinite}.
 
 \paragraph{Moment relaxation}
 The moment relaxation is the SDP dual of the SOS relaxation. \cite{Yang2024Semidefinite} 
@@ -451,9 +452,8 @@ In addition, under additional suitable optimality conditions, convergence is fin
 =
 p^\star
 \end{equation}
-for some finite relaxation order \(\kappa^\star\)
-\cite{Nie2014FiniteConvergence}.
-This property is referred to as finite convergence \cite{Lasserre2001Global}.
+for some finite relaxation order \(\kappa^\star\).
+This property is referred to as finite convergence \cite{Nie2014FiniteConvergence,Lasserre2001Global}.
 
 \paragraph{Solution extraction}
 Let \(\bm{y}^\star\) denote an optimal moment sequence of the order-\(\kappa\)
@@ -530,19 +530,19 @@ resulting maximal cliques are illustrated in (c) \cite{Kang_2025Global}.
  \centering
  \begin{minipage}[t]{0.15\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{pics/sparse_relaxation/a_MD.pdf}
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/a_MD.png}
   \caption*{(a)}
  \end{minipage}
  \hspace{0.08\textwidth}
  \begin{minipage}[t]{0.15\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{pics/sparse_relaxation/b_MD.pdf}
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/b_MD.png}
   \caption*{(b)}
  \end{minipage}
  \hspace{0.08\textwidth}
  \begin{minipage}[t]{0.15\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{pics/sparse_relaxation/c_MD.pdf}
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/c_MD.png}
   \caption*{(c)}
  \end{minipage}
  \caption{An example of a chordal extension and its maximal cliques. (a) non-chordal. 
@@ -664,7 +664,8 @@ per-stage model size is fixed. Only the number of blocks grows linearly with
 \(N\) \cite{Kang_2026Fast}.
 
 Figure~\ref{fig:dense_sparse_moment_comparison} illustrates an example from
-\cite{Kang_2025Global}: a reduction for
+\cite{Kang_2025Global}. A
+reduction for
 a POP with two variables \(\bm{x}=(x_1,x_2)\) and relaxation order
 \(\kappa=2\). The dense moment matrix has dimension
 \(\binom{2+2}{2}=6\). If the variables are separated into the cliques
@@ -677,12 +678,12 @@ positive-semidefinite constraints \cite{Kang_2025Global}.
  \centering
  \begin{minipage}[t]{0.44\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{pics/sparse_relaxation/dense_moment_relaxation.pdf}
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/dense_moment_relaxation.png}
   \caption*{(a) Dense Moment Relaxation}
  \end{minipage}
- \begin{minipage}[t]{0.25\textwidth}
+ \begin{minipage}[t]{0.22\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{pics/sparse_relaxation/sparse_moment_relaxation.pdf}
+  \includegraphics[width=\textwidth]{pics/sparse_relaxation/sparse_moment_relaxation.png}
   \caption*{(b) Sparse Moment Relaxation}
  \end{minipage}
  \caption{Comparison of dense and sparse moment matrices for a two-variable POP
@@ -920,7 +921,7 @@ s(n_{z,\mathrm{P}},2)=\binom{21N+8}{2}.
 For the implemented horizon $N=20$, this corresponds to a
 $91\,378\times91\,378$ moment matrix, which is computationally not feasible. 
 Nevertheless, the spare relaxation \eqref{eq:3d_pendulum_sparse_clique} 
-consists of bigger miment matrices, compared to the moment matrices constructed using 
+consists of larger moment matrices, compared to the moment matrices constructed using 
 MD, which will be used for the Evaluation.
 In the following Section \ref{sec:3d_pendulum_optimization_results},
 SPOT is used to construct the second-order sparse moment relaxation from the 3D-pendulum's POP 
@@ -932,8 +933,7 @@ in the GitHub repository \cite{Elshani2026CTO_GitHub}.
 \section{Discrete Motion Planning for an Acrobot}
 \label{sec:discrete_motion_planning_acrobot}
 
-The following section applies the discrete motion planning formulation of
-Section \ref{sec:discrete_motion_planning_of_rigid_body_systems} 
+The following Section applies the discrete motion planning formulation \eqref{eq:general_motion_optimization}
 to the controlled Acrobot derived in Section \ref{subsection:discrete_Acrobot}. 
 First, the trajectory optimization problem is solved in Section 
 \ref{sec:trajectory_optimization_via_sdp_relaxation} 
@@ -947,7 +947,7 @@ To optimize the Acrobot trajectory, the discrete motion planning
 problem \eqref{eq:general_motion_optimization} has to be formulated as a POP using
 the controlled discrete Euler-Lagrange equations of Section \ref{subsection:discrete_Acrobot}. 
 For the two links $i=1,2$, the planar rotations are represented around the z-axis by 
-\eqref{eq:so2_polynomial_constraints}.
+\eqref{eq:rotation_matrices_so2_R_and_F}.
 The Acrobot model in maximal coordinates contains additional 
 velocity variables $\bm{v}_{i,k}\in\mathbb R^2$, which results in a higher number of optimization variables.
 Instead, the maximal coordinate model can be reduced by eliminating the
@@ -1106,21 +1106,22 @@ p_{\mathrm A}^{\star}
 -\bm{M}_1 \bm{R}_{1,k}
 \bm{A}_{1,k}\bm{\rho}_{1,0}
 -h^2g\bm{M}_1\bm{e}_2
--h^2\left(\bar{\bm{\lambda}}_{0,k}+\bar{\bm{\lambda}}_{12,k}\right)
-&=\bm{0}_2
+-h^2\bar{\bm{\lambda}}_{\max}\left(\bar{\bm{\lambda}}_{0,k}+\bar{\bm{\lambda}}_{12,k}\right)
+&=\bm{0}
 \end{aligned}
 \label{eq:controlled_acrobot_pop_translation_1}\\
 &\hspace{-0.9em}\begin{aligned}
-\bm{M}_2\Bigl[
+&\bm{M}_2\Bigl[
 \bm{R}_{1,k}
 \bm{A}_{1,k}
 \left(\bm{\rho}_{1,12}-\bm{\rho}_{1,0}\right)
 -\bm{R}_{2,k}
 \bm{A}_{2,k}\bm{\rho}_{2,12}
-\Bigr]
+\Bigr] \\
+&\quad
 -h^2g\bm{M}_2\bm{e}_2
-+h^2\bar{\bm{\lambda}}_{12,k}
-&=\bm{0}_2
++h^2\bar{\bm{\lambda}}_{\max}\bar{\bm{\lambda}}_{12,k}
+=\bm{0}
 \end{aligned}
 \label{eq:controlled_acrobot_pop_translation_2}\\[0.8em]
 &\hspace{-0.9em}\begin{aligned}
@@ -1130,20 +1131,21 @@ p_{\mathrm A}^{\star}
 \\
 &\quad
 +h
-\left[
+\Bigl[
 \left(
 \bm{\rho}_{1,0}
 \times
-\bm{R}_{1,k+1}^{\top}\bar{\bm{\lambda}}_{0,k+1}
-\right)
+\bm{R}_{1,k+1}^{\top} \bar{\bm{\lambda}}_{\max} \bar{\bm{\lambda}}_{0,k+1}
+\right)\\
+&\quad
 +
 \left(
 \bm{\rho}_{1,12}
 \times
-\bm{R}_{1,k+1}^{\top}\bar{\bm{\lambda}}_{12,k+1}
+\bm{R}_{1,k+1}^{\top}\bar{\bm{\lambda}}_{\max}\bar{\bm{\lambda}}_{12,k+1}
 \right)
 -u_{\max}\bar u_{k+1}
-\right]^{\wedge}
+\Bigr]^{\wedge}
 &=\bm{0}
 \end{aligned}
 \label{eq:controlled_acrobot_pop_rotation_1}
@@ -1158,7 +1160,7 @@ u_{\max}\bar u_{k+1}
 \left(
 \bm{\rho}_{2,12}
 \times
-\bm{R}_{2,k+1}^{\top}\bar{\bm{\lambda}}_{12,k+1}
+\bm{R}_{2,k+1}^{\top}\bar{\bm{\lambda}}_{\max}\bar{\bm{\lambda}}_{12,k+1}
 \right)
 \right]^{\wedge}
 &=\bm{0}
@@ -1286,11 +1288,11 @@ The larger first clique also covers the initial values \eqref{eq:controlled_acro
 and the kinematic update \eqref{eq:controlled_acrobot_pop_kinematics} 
 at $k=0$ and $k=1$. 
 Moreover, the terminal variables are contained inside
-\(\bm{z}_{\mathrm{A}}(\mathcal I_{N-1}^{\mathrm{A}})\);
-therefore, no additional terminal clique is required. The size of the first clique is
+\(\bm{z}_{\mathrm{A}}(\mathcal I_{N-1}^{\mathrm{A}})\).
+Therefore, no additional terminal clique is required. The size of the first clique is
 \(|\mathcal I_1^{\mathrm{A}}|=25\), whereas the interior cliques have size
 \(|\mathcal I_k^{\mathrm{A}}|=21\).
-Therefore, the moment matrix dimensions are 
+Here, the moment matrix dimensions are 
 \begin{equation}
 s(25,2)=\binom{27}{2}=351,
 \qquad
@@ -1473,27 +1475,27 @@ required history state one SDP interval earlier. Therefore, with
 \end{aligned}
 \label{eq:acrobot_mpc_boundary_data}
 \end{equation}
-for links $i=1,2$.
+for links $i=1,2$ and with the requirement $\frac{\Delta t_{SDP}}{\Delta t_{sim}} \in \mathbb{N}$.
 The reconstruction \(\bm{F}_{i,0\mid j}=\bm{R}_i(t_j-\Delta t_{\mathrm{SDP}})^{\top}\bm{R}_i(t_j)\) ensures that the 
 incoming relative rotation always spans exactly one SDP interval 
 \(\Delta t_{\mathrm{SDP}}\). This is
 important when the control interval \(\Delta t_{\mathrm{ctrl}}\) or the
 simulation interval \(\Delta t_{\mathrm{sim}}\) differs from \(\Delta t_{\mathrm{SDP}}\).
 However, during the first MPC iterations, the simulated state does not yet contain a full history
-of past rotations for $\Delta t_{\mathrm{SDP}} > t_j$. Therefore, 
-missing prehistory is completed using \(\bm{F}_i^{\mathrm{init}}=\bm{I}\),
-simulating a stationary start.
-\begin{align*}
-\bm{R}_i(t)=\bm{R}_i(0)
-\quad &\text{for } t<0, \\
-\qquad
-\bm{F}_{i,0\mid j}
+of past rotations for $\Delta t_{\mathrm{SDP}} > t_j$, becasue the time
+\(t_j-\Delta t_{\mathrm{SDP}}\) lies before the simulation start.
+Therefore, a prehistory is assumed by
+\begin{equation}
+\bm F_{i,0\mid j}
 =
-\bm{R}_i(0)^\top \bm{R}_i(t_j)
-\quad &\text{for }
-0<t_j<\Delta t_{\mathrm{SDP}}.
+\begin{cases}
+\bm R_i(0)^\top\bm R_i(t_j),
+& 0\leq t_j<\Delta t_{\mathrm{SDP}},\\[1mm]
+\bm R_i(t_j-\Delta t_{\mathrm{SDP}})^\top\bm R_i(t_j),
+& t_j\geq\Delta t_{\mathrm{SDP}}.
+\end{cases}
 \label{eq:initial_rotation_history}
-\end{align*}
+\end{equation}
 
 \paragraph{Control application}
 After updating the boundary data at iteration \(j\), the reduced Acrobot POP
@@ -1521,9 +1523,9 @@ rotation-steps are then used to construct the initial data for
 the next SDP problem as described above. 
 
 After the simulation interval, the rotation error \(e_{R,j}\) and the
-relative-step rotation error \(e_{F,j}\) are evaluated. The latter is the
+relative-step rotation error \(e_{F,j}\) are evaluated. The
 step-angle error calculated from the last fine simulation step and is measured
-in degrees or radians, rather than degrees per second. The Acrobot is declared
+in degrees and degrees per second. The Acrobot is declared
 stabilized if
 \begin{equation}
     e_{R,j}\leq\varepsilon_R,
@@ -1548,9 +1550,7 @@ In summary, the MPC implementation uses
     \Delta t_{\mathrm{sim}},
     \qquad
     n_{\mathrm{sim}}
-    =\frac{\Delta t_{\mathrm{ctrl}}}{\Delta t_{\mathrm{sim}}} \in \mathbb{N},
-    \qquad
-    T_{\mathrm{pred}}=(N_{\mathrm{SDP}}-1)\Delta t_{\mathrm{SDP}}.
+    =\frac{\Delta t_{\mathrm{ctrl}}}{\Delta t_{\mathrm{sim}}} \in \mathbb{N}.
     \label{eq:acrobot_mpc_time_scales}
 \end{equation}
 Here, \(\Delta t_{\mathrm{SDP}}\) is the discretization interval of the SDP prediction
@@ -1562,9 +1562,6 @@ before the SDP is solved again. The intervals \(\Delta t_{\mathrm{SDP}}\) and
 $\Delta t_{\mathrm{SDP}} = \Delta t_{\mathrm{ctrl}}$, one MPC
 update corresponds to one predicted SDP interval.
 
-Since node \(k=0\) contains the history state and node \(k=1\) the current
-state, the \(N_{\mathrm{SDP}}-1\) future intervals give the prediction horizon
-\(T_{\mathrm{pred}}=(N_{\mathrm{SDP}}-1)\Delta t_{\mathrm{SDP}}\).
 Increasing \(N_{\mathrm{SDP}}\) 
 provides a longer look-ahead for the swing-up but also increases the size
 and solution time of the SDP. The complete decision logic of the SDP-based MPC loop is summarized in Figure~\ref{fig:acrobot_sdp_mpc_logic}.
