@@ -37,7 +37,7 @@ $$
 F_{k+1}J_d-J_dF_{k+1}^{\top}-J_dF_k+F_k^{\top}J_d
 &=h^2(\tau_{g,k+1}+u_{k+1})^\wedge,\\
 R_{k+1}&=R_kF_k,\qquad R_k,F_k\in\mathrm{SO}(3),\\
-\frac{\operatorname{tr}(F_k)-1}{2}&\geq\cos(\Delta\theta_{\max}),\qquad
+\frac{\mathrm{tr}(F_k)-1}{2}&\geq\cos(\Delta\theta_{\max}),\qquad
 \|\bar u_{p,k}\|_2^2\leq 1,\\
 R_0&=R^{\mathrm{init}},\qquad F_0=F^{\mathrm{init}} .
 \end{aligned}
@@ -87,7 +87,9 @@ For difficult Acrobot swing-ups, SDP-based model predictive control (MPC) extrac
 
 The LGVI simulations preserve rotation geometry and show better long-horizon energy behavior than the compared Runge-Kutta simulations. In optimization, all five evaluated target rotations yield feasible, numerically rank-one extractions whose costs agree with the SDP lower bounds. The 180 deg trajectory below is therefore a certified offline result; its reported solve took about 64.6 minutes.
 
-<img src="pics/pendulum_180deg.gif" alt="3D pendulum 180 degree trajectory" width="420">
+<p align="center">
+  <img src="pics/pendulum_180deg.gif" alt="3D pendulum 180 degree trajectory" width="300">
+</p>
 
 ### Acrobot MPC
 
@@ -99,8 +101,6 @@ The empirical basins sample $10\times10$ starts from rest, with both initial lin
 | Prediction steps $N$ | 20 | 40 | 20 |
 | Stabilized starts | **94/100** | **94/100** | **34/100** |
 | Basin | ![Case I basin of attraction](pics/basin_case_I.png) | ![Case II basin of attraction](pics/basin_case_II.png) | ![Case III basin of attraction](pics/basin_case_III.png) |
-
-Vector versions: [Case I](pics/basin_case_I.pdf) | [Case II](pics/basin_case_II.pdf) | [Case III](pics/basin_case_III.pdf)
 
 | Acrobot stabilization (Case I) | Acrobot stabilization (Case III) |
 | :---: | :---: |
