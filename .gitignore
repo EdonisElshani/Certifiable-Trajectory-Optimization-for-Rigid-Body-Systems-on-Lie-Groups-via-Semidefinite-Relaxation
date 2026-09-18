@@ -39,6 +39,7 @@ Makefile
 *.log
 *.csv
 *.png
+!pics/*.png
 *.npz
 *.cpp
 *.pyd
