@@ -1,0 +1,53 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# CMake build directories
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# CMake generated files
+*.cmake
+!CMakeLists.txt
+
+# Visual Studio / Windows build artifacts
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.lib
+*.dll
+*.exp
+*.json
+*.txt
+*.pkl
+*.pkl
+*.log
+*.csv
+*.png
+*.npz
+*.cpp
+*.pyd
+
+# VS Code
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+SPOT/
